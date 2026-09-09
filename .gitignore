@@ -1,0 +1,34 @@
+# 敏感信息——绝不提交
+*.key
+*.pem
+*.token
+.env
+.env.*
+**/credentials.json
+
+# API Key / Token 类
+*api_key*
+*apikey*
+*token*.txt
+*secret*
+
+# 个人隐私
+*password*
+*passwd*
+
+# 系统与编辑器
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# 临时文件
+*.tmp
+*.log
+tmp/
+temp/
+
+# WorkBuddy 会话缓存（保留 .workbuddy/skills 项目级 Skill）
+.workbuddy/memory/
+.workbuddy/clipboard-images/
