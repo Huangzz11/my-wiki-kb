@@ -17,8 +17,10 @@
 my-wiki-kb/
 ├── .workbuddy/
 │   └── skills/
-│       └── wiki-keeper/        # 项目级 Skill（知识库维护器）
-│           └── SKILL.md        # ingest / query / lint 工作流定义
+│       ├── wiki-keeper/        # 项目级 Skill（知识库维护器）
+│       │   └── SKILL.md        # ingest / query / lint 工作流定义
+│       └── hotspot-case-card/  # 项目级 Skill（热点案例图卡生成器）
+│           └── SKILL.md        # 事实核查 → 5 点理论解析 → 1080×1440 图卡 → 归档
 ├── kb/
 │   ├── raw/                    # 输入层：源文档（只读存档，共 6 份）
 │   │   ├── agent.md / llm-context.md / skill.md / llm-model.md
