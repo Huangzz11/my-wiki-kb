@@ -48,3 +48,11 @@
 - 纠正媒体常见表述错误：涉事 K1156 为普速列车（K 字头），并非高铁。
 
 产出：新专题目录及 README、2 个案例页、6 张图卡；index 与仓库 README 同步更新。本批内容作为独立专题集合维护，未拆分为 `kb/wiki/` 下的 sources/concepts 页。
+
+## [2026-09-16] skill | 新增热点候选侦察流程与每日清单
+
+新增项目级 Skill `.workbuddy/skills/hotspot-scout/SKILL.md`：每日扫微博热搜/抖音热榜，回主流媒体交叉核实，按硬门槛（公共事件属性、≥2 独立来源、可辨认争议结构、未与已有条目重复）筛出 2-3 条候选，产出 `kb/热点候选/YYYY-MM-DD.md` 并在对话中呈现。只做侦察，不出图卡、不入库；用户选定后交 [[hotspot-case-card]]（见 `.workbuddy/skills/hotspot-case-card/SKILL.md`）产出。
+
+已产出首份清单 `kb/热点候选/2026-09-16.md`（3 条候选：演唱会求婚被喊坐下、HYROX 赛事失禁完赛、英语与历史砍学科之争），含弃选记录与待核项。
+
+分工约定：`hotspot-scout`（候选侦察）→ 用户选定 → `hotspot-case-card`（图卡与归档）→ `wiki-keeper`（`kb/wiki/` 互链维护）。每日清单不入 `kb/wiki/`，独立存放以便按日期回溯。

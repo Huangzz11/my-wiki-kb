@@ -19,8 +19,10 @@ my-wiki-kb/
 │   └── skills/
 │       ├── wiki-keeper/        # 项目级 Skill（知识库维护器）
 │       │   └── SKILL.md        # ingest / query / lint 工作流定义
-│       └── hotspot-case-card/  # 项目级 Skill（热点案例图卡生成器）
-│           └── SKILL.md        # 事实核查 → 5 点理论解析 → 1080×1440 图卡 → 归档
+│       ├── hotspot-case-card/  # 项目级 Skill（热点案例图卡生成器）
+│       │   └── SKILL.md        # 事实核查 → 5 点理论解析 → 1080×1440 图卡 → 归档
+│       └── hotspot-scout/      # 项目级 Skill（热点候选侦察器）
+│           └── SKILL.md        # 扫榜 → 硬门槛筛选 → 每日候选清单（不产图卡）
 ├── kb/
 │   ├── raw/                    # 输入层：源文档（只读存档，共 6 份）
 │   │   ├── agent.md / llm-context.md / skill.md / llm-model.md
@@ -34,6 +36,7 @@ my-wiki-kb/
 │   │   ├── concepts/   ×5      # Agent / Context / Skill / LLM / 自维护wiki
 │   │   ├── entities/   ×4      # Anthropic / OpenAI / WorkBuddy / llm-wiki-agent
 │   │   └── syntheses/          # 沉淀问答（暂空）
+│   ├── 热点候选/                # 每日热点候选清单（YYYY-MM-DD.md）
 │   ├── 新传热点事件解读/        # 专题：新传考研热点案例分析（编号 12 起）
 │   │   ├── README.md           # 专题收录规则与目录
 │   │   ├── 12-葫芦娃爷爷事件.md / 13-火车零食占座事件.md
