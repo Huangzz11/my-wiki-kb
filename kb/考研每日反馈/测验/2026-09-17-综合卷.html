@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考研每日测验 · 9.9–9.13 综合卷</title>
+<style>
+:root{
+  --bg:#f7f8fb; --card:#fff; --ink:#1c2430; --sub:#60708a;
+  --line:#e3e8f0; --blue:#2F5B9E; --blue-l:#e8eef8;
+  --green:#1f8a52; --green-l:#e6f5ec;
+  --amber:#b4740a; --amber-l:#fdf3e0;
+  --red:#c0392b; --red-l:#fdeceb;
+  --violet:#6b4ea8; --violet-l:#f0ebfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+    "Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.7;
+  padding:0 0 120px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+/* 顶部 */
+header{
+  background:linear-gradient(135deg,#2F5B9E 0%,#40699f 60%,#5b7fb5 100%);
+  color:#fff;padding:34px 0 26px;margin-bottom:24px;
+  box-shadow:0 2px 14px rgba(47,91,158,.18);
+}
+header h1{font-size:23px;font-weight:650;letter-spacing:.3px;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.85}
+.statline{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chip{
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);
+  border-radius:999px;padding:4px 13px;font-size:12.5px;backdrop-filter:blur(4px)
+}
+
+/* 进度条 */
+.progress-sticky{
+  position:sticky;top:0;z-index:50;background:rgba(247,248,251,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  padding:10px 0;margin-bottom:8px;
+}
+.pbar{height:7px;background:#e6eaf2;border-radius:99px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,#2F5B9E,#5b8fd4);
+  border-radius:99px;transition:width .35s ease}
+.ptext{font-size:12.5px;color:var(--sub);margin-top:6px;display:flex;
+  justify-content:space-between}
+
+/* 分区 */
+.sec{margin:30px 0 0}
+.sec h2{
+  font-size:16.5px;font-weight:640;color:var(--blue);
+  display:flex;align-items:center;gap:9px;padding-bottom:9px;
+  border-bottom:2px solid var(--blue-l);margin-bottom:16px;
+}
+.dot{width:9px;height:9px;border-radius:3px;background:var(--blue);
+  display:inline-block;flex:0 0 auto}
+.secmeta{margin-left:auto;font-size:12px;color:var(--sub);font-weight:400}
+
+/* 题目卡片 */
+.q{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:17px 19px;margin-bottom:13px;transition:border-color .2s,box-shadow .2s;
+}
+.q:focus-within{border-color:#b9cdea;box-shadow:0 3px 14px rgba(47,91,158,.09)}
+.qhead{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.qno{
+  width:26px;height:26px;border-radius:8px;background:var(--blue);
+  color:#fff;font-size:13px;font-weight:600;display:flex;
+  align-items:center;justify-content:center;flex:0 0 auto;
+}
+.qtag{font-size:11.5px;padding:2px 9px;border-radius:6px;font-weight:500}
+.t-choice{background:var(--blue-l);color:var(--blue)}
+.t-fill{background:var(--green-l);color:var(--green)}
+.t-short{background:var(--violet-l);color:var(--violet)}
+.t-translate{background:var(--amber-l);color:var(--amber)}
+.kp{font-size:11.5px;color:var(--sub);margin-left:auto}
+.stem{font-size:14.8px;margin-bottom:12px;white-space:pre-wrap}
+
+/* 单选 */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 13px;
+  border:1px solid var(--line);border-radius:9px;cursor:pointer;
+  transition:all .16s;font-size:14.2px;
+}
+.opt:hover{background:#f4f7fc;border-color:#c3d5ee}
+.opt input{display:none}
+.opt .letter{
+  width:21px;height:21px;border-radius:6px;background:#eef1f6;color:var(--sub);
+  font-size:12px;font-weight:600;display:flex;align-items:center;
+  justify-content:center;flex:0 0 auto;margin-top:2px;transition:all .16s;
+}
+.opt input:checked~.letter{background:var(--blue);color:#fff}
+.opt:has(input:checked){background:var(--blue-l);border-color:#9dbde6}
+.otext{flex:1}
+
+/* 填空 */
+.fills{display:flex;flex-direction:column;gap:8px}
+.fillin{
+  font-family:inherit;font-size:14.2px;padding:9px 13px;
+  border:1px solid var(--line);border-radius:8px;background:#fcfdff;
+  transition:all .16s;width:100%;
+}
+.fillin:focus{outline:none;border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 文本域 */
+.shortin,.transin{
+  font-family:inherit;font-size:14.2px;line-height:1.75;padding:11px 14px;
+  border:1px solid var(--line);border-radius:9px;background:#fcfdff;
+  width:100%;resize:vertical;transition:all .16s;
+}
+.shortin:focus,.transin:focus{outline:none;border-color:var(--blue);
+  background:#fff;box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 按钮与解析 */
+.qfoot{display:flex;align-items:center;gap:11px;margin-top:11px}
+.btn-ans{
+  font-family:inherit;font-size:12.5px;padding:5px 13px;border-radius:7px;
+  border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;
+  transition:all .16s;
+}
+.btn-ans:hover{background:var(--blue-l);border-color:#a8c4e8;color:var(--blue)}
+.saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
+.saved.show{opacity:1}
+.ansbox{
+  margin-top:12px;padding:13px 15px;background:#fafbfd;
+  border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-size:13.8px;
+}
+.ansline{margin-bottom:8px;display:flex;gap:9px;line-height:1.7}
+.ansline:last-child{margin-bottom:0}
+.ansline b{
+  flex:0 0 auto;color:var(--blue);font-size:12px;font-weight:640;
+  background:var(--blue-l);padding:2px 8px;border-radius:5px;height:fit-content;
+  margin-top:3px;
+}
+.ansline .got{color:var(--green);font-weight:600}
+
+/* 底部操作栏 */
+.toolbar{
+  position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);padding:12px 20px;z-index:60;
+  backdrop-filter:blur(10px);box-shadow:0 -2px 16px rgba(28,36,48,.07);
+}
+.tb-inner{max-width:820px;margin:0 auto;display:flex;
+  align-items:center;gap:11px;flex-wrap:wrap}
+.btn{
+  font-family:inherit;font-size:13.5px;padding:9px 19px;border-radius:9px;
+  border:none;cursor:pointer;font-weight:530;transition:all .16s;
+}
+.btn-main{background:var(--blue);color:#fff}
+.btn-main:hover{background:#264d87;transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--sub);border:1px solid var(--line)}
+.btn-ghost:hover{background:#f4f6fa;color:var(--ink)}
+.tb-count{font-size:13px;color:var(--sub);margin-left:auto}
+
+/* 完成提示 */
+.done-tip{
+  margin-top:22px;padding:18px 20px;border-radius:12px;
+  background:var(--green-l);border:1px solid #bfe5ce;color:#14603a;
+  font-size:14px;display:none;
+}
+.done-tip.show{display:block}
+.done-tip b{display:block;margin-bottom:6px;font-size:15px}
+
+/* 答案导出弹层 */
+.modal{
+  position:fixed;inset:0;background:rgba(20,28,40,.5);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:#fff;border-radius:14px;max-width:660px;width:100%;
+  max-height:82vh;display:flex;flex-direction:column;overflow:hidden;
+}
+.modal-head{padding:17px 21px;border-bottom:1px solid var(--line);
+  font-weight:620;font-size:15.5px;color:var(--blue)}
+.modal-body{padding:18px 21px;overflow-y:auto;flex:1}
+.modal-body textarea{
+  width:100%;height:340px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.65;border:1px solid var(--line);
+  border-radius:9px;padding:13px;background:#fafbfd;resize:vertical;
+}
+.modal-foot{padding:14px 21px;border-top:1px solid var(--line);
+  display:flex;gap:10px;justify-content:flex-end}
+.modal-tip{font-size:12.5px;color:var(--sub);margin-bottom:11px;line-height:1.65}
+
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  header{padding:26px 0 20px}
+  header h1{font-size:19px}
+  .q{padding:14px 15px}
+  .stem{font-size:14.2px}
+  .tb-count{display:none}
+  .kp{margin-left:0;width:100%}
+}
+@media print{
+  .toolbar,.btn-ans,.progress-sticky{display:none}
+  .ansbox[hidden]{display:block!important}
+  .q{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>考研每日测验 · 9.9–9.13 综合卷</h1>
+    <div class="meta">2026-09-17 · 共 20 题 · 今晚 22:30 自动生成</div>
+    <div class="statline">
+      <span class="chip">单选 6</span>
+      <span class="chip">填空 7</span>
+      <span class="chip">问答 6</span>
+      <span class="chip">长难句 1</span>
+    </div>
+  </div>
+</header>
+
+<div class="progress-sticky">
+  <div class="wrap">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <div class="ptext">
+      <span id="ptext">已作答 0 / 20</span>
+      <span>进度自动保存，刷新不丢</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  
+<section class="sec">
+  <h2><span class="dot"></span>一、专业课 · 新闻学与传播学
+    <span class="secmeta">7 题</span></h2>
+  
+<div class="q" data-q="1" data-type="choice">
+  <div class="qhead">
+    <span class="qno">1</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">新闻法治</span>
+  </div>
+  <div class="stem">下列关于「新闻法治」的表述，正确的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q1" value="A"><span class="letter">A</span><span class="otext">新闻法治的核心是限制新闻自由，以维护社会秩序</span></label><label class="opt"><input type="radio" name="q1" value="B"><span class="letter">B</span><span class="otext">新闻法治中「法」是主格，强调人民主权和法律治理，是「人治」的对立面</span></label><label class="opt"><input type="radio" name="q1" value="C"><span class="letter">C</span><span class="otext">新闻法治与法制（rule by law）是同一概念的不同译法</span></label><label class="opt"><input type="radio" name="q1" value="D"><span class="letter">D</span><span class="otext">新闻法治的首要保障是行业自律，而非新闻立法</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="1">查看解析</button>
+    <span class="saved" data-saved="1"></span>
+  </div>
+  <div class="ansbox" data-ans="1" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>A 错：法治的目的在于保护和扩大自由，而非限制自由。B 对：这是你笔记中标注的核心区别点。C 错：法制（rule by law）本质是「人治」，法治（rule of law）是「人治」的对立面，二者区分是高频考点。D 错：新闻立法是新闻法治的首要保障。</div></div>
+</div>
+<div class="q" data-q="2" data-type="fill">
+  <div class="qhead">
+    <span class="qno">2</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">新闻法治</span>
+  </div>
+  <div class="stem">新闻法治首先要保障和实现公民的四项权利，请依次填出（用顿号或空格分隔）：____、____、____、____。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="2" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="2" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="2" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="2" data-b="3" placeholder="第 4 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="2">查看解析</button>
+    <span class="saved" data-saved="2"></span>
+  </div>
+  <div class="ansbox" data-ans="2" hidden><div class="ansline"><b>参考答案</b>知情权、参与权、表达权、监督权</div><div class="ansline"><b>得分点</b>知, 情, 权, 、, 参, 与, 权, 、, 表, 达, 权, 、, 监, 督, 权, （, 各,  , 1,  , 分, ）</div><div class="ansline"><b>解析</b>你笔记里的口诀是「知参表监」。这四项权利是新闻法治保障的核心内容，名词解释和简答题都可能作为得分点。</div></div>
+</div>
+<div class="q" data-q="3" data-type="short">
+  <div class="qhead">
+    <span class="qno">3</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">两大法系</span>
+  </div>
+  <div class="stem">简述大陆法系与海洋法系（英美法系）在新闻法规体系上的主要区别。（至少答出 3 个维度）</div>
+  <textarea class="shortin" data-q="3" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="3">查看解析</button>
+    <span class="saved" data-saved="3"></span>
+  </div>
+  <div class="ansbox" data-ans="3" hidden><div class="ansline"><b>参考答案</b>1）法律渊源：大陆法系源于古罗马，以成文法为主导，判例仅供参考；海洋法系源于英国，以习惯法/判例法为主导，判例本身即法律依据。2）法官角色：大陆法系法官被动解释和适用法律，不能创造法律；海洋法系法官遵循先例，可概括出适用规则，事实上起发展甚至创造法律的作用。3）新闻立法模式：大陆法系倾向专门立法（制定专门的新闻传播法）；海洋法系实行非专门立法，通过普通法（侵权法、合同法）约束媒体。4）典型实践：大陆法系以 1881 年法国《新闻出版自由法》为代表；海洋法系以 1964 年美国「纽约时报诉沙利文案」确立的「实际恶意」标准为代表。</div><div class="ansline"><b>得分点</b>法, 律, 渊, 源, 、, 法, 官, 角, 色, 、, 立, 法, 模, 式, 、, 典, 型, 实, 践, （, 答, 出,  , 3,  , 个, 维, 度, 即, 可, 得, 满, 分, ）</div><div class="ansline"><b>解析</b>这是你 9.10 笔记的重点。你第一遍笔记把法国《新闻出版自由法》写成 1981 年（正确为 1881 年），也把「大陆法是以习惯法为基础」误写成大陆法系（应为海洋法系），这两处是本题的失分陷阱。</div></div>
+</div>
+<div class="q" data-q="4" data-type="fill">
+  <div class="qhead">
+    <span class="qno">4</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">传播学</span>
+  </div>
+  <div class="stem">传播学的五种基本类型是：人内传播、人际传播、群体传播、____、大众传播。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="4" data-b="0" placeholder="第 1 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="4">查看解析</button>
+    <span class="saved" data-saved="4"></span>
+  </div>
+  <div class="ansbox" data-ans="4" hidden><div class="ansline"><b>参考答案</b>组织传播</div><div class="ansline"><b>解析</b>你 9.11 笔记中第一处写成了「人类传播」，应为「人内传播」（也叫自我传播）。五种类型里最容易漏掉或写错的就是组织传播。</div></div>
+</div>
+<div class="q" data-q="5" data-type="short">
+  <div class="qhead">
+    <span class="qno">5</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">大众传播</span>
+  </div>
+  <div class="stem">简述大众传播的主要特征。（你 9.11 笔记记了五点，请写出并补全第六点）</div>
+  <textarea class="shortin" data-q="5" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="5">查看解析</button>
+    <span class="saved" data-saved="5"></span>
+  </div>
+  <div class="ansbox" data-ans="5" hidden><div class="ansline"><b>参考答案</b>1）传播者是专业的传播机构，从事有组织的活动。2）传播对象广泛而分散。3）使用现代化技术，大量生产、复制和传播信息。4）传播内容是公开的。5）反馈机制较弱、滞后（如只能通过热线电话反馈）。6）制度化——大众传播是有组织的、制度化的传播活动。</div><div class="ansline"><b>得分点</b>专, 业, 机, 构, 、, 对, 象, 广, 泛, 、, 技, 术, 现, 代, 化, 、, 内, 容, 公, 开, 、, 反, 馈, 弱, （, 各,  , 1,  , 分, ）, +,  , 制, 度, 化, （, 加, 分, 点, ）</div><div class="ansline"><b>解析</b>前五点你记得很完整。第六点「制度化」是郭庆光教材的标准表述，考试常作为拉开差距的得分点。</div></div>
+</div>
+<div class="q" data-q="6" data-type="choice">
+  <div class="qhead">
+    <span class="qno">6</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">传播学基础</span>
+  </div>
+  <div class="stem">下列关于「系统」定义的表述，最完整准确的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q6" value="A"><span class="letter">A</span><span class="otext">系统是相互联系或相互制约的若干部分结合在一起的整体</span></label><label class="opt"><input type="radio" name="q6" value="B"><span class="letter">B</span><span class="otext">系统是相互联系或相互制约的若干部分结合成的、具有特定功能的有机整体</span></label><label class="opt"><input type="radio" name="q6" value="C"><span class="letter">C</span><span class="otext">系统是信息传递与反馈的循环过程</span></label><label class="opt"><input type="radio" name="q6" value="D"><span class="letter">D</span><span class="otext">系统是个体之间相互作用形成的社会关系网络</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="6">查看解析</button>
+    <span class="saved" data-saved="6"></span>
+  </div>
+  <div class="ansbox" data-ans="6" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>「具有特定功能的有机整体」是定义中不可省略的部分。A 项漏掉了「具有特定功能」和「有机」两个限定，考试中按点给分会失分。</div></div>
+</div>
+<div class="q" data-q="7" data-type="short">
+  <div class="qhead">
+    <span class="qno">7</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">导学课框架</span>
+  </div>
+  <div class="stem">你的导学课笔记提到「如何把握话题型的题目」要用「双框架模式」。请结合新闻传播学的答题实际，说明什么是话题型题目，以及双框架大致指什么。</div>
+  <textarea class="shortin" data-q="7" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="7">查看解析</button>
+    <span class="saved" data-saved="7"></span>
+  </div>
+  <div class="ansbox" data-ans="7" hidden><div class="ansline"><b>参考答案</b>话题型题目：题干给出一个社会话题、现象或争议（而非明确的理论概念），要求用传播学/新闻学理论展开分析。双框架通常指：① 理论框架——选定 1-2 个核心理论作为分析工具（如框架理论、议程设置、沉默的螺旋）；② 现象-理论-对策的论证框架——从现象描述出发，用理论解释成因与机制，最后落到影响或应对。两框架叠加使用，避免「只贴理论不分析」或「只谈现象无理论」两种常见失分。</div><div class="ansline"><b>得分点</b>话, 题, 型, 特, 征,  , +,  , 理, 论, 框, 架,  , +,  , 论, 证, 框, 架, （, 三, 个, 要, 素, ）</div><div class="ansline"><b>解析</b>这条来自你 9.13 的导学课截图，正文只有「双框架模式」五个字。建议之后把老师讲的具体框架整理成文字——截图不好检索，也不方便背诵时快速扫读。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>二、政治
+    <span class="secmeta">10 题</span></h2>
+  
+<div class="q" data-q="8" data-type="choice">
+  <div class="qhead">
+    <span class="qno">8</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">史纲·转折点</span>
+  </div>
+  <div class="stem">标志着「中国共产党和中国革命事业从挫折走向胜利的伟大转折」的事件是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q8" value="A"><span class="letter">A</span><span class="otext">抗日战争的伟大胜利</span></label><label class="opt"><input type="radio" name="q8" value="B"><span class="letter">B</span><span class="otext">长征的胜利</span></label><label class="opt"><input type="radio" name="q8" value="C"><span class="letter">C</span><span class="otext">遵义会议的召开</span></label><label class="opt"><input type="radio" name="q8" value="D"><span class="letter">D</span><span class="otext">中共七届二中全会</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="8">查看解析</button>
+    <span class="saved" data-saved="8"></span>
+  </div>
+  <div class="ansbox" data-ans="8" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>看主语。「革命事业」从挫折走向胜利 = 长征胜利（B）。A 项是「中华民族从近代以来陷入深重危机走向伟大复兴的历史转折点」。C 项遵义会议是「党的历史上生死攸关的转折点」。D 项七届二中全会是中国革命由农村转向城市的转折。四个转折点极易混，必须按主语区分。</div></div>
+</div>
+<div class="q" data-q="9" data-type="fill">
+  <div class="qhead">
+    <span class="qno">9</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">史纲·会议</span>
+  </div>
+  <div class="stem">请填出：① 确定土地革命和武装反抗国民党反动派总方针的会议是____；② 确立建立抗日民族统一战线策略方针的会议是____；③ 第一次公开打出「工农革命军」旗帜的是____。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="9" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="9" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="9" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="9">查看解析</button>
+    <span class="saved" data-saved="9"></span>
+  </div>
+  <div class="ansbox" data-ans="9" hidden><div class="ansline"><b>参考答案</b>八七会议、瓦窑堡会议、秋收起义</div><div class="ansline"><b>解析</b>八七定方向、瓦窑堡定策略、秋收开道路。注意「遵义会议」是定领导，不要和这三个混。你 9.10 笔记里把遵义会议写成了「遵义起义」，要留意——遵义是会议，不是起义。</div></div>
+</div>
+<div class="q" data-q="10" data-type="short">
+  <div class="qhead">
+    <span class="qno">10</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">史纲·整风运动</span>
+  </div>
+  <div class="stem">简述延安整风运动的背景、主要内容与历史意义。</div>
+  <textarea class="shortin" data-q="10" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="10">查看解析</button>
+    <span class="saved" data-saved="10"></span>
+  </div>
+  <div class="ansbox" data-ans="10" hidden><div class="ansline"><b>参考答案</b>背景：抗战进入相持阶段，党内长期存在的主观主义、宗派主义、党八股尚未肃清；王明「左」倾教条主义的影响仍在，需要统一全党思想。时间：1941 年从党的高级干部开始，1942 年全党普遍展开，1943 年共产国际解散后继续推进。主要内容：反对主观主义以整顿学风、反对宗派主义以整顿党风、反对党八股以整顿文风，其中反对主观主义是中心任务。方针：「惩前毖后、治病救人」。意义：全党确立了实事求是的思想路线，为抗战胜利和新民主主义革命胜利奠定思想基础。</div><div class="ansline"><b>得分点</b>背, 景, （, 主, 观, 主, 义, /, 宗, 派, 主, 义, /, 党, 八, 股, ）, +,  , 三, 大, 内, 容,  , +,  , 中, 心, 任, 务, 是, 反, 主, 观, 主, 义,  , +,  , 方, 针,  , +,  , 意, 义</div><div class="ansline"><b>解析</b>你 9.10 笔记里只写了「整理整风运动的意义和背景（简要）」，这里补全。最容易漏的是「反对主观主义是中心任务」这一得分点。</div></div>
+</div>
+<div class="q" data-q="11" data-type="choice">
+  <div class="qhead">
+    <span class="qno">11</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">史纲·抗战</span>
+  </div>
+  <div class="stem">标志以国共两党合作为基础的抗日民族统一战线正式建立的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q11" value="A"><span class="letter">A</span><span class="otext">1935 年瓦窑堡会议的召开</span></label><label class="opt"><input type="radio" name="q11" value="B"><span class="letter">B</span><span class="otext">国民党五届三中全会</span></label><label class="opt"><input type="radio" name="q11" value="C"><span class="letter">C</span><span class="otext">国民党中央通讯社发表《中共中央为公布国共合作宣言》，蒋介石发表承认中国共产党合法地位的谈话</span></label><label class="opt"><input type="radio" name="q11" value="D"><span class="letter">D</span><span class="otext">西安事变和平解决</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="11">查看解析</button>
+    <span class="saved" data-saved="11"></span>
+  </div>
+  <div class="ansbox" data-ans="11" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>B 项国民党五届三中全会是「初步形成」，C 项是「正式建立」，这两个你 9.11 笔记区分得很清楚。西安事变和平解决是「初步形成」的推动因素，但本身不是标志。</div></div>
+</div>
+<div class="q" data-q="12" data-type="fill">
+  <div class="qhead">
+    <span class="qno">12</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">史纲·抗战</span>
+  </div>
+  <div class="stem">承认台湾以及澎湖列岛重归中国主权管辖的有效文件有三份，分别是：____、____、____。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="12" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="12" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="12" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="12">查看解析</button>
+    <span class="saved" data-saved="12"></span>
+  </div>
+  <div class="ansbox" data-ans="12" hidden><div class="ansline"><b>参考答案</b>《开罗宣言》、波茨坦公告、日本投降书</div><div class="ansline"><b>得分点</b>《, 开, 罗, 宣, 言, 》, 、, 波, 茨, 坦, 公, 告, （, 《, 波, 茨, 坦, 公, 告, 》, ）, 、, 日, 本, 投, 降, 书</div><div class="ansline"><b>解析</b>三者缺一不可。注意《开罗宣言》要加书名号，波茨坦公告严格说是《波茨坦公告》，答题时写全更稳妥。</div></div>
+</div>
+<div class="q" data-q="13" data-type="choice">
+  <div class="qhead">
+    <span class="qno">13</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">史纲·社会主义改造</span>
+  </div>
+  <div class="stem">农业的社会主义改造经历了三个过渡形式，其中「初级农业生产合作社」的性质是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q13" value="A"><span class="letter">A</span><span class="otext">社会主义萌芽性质</span></label><label class="opt"><input type="radio" name="q13" value="B"><span class="letter">B</span><span class="otext">半社会主义性质</span></label><label class="opt"><input type="radio" name="q13" value="C"><span class="letter">C</span><span class="otext">社会主义性质</span></label><label class="opt"><input type="radio" name="q13" value="D"><span class="letter">D</span><span class="otext">国家资本主义性质</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="13">查看解析</button>
+    <span class="saved" data-saved="13"></span>
+  </div>
+  <div class="ansbox" data-ans="13" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>三步性质递进：互助组（萌芽）→ 初级农业生产合作社（半社会主义）→ 高级农业生产合作社（社会主义）。手工业、资本主义工商业的改造步骤也是同样「萌芽—半社会主义—社会主义」的三段式，可以套用记忆。</div></div>
+</div>
+<div class="q" data-q="14" data-type="fill">
+  <div class="qhead">
+    <span class="qno">14</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">史纲·主要矛盾</span>
+  </div>
+  <div class="stem">1981 年中共十一届六中全会通过的决议指出，社会主义改造基本完成后，我国所要解决的主要矛盾是「人民日益增长的____需要同落后的____之间的矛盾」。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="14" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="14" data-b="1" placeholder="第 2 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="14">查看解析</button>
+    <span class="saved" data-saved="14"></span>
+  </div>
+  <div class="ansbox" data-ans="14" hidden><div class="ansline"><b>参考答案</b>物质文化、社会生产</div><div class="ansline"><b>解析</b>要区分三次表述：① 1956 八大是「人民对于经济文化迅速发展的需要同当前经济文化不能满足人民需要的状况之间的矛盾」；② 1981 六中全会与 1987 十三大是「人民日益增长的物质文化需要同落后的社会生产之间的矛盾」；③ 2017 十九大转化为「人民日益增长的美好生活需要和不平衡不充分的发展之间的矛盾」。八大与六中全会用词不同，是最爱设错的地方。</div></div>
+</div>
+<div class="q" data-q="15" data-type="short">
+  <div class="qhead">
+    <span class="qno">15</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">史纲·理论突破</span>
+  </div>
+  <div class="stem">中共八大肯定的「三个主体，三个补充」思想，其历史定位是什么？请特别说明它与「经济体制改革开始」之间的关系。</div>
+  <textarea class="shortin" data-q="15" rows="4" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="15">查看解析</button>
+    <span class="saved" data-saved="15"></span>
+  </div>
+  <div class="ansbox" data-ans="15" hidden><div class="ansline"><b>参考答案</b>定位：「三个主体，三个补充」即以国家经营和集体经营、计划生产、国家市场为主体，以个体经营、自由生产、自由市场为补充。这是理论上突破苏联计划经济模式、探索经济体制改革的重要尝试。关系：它只是「尝试」，真正突破计划经济模式、开始经济体制改革是在 1978 年党的十一届三中全会之后。选项若写「标志着经济体制改革的开始」为错，写「是探索经济体制改革的重要尝试」为对。</div><div class="ansline"><b>得分点</b>内, 容, 表, 述,  , +,  , 「, 重, 要, 尝, 试, 」, 而, 非, 「, 开, 始, 」, +,  , 十, 一, 届, 三, 中, 全, 会, 才, 是, 真, 正, 突, 破</div><div class="ansline"><b>解析</b>你 9.13 笔记里批注的「只是尝试，真正突破是在十一届三中全会之后」抓得非常准，这就是本题的核心区分点。</div></div>
+</div>
+<div class="q" data-q="16" data-type="choice">
+  <div class="qhead">
+    <span class="qno">16</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">马原·辩证否定</span>
+  </div>
+  <div class="stem">关于辩证否定观，下列说法正确的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q16" value="A"><span class="letter">A</span><span class="otext">否定是外部力量对事物的摧毁，如人踩死一只虫子</span></label><label class="opt"><input type="radio" name="q16" value="B"><span class="letter">B</span><span class="otext">辩证否定是事物的相互否定，即一物否定另一物</span></label><label class="opt"><input type="radio" name="q16" value="C"><span class="letter">C</span><span class="otext">否定是事物的自我否定、自我发展，是事物内部矛盾运动的结果</span></label><label class="opt"><input type="radio" name="q16" value="D"><span class="letter">D</span><span class="otext">辩证否定意味着对旧事物的全盘抛弃</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="16">查看解析</button>
+    <span class="saved" data-saved="16"></span>
+  </div>
+  <div class="ansbox" data-ans="16" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>A、B 两项混淆了「外部否定」与「自我否定」——人踩死虫子是外部否定，不是辩证否定。D 项错误：辩证否定是「扬弃」，既克服又保留，不是全盘抛弃。这是你 9.10 笔记中高亮标记的内容。</div></div>
+</div>
+<div class="q" data-q="17" data-type="fill">
+  <div class="qhead">
+    <span class="qno">17</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">马原·可能性</span>
+  </div>
+  <div class="stem">区分「现实的可能」与「抽象的可能」的标准是____；区分「可能性」与「不可能性」的标准是____。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="17" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="17" data-b="1" placeholder="第 2 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="17">查看解析</button>
+    <span class="saved" data-saved="17"></span>
+  </div>
+  <div class="ansbox" data-ans="17" hidden><div class="ansline"><b>参考答案</b>现实中的根据和条件是否充分、现实中有无根据和条件</div><div class="ansline"><b>解析</b>这两个标准极易混——前者看条件「是否充分」，后者看「有无」根据和条件。你 9.10 笔记里特别标注了「这里要注意区别抽象的可能与不可能」，正是考点所在。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>三、英语
+    <span class="secmeta">3 题</span></h2>
+  
+<div class="q" data-q="18" data-type="translate">
+  <div class="qhead">
+    <span class="qno">18</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">长难句</span>
+  </div>
+  <div class="stem">翻译下面这个句子，并标出主干结构：
+
+That is because happiness is linked to the kind of longer-term thinking (which is) necessary for making investments for the future.</div>
+  <textarea class="transin" data-q="18" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="18">查看解析</button>
+    <span class="saved" data-saved="18"></span>
+  </div>
+  <div class="ansbox" data-ans="18" hidden><div class="ansline"><b>参考答案</b>译文：那是因为幸福与那种对为未来投资而言必要的长期思考相关联。
+
+主干结构：That is because...（because 引导表语从句）→ 从句主干 happiness is linked to the kind of longer-term thinking → (which is) necessary for making investments for the future 为后置定语，修饰 thinking。
+
+关键结构：名词 + (which is) + 形容词短语 + 介词短语，which is 可省略。</div><div class="ansline"><b>得分点</b>「, b, e,  , l, i, n, k, e, d,  , t, o, 」, 译, 准,  , +,  , 识, 别, 出,  , w, h, i, c, h,  , i, s,  , 省, 略,  , +,  , 定, 语, 后, 置, 关, 系, 正, 确,  , +,  , 译, 文, 通, 顺</div><div class="ansline"><b>解析</b>这正是你 9.12 标注的那句。你当时用四种颜色分层做了句法分析，做法非常对。注意 be linked to 译为「与……相关/有联系」比「被连接」自然。</div></div>
+</div>
+<div class="q" data-q="19" data-type="fill">
+  <div class="qhead">
+    <span class="qno">19</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">词汇</span>
+  </div>
+  <div class="stem">根据释义写出英文单词：
+① 貌似合理的 ____　② 急于接受、扑向 ____
+③ 使便利、促进 ____　④ 臭名昭著的 ____　⑤ 权宜之计 ____</div>
+  <div class="fills"><input class="fillin" type="text" data-q="19" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="19" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="19" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="19" data-b="3" placeholder="第 4 空" autocomplete="off"><input class="fillin" type="text" data-q="19" data-b="4" placeholder="第 5 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="19">查看解析</button>
+    <span class="saved" data-saved="19"></span>
+  </div>
+  <div class="ansbox" data-ans="19" hidden><div class="ansline"><b>参考答案</b>plausible、jump at、facilitate、notorious、expediency</div><div class="ansline"><b>得分点</b>p, l, a, u, s, i, b, l, e,  , /,  , j, u, m, p,  , a, t,  , /,  , f, a, c, i, l, i, t, a, t, e,  , /,  , n, o, t, o, r, i, o, u, s,  , /,  , e, x, p, e, d, i, e, n, c, y</div><div class="ansline"><b>解析</b>这五个都出自你 9.9 与 9.12 的词表。注意第①个你笔记写的是「plausive」，常见考法是 plausible（貌似合理的），建议以 plausible 为主。</div></div>
+</div>
+<div class="q" data-q="20" data-type="short">
+  <div class="qhead">
+    <span class="qno">20</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">英一 vs 英二</span>
+  </div>
+  <div class="stem">你在 9.12 反思里写道「英二比英一简单很多，思维模式需要切换过来」。请具体说明：英二细节理解题与英一的主要差异是什么？做英二时应该调整什么答题动作？</div>
+  <textarea class="shortin" data-q="20" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="20">查看解析</button>
+    <span class="saved" data-saved="20"></span>
+  </div>
+  <div class="ansbox" data-ans="20" hidden><div class="ansline"><b>参考答案</b>差异：英一细节题常需识别同义改写与隐含态度，选项设置更绕；英二细节题的答案句与选项高度字面对应，基本是原文直给。
+
+调整动作：1）定位句找到后，优先选与原文用词重合度最高的选项，不要习惯性排除「太直接的选项」——从英一带来的「太简单就可疑」的直觉在英二反而会导致失分。2）但要区分题型：推理题（infer / suggest）和主旨题仍需要概括，不能直选。3）英二对长难句分析深度要求较低，抓主干即可，不必过度分析修饰成分。</div><div class="ansline"><b>得分点</b>英, 一, 英, 二, 差, 异, （, 同, 义, 改, 写,  , v, s,  , 原, 文, 直, 给, ）, +,  , 调, 整, 动, 作, （, 优, 先, 选, 用, 词, 重, 合, 高, ）, +,  , 推, 理, 题, 仍, 需, 概, 括</div><div class="ansline"><b>解析</b>你这一点判断非常准——英一考生做英二最常见的失分原因就是这个。你的实际数据是阅读 -1、完形 -4，说明当前短板在词汇辨析与逻辑连词，而不是阅读能力，重心应该放在完形。</div></div>
+</div>
+</section>
+
+  <div class="done-tip" id="doneTip">
+    <b>🎉 全部作答完毕</b>
+    点右下角「导出我的答案」，把导出的文件发给我，我会逐题批改并给出评分与改进建议。
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="tb-inner">
+    <button class="btn btn-main" id="btnExport">导出我的答案</button>
+    <button class="btn btn-ghost" id="btnRevealAll">展开全部解析</button>
+    <button class="btn btn-ghost" id="btnReset">清空重做</button>
+    <span class="tb-count" id="tbCount">0 / 20</span>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">你的答案（复制后发给我批改）</div>
+    <div class="modal-body">
+      <div class="modal-tip">
+        全选复制下面的内容，粘贴到对话里发给我即可。也可以点「下载 .md」保存成文件再上传。
+      </div>
+      <textarea id="exportArea" readonly></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="btnCloseModal">关闭</button>
+      <button class="btn btn-main" id="btnDownload">下载 .md</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ = {"title": "考研每日测验 · 9.9–9.13 综合卷", "date": "2026-09-17", "sections": [{"name": "一、专业课 · 新闻学与传播学", "questions": [{"id": 1, "type": "choice", "kp": "新闻法治", "stem": "下列关于「新闻法治」的表述，正确的一项是：", "options": ["新闻法治的核心是限制新闻自由，以维护社会秩序", "新闻法治中「法」是主格，强调人民主权和法律治理，是「人治」的对立面", "新闻法治与法制（rule by law）是同一概念的不同译法", "新闻法治的首要保障是行业自律，而非新闻立法"], "answer": "B", "explain": "A 错：法治的目的在于保护和扩大自由，而非限制自由。B 对：这是你笔记中标注的核心区别点。C 错：法制（rule by law）本质是「人治」，法治（rule of law）是「人治」的对立面，二者区分是高频考点。D 错：新闻立法是新闻法治的首要保障。", "_id": 1}, {"id": 2, "type": "fill", "kp": "新闻法治", "blanks": 4, "stem": "新闻法治首先要保障和实现公民的四项权利，请依次填出（用顿号或空格分隔）：____、____、____、____。", "answer": "知情权、参与权、表达权、监督权", "keys": "知情权、参与权、表达权、监督权（各 1 分）", "explain": "你笔记里的口诀是「知参表监」。这四项权利是新闻法治保障的核心内容，名词解释和简答题都可能作为得分点。", "_id": 2}, {"id": 3, "type": "short", "kp": "两大法系", "rows": 6, "stem": "简述大陆法系与海洋法系（英美法系）在新闻法规体系上的主要区别。（至少答出 3 个维度）", "answer": "1）法律渊源：大陆法系源于古罗马，以成文法为主导，判例仅供参考；海洋法系源于英国，以习惯法/判例法为主导，判例本身即法律依据。2）法官角色：大陆法系法官被动解释和适用法律，不能创造法律；海洋法系法官遵循先例，可概括出适用规则，事实上起发展甚至创造法律的作用。3）新闻立法模式：大陆法系倾向专门立法（制定专门的新闻传播法）；海洋法系实行非专门立法，通过普通法（侵权法、合同法）约束媒体。4）典型实践：大陆法系以 1881 年法国《新闻出版自由法》为代表；海洋法系以 1964 年美国「纽约时报诉沙利文案」确立的「实际恶意」标准为代表。", "keys": "法律渊源、法官角色、立法模式、典型实践（答出 3 个维度即可得满分）", "explain": "这是你 9.10 笔记的重点。你第一遍笔记把法国《新闻出版自由法》写成 1981 年（正确为 1881 年），也把「大陆法是以习惯法为基础」误写成大陆法系（应为海洋法系），这两处是本题的失分陷阱。", "_id": 3}, {"id": 4, "type": "fill", "kp": "传播学", "blanks": 1, "stem": "传播学的五种基本类型是：人内传播、人际传播、群体传播、____、大众传播。", "answer": "组织传播", "explain": "你 9.11 笔记中第一处写成了「人类传播」，应为「人内传播」（也叫自我传播）。五种类型里最容易漏掉或写错的就是组织传播。", "_id": 4}, {"id": 5, "type": "short", "kp": "大众传播", "rows": 5, "stem": "简述大众传播的主要特征。（你 9.11 笔记记了五点，请写出并补全第六点）", "answer": "1）传播者是专业的传播机构，从事有组织的活动。2）传播对象广泛而分散。3）使用现代化技术，大量生产、复制和传播信息。4）传播内容是公开的。5）反馈机制较弱、滞后（如只能通过热线电话反馈）。6）制度化——大众传播是有组织的、制度化的传播活动。", "keys": "专业机构、对象广泛、技术现代化、内容公开、反馈弱（各 1 分）+ 制度化（加分点）", "explain": "前五点你记得很完整。第六点「制度化」是郭庆光教材的标准表述，考试常作为拉开差距的得分点。", "_id": 5}, {"id": 6, "type": "choice", "kp": "传播学基础", "stem": "下列关于「系统」定义的表述，最完整准确的是：", "options": ["系统是相互联系或相互制约的若干部分结合在一起的整体", "系统是相互联系或相互制约的若干部分结合成的、具有特定功能的有机整体", "系统是信息传递与反馈的循环过程", "系统是个体之间相互作用形成的社会关系网络"], "answer": "B", "explain": "「具有特定功能的有机整体」是定义中不可省略的部分。A 项漏掉了「具有特定功能」和「有机」两个限定，考试中按点给分会失分。", "_id": 6}, {"id": 7, "type": "short", "kp": "导学课框架", "rows": 5, "stem": "你的导学课笔记提到「如何把握话题型的题目」要用「双框架模式」。请结合新闻传播学的答题实际，说明什么是话题型题目，以及双框架大致指什么。", "answer": "话题型题目：题干给出一个社会话题、现象或争议（而非明确的理论概念），要求用传播学/新闻学理论展开分析。双框架通常指：① 理论框架——选定 1-2 个核心理论作为分析工具（如框架理论、议程设置、沉默的螺旋）；② 现象-理论-对策的论证框架——从现象描述出发，用理论解释成因与机制，最后落到影响或应对。两框架叠加使用，避免「只贴理论不分析」或「只谈现象无理论」两种常见失分。", "keys": "话题型特征 + 理论框架 + 论证框架（三个要素）", "explain": "这条来自你 9.13 的导学课截图，正文只有「双框架模式」五个字。建议之后把老师讲的具体框架整理成文字——截图不好检索，也不方便背诵时快速扫读。", "_id": 7}]}, {"name": "二、政治", "questions": [{"id": 8, "type": "choice", "kp": "史纲·转折点", "stem": "标志着「中国共产党和中国革命事业从挫折走向胜利的伟大转折」的事件是：", "options": ["抗日战争的伟大胜利", "长征的胜利", "遵义会议的召开", "中共七届二中全会"], "answer": "B", "explain": "看主语。「革命事业」从挫折走向胜利 = 长征胜利（B）。A 项是「中华民族从近代以来陷入深重危机走向伟大复兴的历史转折点」。C 项遵义会议是「党的历史上生死攸关的转折点」。D 项七届二中全会是中国革命由农村转向城市的转折。四个转折点极易混，必须按主语区分。", "_id": 8}, {"id": 9, "type": "fill", "kp": "史纲·会议", "blanks": 3, "stem": "请填出：① 确定土地革命和武装反抗国民党反动派总方针的会议是____；② 确立建立抗日民族统一战线策略方针的会议是____；③ 第一次公开打出「工农革命军」旗帜的是____。", "answer": "八七会议、瓦窑堡会议、秋收起义", "explain": "八七定方向、瓦窑堡定策略、秋收开道路。注意「遵义会议」是定领导，不要和这三个混。你 9.10 笔记里把遵义会议写成了「遵义起义」，要留意——遵义是会议，不是起义。", "_id": 9}, {"id": 10, "type": "short", "kp": "史纲·整风运动", "rows": 5, "stem": "简述延安整风运动的背景、主要内容与历史意义。", "answer": "背景：抗战进入相持阶段，党内长期存在的主观主义、宗派主义、党八股尚未肃清；王明「左」倾教条主义的影响仍在，需要统一全党思想。时间：1941 年从党的高级干部开始，1942 年全党普遍展开，1943 年共产国际解散后继续推进。主要内容：反对主观主义以整顿学风、反对宗派主义以整顿党风、反对党八股以整顿文风，其中反对主观主义是中心任务。方针：「惩前毖后、治病救人」。意义：全党确立了实事求是的思想路线，为抗战胜利和新民主主义革命胜利奠定思想基础。", "keys": "背景（主观主义/宗派主义/党八股）+ 三大内容 + 中心任务是反主观主义 + 方针 + 意义", "explain": "你 9.10 笔记里只写了「整理整风运动的意义和背景（简要）」，这里补全。最容易漏的是「反对主观主义是中心任务」这一得分点。", "_id": 10}, {"id": 11, "type": "choice", "kp": "史纲·抗战", "stem": "标志以国共两党合作为基础的抗日民族统一战线正式建立的是：", "options": ["1935 年瓦窑堡会议的召开", "国民党五届三中全会", "国民党中央通讯社发表《中共中央为公布国共合作宣言》，蒋介石发表承认中国共产党合法地位的谈话", "西安事变和平解决"], "answer": "C", "explain": "B 项国民党五届三中全会是「初步形成」，C 项是「正式建立」，这两个你 9.11 笔记区分得很清楚。西安事变和平解决是「初步形成」的推动因素，但本身不是标志。", "_id": 11}, {"id": 12, "type": "fill", "kp": "史纲·抗战", "blanks": 3, "stem": "承认台湾以及澎湖列岛重归中国主权管辖的有效文件有三份，分别是：____、____、____。", "answer": "《开罗宣言》、波茨坦公告、日本投降书", "keys": "《开罗宣言》、波茨坦公告（《波茨坦公告》）、日本投降书", "explain": "三者缺一不可。注意《开罗宣言》要加书名号，波茨坦公告严格说是《波茨坦公告》，答题时写全更稳妥。", "_id": 12}, {"id": 13, "type": "choice", "kp": "史纲·社会主义改造", "stem": "农业的社会主义改造经历了三个过渡形式，其中「初级农业生产合作社」的性质是：", "options": ["社会主义萌芽性质", "半社会主义性质", "社会主义性质", "国家资本主义性质"], "answer": "B", "explain": "三步性质递进：互助组（萌芽）→ 初级农业生产合作社（半社会主义）→ 高级农业生产合作社（社会主义）。手工业、资本主义工商业的改造步骤也是同样「萌芽—半社会主义—社会主义」的三段式，可以套用记忆。", "_id": 13}, {"id": 14, "type": "fill", "kp": "史纲·主要矛盾", "blanks": 2, "stem": "1981 年中共十一届六中全会通过的决议指出，社会主义改造基本完成后，我国所要解决的主要矛盾是「人民日益增长的____需要同落后的____之间的矛盾」。", "answer": "物质文化、社会生产", "explain": "要区分三次表述：① 1956 八大是「人民对于经济文化迅速发展的需要同当前经济文化不能满足人民需要的状况之间的矛盾」；② 1981 六中全会与 1987 十三大是「人民日益增长的物质文化需要同落后的社会生产之间的矛盾」；③ 2017 十九大转化为「人民日益增长的美好生活需要和不平衡不充分的发展之间的矛盾」。八大与六中全会用词不同，是最爱设错的地方。", "_id": 14}, {"id": 15, "type": "short", "kp": "史纲·理论突破", "rows": 4, "stem": "中共八大肯定的「三个主体，三个补充」思想，其历史定位是什么？请特别说明它与「经济体制改革开始」之间的关系。", "answer": "定位：「三个主体，三个补充」即以国家经营和集体经营、计划生产、国家市场为主体，以个体经营、自由生产、自由市场为补充。这是理论上突破苏联计划经济模式、探索经济体制改革的重要尝试。关系：它只是「尝试」，真正突破计划经济模式、开始经济体制改革是在 1978 年党的十一届三中全会之后。选项若写「标志着经济体制改革的开始」为错，写「是探索经济体制改革的重要尝试」为对。", "keys": "内容表述 + 「重要尝试」而非「开始」+ 十一届三中全会才是真正突破", "explain": "你 9.13 笔记里批注的「只是尝试，真正突破是在十一届三中全会之后」抓得非常准，这就是本题的核心区分点。", "_id": 15}, {"id": 16, "type": "choice", "kp": "马原·辩证否定", "stem": "关于辩证否定观，下列说法正确的是：", "options": ["否定是外部力量对事物的摧毁，如人踩死一只虫子", "辩证否定是事物的相互否定，即一物否定另一物", "否定是事物的自我否定、自我发展，是事物内部矛盾运动的结果", "辩证否定意味着对旧事物的全盘抛弃"], "answer": "C", "explain": "A、B 两项混淆了「外部否定」与「自我否定」——人踩死虫子是外部否定，不是辩证否定。D 项错误：辩证否定是「扬弃」，既克服又保留，不是全盘抛弃。这是你 9.10 笔记中高亮标记的内容。", "_id": 16}, {"id": 17, "type": "fill", "kp": "马原·可能性", "blanks": 2, "stem": "区分「现实的可能」与「抽象的可能」的标准是____；区分「可能性」与「不可能性」的标准是____。", "answer": "现实中的根据和条件是否充分、现实中有无根据和条件", "explain": "这两个标准极易混——前者看条件「是否充分」，后者看「有无」根据和条件。你 9.10 笔记里特别标注了「这里要注意区别抽象的可能与不可能」，正是考点所在。", "_id": 17}]}, {"name": "三、英语", "questions": [{"id": 18, "type": "translate", "kp": "长难句", "stem": "翻译下面这个句子，并标出主干结构：\n\nThat is because happiness is linked to the kind of longer-term thinking (which is) necessary for making investments for the future.", "answer": "译文：那是因为幸福与那种对为未来投资而言必要的长期思考相关联。\n\n主干结构：That is because...（because 引导表语从句）→ 从句主干 happiness is linked to the kind of longer-term thinking → (which is) necessary for making investments for the future 为后置定语，修饰 thinking。\n\n关键结构：名词 + (which is) + 形容词短语 + 介词短语，which is 可省略。", "keys": "「be linked to」译准 + 识别出 which is 省略 + 定语后置关系正确 + 译文通顺", "explain": "这正是你 9.12 标注的那句。你当时用四种颜色分层做了句法分析，做法非常对。注意 be linked to 译为「与……相关/有联系」比「被连接」自然。", "_id": 18}, {"id": 19, "type": "fill", "kp": "词汇", "blanks": 5, "stem": "根据释义写出英文单词：\n① 貌似合理的 ____　② 急于接受、扑向 ____\n③ 使便利、促进 ____　④ 臭名昭著的 ____　⑤ 权宜之计 ____", "answer": "plausible、jump at、facilitate、notorious、expediency", "keys": "plausible / jump at / facilitate / notorious / expediency", "explain": "这五个都出自你 9.9 与 9.12 的词表。注意第①个你笔记写的是「plausive」，常见考法是 plausible（貌似合理的），建议以 plausible 为主。", "_id": 19}, {"id": 20, "type": "short", "kp": "英一 vs 英二", "rows": 5, "stem": "你在 9.12 反思里写道「英二比英一简单很多，思维模式需要切换过来」。请具体说明：英二细节理解题与英一的主要差异是什么？做英二时应该调整什么答题动作？", "answer": "差异：英一细节题常需识别同义改写与隐含态度，选项设置更绕；英二细节题的答案句与选项高度字面对应，基本是原文直给。\n\n调整动作：1）定位句找到后，优先选与原文用词重合度最高的选项，不要习惯性排除「太直接的选项」——从英一带来的「太简单就可疑」的直觉在英二反而会导致失分。2）但要区分题型：推理题（infer / suggest）和主旨题仍需要概括，不能直选。3）英二对长难句分析深度要求较低，抓主干即可，不必过度分析修饰成分。", "keys": "英一英二差异（同义改写 vs 原文直给）+ 调整动作（优先选用词重合高）+ 推理题仍需概括", "explain": "你这一点判断非常准——英一考生做英二最常见的失分原因就是这个。你的实际数据是阅读 -1、完形 -4，说明当前短板在词汇辨析与逻辑连词，而不是阅读能力，重心应该放在完形。", "_id": 20}]}]};
+const QUIZID = "2026-09-17";
+const KEY = "quiz_" + QUIZID;
+const TOTAL = 20;
+
+// ---- 状态存取 ----
+let state = JSON.parse(localStorage.getItem(KEY) || "{}");
+
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+function answeredCount(){
+  let n = 0;
+  QUIZ.sections.forEach(s => s.questions.forEach((q, i) => {
+    const id = q._id;
+    const v = state[id];
+    if (q.type === "choice") { if (v) n++; }
+    else if (q.type === "fill") {
+      if (v && Object.values(v).some(x => (x||"").trim())) n++;
+    }
+    else { if (v && v.trim()) n++; }
+  }));
+  return n;
+}
+
+function updateProgress(){
+  const n = answeredCount();
+  const pct = Math.round(n / TOTAL * 100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("ptext").textContent = `已作答 ${n} / ${TOTAL}`;
+  document.getElementById("tbCount").textContent = `${n} / ${TOTAL}`;
+  document.getElementById("doneTip").classList.toggle("show", n >= TOTAL);
+}
+
+function flashSaved(n){
+  const el = document.querySelector(`.saved[data-saved="${n}"]`);
+  if (!el) return;
+  el.textContent = "已保存";
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 1200);
+}
+
+// ---- 绑定交互 ----
+document.querySelectorAll(".opt input").forEach(inp => {
+  inp.addEventListener("change", e => {
+    const n = +e.target.name.replace("q", "");
+    state[n] = e.target.value;
+    save(); updateProgress(); flashSaved(n);
+  });
+});
+
+document.querySelectorAll(".fillin").forEach(inp => {
+  inp.addEventListener("input", e => {
+    const n = e.target.dataset.q, b = e.target.dataset.b;
+    state[n] = state[n] || {};
+    state[n][b] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+document.querySelectorAll(".shortin,.transin").forEach(ta => {
+  ta.addEventListener("input", e => {
+    const n = e.target.dataset.q;
+    state[n] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+// 查看解析
+document.querySelectorAll(".btn-ans").forEach(b => {
+  b.addEventListener("click", () => {
+    const n = b.dataset.q;
+    const box = document.querySelector(`.ansbox[data-ans="${n}"]`);
+    const open = !box.hidden;
+    box.hidden = open;
+    b.textContent = open ? "查看解析" : "收起解析";
+  });
+});
+
+document.getElementById("btnRevealAll").addEventListener("click", function(){
+  const anyHidden = [...document.querySelectorAll(".ansbox")].some(b => b.hidden);
+  document.querySelectorAll(".ansbox").forEach(b => b.hidden = !anyHidden);
+  document.querySelectorAll(".btn-ans").forEach(b => {
+    b.textContent = anyHidden ? "收起解析" : "查看解析";
+  });
+  this.textContent = anyHidden ? "收起全部解析" : "展开全部解析";
+});
+
+// 清空
+document.getElementById("btnReset").addEventListener("click", () => {
+  if (!confirm("确定清空全部作答？此操作不可撤销。")) return;
+  state = {}; save();
+  document.querySelectorAll(".opt input").forEach(i => i.checked = false);
+  document.querySelectorAll(".fillin,.shortin,.transin").forEach(i => i.value = "");
+  updateProgress();
+});
+
+// ---- 导出答案 ----
+function buildExport(){
+  const L = [];
+  L.push(`# ${QUIZ.title} — 我的作答`);
+  L.push("");
+  L.push(`日期：${QUIZ.date}`);
+  L.push(`完成：${answeredCount()} / ${TOTAL} 题`);
+  L.push("");
+  const tname = {choice:"单选", fill:"填空", short:"问答", translate:"长难句翻译"};
+  QUIZ.sections.forEach(s => {
+    L.push(`## ${s.name}`);
+    L.push("");
+    s.questions.forEach(q => {
+      const v = state[q._id];
+      L.push(`### ${q._id}. [${tname[q.type]}]`);
+      L.push(q.stem);
+      L.push("");
+      if (q.type === "choice") {
+        L.push(`**我的答案：** ${v ? v : "（未作答）"}`);
+      } else if (q.type === "fill") {
+        const arr = [];
+        for (let i = 0; i < (q.blanks || 1); i++) {
+          const k = String(i);
+          arr.push(`第${i+1}空：${(v && v[k]) ? v[k] : "（空）"}`);
+        }
+        L.push(`**我的答案：** ${arr.join("　")}`);
+      } else {
+        L.push(`**我的答案：**`);
+        L.push("");
+        L.push(v && v.trim() ? v : "（未作答）");
+      }
+      L.push("");
+    });
+  });
+  return L.join("\n");
+}
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  document.getElementById("exportArea").value = buildExport();
+  document.getElementById("modal").classList.add("show");
+});
+document.getElementById("btnCloseModal").addEventListener("click", () => {
+  document.getElementById("modal").classList.remove("show");
+});
+document.getElementById("btnDownload").addEventListener("click", () => {
+  const blob = new Blob([buildExport()], {type:"text/markdown;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${QUIZID}-我的作答.md`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") e.target.classList.remove("show");
+});
+
+// ---- 恢复状态 ----
+(function restore(){
+  document.querySelectorAll(".opt input").forEach(inp => {
+    const n = +inp.name.replace("q", "");
+    if (state[n] === inp.value) inp.checked = true;
+  });
+  document.querySelectorAll(".fillin").forEach(inp => {
+    const n = inp.dataset.q, b = inp.dataset.b;
+    if (state[n] && state[n][b] != null) inp.value = state[n][b];
+  });
+  document.querySelectorAll(".shortin,.transin").forEach(ta => {
+    const n = ta.dataset.q;
+    if (state[n] != null) ta.value = state[n];
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
