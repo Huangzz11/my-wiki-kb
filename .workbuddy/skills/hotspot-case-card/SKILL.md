@@ -57,6 +57,14 @@ agent_created: true
 
 **图片素材**：默认不使用实拍图片，全部纯文字版式（规避版权风险）。用户明确提供合规素材时才加图位。
 
+**页脚规范（B 版式，所有新图沿用）**
+
+- 左侧署名固定为 **「小鱼学新传」**（用户品牌名）。
+- 右侧页码格式为 **`N / 总数`**（如 `1 / 4`），四页即 1/4、2/4、3/4、4/4。
+- 不再使用「BAOCHANG · 宝厂」或「新传热点案例 · 15」这类旧署名与编号。
+
+**图片素材**：默认不使用实拍图片，全部纯文字版式（规避版权风险）。用户明确提供合规素材时才加图位。
+
 - 渲染命令（Chromium 已缓存在 `~/AppData/Local/ms-playwright`）：
 
 ```bash
@@ -74,6 +82,20 @@ C:/Users/lancy/.workbuddy/binaries/node/versions/22.22.2-2/node.exe "<shoot.js �
 - **拆页时不要用字符串切割重建 HTML**。曾因切割后覆写导致原页面内容丢失。正确做法：先 `cp p3.html p4.html` 备份，再逐页编辑。
 - **拆页后务必检查 `<head>`**。手工拼接的页面容易丢掉 `<link rel="stylesheet" href="style.css">`，症状是截图变成无样式的纯文本流。
 - **标题不要出现单字孤行**。用 `<br>` 主动控制断行，或把标题改短。
+- **`overflow: hidden` 会掩盖溢出**，scrollHeight 只提示超了，看不到哪个元素越界。别靠反复试字号，直接写诊断脚本用 `getBoundingClientRect()` 逐个子元素打印 `top/bottom`，一眼定位重叠元素。示例：
+
+```javascript
+const info = await page.evaluate(() => {
+  const page = document.querySelector('.page');
+  return [...page.children].map(el => {
+    const r = el.getBoundingClientRect();
+    return { cls: el.className, top: Math.round(r.top), bottom: Math.round(r.bottom) };
+  });
+});
+```
+
+重点是检查正文块底边与页脚（`.foot`）顶边是否重叠——页脚是 `position: absolute; bottom: 40px`，正文块一旦越过 1368px 就会压上去。
+- **溢出超过 100px 时，减内容比压字号有效**。B 版式一页的信息上限约等于：标题 + 3 段正文 + 1 个理论框。超了就拆页或删次要小节。
 - **`overflow: hidden` 会掩盖溢出**，scrollHeight 只提示超了，看不到哪个元素越界。别靠反复试字号，直接写诊断脚本用 `getBoundingClientRect()` 逐个子元素打印 `top/bottom`，一眼定位重叠元素。示例：
 
 ```javascript
