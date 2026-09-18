@@ -57,21 +57,23 @@ agent_created: true
 <div class="masthead">九月热点事件案例分析</div>
 ```
 
-样式已内置在 `恩施假村官_新传案例/style.css`：
+样式已内置在 `恩施假村官_新传案例/style.css`。**统一用反白通栏版（黑底白字）**——用户 2026-09-18 明确要求「刊头要醒目一些」：
 
 ```css
+/* 反白通栏刊头：黑白长图里对比最强，一眼抓住视线 */
 .masthead {
   text-align: center;
-  font-size: 31px; font-weight: 900;
-  letter-spacing: 11px; text-indent: 11px;   /* text-indent 抵消字距造成的右偏 */
-  color: #111;
-  padding: 10px 0 12px;
-  border-top: 4px solid #111; border-bottom: 4px solid #111;
-  margin-bottom: 18px;
+  font-size: 46px; font-weight: 900; line-height: 1;
+  letter-spacing: 15px; text-indent: 15px;   /* text-indent 抵消字距造成的右偏 */
+  color: #fff; background: #111;
+  padding: 20px 0 22px;
+  margin: -8px -18px 22px;   /* 负 margin 让黑条左右出血，比正文宽 → 通栏感 */
 }
 ```
 
-刊头文案按**批次**命名（如「九月热点事件案例分析」），不是按单篇——同一批次的图卡共用同一个刊头。加了刊头会吃掉约 78px 高度，p1 正文相应减一段或删掉收束句。
+早期版本是 31px + 上下 4px 细线（白底黑字），观感偏弱，已弃用。反白版实际高度约 88px，比旧版多占约 21px；p1 正文底边留 30px 余量即可过 `shoot.js` 的 1372 检测线。
+
+刊头文案按**批次**命名（如「九月热点事件案例分析」），同一批次的图卡共用同一个刊头。加了刊头后 p1 正文相应减一段或删掉收束句。`.masthead` 只在 p1 出现，改这段 CSS 不会波及后续页面。
 
 **页脚规范（B 版式，所有新图沿用）**
 
