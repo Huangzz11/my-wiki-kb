@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考研每日测验 · 9.19 综合卷（素材：9.18 学习反馈）</title>
+<style>
+:root{
+  --bg:#f7f8fb; --card:#fff; --ink:#1c2430; --sub:#60708a;
+  --line:#e3e8f0; --blue:#2F5B9E; --blue-l:#e8eef8;
+  --green:#1f8a52; --green-l:#e6f5ec;
+  --amber:#b4740a; --amber-l:#fdf3e0;
+  --red:#c0392b; --red-l:#fdeceb;
+  --violet:#6b4ea8; --violet-l:#f0ebfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+    "Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.7;
+  padding:0 0 120px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+/* 顶部 */
+header{
+  background:linear-gradient(135deg,#2F5B9E 0%,#40699f 60%,#5b7fb5 100%);
+  color:#fff;padding:34px 0 26px;margin-bottom:24px;
+  box-shadow:0 2px 14px rgba(47,91,158,.18);
+}
+header h1{font-size:23px;font-weight:650;letter-spacing:.3px;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.85}
+.statline{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chip{
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);
+  border-radius:999px;padding:4px 13px;font-size:12.5px;backdrop-filter:blur(4px)
+}
+
+/* 进度条 */
+.progress-sticky{
+  position:sticky;top:0;z-index:50;background:rgba(247,248,251,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  padding:10px 0;margin-bottom:8px;
+}
+.pbar{height:7px;background:#e6eaf2;border-radius:99px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,#2F5B9E,#5b8fd4);
+  border-radius:99px;transition:width .35s ease}
+.ptext{font-size:12.5px;color:var(--sub);margin-top:6px;display:flex;
+  justify-content:space-between}
+
+/* 分区 */
+.sec{margin:30px 0 0}
+.sec h2{
+  font-size:16.5px;font-weight:640;color:var(--blue);
+  display:flex;align-items:center;gap:9px;padding-bottom:9px;
+  border-bottom:2px solid var(--blue-l);margin-bottom:16px;
+}
+.dot{width:9px;height:9px;border-radius:3px;background:var(--blue);
+  display:inline-block;flex:0 0 auto}
+.secmeta{margin-left:auto;font-size:12px;color:var(--sub);font-weight:400}
+
+/* 题目卡片 */
+.q{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:17px 19px;margin-bottom:13px;transition:border-color .2s,box-shadow .2s;
+}
+.q:focus-within{border-color:#b9cdea;box-shadow:0 3px 14px rgba(47,91,158,.09)}
+.qhead{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.qno{
+  width:26px;height:26px;border-radius:8px;background:var(--blue);
+  color:#fff;font-size:13px;font-weight:600;display:flex;
+  align-items:center;justify-content:center;flex:0 0 auto;
+}
+.qtag{font-size:11.5px;padding:2px 9px;border-radius:6px;font-weight:500}
+.t-choice{background:var(--blue-l);color:var(--blue)}
+.t-fill{background:var(--green-l);color:var(--green)}
+.t-short{background:var(--violet-l);color:var(--violet)}
+.t-translate{background:var(--amber-l);color:var(--amber)}
+.kp{font-size:11.5px;color:var(--sub);margin-left:auto}
+.stem{font-size:14.8px;margin-bottom:12px;white-space:pre-wrap}
+
+/* 单选 */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 13px;
+  border:1px solid var(--line);border-radius:9px;cursor:pointer;
+  transition:all .16s;font-size:14.2px;
+}
+.opt:hover{background:#f4f7fc;border-color:#c3d5ee}
+.opt input{display:none}
+.opt .letter{
+  width:21px;height:21px;border-radius:6px;background:#eef1f6;color:var(--sub);
+  font-size:12px;font-weight:600;display:flex;align-items:center;
+  justify-content:center;flex:0 0 auto;margin-top:2px;transition:all .16s;
+}
+.opt input:checked~.letter{background:var(--blue);color:#fff}
+.opt:has(input:checked){background:var(--blue-l);border-color:#9dbde6}
+.otext{flex:1}
+
+/* 填空 */
+.fills{display:flex;flex-direction:column;gap:8px}
+.fillin{
+  font-family:inherit;font-size:14.2px;padding:9px 13px;
+  border:1px solid var(--line);border-radius:8px;background:#fcfdff;
+  transition:all .16s;width:100%;
+}
+.fillin:focus{outline:none;border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 文本域 */
+.shortin,.transin{
+  font-family:inherit;font-size:14.2px;line-height:1.75;padding:11px 14px;
+  border:1px solid var(--line);border-radius:9px;background:#fcfdff;
+  width:100%;resize:vertical;transition:all .16s;
+}
+.shortin:focus,.transin:focus{outline:none;border-color:var(--blue);
+  background:#fff;box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 按钮与解析 */
+.qfoot{display:flex;align-items:center;gap:11px;margin-top:11px}
+.btn-ans{
+  font-family:inherit;font-size:12.5px;padding:5px 13px;border-radius:7px;
+  border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;
+  transition:all .16s;
+}
+.btn-ans:hover{background:var(--blue-l);border-color:#a8c4e8;color:var(--blue)}
+.saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
+.saved.show{opacity:1}
+.ansbox{
+  margin-top:12px;padding:13px 15px;background:#fafbfd;
+  border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-size:13.8px;
+}
+.ansline{margin-bottom:8px;display:flex;gap:9px;line-height:1.7}
+.ansline:last-child{margin-bottom:0}
+.ansline b{
+  flex:0 0 auto;color:var(--blue);font-size:12px;font-weight:640;
+  background:var(--blue-l);padding:2px 8px;border-radius:5px;height:fit-content;
+  margin-top:3px;
+}
+.ansline .got{color:var(--green);font-weight:600}
+
+/* 底部操作栏 */
+.toolbar{
+  position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);padding:12px 20px;z-index:60;
+  backdrop-filter:blur(10px);box-shadow:0 -2px 16px rgba(28,36,48,.07);
+}
+.tb-inner{max-width:820px;margin:0 auto;display:flex;
+  align-items:center;gap:11px;flex-wrap:wrap}
+.btn{
+  font-family:inherit;font-size:13.5px;padding:9px 19px;border-radius:9px;
+  border:none;cursor:pointer;font-weight:530;transition:all .16s;
+}
+.btn-main{background:var(--blue);color:#fff}
+.btn-main:hover{background:#264d87;transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--sub);border:1px solid var(--line)}
+.btn-ghost:hover{background:#f4f6fa;color:var(--ink)}
+.tb-count{font-size:13px;color:var(--sub);margin-left:auto}
+
+/* 完成提示 */
+.done-tip{
+  margin-top:22px;padding:18px 20px;border-radius:12px;
+  background:var(--green-l);border:1px solid #bfe5ce;color:#14603a;
+  font-size:14px;display:none;
+}
+.done-tip.show{display:block}
+.done-tip b{display:block;margin-bottom:6px;font-size:15px}
+
+/* 答案导出弹层 */
+.modal{
+  position:fixed;inset:0;background:rgba(20,28,40,.5);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:#fff;border-radius:14px;max-width:660px;width:100%;
+  max-height:82vh;display:flex;flex-direction:column;overflow:hidden;
+}
+.modal-head{padding:17px 21px;border-bottom:1px solid var(--line);
+  font-weight:620;font-size:15.5px;color:var(--blue)}
+.modal-body{padding:18px 21px;overflow-y:auto;flex:1}
+.modal-body textarea{
+  width:100%;height:340px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.65;border:1px solid var(--line);
+  border-radius:9px;padding:13px;background:#fafbfd;resize:vertical;
+}
+.modal-foot{padding:14px 21px;border-top:1px solid var(--line);
+  display:flex;gap:10px;justify-content:flex-end}
+.modal-tip{font-size:12.5px;color:var(--sub);margin-bottom:11px;line-height:1.65}
+
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  header{padding:26px 0 20px}
+  header h1{font-size:19px}
+  .q{padding:14px 15px}
+  .stem{font-size:14.2px}
+  .tb-count{display:none}
+  .kp{margin-left:0;width:100%}
+}
+@media print{
+  .toolbar,.btn-ans,.progress-sticky{display:none}
+  .ansbox[hidden]{display:block!important}
+  .q{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>考研每日测验 · 9.19 综合卷（素材：9.18 学习反馈）</h1>
+    <div class="meta">2026-09-19 · 共 20 题 · 今晚 22:30 自动生成</div>
+    <div class="statline">
+      <span class="chip">单选 10</span>
+      <span class="chip">填空 2</span>
+      <span class="chip">问答 6</span>
+      <span class="chip">长难句 2</span>
+    </div>
+  </div>
+</header>
+
+<div class="progress-sticky">
+  <div class="wrap">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <div class="ptext">
+      <span id="ptext">已作答 0 / 20</span>
+      <span>进度自动保存，刷新不丢</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  
+<section class="sec">
+  <h2><span class="dot"></span>一、专业课 · 新闻学与传播学
+    <span class="secmeta">8 题</span></h2>
+  
+<div class="q" data-q="1" data-type="choice">
+  <div class="qhead">
+    <span class="qno">1</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">数字鸿沟谱系（回滚）</span>
+  </div>
+  <div class="stem">数字鸿沟相关研究构成一条不断延伸的谱系。下列关于这一谱系先后顺序的排列，正确的是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q1" value="A"><span class="letter">A</span><span class="otext">知识沟 → 数字鸿沟 → 信息沟 → 使用沟 → 数智鸿沟</span></label><label class="opt"><input type="radio" name="q1" value="B"><span class="letter">B</span><span class="otext">知识沟 → 信息沟 → 数字鸿沟（接入沟）→ 使用沟 → 数智鸿沟</span></label><label class="opt"><input type="radio" name="q1" value="C"><span class="letter">C</span><span class="otext">信息沟 → 知识沟 → 数字鸿沟（接入沟）→ 数智鸿沟 → 使用沟</span></label><label class="opt"><input type="radio" name="q1" value="D"><span class="letter">D</span><span class="otext">知识沟 → 数字鸿沟 → 数智鸿沟 → 信息沟 → 使用沟</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="1">查看解析</button>
+    <span class="saved" data-saved="1"></span>
+  </div>
+  <div class="ansbox" data-ans="1" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>完整谱系是「知识沟 → 信息沟 → 数字鸿沟（接入沟）→ 使用沟／素养沟 → 数智沟」。你上次只答出首尾两环，中间两环缺失，也没点出「接入沟」这个术语。记成一句话：前两环问「知不知道」，中间两环问「能不能用」，最后一环问「用得好不好」。A 项把数字沟提到信息沟之前，等于把「能不能用」放到了「知不知道」前面；C、D 项顺序整体错乱。</div></div>
+</div>
+<div class="q" data-q="2" data-type="choice">
+  <div class="qhead">
+    <span class="qno">2</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">三个「法」的分工（回滚）</span>
+  </div>
+  <div class="stem">宝厂「社会框架」中，社会环境法、社会要素法、社会思维法三者的功能分工，下列对应正确的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q2" value="A"><span class="letter">A</span><span class="otext">社会环境法答「怎么做」，社会要素法答「为什么」，社会思维法答「是什么」</span></label><label class="opt"><input type="radio" name="q2" value="B"><span class="letter">B</span><span class="otext">社会环境法答「为什么（外因与大背景）」，社会要素法答「由什么构成」，社会思维法答「怎么做」</span></label><label class="opt"><input type="radio" name="q2" value="C"><span class="letter">C</span><span class="otext">三个「法」是「社会框架 PETCSI」的三种不同叫法，功能完全一致</span></label><label class="opt"><input type="radio" name="q2" value="D"><span class="letter">D</span><span class="otext">社会环境法只用于名词解释，社会要素法与思维法只用于论述题</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="2">查看解析</button>
+    <span class="saved" data-saved="2"></span>
+  </div>
+  <div class="ansbox" data-ans="2" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>你上次答「就是社会框架 PETCSI 的不同说法」，属于方向性错误。PETCSI 是分析维度，三个「法」是三套不同的操作路径：环境法列六类环境、答外因与大背景；要素法列七要素（政策、法律、资本、市场、技术、公民、舆论）、拆构成要件；思维法按政治／经济／文化／技术／国际五维给「怎么办」的思维词。一句话分工：问「为什么」用环境法，问「由什么构成」用要素法，问「怎么办」用思维法。</div></div>
+</div>
+<div class="q" data-q="3" data-type="fill">
+  <div class="qhead">
+    <span class="qno">3</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">媒介融合演进链</span>
+  </div>
+  <div class="stem">补全我国媒介融合的制度演进链条（讲义图 1）：
+媒介融合（技术、业务层面）→ 2014 年升格为国家战略的 ____ → ____ → 四全媒体 → 主流媒体系统性变革。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="3" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="3" data-b="1" placeholder="第 2 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="3">查看解析</button>
+    <span class="saved" data-saved="3"></span>
+  </div>
+  <div class="ansbox" data-ans="3" hidden><div class="ansline"><b>参考答案</b>第 1 空：媒体融合；第 2 空：媒体深度融合</div><div class="ansline"><b>得分点</b>第 1 空 1 分、第 2 空 1 分, 「媒介融合」与「媒体融合」一字之差，不可混用</div><div class="ansline"><b>解析</b>链条是：媒介融合（自发的技术、业务层面）→ 2014 年媒体融合上升为国家战略（嵌入社会治理语境与新闻舆论工作）→ 媒体深度融合（落到体制与组织机构）→ 四全媒体（全程媒体、全息媒体、全员媒体、全效媒体）→ 主流媒体系统性变革。注意「媒介融合」偏技术自发，「媒体融合」偏国家战略，两个字颠倒就是两个阶段。四全媒体的四个「全」是高频填空点，一并记住。</div></div>
+</div>
+<div class="q" data-q="4" data-type="short">
+  <div class="qhead">
+    <span class="qno">4</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">具身传播</span>
+  </div>
+  <div class="stem">简述「具身传播」的定义与两条研究路径。</div>
+  <textarea class="shortin" data-q="4" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="4">查看解析</button>
+    <span class="saved" data-saved="4"></span>
+  </div>
+  <div class="ansbox" data-ans="4" hidden><div class="ansline"><b>参考答案</b>定义：具身传播源自梅洛-庞蒂（Merleau-Ponty）的知觉现象学，这一视角力图打破身心二元论，强调身体在传播活动中的核心作用——身体既是信息传递的物质载体，更是意义生成和理解的基础，挑战了传统传播理论中「离身」的认知范式。
+路径一：关注传播中的具身与离身、身体的在场与缺席问题，把技术媒介视为身体的延伸或「幻肢」，通过调动受众感官体验（视觉、听觉、触觉）构建沉浸式传播情境，推动传播范式从「离身」向「具身」的生存论转向。
+路径二：揭示技术具身性中媒介「可见性」与「不可见性」的辩证关系——媒介在组织社会时空秩序的同时往往隐蔽自身，成为影响认知的「幽灵」。
+评价：为理解智能时代的传播实践（元宇宙、人机交互）提供理论基础。</div><div class="ansline"><b>得分点</b>定义须含「知觉现象学／梅洛-庞蒂」与「打破身心二元论」, 须点出「身体既是载体，更是意义生成和理解的基础」, 路径一：具身与离身、身体在场与缺席、技术作为身体延伸或幻肢, 路径二：媒介「可见性—不可见性」的辩证关系, 评价：智能时代传播实践的理论基础（可作加分项）</div><div class="ansline"><b>解析</b>讲义原文分定义／内涵／研究路径／评价四个板块。定义里最容易被忽略的落点是「身体是意义生成与理解的基础」——只答「强调身体作用」拿不到定义分。另有一个更基础的辨析：具身传播的核心主张是**身体参与意义生成**，这与传统传播理论把身体当作可有可无的载体的做法恰好相反，答题时用「挑战了离身范式」来点出这层对立即可。两条路径必须写满，只写一条等于答了一半。</div></div>
+</div>
+<div class="q" data-q="5" data-type="short">
+  <div class="qhead">
+    <span class="qno">5</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">产销者 Prosumer</span>
+  </div>
+  <div class="stem">什么是「产销者」（Prosumer）？其概念被后续学者细分为哪两个角色，三者的主动性如何排序？</div>
+  <textarea class="shortin" data-q="5" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="5">查看解析</button>
+    <span class="saved" data-saved="5"></span>
+  </div>
+  <div class="ansbox" data-ans="5" hidden><div class="ansline"><b>参考答案</b>出处：未来学家阿尔文·托夫勒（Alvin Toffler）在 1980 年撰写的《第三次浪潮》中，将生产者（producer）和消费者（consumer）两个词铸成一个新词 Prosumer，意思是生产者和消费者的角色界限模糊、两者最终融合。
+发展：澳大利亚学者 Axel Bruns 分别于 2014 年和 2015 年先后提出新闻消费领域的 Prod-user 与 Prod-designer 概念，并将 Consumer、Prod-user、Prod-designer 在新闻消费的主动性上由低到高排序。Consumer 是直接选择想看的新闻；Prod-user 是用户在新闻接入、选择、生产和分发过程中过滤信息，通过直接链接和评论参与 UGC 新闻的生产；Prod-designer 是指在新闻的接入、选择、生产和分发过程中都发挥主动作用，不断设计、优化、调整所看到的内容的重要性和优先次序，甚至参与创意内容的合作。
+表现：不仅是新闻消费者正在成为直接参与新闻生产的要素，在整个网络与新媒体系统中，个体为代表的用户都不同程度地参与了生产和消费的双重工作，用户以 UGC 内容制作、社交转发、内容评论等方式全面参与内容建设。</div><div class="ansline"><b>得分点</b>提出者与出处：托夫勒《第三次浪潮》（1980）, 构词：producer + consumer, 细分角色：Prod-user 与 Prod-designer（Axel Bruns）, 主动性由低到高：Consumer → Prod-user → Prod-designer, 表现层：用户以 UGC 制作／社交转发／内容评论参与内容建设</div><div class="ansline"><b>解析</b>你原文写的是「Alex Bruns」，正确拼写是 Axel Bruns（澳大利亚昆士兰科技大学教授，produsage 概念的提出者）。**这个错误必须回文档改掉**——人名写错在名词解释里是硬伤。排序题是这一概念的常考形式，记「看 → 筛 → 设计」三步递进：Consumer 只能挑着看，Prod-user 会筛会评会转发，Prod-designer 反过来参与设计内容的重要性排序。</div></div>
+</div>
+<div class="q" data-q="6" data-type="short">
+  <div class="qhead">
+    <span class="qno">6</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">反连接 Anti-connection</span>
+  </div>
+  <div class="stem">名词解释：反连接（Anti-connection）。并说明它的「情境性」具体体现在哪里。</div>
+  <textarea class="shortin" data-q="6" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="6">查看解析</button>
+    <span class="saved" data-saved="6"></span>
+  </div>
+  <div class="ansbox" data-ans="6" hidden><div class="ansline"><b>参考答案</b>定义：反连接（Anti-connection）是指在互联网时代，个体为了减轻由过度连接带来的压力和负担，主动选择在特定情境下断开某些连接的行为或理念。
+边界：它在一定的情境下断开那些可能对个体产生过分压力与负担的连接链条，使个体恢复必要的私人空间、时间与个人自由，所以它更多是个体的一种情境性需要，谈不上是一致性行动。无条件切断所有连接、封闭个体都属于误读。
+断连策略：时空情境上的断连策略分为暂时性断连和永久性断连两个层面。前者突出断连和连接的间断性或交替性，意味着在数字空间的暂时性失联或暂时性离场；后者强调对移动设备或社交账号的永久弃用。
+情境之一：独处是产生反连接需求的主要情境之一。虽然远离各种数字设备是断开连接的终极方式，但更理想的状况是，让人们在保持必要的与外界连接的维度时，还可以控制自己的「闭合度」。</div><div class="ansline"><b>得分点</b>定义须含三要素：过度连接的压力与负担、主动选择、特定情境下断开某些连接, 须划清边界：无条件切断所有连接、封闭个体均属误读, 须点出「恢复必要的私人空间、时间与个人自由」, 断连两层面：暂时性断连／永久性断连, 独处是产生反连接需求的主要情境之一</div><div class="ansline"><b>解析</b>这题的核心陷阱就是「情境性」三个字。华侨大学 2026、河北大学 2026 都考了这道名词解释，属于新传高频新词。答题结构建议：定义一句话 → 划清边界（哪些理解是误读）→ 两个断连层面 → 独处情境。只写「选择断开连接」会丢一半分，因为「程度有限、可逆、情境依赖」这三层限定全都没答出来。</div></div>
+</div>
+<div class="q" data-q="7" data-type="short">
+  <div class="qhead">
+    <span class="qno">7</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">议程设置三层次</span>
+  </div>
+  <div class="stem">讲义图 6 画的是议程设置的层次结构。请回答：
+（1）议程设置包含哪几个层次，各层次转移的核心变量是什么？
+（2）图中「显著性的转译」指的是什么？</div>
+  <textarea class="shortin" data-q="7" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="7">查看解析</button>
+    <span class="saved" data-saved="7"></span>
+  </div>
+  <div class="ansbox" data-ans="7" hidden><div class="ansline"><b>参考答案</b>（1）① 第一层：客体议程设置——媒体议程中「客体」的显著性转移至受众议程，即媒体认为重要的话题，受众也认为重要；② 第二层：属性议程设置——媒体对客体诸「属性」的显著性排序影响受众对该客体的属性认知（属性显著性 → 属性认知）；③ 第三层：网络议程设置（NASM），把议程要素视为相互连接的网络，考察要素之间关系网络的转移。
+（2）「显著性的转译」指的是媒体议程向受众议程转移显著性这一过程本身：图中用箭头连接「媒体议程」与「受众议程」，旁边的「因果关系」说明这一转移被假定为媒体影响受众的因果链条，而「客体显著性」标明了第一层转移的对象是客体。</div><div class="ansline"><b>得分点</b>第一层＝客体议程设置（客体显著性转移）, 第二层＝属性议程设置（属性显著性 → 属性认知）, 第三层＝网络议程设置 NASM（可作加分项）, 「显著性的转译」＝媒体议程向受众议程转移显著性的过程，箭头代表二者间的因果假定</div><div class="ansline"><b>解析</b>三层记成一句话：先转对象，再转对象的特征，最后转对象之间的关系。图里那四组字母（a、b、c、d 与 1、2、3、4）画的就是客体集合的对应关系，「令人瞩目的论据」标的是支撑该模型的实证材料。第三层在图中未展开，答题时点到「网络议程设置」即可，不必硬撑。</div></div>
+</div>
+<div class="q" data-q="8" data-type="short">
+  <div class="qhead">
+    <span class="qno">8</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">媒介可供性</span>
+  </div>
+  <div class="stem">「媒介可供性」（affordance）这一概念源自哪里？它在传播研究中回答什么问题？请结合讲义图 3 说明。</div>
+  <textarea class="shortin" data-q="8" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="8">查看解析</button>
+    <span class="saved" data-saved="8"></span>
+  </div>
+  <div class="ansbox" data-ans="8" hidden><div class="ansline"><b>参考答案</b>（1）来源：affordance 一词源自生态心理学，由吉布森（J. J. Gibson）在《生态学的视觉论》中提出，原意是环境为动物提供的行为可能性。
+（2）在传播研究中，媒介可供性用来描述媒介技术为使用者提供的行动可能与限制——技术物规定了使用者「可以做什么」。
+（3）结合讲义图：图左的「凳子、遮阳、障碍物、巢穴、食堂」是在类比环境为动物提供的功能；图右的「在线表格、可协作性、可编辑性、救命文档、打工人文档」则是技术物为使用者提供的行动可能，图中「可见性」标注的是可供性的一个具体维度。</div><div class="ansline"><b>得分点</b>来源：生态心理学／吉布森（Gibson）, 原意：环境为动物提供的行为可能性, 传播研究中的用法：媒介技术为使用者提供的行动可能与限制, 能结合图中「环境类比 → 技术功能」的对应关系说明</div><div class="ansline"><b>解析</b>易错点：affordance 的落点在「技术与行动者之间的关系」，不能简化成一份「技术功能清单」。国内文献中常引用的三层面划分是信息生产的可供性、社交可供性与移动可供性——答题时补一句可以加分，前提是先把来源答对。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>二、政治 · 习近平法治思想与文化自信（全部单选）
+    <span class="secmeta">8 题</span></h2>
+  
+<div class="q" data-q="9" data-type="choice">
+  <div class="qhead">
+    <span class="qno">9</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">法治体系五大体系（回滚）</span>
+  </div>
+  <div class="stem">中国特色社会主义法治体系由五个子体系构成。下列对「五大体系」名称的表述，完全正确的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q9" value="A"><span class="letter">A</span><span class="otext">法律规范体系、法治实施体系、法治监督体系、法治保障体系、党内法规体系</span></label><label class="opt"><input type="radio" name="q9" value="B"><span class="letter">B</span><span class="otext">法律规范体系、法治执行体系、法治监督体系、法治保障体系、党内法规体系</span></label><label class="opt"><input type="radio" name="q9" value="C"><span class="letter">C</span><span class="otext">法律规范体系、法治实施体系、法治监察体系、法治保障体系、党外法规体系</span></label><label class="opt"><input type="radio" name="q9" value="D"><span class="letter">D</span><span class="otext">法律规范体系、法治实施体系、法治监督体系、法治服务保障体系、党内法规体系</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="9">查看解析</button>
+    <span class="saved" data-saved="9"></span>
+  </div>
+  <div class="ansbox" data-ans="9" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>你上次把五个名称全留空，只答对了「宪法／党章／民主集中制」三个填空——说明背诵顺序反了：先记骨架，再补细节。五字链：**规 → 实 → 监 → 保 → 党**（法律规范、法治实施、法治监督、法治保障、党内法规）。B 项的「执行」、C 项的「监察」与「党外法规」、D 项的「服务保障」都是自己造的词。</div></div>
+</div>
+<div class="q" data-q="10" data-type="choice">
+  <div class="qhead">
+    <span class="qno">10</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">「最根本的保证」（回滚）</span>
+  </div>
+  <div class="stem">中国特色社会主义法治道路的核心要义包括坚持党的领导、坚持中国特色社会主义制度、贯彻中国特色社会主义法治理论。其中，被明确表述为「社会主义法治最根本的保证」的是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q10" value="A"><span class="letter">A</span><span class="otext">坚持党的领导</span></label><label class="opt"><input type="radio" name="q10" value="B"><span class="letter">B</span><span class="otext">坚持人民主体地位</span></label><label class="opt"><input type="radio" name="q10" value="C"><span class="letter">C</span><span class="otext">坚持法律面前人人平等</span></label><label class="opt"><input type="radio" name="q10" value="D"><span class="letter">D</span><span class="otext">坚持依法治国与以德治国相结合</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="10">查看解析</button>
+    <span class="saved" data-saved="10"></span>
+  </div>
+  <div class="ansbox" data-ans="10" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>你上次在「最根本」那一题里主观写成「中国人民的爱国情怀和坚持奋斗」——用主观感受替换文件原话，是政治选择题最典型的失分模式。记忆抓手：见「最根本」，落点只能是**党的领导**。这句话的原文就写在你 9.18 反馈的第 8 条里——「党的领导是中国特色社会主义最本质的特征，是社会主义法治最根本的保证」，下次直接从自己的笔记里取。</div></div>
+</div>
+<div class="q" data-q="11" data-type="choice">
+  <div class="qhead">
+    <span class="qno">11</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">党的显著标志（回滚）</span>
+  </div>
+  <div class="stem">下列关于「三大优良作风」与「勇于自我革命」的表述，正确的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q11" value="A"><span class="letter">A</span><span class="otext">理论联系实际、密切联系群众、批评和自我批评，连同「人民至上」「勇于自我革命」，共同构成党的显著标志</span></label><label class="opt"><input type="radio" name="q11" value="B"><span class="letter">B</span><span class="otext">党的七大提出理论联系实际、密切联系群众、批评和自我批评三大优良作风；「勇于自我革命」是党区别于其他政党的显著标志</span></label><label class="opt"><input type="radio" name="q11" value="C"><span class="letter">C</span><span class="otext">「勇于自我革命」是党的七大提出的三大优良作风之一</span></label><label class="opt"><input type="radio" name="q11" value="D"><span class="letter">D</span><span class="otext">三大优良作风指「勇于自我革命、人民至上、批评和自我批评」</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="11">查看解析</button>
+    <span class="saved" data-saved="11"></span>
+  </div>
+  <div class="ansbox" data-ans="11" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>这条你上次选的就是自己笔记里的错误写法（把三者并列成一句）。两条来源各背各的：党的**七大（1945）**提出理论联系实际、密切联系群众、批评和自我批评三大优良作风（是「三大」，且不含「人民至上」）；党的**十九届六中全会《决议》**提出「勇于自我革命」是党区别于其他政党的显著标志。A 项的错法和你 9.17 笔记里的原文一模一样——**请回去把那句并列的写法改掉**，笔记里的错误会原样迁移到考场。</div></div>
+</div>
+<div class="q" data-q="12" data-type="choice">
+  <div class="qhead">
+    <span class="qno">12</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">「二为」与「双百」</span>
+  </div>
+  <div class="stem">关于繁荣发展社会主义文化事业中「二为」与「双百」的定位，下列表述正确的是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q12" value="A"><span class="letter">A</span><span class="otext">「二为」是重要方针，「双百」是根本方向</span></label><label class="opt"><input type="radio" name="q12" value="B"><span class="letter">B</span><span class="otext">「二为」是根本方向，「双百」是重要方针</span></label><label class="opt"><input type="radio" name="q12" value="C"><span class="letter">C</span><span class="otext">二者都是根本方向，只是适用领域不同</span></label><label class="opt"><input type="radio" name="q12" value="D"><span class="letter">D</span><span class="otext">「二为」是根本方向，「双百」是根本保证</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="12">查看解析</button>
+    <span class="saved" data-saved="12"></span>
+  </div>
+  <div class="ansbox" data-ans="12" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>坚持为人民服务、为社会主义服务（「二为」）是**根本方向**，决定社会主义文化事业前途命运；坚持百花齐放、百家争鸣（「双百」）是繁荣发展社会主义文化的**重要方针**。你 9.18 反馈里已经在括号里自己注了这句，说明这个点抓对了——但一词之差正是命题人爱设的陷阱，A 项就是把两者对调。</div></div>
+</div>
+<div class="q" data-q="13" data-type="choice">
+  <div class="qhead">
+    <span class="qno">13</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">法治中国建设的工作布局</span>
+  </div>
+  <div class="stem">法治中国建设的工作布局是「三个坚持」。下列不属于这一工作布局的是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q13" value="A"><span class="letter">A</span><span class="otext">坚持依法治国、依法执政、依法行政共同推进</span></label><label class="opt"><input type="radio" name="q13" value="B"><span class="letter">B</span><span class="otext">坚持法治国家、法治政府、法治社会一体建设</span></label><label class="opt"><input type="radio" name="q13" value="C"><span class="letter">C</span><span class="otext">坚持统筹推进国内法治和涉外法治</span></label><label class="opt"><input type="radio" name="q13" value="D"><span class="letter">D</span><span class="otext">坚持科学立法、严格执法、公正司法、全民守法</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="13">查看解析</button>
+    <span class="saved" data-saved="13"></span>
+  </div>
+  <div class="ansbox" data-ans="13" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>D 项是「坚持全面推进科学立法、严格执法、公正司法、全民守法」，它属于习近平法治思想的**主要内容之一**，不能算作工作布局的三句话。区分方法：工作布局的落点是「怎么摆盘」——三个「共同推进」、三个「一体建设」、一个「统筹推进」；而科学立法／严格执法／公正司法／全民守法讲的是法治运行的**四个环节**。你原文把这句放在工作布局下面单独列了一行，考试时别串。</div></div>
+</div>
+<div class="q" data-q="14" data-type="choice">
+  <div class="qhead">
+    <span class="qno">14</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">法治国家·政府·社会</span>
+  </div>
+  <div class="stem">关于法治国家、法治政府、法治社会的定位，下列对应正确的是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q14" value="A"><span class="letter">A</span><span class="otext">法治国家是重点任务和主体工程，法治政府是目标，法治社会是基础</span></label><label class="opt"><input type="radio" name="q14" value="B"><span class="letter">B</span><span class="otext">法治国家是目标，法治政府是重点任务和主体工程，法治社会是构筑法治国家的基础</span></label><label class="opt"><input type="radio" name="q14" value="C"><span class="letter">C</span><span class="otext">法治国家是基础，法治政府是目标，法治社会是重点任务</span></label><label class="opt"><input type="radio" name="q14" value="D"><span class="letter">D</span><span class="otext">三者是并列推进的三项工作，没有目标与基础之别</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="14">查看解析</button>
+    <span class="saved" data-saved="14"></span>
+  </div>
+  <div class="ansbox" data-ans="14" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>原文：法治国家是法治建设的**目标**，法治政府建设是全面依法治国的**重点任务和主体工程**，法治社会是**构筑法治国家的基础**。记一句话：国家是目的、政府是主力、社会是地基。A、C 项把三者互换了位置，D 项否定了原文的轻重区分。</div></div>
+</div>
+<div class="q" data-q="15" data-type="choice">
+  <div class="qhead">
+    <span class="qno">15</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">全面依法治国的总抓手</span>
+  </div>
+  <div class="stem">全面推进依法治国涉及很多方面，在实际工作中必须有一个总揽全局、牵引各方的总抓手。这个总抓手是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q15" value="A"><span class="letter">A</span><span class="otext">建设中国特色社会主义法治体系</span></label><label class="opt"><input type="radio" name="q15" value="B"><span class="letter">B</span><span class="otext">建设社会主义法治国家</span></label><label class="opt"><input type="radio" name="q15" value="C"><span class="letter">C</span><span class="otext">坚持依法治国、依法执政、依法行政共同推进</span></label><label class="opt"><input type="radio" name="q15" value="D"><span class="letter">D</span><span class="otext">推进科学立法、严格执法、公正司法、全民守法</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="15">查看解析</button>
+    <span class="saved" data-saved="15"></span>
+  </div>
+  <div class="ansbox" data-ans="15" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>原文一句很直白：「这个总抓手就是建设中国特色社会主义法治体系」。易混项 B「建设社会主义法治国家」是全面依法治国的**总目标**。抓手与目标、体系与国家，这两个对子最容易被调换。C 项是工作布局的第一句，D 项是法治运行的四个环节。</div></div>
+</div>
+<div class="q" data-q="16" data-type="choice">
+  <div class="qhead">
+    <span class="qno">16</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">文化自信的三点底气</span>
+  </div>
+  <div class="stem">坚定文化自信的底气来自三点。下列对应关系正确的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q16" value="A"><span class="letter">A</span><span class="otext">中华优秀传统文化＝坚强基石；革命文化和社会主义先进文化＝深厚基础；中国特色社会主义伟大实践＝现实基础</span></label><label class="opt"><input type="radio" name="q16" value="B"><span class="letter">B</span><span class="otext">中华优秀传统文化＝深厚基础；革命文化和社会主义先进文化＝坚强基石；中国特色社会主义伟大实践＝现实基础</span></label><label class="opt"><input type="radio" name="q16" value="C"><span class="letter">C</span><span class="otext">中华优秀传统文化＝现实基础；革命文化和社会主义先进文化＝深厚基础；中国特色社会主义伟大实践＝坚强基石</span></label><label class="opt"><input type="radio" name="q16" value="D"><span class="letter">D</span><span class="otext">三者共同构成深厚基础，不作区分</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="16">查看解析</button>
+    <span class="saved" data-saved="16"></span>
+  </div>
+  <div class="ansbox" data-ans="16" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>三句话：中华优秀传统文化是**深厚基础**；党带领人民在伟大斗争中孕育的革命文化和社会主义先进文化是**坚强基石**；中国特色社会主义伟大实践是**现实基础**。记忆抓手：排成时间轴——过去（传统文化）→ 革命与建设（革命文化、先进文化）→ 当下（伟大实践），对应「基础 → 基石 → 现实基础」。A 项把前两项对调，是最常见的设错法。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>三、英语二 · 外刊精读与词汇
+    <span class="secmeta">4 题</span></h2>
+  
+<div class="q" data-q="17" data-type="fill">
+  <div class="qhead">
+    <span class="qno">17</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">词汇回滚</span>
+  </div>
+  <div class="stem">根据中文提示填写英文单词或词组（写英文即可）：
+（1）严厉打击、镇压（违法犯罪行为）：____
+（2）大草原（北美）：____
+（3）更棘手的（问题）：____</div>
+  <div class="fills"><input class="fillin" type="text" data-q="17" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="17" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="17" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="17">查看解析</button>
+    <span class="saved" data-saved="17"></span>
+  </div>
+  <div class="ansbox" data-ans="17" hidden><div class="ansline"><b>参考答案</b>（1）crack down on　（2）prairie　（3）thornier</div><div class="ansline"><b>得分点</b>每空 1 分, 第 1 空须写出完整搭配 crack down on，只写 crack down 得 0.5 分, 第 3 空须是比较级形式 thornier</div><div class="ansline"><b>解析</b>你上次把 crack down on 写成「崩塌」——「崩塌」对应的是 collapse，方向完全反了。crack down 是朝外的「打压」，联想「警方扫荡」（crack 有击打义）。prairie 与 plain（平原）、plateau（高原）一起记：草原／平原／高原。thorny 本义「多刺的」，引申为「棘手的」，比较级 thornier，常搭配 thorny issue／thorny question。</div></div>
+</div>
+<div class="q" data-q="18" data-type="translate">
+  <div class="qhead">
+    <span class="qno">18</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">长难句翻译</span>
+  </div>
+  <div class="stem">翻译下面这句话，并说明句子的主干结构：
+
+But the evidence justifying such bias against blue hardly passes with flying colours.</div>
+  <textarea class="transin" data-q="18" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="18">查看解析</button>
+    <span class="saved" data-saved="18"></span>
+  </div>
+  <div class="ansbox" data-ans="18" hidden><div class="ansline"><b>参考答案</b>译文：但是，那套为这种对蓝光的偏见提供依据的证据，远远算不上过硬（站不住脚）。
+主干：The evidence hardly passes with flying colours. 其中 justifying such bias against blue 是现在分词短语作后置定语，修饰 evidence。</div><div class="ansline"><b>得分点</b>主干识别正确（evidence 为主语，hardly passes 为谓语）, 现在分词短语 justifying such bias against blue 须译出「为……提供依据的」, hardly 的否定义必须译出（几乎不／远非），漏译即扣分, passes with flying colours 应处理为「过硬／站得住脚」，不可直译</div><div class="ansline"><b>解析</b>pass with flying colours 单独用时是「以优异成绩通过」，加上 hardly 之后整句翻盘为「远远算不上」。这是作者降温态度的关键句。提醒：你上次在长难句里漏译了比较级 far more likely，这次的 hardly 属于同一类失分——**程度副词与否定副词绝不能省略**，它们本身就是得分点。</div></div>
+</div>
+<div class="q" data-q="19" data-type="translate">
+  <div class="qhead">
+    <span class="qno">19</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">长难句翻译</span>
+  </div>
+  <div class="stem">翻译下面两句话，注意 squarely 与主语从句的处理：
+
+Melanopsin is particularly sensitive to light with wavelengths of around 480 nanometres, squarely in the spectrum&#x27;s blue zone. That such light blocks melatonin is thus uncontroversial.</div>
+  <textarea class="transin" data-q="19" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="19">查看解析</button>
+    <span class="saved" data-saved="19"></span>
+  </div>
+  <div class="ansbox" data-ans="19" hidden><div class="ansline"><b>参考答案</b>译文：黑视素对波长约 480 纳米的光尤为敏感，这一波长正正好好落在光谱的蓝色区域。因此，这种光线会抑制褪黑素的分泌，这一点是毫无争议的。
+结构：第一句主干是 Melanopsin is sensitive to light，with wavelengths of around 480 nanometres 是介词短语作后置定语；squarely in the spectrum&#x27;s blue zone 是补充说明。第二句 That such light blocks melatonin 是主语从句，作全句主语，is uncontroversial 是谓语。</div><div class="ansline"><b>得分点</b>squarely 须体现强调义（正正好好／不偏不倚地落在），译成「恰好」程度偏弱, 第一句主干与后置定语识别正确, 第二句识别出 That 引导的主语从句, uncontroversial 译对（毫无争议的），thus 的承接关系译出</div><div class="ansline"><b>解析</b>你 9.18 反馈里这两句整体译得对，唯一偏软的是 squarely——它的词典义是「正正好好、不偏不倚地」，属于强调副词，程度比「恰好」强。另一处要留神的是 uncontroversial：un- + controversial（有争议的），译反就前功尽弃。</div></div>
+</div>
+<div class="q" data-q="20" data-type="short">
+  <div class="qhead">
+    <span class="qno">20</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">词汇精读</span>
+  </div>
+  <div class="stem">（1）写出 eschew 的三个常见搭配和 circadian 的三个常见搭配。
+（2）说明 eschew 与 avoid、shun 在语体与语义上的差别，并写出它的语法要求。</div>
+  <textarea class="shortin" data-q="20" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="20">查看解析</button>
+    <span class="saved" data-saved="20"></span>
+  </div>
+  <div class="ansbox" data-ans="20" hidden><div class="ansline"><b>参考答案</b>（1）eschew：eschew bad habits（摒弃坏习惯）／eschew violence（远离暴力）／eschew publicity（避开公众关注）。circadian：circadian clock（生物钟）／circadian rhythm（昼夜节律）／circadian cycle（昼夜循环周期）。
+（2）eschew 是正式书面语，指主动、刻意地避开某事；avoid 是通用词，只表示「避免、躲开」，不带语体色彩；shun 指「刻意回避、远离某人」，对象多是人或群体，带有更明确的主观疏远意味。语法上 eschew 是及物动词，后面直接接名词或动名词，例如 eschew using blue light。</div><div class="ansline"><b>得分点</b>eschew 至少写出 3 个正确搭配, circadian 至少写出 3 个正确搭配, 说明 eschew 的正式书面语体与「刻意避开」义, 指出 eschew 是及物动词，后接名词或动名词</div><div class="ansline"><b>解析</b>你反馈里已经整理了近义链 avoid → shun、反义链 embrace → pursue，整理得很完整，本次要检验的是能否**调用**出来。重点：eschew 的语法限制（及物、接名词或动名词）比释义更容易被考到，出现在翻译和写作里时，写成 eschew to do 就是错的。</div></div>
+</div>
+</section>
+
+  <div class="done-tip" id="doneTip">
+    <b>🎉 全部作答完毕</b>
+    点右下角「导出我的答案」，把导出的文件发给我，我会逐题批改并给出评分与改进建议。
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="tb-inner">
+    <button class="btn btn-main" id="btnExport">导出我的答案</button>
+    <button class="btn btn-ghost" id="btnRevealAll">展开全部解析</button>
+    <button class="btn btn-ghost" id="btnReset">清空重做</button>
+    <span class="tb-count" id="tbCount">0 / 20</span>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">你的答案（复制后发给我批改）</div>
+    <div class="modal-body">
+      <div class="modal-tip">
+        全选复制下面的内容，粘贴到对话里发给我即可。也可以点「下载 .md」保存成文件再上传。
+      </div>
+      <textarea id="exportArea" readonly></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="btnCloseModal">关闭</button>
+      <button class="btn btn-main" id="btnDownload">下载 .md</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ = {"title": "考研每日测验 · 9.19 综合卷（素材：9.18 学习反馈）", "date": "2026-09-19", "sections": [{"name": "一、专业课 · 新闻学与传播学", "questions": [{"id": 1, "type": "choice", "kp": "数字鸿沟谱系（回滚）", "stem": "数字鸿沟相关研究构成一条不断延伸的谱系。下列关于这一谱系先后顺序的排列，正确的是？", "options": ["知识沟 → 数字鸿沟 → 信息沟 → 使用沟 → 数智鸿沟", "知识沟 → 信息沟 → 数字鸿沟（接入沟）→ 使用沟 → 数智鸿沟", "信息沟 → 知识沟 → 数字鸿沟（接入沟）→ 数智鸿沟 → 使用沟", "知识沟 → 数字鸿沟 → 数智鸿沟 → 信息沟 → 使用沟"], "answer": "B", "explain": "完整谱系是「知识沟 → 信息沟 → 数字鸿沟（接入沟）→ 使用沟／素养沟 → 数智沟」。你上次只答出首尾两环，中间两环缺失，也没点出「接入沟」这个术语。记成一句话：前两环问「知不知道」，中间两环问「能不能用」，最后一环问「用得好不好」。A 项把数字沟提到信息沟之前，等于把「能不能用」放到了「知不知道」前面；C、D 项顺序整体错乱。", "_id": 1}, {"id": 2, "type": "choice", "kp": "三个「法」的分工（回滚）", "stem": "宝厂「社会框架」中，社会环境法、社会要素法、社会思维法三者的功能分工，下列对应正确的一项是？", "options": ["社会环境法答「怎么做」，社会要素法答「为什么」，社会思维法答「是什么」", "社会环境法答「为什么（外因与大背景）」，社会要素法答「由什么构成」，社会思维法答「怎么做」", "三个「法」是「社会框架 PETCSI」的三种不同叫法，功能完全一致", "社会环境法只用于名词解释，社会要素法与思维法只用于论述题"], "answer": "B", "explain": "你上次答「就是社会框架 PETCSI 的不同说法」，属于方向性错误。PETCSI 是分析维度，三个「法」是三套不同的操作路径：环境法列六类环境、答外因与大背景；要素法列七要素（政策、法律、资本、市场、技术、公民、舆论）、拆构成要件；思维法按政治／经济／文化／技术／国际五维给「怎么办」的思维词。一句话分工：问「为什么」用环境法，问「由什么构成」用要素法，问「怎么办」用思维法。", "_id": 2}, {"id": 3, "type": "fill", "blanks": 2, "kp": "媒介融合演进链", "stem": "补全我国媒介融合的制度演进链条（讲义图 1）：\n媒介融合（技术、业务层面）→ 2014 年升格为国家战略的 ____ → ____ → 四全媒体 → 主流媒体系统性变革。", "answer": "第 1 空：媒体融合；第 2 空：媒体深度融合", "keys": ["第 1 空 1 分、第 2 空 1 分", "「媒介融合」与「媒体融合」一字之差，不可混用"], "explain": "链条是：媒介融合（自发的技术、业务层面）→ 2014 年媒体融合上升为国家战略（嵌入社会治理语境与新闻舆论工作）→ 媒体深度融合（落到体制与组织机构）→ 四全媒体（全程媒体、全息媒体、全员媒体、全效媒体）→ 主流媒体系统性变革。注意「媒介融合」偏技术自发，「媒体融合」偏国家战略，两个字颠倒就是两个阶段。四全媒体的四个「全」是高频填空点，一并记住。", "_id": 3}, {"id": 4, "type": "short", "rows": 6, "kp": "具身传播", "stem": "简述「具身传播」的定义与两条研究路径。", "answer": "定义：具身传播源自梅洛-庞蒂（Merleau-Ponty）的知觉现象学，这一视角力图打破身心二元论，强调身体在传播活动中的核心作用——身体既是信息传递的物质载体，更是意义生成和理解的基础，挑战了传统传播理论中「离身」的认知范式。\n路径一：关注传播中的具身与离身、身体的在场与缺席问题，把技术媒介视为身体的延伸或「幻肢」，通过调动受众感官体验（视觉、听觉、触觉）构建沉浸式传播情境，推动传播范式从「离身」向「具身」的生存论转向。\n路径二：揭示技术具身性中媒介「可见性」与「不可见性」的辩证关系——媒介在组织社会时空秩序的同时往往隐蔽自身，成为影响认知的「幽灵」。\n评价：为理解智能时代的传播实践（元宇宙、人机交互）提供理论基础。", "keys": ["定义须含「知觉现象学／梅洛-庞蒂」与「打破身心二元论」", "须点出「身体既是载体，更是意义生成和理解的基础」", "路径一：具身与离身、身体在场与缺席、技术作为身体延伸或幻肢", "路径二：媒介「可见性—不可见性」的辩证关系", "评价：智能时代传播实践的理论基础（可作加分项）"], "explain": "讲义原文分定义／内涵／研究路径／评价四个板块。定义里最容易被忽略的落点是「身体是意义生成与理解的基础」——只答「强调身体作用」拿不到定义分。另有一个更基础的辨析：具身传播的核心主张是**身体参与意义生成**，这与传统传播理论把身体当作可有可无的载体的做法恰好相反，答题时用「挑战了离身范式」来点出这层对立即可。两条路径必须写满，只写一条等于答了一半。", "_id": 4}, {"id": 5, "type": "short", "rows": 6, "kp": "产销者 Prosumer", "stem": "什么是「产销者」（Prosumer）？其概念被后续学者细分为哪两个角色，三者的主动性如何排序？", "answer": "出处：未来学家阿尔文·托夫勒（Alvin Toffler）在 1980 年撰写的《第三次浪潮》中，将生产者（producer）和消费者（consumer）两个词铸成一个新词 Prosumer，意思是生产者和消费者的角色界限模糊、两者最终融合。\n发展：澳大利亚学者 Axel Bruns 分别于 2014 年和 2015 年先后提出新闻消费领域的 Prod-user 与 Prod-designer 概念，并将 Consumer、Prod-user、Prod-designer 在新闻消费的主动性上由低到高排序。Consumer 是直接选择想看的新闻；Prod-user 是用户在新闻接入、选择、生产和分发过程中过滤信息，通过直接链接和评论参与 UGC 新闻的生产；Prod-designer 是指在新闻的接入、选择、生产和分发过程中都发挥主动作用，不断设计、优化、调整所看到的内容的重要性和优先次序，甚至参与创意内容的合作。\n表现：不仅是新闻消费者正在成为直接参与新闻生产的要素，在整个网络与新媒体系统中，个体为代表的用户都不同程度地参与了生产和消费的双重工作，用户以 UGC 内容制作、社交转发、内容评论等方式全面参与内容建设。", "keys": ["提出者与出处：托夫勒《第三次浪潮》（1980）", "构词：producer + consumer", "细分角色：Prod-user 与 Prod-designer（Axel Bruns）", "主动性由低到高：Consumer → Prod-user → Prod-designer", "表现层：用户以 UGC 制作／社交转发／内容评论参与内容建设"], "explain": "你原文写的是「Alex Bruns」，正确拼写是 Axel Bruns（澳大利亚昆士兰科技大学教授，produsage 概念的提出者）。**这个错误必须回文档改掉**——人名写错在名词解释里是硬伤。排序题是这一概念的常考形式，记「看 → 筛 → 设计」三步递进：Consumer 只能挑着看，Prod-user 会筛会评会转发，Prod-designer 反过来参与设计内容的重要性排序。", "_id": 5}, {"id": 6, "type": "short", "rows": 6, "kp": "反连接 Anti-connection", "stem": "名词解释：反连接（Anti-connection）。并说明它的「情境性」具体体现在哪里。", "answer": "定义：反连接（Anti-connection）是指在互联网时代，个体为了减轻由过度连接带来的压力和负担，主动选择在特定情境下断开某些连接的行为或理念。\n边界：它在一定的情境下断开那些可能对个体产生过分压力与负担的连接链条，使个体恢复必要的私人空间、时间与个人自由，所以它更多是个体的一种情境性需要，谈不上是一致性行动。无条件切断所有连接、封闭个体都属于误读。\n断连策略：时空情境上的断连策略分为暂时性断连和永久性断连两个层面。前者突出断连和连接的间断性或交替性，意味着在数字空间的暂时性失联或暂时性离场；后者强调对移动设备或社交账号的永久弃用。\n情境之一：独处是产生反连接需求的主要情境之一。虽然远离各种数字设备是断开连接的终极方式，但更理想的状况是，让人们在保持必要的与外界连接的维度时，还可以控制自己的「闭合度」。", "keys": ["定义须含三要素：过度连接的压力与负担、主动选择、特定情境下断开某些连接", "须划清边界：无条件切断所有连接、封闭个体均属误读", "须点出「恢复必要的私人空间、时间与个人自由」", "断连两层面：暂时性断连／永久性断连", "独处是产生反连接需求的主要情境之一"], "explain": "这题的核心陷阱就是「情境性」三个字。华侨大学 2026、河北大学 2026 都考了这道名词解释，属于新传高频新词。答题结构建议：定义一句话 → 划清边界（哪些理解是误读）→ 两个断连层面 → 独处情境。只写「选择断开连接」会丢一半分，因为「程度有限、可逆、情境依赖」这三层限定全都没答出来。", "_id": 6}, {"id": 7, "type": "short", "rows": 5, "kp": "议程设置三层次", "stem": "讲义图 6 画的是议程设置的层次结构。请回答：\n（1）议程设置包含哪几个层次，各层次转移的核心变量是什么？\n（2）图中「显著性的转译」指的是什么？", "answer": "（1）① 第一层：客体议程设置——媒体议程中「客体」的显著性转移至受众议程，即媒体认为重要的话题，受众也认为重要；② 第二层：属性议程设置——媒体对客体诸「属性」的显著性排序影响受众对该客体的属性认知（属性显著性 → 属性认知）；③ 第三层：网络议程设置（NASM），把议程要素视为相互连接的网络，考察要素之间关系网络的转移。\n（2）「显著性的转译」指的是媒体议程向受众议程转移显著性这一过程本身：图中用箭头连接「媒体议程」与「受众议程」，旁边的「因果关系」说明这一转移被假定为媒体影响受众的因果链条，而「客体显著性」标明了第一层转移的对象是客体。", "keys": ["第一层＝客体议程设置（客体显著性转移）", "第二层＝属性议程设置（属性显著性 → 属性认知）", "第三层＝网络议程设置 NASM（可作加分项）", "「显著性的转译」＝媒体议程向受众议程转移显著性的过程，箭头代表二者间的因果假定"], "explain": "三层记成一句话：先转对象，再转对象的特征，最后转对象之间的关系。图里那四组字母（a、b、c、d 与 1、2、3、4）画的就是客体集合的对应关系，「令人瞩目的论据」标的是支撑该模型的实证材料。第三层在图中未展开，答题时点到「网络议程设置」即可，不必硬撑。", "_id": 7}, {"id": 8, "type": "short", "rows": 5, "kp": "媒介可供性", "stem": "「媒介可供性」（affordance）这一概念源自哪里？它在传播研究中回答什么问题？请结合讲义图 3 说明。", "answer": "（1）来源：affordance 一词源自生态心理学，由吉布森（J. J. Gibson）在《生态学的视觉论》中提出，原意是环境为动物提供的行为可能性。\n（2）在传播研究中，媒介可供性用来描述媒介技术为使用者提供的行动可能与限制——技术物规定了使用者「可以做什么」。\n（3）结合讲义图：图左的「凳子、遮阳、障碍物、巢穴、食堂」是在类比环境为动物提供的功能；图右的「在线表格、可协作性、可编辑性、救命文档、打工人文档」则是技术物为使用者提供的行动可能，图中「可见性」标注的是可供性的一个具体维度。", "keys": ["来源：生态心理学／吉布森（Gibson）", "原意：环境为动物提供的行为可能性", "传播研究中的用法：媒介技术为使用者提供的行动可能与限制", "能结合图中「环境类比 → 技术功能」的对应关系说明"], "explain": "易错点：affordance 的落点在「技术与行动者之间的关系」，不能简化成一份「技术功能清单」。国内文献中常引用的三层面划分是信息生产的可供性、社交可供性与移动可供性——答题时补一句可以加分，前提是先把来源答对。", "_id": 8}]}, {"name": "二、政治 · 习近平法治思想与文化自信（全部单选）", "questions": [{"id": 9, "type": "choice", "kp": "法治体系五大体系（回滚）", "stem": "中国特色社会主义法治体系由五个子体系构成。下列对「五大体系」名称的表述，完全正确的一项是？", "options": ["法律规范体系、法治实施体系、法治监督体系、法治保障体系、党内法规体系", "法律规范体系、法治执行体系、法治监督体系、法治保障体系、党内法规体系", "法律规范体系、法治实施体系、法治监察体系、法治保障体系、党外法规体系", "法律规范体系、法治实施体系、法治监督体系、法治服务保障体系、党内法规体系"], "answer": "A", "explain": "你上次把五个名称全留空，只答对了「宪法／党章／民主集中制」三个填空——说明背诵顺序反了：先记骨架，再补细节。五字链：**规 → 实 → 监 → 保 → 党**（法律规范、法治实施、法治监督、法治保障、党内法规）。B 项的「执行」、C 项的「监察」与「党外法规」、D 项的「服务保障」都是自己造的词。", "_id": 9}, {"id": 10, "type": "choice", "kp": "「最根本的保证」（回滚）", "stem": "中国特色社会主义法治道路的核心要义包括坚持党的领导、坚持中国特色社会主义制度、贯彻中国特色社会主义法治理论。其中，被明确表述为「社会主义法治最根本的保证」的是？", "options": ["坚持党的领导", "坚持人民主体地位", "坚持法律面前人人平等", "坚持依法治国与以德治国相结合"], "answer": "A", "explain": "你上次在「最根本」那一题里主观写成「中国人民的爱国情怀和坚持奋斗」——用主观感受替换文件原话，是政治选择题最典型的失分模式。记忆抓手：见「最根本」，落点只能是**党的领导**。这句话的原文就写在你 9.18 反馈的第 8 条里——「党的领导是中国特色社会主义最本质的特征，是社会主义法治最根本的保证」，下次直接从自己的笔记里取。", "_id": 10}, {"id": 11, "type": "choice", "kp": "党的显著标志（回滚）", "stem": "下列关于「三大优良作风」与「勇于自我革命」的表述，正确的一项是？", "options": ["理论联系实际、密切联系群众、批评和自我批评，连同「人民至上」「勇于自我革命」，共同构成党的显著标志", "党的七大提出理论联系实际、密切联系群众、批评和自我批评三大优良作风；「勇于自我革命」是党区别于其他政党的显著标志", "「勇于自我革命」是党的七大提出的三大优良作风之一", "三大优良作风指「勇于自我革命、人民至上、批评和自我批评」"], "answer": "B", "explain": "这条你上次选的就是自己笔记里的错误写法（把三者并列成一句）。两条来源各背各的：党的**七大（1945）**提出理论联系实际、密切联系群众、批评和自我批评三大优良作风（是「三大」，且不含「人民至上」）；党的**十九届六中全会《决议》**提出「勇于自我革命」是党区别于其他政党的显著标志。A 项的错法和你 9.17 笔记里的原文一模一样——**请回去把那句并列的写法改掉**，笔记里的错误会原样迁移到考场。", "_id": 11}, {"id": 12, "type": "choice", "kp": "「二为」与「双百」", "stem": "关于繁荣发展社会主义文化事业中「二为」与「双百」的定位，下列表述正确的是？", "options": ["「二为」是重要方针，「双百」是根本方向", "「二为」是根本方向，「双百」是重要方针", "二者都是根本方向，只是适用领域不同", "「二为」是根本方向，「双百」是根本保证"], "answer": "B", "explain": "坚持为人民服务、为社会主义服务（「二为」）是**根本方向**，决定社会主义文化事业前途命运；坚持百花齐放、百家争鸣（「双百」）是繁荣发展社会主义文化的**重要方针**。你 9.18 反馈里已经在括号里自己注了这句，说明这个点抓对了——但一词之差正是命题人爱设的陷阱，A 项就是把两者对调。", "_id": 12}, {"id": 13, "type": "choice", "kp": "法治中国建设的工作布局", "stem": "法治中国建设的工作布局是「三个坚持」。下列不属于这一工作布局的是？", "options": ["坚持依法治国、依法执政、依法行政共同推进", "坚持法治国家、法治政府、法治社会一体建设", "坚持统筹推进国内法治和涉外法治", "坚持科学立法、严格执法、公正司法、全民守法"], "answer": "D", "explain": "D 项是「坚持全面推进科学立法、严格执法、公正司法、全民守法」，它属于习近平法治思想的**主要内容之一**，不能算作工作布局的三句话。区分方法：工作布局的落点是「怎么摆盘」——三个「共同推进」、三个「一体建设」、一个「统筹推进」；而科学立法／严格执法／公正司法／全民守法讲的是法治运行的**四个环节**。你原文把这句放在工作布局下面单独列了一行，考试时别串。", "_id": 13}, {"id": 14, "type": "choice", "kp": "法治国家·政府·社会", "stem": "关于法治国家、法治政府、法治社会的定位，下列对应正确的是？", "options": ["法治国家是重点任务和主体工程，法治政府是目标，法治社会是基础", "法治国家是目标，法治政府是重点任务和主体工程，法治社会是构筑法治国家的基础", "法治国家是基础，法治政府是目标，法治社会是重点任务", "三者是并列推进的三项工作，没有目标与基础之别"], "answer": "B", "explain": "原文：法治国家是法治建设的**目标**，法治政府建设是全面依法治国的**重点任务和主体工程**，法治社会是**构筑法治国家的基础**。记一句话：国家是目的、政府是主力、社会是地基。A、C 项把三者互换了位置，D 项否定了原文的轻重区分。", "_id": 14}, {"id": 15, "type": "choice", "kp": "全面依法治国的总抓手", "stem": "全面推进依法治国涉及很多方面，在实际工作中必须有一个总揽全局、牵引各方的总抓手。这个总抓手是？", "options": ["建设中国特色社会主义法治体系", "建设社会主义法治国家", "坚持依法治国、依法执政、依法行政共同推进", "推进科学立法、严格执法、公正司法、全民守法"], "answer": "A", "explain": "原文一句很直白：「这个总抓手就是建设中国特色社会主义法治体系」。易混项 B「建设社会主义法治国家」是全面依法治国的**总目标**。抓手与目标、体系与国家，这两个对子最容易被调换。C 项是工作布局的第一句，D 项是法治运行的四个环节。", "_id": 15}, {"id": 16, "type": "choice", "kp": "文化自信的三点底气", "stem": "坚定文化自信的底气来自三点。下列对应关系正确的一项是？", "options": ["中华优秀传统文化＝坚强基石；革命文化和社会主义先进文化＝深厚基础；中国特色社会主义伟大实践＝现实基础", "中华优秀传统文化＝深厚基础；革命文化和社会主义先进文化＝坚强基石；中国特色社会主义伟大实践＝现实基础", "中华优秀传统文化＝现实基础；革命文化和社会主义先进文化＝深厚基础；中国特色社会主义伟大实践＝坚强基石", "三者共同构成深厚基础，不作区分"], "answer": "B", "explain": "三句话：中华优秀传统文化是**深厚基础**；党带领人民在伟大斗争中孕育的革命文化和社会主义先进文化是**坚强基石**；中国特色社会主义伟大实践是**现实基础**。记忆抓手：排成时间轴——过去（传统文化）→ 革命与建设（革命文化、先进文化）→ 当下（伟大实践），对应「基础 → 基石 → 现实基础」。A 项把前两项对调，是最常见的设错法。", "_id": 16}]}, {"name": "三、英语二 · 外刊精读与词汇", "questions": [{"id": 17, "type": "fill", "blanks": 3, "kp": "词汇回滚", "stem": "根据中文提示填写英文单词或词组（写英文即可）：\n（1）严厉打击、镇压（违法犯罪行为）：____\n（2）大草原（北美）：____\n（3）更棘手的（问题）：____", "answer": "（1）crack down on　（2）prairie　（3）thornier", "keys": ["每空 1 分", "第 1 空须写出完整搭配 crack down on，只写 crack down 得 0.5 分", "第 3 空须是比较级形式 thornier"], "explain": "你上次把 crack down on 写成「崩塌」——「崩塌」对应的是 collapse，方向完全反了。crack down 是朝外的「打压」，联想「警方扫荡」（crack 有击打义）。prairie 与 plain（平原）、plateau（高原）一起记：草原／平原／高原。thorny 本义「多刺的」，引申为「棘手的」，比较级 thornier，常搭配 thorny issue／thorny question。", "_id": 17}, {"id": 18, "type": "translate", "kp": "长难句翻译", "stem": "翻译下面这句话，并说明句子的主干结构：\n\nBut the evidence justifying such bias against blue hardly passes with flying colours.", "answer": "译文：但是，那套为这种对蓝光的偏见提供依据的证据，远远算不上过硬（站不住脚）。\n主干：The evidence hardly passes with flying colours. 其中 justifying such bias against blue 是现在分词短语作后置定语，修饰 evidence。", "keys": ["主干识别正确（evidence 为主语，hardly passes 为谓语）", "现在分词短语 justifying such bias against blue 须译出「为……提供依据的」", "hardly 的否定义必须译出（几乎不／远非），漏译即扣分", "passes with flying colours 应处理为「过硬／站得住脚」，不可直译"], "explain": "pass with flying colours 单独用时是「以优异成绩通过」，加上 hardly 之后整句翻盘为「远远算不上」。这是作者降温态度的关键句。提醒：你上次在长难句里漏译了比较级 far more likely，这次的 hardly 属于同一类失分——**程度副词与否定副词绝不能省略**，它们本身就是得分点。", "_id": 18}, {"id": 19, "type": "translate", "kp": "长难句翻译", "stem": "翻译下面两句话，注意 squarely 与主语从句的处理：\n\nMelanopsin is particularly sensitive to light with wavelengths of around 480 nanometres, squarely in the spectrum's blue zone. That such light blocks melatonin is thus uncontroversial.", "answer": "译文：黑视素对波长约 480 纳米的光尤为敏感，这一波长正正好好落在光谱的蓝色区域。因此，这种光线会抑制褪黑素的分泌，这一点是毫无争议的。\n结构：第一句主干是 Melanopsin is sensitive to light，with wavelengths of around 480 nanometres 是介词短语作后置定语；squarely in the spectrum's blue zone 是补充说明。第二句 That such light blocks melatonin 是主语从句，作全句主语，is uncontroversial 是谓语。", "keys": ["squarely 须体现强调义（正正好好／不偏不倚地落在），译成「恰好」程度偏弱", "第一句主干与后置定语识别正确", "第二句识别出 That 引导的主语从句", "uncontroversial 译对（毫无争议的），thus 的承接关系译出"], "explain": "你 9.18 反馈里这两句整体译得对，唯一偏软的是 squarely——它的词典义是「正正好好、不偏不倚地」，属于强调副词，程度比「恰好」强。另一处要留神的是 uncontroversial：un- + controversial（有争议的），译反就前功尽弃。", "_id": 19}, {"id": 20, "type": "short", "rows": 5, "kp": "词汇精读", "stem": "（1）写出 eschew 的三个常见搭配和 circadian 的三个常见搭配。\n（2）说明 eschew 与 avoid、shun 在语体与语义上的差别，并写出它的语法要求。", "answer": "（1）eschew：eschew bad habits（摒弃坏习惯）／eschew violence（远离暴力）／eschew publicity（避开公众关注）。circadian：circadian clock（生物钟）／circadian rhythm（昼夜节律）／circadian cycle（昼夜循环周期）。\n（2）eschew 是正式书面语，指主动、刻意地避开某事；avoid 是通用词，只表示「避免、躲开」，不带语体色彩；shun 指「刻意回避、远离某人」，对象多是人或群体，带有更明确的主观疏远意味。语法上 eschew 是及物动词，后面直接接名词或动名词，例如 eschew using blue light。", "keys": ["eschew 至少写出 3 个正确搭配", "circadian 至少写出 3 个正确搭配", "说明 eschew 的正式书面语体与「刻意避开」义", "指出 eschew 是及物动词，后接名词或动名词"], "explain": "你反馈里已经整理了近义链 avoid → shun、反义链 embrace → pursue，整理得很完整，本次要检验的是能否**调用**出来。重点：eschew 的语法限制（及物、接名词或动名词）比释义更容易被考到，出现在翻译和写作里时，写成 eschew to do 就是错的。", "_id": 20}]}]};
+const QUIZID = "2026-09-19";
+const KEY = "quiz_" + QUIZID;
+const TOTAL = 20;
+
+// ---- 状态存取 ----
+let state = JSON.parse(localStorage.getItem(KEY) || "{}");
+
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+function answeredCount(){
+  let n = 0;
+  QUIZ.sections.forEach(s => s.questions.forEach((q, i) => {
+    const id = q._id;
+    const v = state[id];
+    if (q.type === "choice") { if (v) n++; }
+    else if (q.type === "fill") {
+      if (v && Object.values(v).some(x => (x||"").trim())) n++;
+    }
+    else { if (v && v.trim()) n++; }
+  }));
+  return n;
+}
+
+function updateProgress(){
+  const n = answeredCount();
+  const pct = Math.round(n / TOTAL * 100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("ptext").textContent = `已作答 ${n} / ${TOTAL}`;
+  document.getElementById("tbCount").textContent = `${n} / ${TOTAL}`;
+  document.getElementById("doneTip").classList.toggle("show", n >= TOTAL);
+}
+
+function flashSaved(n){
+  const el = document.querySelector(`.saved[data-saved="${n}"]`);
+  if (!el) return;
+  el.textContent = "已保存";
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 1200);
+}
+
+// ---- 绑定交互 ----
+document.querySelectorAll(".opt input").forEach(inp => {
+  inp.addEventListener("change", e => {
+    const n = +e.target.name.replace("q", "");
+    state[n] = e.target.value;
+    save(); updateProgress(); flashSaved(n);
+  });
+});
+
+document.querySelectorAll(".fillin").forEach(inp => {
+  inp.addEventListener("input", e => {
+    const n = e.target.dataset.q, b = e.target.dataset.b;
+    state[n] = state[n] || {};
+    state[n][b] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+document.querySelectorAll(".shortin,.transin").forEach(ta => {
+  ta.addEventListener("input", e => {
+    const n = e.target.dataset.q;
+    state[n] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+// 查看解析
+document.querySelectorAll(".btn-ans").forEach(b => {
+  b.addEventListener("click", () => {
+    const n = b.dataset.q;
+    const box = document.querySelector(`.ansbox[data-ans="${n}"]`);
+    const open = !box.hidden;
+    box.hidden = open;
+    b.textContent = open ? "查看解析" : "收起解析";
+  });
+});
+
+document.getElementById("btnRevealAll").addEventListener("click", function(){
+  const anyHidden = [...document.querySelectorAll(".ansbox")].some(b => b.hidden);
+  document.querySelectorAll(".ansbox").forEach(b => b.hidden = !anyHidden);
+  document.querySelectorAll(".btn-ans").forEach(b => {
+    b.textContent = anyHidden ? "收起解析" : "查看解析";
+  });
+  this.textContent = anyHidden ? "收起全部解析" : "展开全部解析";
+});
+
+// 清空
+document.getElementById("btnReset").addEventListener("click", () => {
+  if (!confirm("确定清空全部作答？此操作不可撤销。")) return;
+  state = {}; save();
+  document.querySelectorAll(".opt input").forEach(i => i.checked = false);
+  document.querySelectorAll(".fillin,.shortin,.transin").forEach(i => i.value = "");
+  updateProgress();
+});
+
+// ---- 导出答案 ----
+function buildExport(){
+  const L = [];
+  L.push(`# ${QUIZ.title} — 我的作答`);
+  L.push("");
+  L.push(`日期：${QUIZ.date}`);
+  L.push(`完成：${answeredCount()} / ${TOTAL} 题`);
+  L.push("");
+  const tname = {choice:"单选", fill:"填空", short:"问答", translate:"长难句翻译"};
+  QUIZ.sections.forEach(s => {
+    L.push(`## ${s.name}`);
+    L.push("");
+    s.questions.forEach(q => {
+      const v = state[q._id];
+      L.push(`### ${q._id}. [${tname[q.type]}]`);
+      L.push(q.stem);
+      L.push("");
+      if (q.type === "choice") {
+        L.push(`**我的答案：** ${v ? v : "（未作答）"}`);
+      } else if (q.type === "fill") {
+        const arr = [];
+        for (let i = 0; i < (q.blanks || 1); i++) {
+          const k = String(i);
+          arr.push(`第${i+1}空：${(v && v[k]) ? v[k] : "（空）"}`);
+        }
+        L.push(`**我的答案：** ${arr.join("　")}`);
+      } else {
+        L.push(`**我的答案：**`);
+        L.push("");
+        L.push(v && v.trim() ? v : "（未作答）");
+      }
+      L.push("");
+    });
+  });
+  return L.join("\n");
+}
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  document.getElementById("exportArea").value = buildExport();
+  document.getElementById("modal").classList.add("show");
+});
+document.getElementById("btnCloseModal").addEventListener("click", () => {
+  document.getElementById("modal").classList.remove("show");
+});
+document.getElementById("btnDownload").addEventListener("click", () => {
+  const blob = new Blob([buildExport()], {type:"text/markdown;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${QUIZID}-我的作答.md`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") e.target.classList.remove("show");
+});
+
+// ---- 恢复状态 ----
+(function restore(){
+  document.querySelectorAll(".opt input").forEach(inp => {
+    const n = +inp.name.replace("q", "");
+    if (state[n] === inp.value) inp.checked = true;
+  });
+  document.querySelectorAll(".fillin").forEach(inp => {
+    const n = inp.dataset.q, b = inp.dataset.b;
+    if (state[n] && state[n][b] != null) inp.value = state[n][b];
+  });
+  document.querySelectorAll(".shortin,.transin").forEach(ta => {
+    const n = ta.dataset.q;
+    if (state[n] != null) ta.value = state[n];
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
