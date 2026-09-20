@@ -119,6 +119,48 @@ source_file: kb/raw/xxx.md
 - [ ] sources 页与 raw 文件一一对应，未按年份/科目拆碎
 - [ ] 提醒用户核查后提交 git
 
+## 提交与推送（本仓库特有）
+
+仓库 `Huangzz11/my-wiki-kb` 挂着两条自动推送链（每日 08:00 热点候选、22:30 考研测验），
+手工提交前**必须先 fetch + rebase**，否则 push 会被拒。
+
+```bash
+git config user.name Huangzz11
+git config user.email Huangzz11@users.noreply.github.com
+git add -A && git commit -m "..."
+git fetch origin main
+git rebase origin/main      # 有冲突就解
+git push origin main
+```
+
+- 远端走 SSH over 443：`ssh://git@ssh.github.com:443/Huangzz11/my-wiki-kb.git`（大陆直连 HTTPS 不稳）。
+- **冲突高发文件**：`kb/wiki/index.md`、`kb/wiki/log.md`。两边都是「追加」性质，
+  冲突时必须**逐块合并、两方都保留**，禁止用 `--ours` / `--theirs` 整文件覆盖。
+- rebase 后仍被拒，多半是远端又多了定时任务提交，再 `git fetch` 一次即可。
+
+### 仓库受损时的恢复（已实际发生过一次）
+
+症状：`.git/refs/` 消失、`git log` 报 not a git repository、对象库缺失（多由中断的 rebase 引起）。
+
+```bash
+# 1. 先确认工作区文件仍在（笔记、图卡、元数据文件都只是普通文件，不受 .git 损坏影响）
+# 2. 从远端重新克隆一份干净仓库
+git clone ssh://git@ssh.github.com:443/Huangzz11/my-wiki-kb.git _kb-fresh
+# 3. 把工作区里多出来的新文件复制进 _kb-fresh，并逐一 diff
+#    index.md / log.md / README.md / 热点候选目录，确认没有遗漏任何本地改动
+# 4. 在 _kb-fresh 里提交并 push
+```
+
+**若原目录或其子目录被进程占用、无法整体 `mv` 改名**：不要强行删除，改为**只替换 `.git`**：
+
+```bash
+mv .git .git-broken-YYYYMMDD
+cp -r ../_kb-fresh/.git .git
+git checkout -- .        # 把工作区对齐到 HEAD
+```
+
+占用者通常是残留的定时任务进程。若子目录改名失败而 `.git` 改名成功，说明锁在子目录上，替换法可用。
+
 ## 边界与注意事项
 
 - `kb/raw/` 只读；`kb/wiki/` 全权归本 Skill 维护。
