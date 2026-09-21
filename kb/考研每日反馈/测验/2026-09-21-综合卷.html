@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考研每日测验 · 9.21 综合卷（素材：9.19 反馈 + 拽上岸第三讲重点笔记）</title>
+<style>
+:root{
+  --bg:#f7f8fb; --card:#fff; --ink:#1c2430; --sub:#60708a;
+  --line:#e3e8f0; --blue:#2F5B9E; --blue-l:#e8eef8;
+  --green:#1f8a52; --green-l:#e6f5ec;
+  --amber:#b4740a; --amber-l:#fdf3e0;
+  --red:#c0392b; --red-l:#fdeceb;
+  --violet:#6b4ea8; --violet-l:#f0ebfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+    "Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.7;
+  padding:0 0 120px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+/* 顶部 */
+header{
+  background:linear-gradient(135deg,#2F5B9E 0%,#40699f 60%,#5b7fb5 100%);
+  color:#fff;padding:34px 0 26px;margin-bottom:24px;
+  box-shadow:0 2px 14px rgba(47,91,158,.18);
+}
+header h1{font-size:23px;font-weight:650;letter-spacing:.3px;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.85}
+.statline{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chip{
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);
+  border-radius:999px;padding:4px 13px;font-size:12.5px;backdrop-filter:blur(4px)
+}
+
+/* 进度条 */
+.progress-sticky{
+  position:sticky;top:0;z-index:50;background:rgba(247,248,251,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  padding:10px 0;margin-bottom:8px;
+}
+.pbar{height:7px;background:#e6eaf2;border-radius:99px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,#2F5B9E,#5b8fd4);
+  border-radius:99px;transition:width .35s ease}
+.ptext{font-size:12.5px;color:var(--sub);margin-top:6px;display:flex;
+  justify-content:space-between}
+
+/* 分区 */
+.sec{margin:30px 0 0}
+.sec h2{
+  font-size:16.5px;font-weight:640;color:var(--blue);
+  display:flex;align-items:center;gap:9px;padding-bottom:9px;
+  border-bottom:2px solid var(--blue-l);margin-bottom:16px;
+}
+.dot{width:9px;height:9px;border-radius:3px;background:var(--blue);
+  display:inline-block;flex:0 0 auto}
+.secmeta{margin-left:auto;font-size:12px;color:var(--sub);font-weight:400}
+
+/* 题目卡片 */
+.q{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:17px 19px;margin-bottom:13px;transition:border-color .2s,box-shadow .2s;
+}
+.q:focus-within{border-color:#b9cdea;box-shadow:0 3px 14px rgba(47,91,158,.09)}
+.qhead{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.qno{
+  width:26px;height:26px;border-radius:8px;background:var(--blue);
+  color:#fff;font-size:13px;font-weight:600;display:flex;
+  align-items:center;justify-content:center;flex:0 0 auto;
+}
+.qtag{font-size:11.5px;padding:2px 9px;border-radius:6px;font-weight:500}
+.t-choice{background:var(--blue-l);color:var(--blue)}
+.t-fill{background:var(--green-l);color:var(--green)}
+.t-short{background:var(--violet-l);color:var(--violet)}
+.t-translate{background:var(--amber-l);color:var(--amber)}
+.kp{font-size:11.5px;color:var(--sub);margin-left:auto}
+.stem{font-size:14.8px;margin-bottom:12px;white-space:pre-wrap}
+
+/* 单选 */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 13px;
+  border:1px solid var(--line);border-radius:9px;cursor:pointer;
+  transition:all .16s;font-size:14.2px;
+}
+.opt:hover{background:#f4f7fc;border-color:#c3d5ee}
+.opt input{display:none}
+.opt .letter{
+  width:21px;height:21px;border-radius:6px;background:#eef1f6;color:var(--sub);
+  font-size:12px;font-weight:600;display:flex;align-items:center;
+  justify-content:center;flex:0 0 auto;margin-top:2px;transition:all .16s;
+}
+.opt input:checked~.letter{background:var(--blue);color:#fff}
+.opt:has(input:checked){background:var(--blue-l);border-color:#9dbde6}
+.otext{flex:1}
+
+/* 填空 */
+.fills{display:flex;flex-direction:column;gap:8px}
+.fillin{
+  font-family:inherit;font-size:14.2px;padding:9px 13px;
+  border:1px solid var(--line);border-radius:8px;background:#fcfdff;
+  transition:all .16s;width:100%;
+}
+.fillin:focus{outline:none;border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 文本域 */
+.shortin,.transin{
+  font-family:inherit;font-size:14.2px;line-height:1.75;padding:11px 14px;
+  border:1px solid var(--line);border-radius:9px;background:#fcfdff;
+  width:100%;resize:vertical;transition:all .16s;
+}
+.shortin:focus,.transin:focus{outline:none;border-color:var(--blue);
+  background:#fff;box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 按钮与解析 */
+.qfoot{display:flex;align-items:center;gap:11px;margin-top:11px}
+.btn-ans{
+  font-family:inherit;font-size:12.5px;padding:5px 13px;border-radius:7px;
+  border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;
+  transition:all .16s;
+}
+.btn-ans:hover{background:var(--blue-l);border-color:#a8c4e8;color:var(--blue)}
+.saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
+.saved.show{opacity:1}
+.ansbox{
+  margin-top:12px;padding:13px 15px;background:#fafbfd;
+  border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-size:13.8px;
+}
+.ansline{margin-bottom:8px;display:flex;gap:9px;line-height:1.7}
+.ansline:last-child{margin-bottom:0}
+.ansline b{
+  flex:0 0 auto;color:var(--blue);font-size:12px;font-weight:640;
+  background:var(--blue-l);padding:2px 8px;border-radius:5px;height:fit-content;
+  margin-top:3px;
+}
+.ansline .got{color:var(--green);font-weight:600}
+
+/* 底部操作栏 */
+.toolbar{
+  position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);padding:12px 20px;z-index:60;
+  backdrop-filter:blur(10px);box-shadow:0 -2px 16px rgba(28,36,48,.07);
+}
+.tb-inner{max-width:820px;margin:0 auto;display:flex;
+  align-items:center;gap:11px;flex-wrap:wrap}
+.btn{
+  font-family:inherit;font-size:13.5px;padding:9px 19px;border-radius:9px;
+  border:none;cursor:pointer;font-weight:530;transition:all .16s;
+}
+.btn-main{background:var(--blue);color:#fff}
+.btn-main:hover{background:#264d87;transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--sub);border:1px solid var(--line)}
+.btn-ghost:hover{background:#f4f6fa;color:var(--ink)}
+.tb-count{font-size:13px;color:var(--sub);margin-left:auto}
+
+/* 完成提示 */
+.done-tip{
+  margin-top:22px;padding:18px 20px;border-radius:12px;
+  background:var(--green-l);border:1px solid #bfe5ce;color:#14603a;
+  font-size:14px;display:none;
+}
+.done-tip.show{display:block}
+.done-tip b{display:block;margin-bottom:6px;font-size:15px}
+
+/* 答案导出弹层 */
+.modal{
+  position:fixed;inset:0;background:rgba(20,28,40,.5);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:#fff;border-radius:14px;max-width:660px;width:100%;
+  max-height:82vh;display:flex;flex-direction:column;overflow:hidden;
+}
+.modal-head{padding:17px 21px;border-bottom:1px solid var(--line);
+  font-weight:620;font-size:15.5px;color:var(--blue)}
+.modal-body{padding:18px 21px;overflow-y:auto;flex:1}
+.modal-body textarea{
+  width:100%;height:340px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.65;border:1px solid var(--line);
+  border-radius:9px;padding:13px;background:#fafbfd;resize:vertical;
+}
+.modal-foot{padding:14px 21px;border-top:1px solid var(--line);
+  display:flex;gap:10px;justify-content:flex-end}
+.modal-tip{font-size:12.5px;color:var(--sub);margin-bottom:11px;line-height:1.65}
+
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  header{padding:26px 0 20px}
+  header h1{font-size:19px}
+  .q{padding:14px 15px}
+  .stem{font-size:14.2px}
+  .tb-count{display:none}
+  .kp{margin-left:0;width:100%}
+}
+@media print{
+  .toolbar,.btn-ans,.progress-sticky{display:none}
+  .ansbox[hidden]{display:block!important}
+  .q{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>考研每日测验 · 9.21 综合卷（素材：9.19 反馈 + 拽上岸第三讲重点笔记）</h1>
+    <div class="meta">2026-09-21 · 共 20 题 · 今晚 22:30 自动生成</div>
+    <div class="statline">
+      <span class="chip">单选 11</span>
+      <span class="chip">填空 2</span>
+      <span class="chip">问答 5</span>
+      <span class="chip">长难句 2</span>
+    </div>
+  </div>
+</header>
+
+<div class="progress-sticky">
+  <div class="wrap">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <div class="ptext">
+      <span id="ptext">已作答 0 / 20</span>
+      <span>进度自动保存，刷新不丢</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  
+<section class="sec">
+  <h2><span class="dot"></span>一、专业课 · 国际传播与答题方法（7 题）
+    <span class="secmeta">7 题</span></h2>
+  
+<div class="q" data-q="1" data-type="short">
+  <div class="qhead">
+    <span class="qno">1</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">修昔底德陷阱</span>
+  </div>
+  <div class="stem">（1）「修昔底德陷阱」由谁提出？说法源自哪一历史事件？
+（2）用一句话概括它的核心逻辑（提示：新兴大国与守成大国之间发生了什么）。
+（3）在国际传播的题目里，这个陷阱通常用来解释什么现象？</div>
+  <textarea class="shortin" data-q="1" rows="7" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="1">查看解析</button>
+    <span class="saved" data-saved="1"></span>
+  </div>
+  <div class="ansbox" data-ans="1" hidden><div class="ansline"><b>参考答案</b>（1）由美国哈佛大学教授格雷厄姆·艾利森提出，说法源自古希腊历史学家修昔底德对伯罗奔尼撒战争的记述。
+（2）核心逻辑：雅典的崛起给斯巴达带来恐惧，使战争变得不可避免——即一个新崛起的大国必然会挑战守成大国的地位，而守成大国也必然会采取措施进行遏制和打压，两者的冲突甚至战争在所难免。
+（3）在国际传播题里，用来解释西方对中国崛起的结构性恐惧与战略打压，进而说明中国国际传播面临的「信任赤字／话语困境」的深层国际政治根源，为「构建更有效力的国际传播体系」提供必要性论证。</div><div class="ansline"><b>得分点</b>提, 出, 者, 艾, 利, 森, （, 1, 分, ）, ；, 源, 自, 伯, 罗, 奔, 尼, 撒, 战, 争, ／, 修, 昔, 底, 德, （, 1, 分, ）, ；, 新, 兴, 大, 国, 挑, 战, 守, 成, 大, 国,  , +,  , 守, 成, 大, 国, 遏, 制, 打, 压, （, 2, 分, ）, ；, 用, 于, 解, 释, 西, 方, 对, 华, 战, 略, 焦, 虑, ／, 国, 际, 传, 播, 困, 境, 根, 源, （, 1, 分, ）</div><div class="ansline"><b>解析</b>三个采分点别混：①提出者是**格雷厄姆·艾利森**（哈佛），不是修昔底德本人——修昔底德只是「说法源头」；②历史事件是**伯罗奔尼撒战争**（雅典 vs 斯巴达）；③答国际传播题时要落到「结构性恐惧→话语权受压→所以要建强国际传播体系」的因果链上，只解释名词不给落地分。</div></div>
+</div>
+<div class="q" data-q="2" data-type="short">
+  <div class="qhead">
+    <span class="qno">2</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">塔西佗陷阱</span>
+  </div>
+  <div class="stem">（1）「塔西佗陷阱」得名于谁？它指的是什么现象？
+（2）在公共卫生事件、突发事件舆情应对的题目里，这个陷阱一般用来说明什么问题？</div>
+  <textarea class="shortin" data-q="2" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="2">查看解析</button>
+    <span class="saved" data-saved="2"></span>
+  </div>
+  <div class="ansbox" data-ans="2" hidden><div class="ansline"><b>参考答案</b>（1）得名于古罗马时代的历史学家塔西佗。后被引申为一种社会现象：指当政府部门或某一组织失去公信力时，无论说真话还是假话，做好事还是坏事，都会被认为是说假话、做坏事。
+（2）在突发事件／公共卫生事件舆情题里，用于说明：政府或机构的公信力一旦受损，后续所有信息发布都会被「先验地质疑」，形成「说什么都不信」的恶性循环；因此应对的关键不只是「及时发声」，而是日常公信力的长期积累与信息公开的制度化。</div><div class="ansline"><b>得分点</b>得, 名, 塔, 西, 佗, （, 古, 罗, 马, 历, 史, 学, 家, ）, （, 1, 分, ）, ；, 失, 去, 公, 信, 力, 后, 真, 话, 假, 话, 都, 被, 否, 定, （, 2, 分, ）, ；, 用, 来, 说, 明, 突, 发, 事, 件, 中, 政, 府, 公, 信, 力, 受, 损, →, 信, 息, 发, 布, 失, 效, （, 2, 分, ）, ；, 点, 出, 「, 公, 信, 力, 需, 日, 常, 积, 累, 、, 非, 临, 场, 可, 补, 」, （, 1, 分, ，, 加, 分, 点, ）</div><div class="ansline"><b>解析</b>这题的深水区在第二问。只答出定义是名词解释水平；能把它接到「舆情应对的信任前提」上，才是论述题水平。另外必须点出一个前提：这个陷阱的成立条件是**公信力已经失去**——不是所有质疑都叫塔西佗陷阱，别滥用。做笔记时把「修昔底德陷阱」和「塔西佗陷阱」放一起对比记，两个都出自历史学家名字，容易串。区分抓手：**修昔底德管外部（国与国），塔西佗管内部（官与民）**。</div></div>
+</div>
+<div class="q" data-q="3" data-type="short">
+  <div class="qhead">
+    <span class="qno">3</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">共情传播</span>
+  </div>
+  <div class="stem">（1）什么是「共情传播」？它在社交媒体时代成立的原因是什么？
+（2）笔记中提到共情传播通过什么方式引导受众？受众由此产生的解码方式叫什么？最终达到什么效果？</div>
+  <textarea class="shortin" data-q="3" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="3">查看解析</button>
+    <span class="saved" data-saved="3"></span>
+  </div>
+  <div class="ansbox" data-ans="3" hidden><div class="ansline"><b>参考答案</b>（1）共情传播指通过唤起受众情感共鸣来达成传播效果的传播方式。它在社交媒体时代成立的原因：社交媒体时代情绪化信息的传播速度远快于理性讨论，情感比事实更容易获得转发与扩散。
+（2）共情传播通过「拉近心理距离」（消解传受双方的心理距离），引导受众产生「偏好式解码」——即受众倾向于按传播者预期的方向理解信息，产生同向的认知和情感反应，从而减少文化折扣、提升传播效果。</div><div class="ansline"><b>得分点</b>共, 情, 传, 播, 定, 义, ＝, 以, 情, 感, 共, 鸣, 达, 成, 传, 播, （, 1, 分, ）, ；, 原, 因, ＝, 社, 交, 媒, 体, 时, 代, 情, 绪, 化, 信, 息, 传, 播, 快, 于, 理, 性, 讨, 论, （, 2, 分, ）, ；, 方, 式, ＝, 拉, 近, 心, 理, 距, 离, （, 1, 分, ）, ；, 解, 码, 方, 式, ＝, 偏, 好, 式, 解, 码, （, 1, 分, ）, ；, 效, 果, ＝, 产, 生, 同, 向, 认, 知, 与, 情, 感, 反, 应, ／, 减, 少, 文, 化, 折, 扣, （, 1, 分, ）</div><div class="ansline"><b>解析</b>「偏好式解码」是这里最值钱的术语（霍尔的三种解码立场之一：偏好式／协商式／对抗式）。如果你只写了「产生共鸣」而没写出这个术语，按意思给部分分，但术语分丢了。记忆抓手：霍尔三解码——**偏好式（完全按编码者意图读）→ 协商式（部分接受）→ 对抗式（反过来读）**；共情传播要的是把受众拉向第一档。这一条是 9.18 那本题「霍尔解码」和今天这题的同源考点，务必串起来背。</div></div>
+</div>
+<div class="q" data-q="4" data-type="choice">
+  <div class="qhead">
+    <span class="qno">4</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">国际传播体系建设（十五五规划）</span>
+  </div>
+  <div class="stem">2026 年「十五五」规划纲要就国际传播提出要求，下列表述与纲要精神**不一致**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q4" value="A"><span class="letter">A</span><span class="otext">提升中华文明传播力影响力，加快构建中国话语和中国叙事体系</span></label><label class="opt"><input type="radio" name="q4" value="B"><span class="letter">B</span><span class="otext">提升国际传播效能，加强对外文化交流合作，展现可信、可爱、可敬的中国形象</span></label><label class="opt"><input type="radio" name="q4" value="C"><span class="letter">C</span><span class="otext">构建多渠道、立体式对外传播格局，全面提升国际话语权</span></label><label class="opt"><input type="radio" name="q4" value="D"><span class="letter">D</span><span class="otext">推动中国故事单一化、集中化表达，优先输出统一口径的官方叙事</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="4">查看解析</button>
+    <span class="saved" data-saved="4"></span>
+  </div>
+  <div class="ansbox" data-ans="4" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>D 项内部就自相矛盾——纲要原文明确要求推动中国故事和中国声音**全球化、区域化、分众化**表达。「分众化」恰恰是反对「单一化、集中化」的。A、B、C 三项均为纲要原话。本题的设错点在「把三个『化』反着写」，这也是政治选择题最常见的设错手法：**改动原文里的程度词或方向词**。记忆抓手：中国故事三「化」——**全球化、区域化、分众化**，一句话记住「对不同国家、不同区域、不同人群讲不同的话」。</div></div>
+</div>
+<div class="q" data-q="5" data-type="choice">
+  <div class="qhead">
+    <span class="qno">5</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">国际传播主体与载体</span>
+  </div>
+  <div class="stem">根据「构建更有效力的国际传播体系」的相关表述，下列关于培育国际传播主体的要求，表述正确的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q5" value="A"><span class="letter">A</span><span class="otext">培育全球化、市场化、专业化的国际传播主体，增强主流媒体国际传播能力</span></label><label class="opt"><input type="radio" name="q5" value="B"><span class="letter">B</span><span class="otext">培育本土化、行政化、单一化的国际传播主体，以主流媒体为唯一渠道</span></label><label class="opt"><input type="radio" name="q5" value="C"><span class="letter">C</span><span class="otext">构建广播电视与新媒体各自独立、互不衔接的传播矩阵</span></label><label class="opt"><input type="radio" name="q5" value="D"><span class="letter">D</span><span class="otext">以政府为唯一对外发声主体，社会组织与企业不参与国际传播</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="5">查看解析</button>
+    <span class="saved" data-saved="5"></span>
+  </div>
+  <div class="ansbox" data-ans="5" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>A 是原文表述。B 把「全球化、市场化、专业化」偷换为「本土化、行政化、单一化」，是完全反向的干扰项；C 错在把「构建广播电视与新媒体**国际传播矩阵**」拆成互不衔接——矩阵的要义正是协同；D 错在把主体单一化，原文明确要「鼓励文化企业国际化经营」，主体是多元的。本条还有一个高频考点藏在后面：**推动优质网络文学、网络游戏、影视动漫、精品展览等出海**——注意它列的四类是「网络文学、网络游戏、影视动漫、精品展览」，这四个具体的文化产品门类常被拿来设错。</div></div>
+</div>
+<div class="q" data-q="6" data-type="choice">
+  <div class="qhead">
+    <span class="qno">6</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">论述题首段写法（导学课2）</span>
+  </div>
+  <div class="stem">关于论述题第一段的开头写法，讲义把它归为「摘要式」与「引言式」两大类。下列对二者的区分，正确的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q6" value="A"><span class="letter">A</span><span class="otext">摘要式＝概念＋问题（论点）；引言式可走「理论、名言＋问题」或「背景＋问题」两条路</span></label><label class="opt"><input type="radio" name="q6" value="B"><span class="letter">B</span><span class="otext">摘要式＝背景＋问题；引言式＝概念＋问题</span></label><label class="opt"><input type="radio" name="q6" value="C"><span class="letter">C</span><span class="otext">两者本质相同，都是为了凑字数，写法上可以互换</span></label><label class="opt"><input type="radio" name="q6" value="D"><span class="letter">D</span><span class="otext">引言式只能用名人名言开头，使用背景开头属于摘要式</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="6">查看解析</button>
+    <span class="saved" data-saved="6"></span>
+  </div>
+  <div class="ansbox" data-ans="6" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>讲义图给的框架是清晰的二分：**摘要式**（一个出口）＝概念＋问题（亮出论点）；**引言式**（三个出口）＝①理论、名言＋问题 ②背景＋问题 ③大背景式的套具。D 项是典型错误——把「背景＋问题」错划进摘要式，实际上它是引言式的分支之一。C 项「本质相同」是错的：摘要式开门见山先说概念，引言式先铺垫再落到问题，两者的**铺垫长度**不同。记忆抓手：**摘要式先给答案，引言式先给场子**。注意讲义里还专门提了一句「大背背景式的套具」——那是引言式第三种，指的是成套的背景模板。</div></div>
+</div>
+<div class="q" data-q="7" data-type="fill">
+  <div class="qhead">
+    <span class="qno">7</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">媒介系统与社会世界六维</span>
+  </div>
+  <div class="stem">讲义用同心圆梳理「主题词衍生出的理论、背景」。请补全各维度的名称：
+
+（1）内圈圆心为____。
+（2）内圈的四个蓝色/红色扇区依次为：媒介组织·传播者、____、____、受众·用户。（按讲义图中从上到下顺序）
+（3）外圈统称为____，其六个维度依次为：政治、____、____、外交与国际关系、社会思潮与群体、国家建设与社会治理。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="7" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="3" placeholder="第 4 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="4" placeholder="第 5 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="5" placeholder="第 6 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="7">查看解析</button>
+    <span class="saved" data-saved="7"></span>
+  </div>
+  <div class="ansbox" data-ans="7" hidden><div class="ansline"><b>参考答案</b>（1）媒介系统
+（2）媒介技术、内容·产品
+（3）社会世界；经济、文化</div><div class="ansline"><b>得分点</b>每, 空,  , 1,  , 分, ，, 共,  , 6,  , 分, ：, （, 1, ）, 媒, 介, 系, 统, ；, （, 2, ）, 媒, 介, 技, 术, 、, 内, 容, ·, 产, 品, ；, （, 3, ）, 社, 会, 世, 界, 、, 经, 济, 、, 文, 化</div><div class="ansline"><b>解析</b>这张图的用法是：写论述题要「从主题词衍生出理论与背景」时，就拿这个同心圆当检索清单——先在内圈四要素里找落点（是媒介技术问题？还是内容产品问题？），再到外圈六维里找外部背景（政治／经济／文化……）。注意外圈六维的完整清单是**政治、经济、文化、外交与国际关系、社会思潮与群体、国家建设与社会治理**共六项。这张图和你 9.18 反馈里那张「社会框架 PETCSI」是配套的：**同心圆负责找「在哪个层面」，PETCSI 负责给「具体维度」**。背图时建议自己动手画一遍，比看图记三遍有效。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>二、政治 · 科技自立自强与法治（8 题 · 全部单选）
+    <span class="secmeta">8 题</span></h2>
+  
+<div class="q" data-q="8" data-type="choice">
+  <div class="qhead">
+    <span class="qno">8</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">科技自立自强</span>
+  </div>
+  <div class="stem">「科技自立自强是国家强盛之基、安全之要。」关于这一论断，下列理解**不正确**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q8" value="A"><span class="letter">A</span><span class="otext">科技自立自强是国家强盛之基，说明科技创新在现代化建设全局中居于核心地位</span></label><label class="opt"><input type="radio" name="q8" value="B"><span class="letter">B</span><span class="otext">科技自立自强是安全之要，说明关键核心技术受制于人是最大的安全隐患</span></label><label class="opt"><input type="radio" name="q8" value="C"><span class="letter">C</span><span class="otext">科技自立自强意味着要关起门来搞研发，减少国际科技交流合作</span></label><label class="opt"><input type="radio" name="q8" value="D"><span class="letter">D</span><span class="otext">实现科技自立自强要打好关键核心技术攻坚战，强化国家战略科技力量</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="8">查看解析</button>
+    <span class="saved" data-saved="8"></span>
+  </div>
+  <div class="ansbox" data-ans="8" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>C 项错在把「自立自强」等同于「封闭自守」。自立自强的对立面是**依附性**，不是**开放性**——我们强调自主可控，同时坚定推进开放合作。这是本考点最常见的「过度引申式」干扰项。记忆抓手：**自立自强 ≠ 关门主义**，凡是把「自主」读成「排外」的选项一律排除。</div></div>
+</div>
+<div class="q" data-q="9" data-type="choice">
+  <div class="qhead">
+    <span class="qno">9</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">法治体系五大体系（回滚）</span>
+  </div>
+  <div class="stem">中国特色社会主义法治体系是一个系统完备的整体。若按「从立法到落地、从约束到保障、从国法到党内」的逻辑推导，下列排序与五大体系的构成**最吻合**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q9" value="A"><span class="letter">A</span><span class="otext">法律规范体系 → 法治实施体系 → 法治监督体系 → 法治保障体系 → 党内法规体系</span></label><label class="opt"><input type="radio" name="q9" value="B"><span class="letter">B</span><span class="otext">法治实施体系 → 法律规范体系 → 法治保障体系 → 法治监督体系 → 党内法规体系</span></label><label class="opt"><input type="radio" name="q9" value="C"><span class="letter">C</span><span class="otext">法律规范体系 → 法治监督体系 → 法治实施体系 → 党内法规体系 → 法治保障体系</span></label><label class="opt"><input type="radio" name="q9" value="D"><span class="letter">D</span><span class="otext">党内法规体系 → 法律规范体系 → 法治实施体系 → 法治监督体系 → 法治保障体系</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="9">查看解析</button>
+    <span class="saved" data-saved="9"></span>
+  </div>
+  <div class="ansbox" data-ans="9" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>这题你上次是**五空全空**，这次换成排序题再考一遍。正确链条仍然是：**规 → 实 → 监 → 保 → 党**（法律**规**范 → 法治**实**施 → 法治**监**督 → 法治**保**障 → **党**内法规）。B、C、D 三项打乱了「实施→监督→保障」的顺序，D 还把党内法规提到第一位——党内法规是体系的收口，不是起点。背诵顺序建议：先背这条五字链，再去填「以宪法为核心／以党章为根本」这类细节。**先骨架，后血肉。**</div></div>
+</div>
+<div class="q" data-q="10" data-type="choice">
+  <div class="qhead">
+    <span class="qno">10</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">法治道路核心要义（回滚）</span>
+  </div>
+  <div class="stem">中国特色社会主义法治道路的核心要义包含三个要点。若题目问「其中为法治道路提供**最根本保证**的是哪一条」，正确选项应是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q10" value="A"><span class="letter">A</span><span class="otext">坚持党的领导</span></label><label class="opt"><input type="radio" name="q10" value="B"><span class="letter">B</span><span class="otext">坚持中国特色社会主义制度</span></label><label class="opt"><input type="radio" name="q10" value="C"><span class="letter">C</span><span class="otext">贯彻中国特色社会主义法治理论</span></label><label class="opt"><input type="radio" name="q10" value="D"><span class="letter">D</span><span class="otext">坚持全面依法治国基本方略</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="10">查看解析</button>
+    <span class="saved" data-saved="10"></span>
+  </div>
+  <div class="ansbox" data-ans="10" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>上你答成「中国人民的爱国情怀和坚持奋斗」——那是**主观感受替换客观表述**，政治选择题的经典失分模式。答案必须是文件原话。记忆抓手：见「最根本」→ 落点必然是**党的领导**，只有三个后缀：坚强领导（成就来源）／最核心最根本的问题（统战）／最根本的保证（法治道路）。这道题换成了「给定三个要义让你挑」的问法，考点没变，检验的是你是否真的记住了对应关系。</div></div>
+</div>
+<div class="q" data-q="11" data-type="choice">
+  <div class="qhead">
+    <span class="qno">11</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">党的显著标志（回滚）</span>
+  </div>
+  <div class="stem">关于中国共产党的优良作风与鲜明品格，下列表述正确的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q11" value="A"><span class="letter">A</span><span class="otext">理论联系实际、密切联系群众、批评和自我批评，是党的三大优良作风；勇于自我革命是我们党区别于其他政党的显著标志</span></label><label class="opt"><input type="radio" name="q11" value="B"><span class="letter">B</span><span class="otext">理论联系实际、密切联系群众、批评和自我批评，连同「人民至上」，共同构成党的三大优良作风</span></label><label class="opt"><input type="radio" name="q11" value="C"><span class="letter">C</span><span class="otext">勇于自我革命是党的三大优良作风之一，是我们党区别于其他政党的显著标志</span></label><label class="opt"><input type="radio" name="q11" value="D"><span class="letter">D</span><span class="otext">党的三大优良作风与「勇于自我革命」均出自党的七大《论联合政府》报告</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="11">查看解析</button>
+    <span class="saved" data-saved="11"></span>
+  </div>
+  <div class="ansbox" data-ans="11" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>**这题是你 9.17 反馈里那处原始笔误的直接复现**——你当时把「三大优良作风」和「勇于自我革命」并列成一句，AI 补充明确提醒要拆开，你没改，9.18 测验就答错了。两条独立来源必须各背各的：① 党的**七大（1945）**：理论联系实际、密切联系群众、批评和自我批评，是**三大**优良作风（不是「三个」，不含「人民至上」）；② 党的**十九届六中全会《决议》**：**勇于自我革命**是区别于其他政党的显著标志。B 项塞进了「人民至上」，C 项把「自我革命」混进优良作风，D 项把两者都归到七大。这次再错，就要回去把 9.17 和 9.18 两份反馈里的这一条一起改掉。</div></div>
+</div>
+<div class="q" data-q="12" data-type="choice">
+  <div class="qhead">
+    <span class="qno">12</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">法治中国建设的工作布局</span>
+  </div>
+  <div class="stem">法治中国建设的工作布局可概括为「三个坚持」。下列**不属于**这一工作布局的是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q12" value="A"><span class="letter">A</span><span class="otext">坚持依法治国、依法执政、依法行政共同推进</span></label><label class="opt"><input type="radio" name="q12" value="B"><span class="letter">B</span><span class="otext">坚持法治国家、法治政府、法治社会一体建设</span></label><label class="opt"><input type="radio" name="q12" value="C"><span class="letter">C</span><span class="otext">坚持科学立法、严格执法、公正司法、全民守法全面推进</span></label><label class="opt"><input type="radio" name="q12" value="D"><span class="letter">D</span><span class="otext">坚持党的领导、人民当家作主、依法治国有机统一</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="12">查看解析</button>
+    <span class="saved" data-saved="12"></span>
+  </div>
+  <div class="ansbox" data-ans="12" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>「三个坚持」工作布局是：① 依法治国、依法执政、依法行政共同推进；② 法治国家、法治政府、法治社会一体建设；③ 科学立法、严格执法、公正司法、全民守法全面推进。D 项「党的领导、人民当家作主、依法治国有机统一」是**社会主义民主政治**的表述（三者有机统一是政治文明的核心命题），不属于法治中国建设的工作布局。这组三个「坚持」极容易和 D 项混淆——记法：**工作布局三个坚持全在「法」字上转（法治国家／依法执政／科学立法），D 项多了「人民当家作主」，是政治不是法治。**</div></div>
+</div>
+<div class="q" data-q="13" data-type="choice">
+  <div class="qhead">
+    <span class="qno">13</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">全面依法治国总抓手</span>
+  </div>
+  <div class="stem">全面推进依法治国涉及很多方面，在实际工作中必须有一个总揽全局、牵引各方的总抓手。这个总抓手是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q13" value="A"><span class="letter">A</span><span class="otext">建设中国特色社会主义法治体系</span></label><label class="opt"><input type="radio" name="q13" value="B"><span class="letter">B</span><span class="otext">建设社会主义法治国家</span></label><label class="opt"><input type="radio" name="q13" value="C"><span class="letter">C</span><span class="otext">全面贯彻实施宪法</span></label><label class="opt"><input type="radio" name="q13" value="D"><span class="letter">D</span><span class="otext">坚持依宪治国、依宪执政</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="13">查看解析</button>
+    <span class="saved" data-saved="13"></span>
+  </div>
+  <div class="ansbox" data-ans="13" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>**建设中国特色社会主义法治体系**是全面依法治国的**总抓手**。B 项「建设社会主义法治国家」是**总目标**；C、D 两项说的是宪法，宪法是**根本法**、依宪治国是**根本要求**，都不是「总抓手」。这组四个概念是高频连考点，建议做成一张对照表：总目标（法治国家）／总抓手（法治体系）／根本法（宪法）／根本要求（依宪治国、依宪执政）。记忆抓手：**抓「体系」——因为有体系才能抓住东西**。</div></div>
+</div>
+<div class="q" data-q="14" data-type="choice">
+  <div class="qhead">
+    <span class="qno">14</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">法治国家·政府·社会</span>
+  </div>
+  <div class="stem">关于法治国家、法治政府、法治社会三者的定位，下列对应正确的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q14" value="A"><span class="letter">A</span><span class="otext">法治国家是法治建设的目标，法治政府是建设法治国家的重点任务和主体工程，法治社会是构筑法治国家的基础</span></label><label class="opt"><input type="radio" name="q14" value="B"><span class="letter">B</span><span class="otext">法治政府是法治建设的目标，法治国家是重点任务，法治社会是主体工程</span></label><label class="opt"><input type="radio" name="q14" value="C"><span class="letter">C</span><span class="otext">法治社会是法治建设的目标，法治国家是基础，法治政府是重点任务</span></label><label class="opt"><input type="radio" name="q14" value="D"><span class="letter">D</span><span class="otext">三者是并列关系，没有主次之分，也没有目标与基础之分</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="14">查看解析</button>
+    <span class="saved" data-saved="14"></span>
+  </div>
+  <div class="ansbox" data-ans="14" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>A 是标准表述：**国家是目标、政府是重点任务和主体工程、社会是基础**。B、C 两项打乱了三者的定位词（这是最常见的设错方式——把定语整体换位）；D 项说「并列无主次」是错的，三者虽然「一体建设」，但定位各有分工。记忆抓手：**目标在前（国家），工程在中（政府），基础在下（社会）**——从大到小、从上到下排一遍。</div></div>
+</div>
+<div class="q" data-q="15" data-type="choice">
+  <div class="qhead">
+    <span class="qno">15</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">全过程人民民主（回滚）</span>
+  </div>
+  <div class="stem">「全过程人民民主」强调「四个相统一」。下列**不属于**这四个相统一的是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q15" value="A"><span class="letter">A</span><span class="otext">过程民主和成果民主相统一</span></label><label class="opt"><input type="radio" name="q15" value="B"><span class="letter">B</span><span class="otext">程序民主和实质民主相统一</span></label><label class="opt"><input type="radio" name="q15" value="C"><span class="letter">C</span><span class="otext">直接民主和间接民主相统一</span></label><label class="opt"><input type="radio" name="q15" value="D"><span class="letter">D</span><span class="otext">选举民主和协商民主相统一</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="15">查看解析</button>
+    <span class="saved" data-saved="15"></span>
+  </div>
+  <div class="ansbox" data-ans="15" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>上你选错了这一条（把包含项当成了不包含项）。四个相统一＝过程民主与成果民主、程序民主与实质民主、直接民主与间接民主、**人民民主与国家意志**。所以 D 项「选举民主和协商民主相统一」不在其中。记忆抓手：「四对」里有三对是「同一民主的两个侧面」（过程/成果、程序/实质、直接/间接），最后一对是「人民民主/国家意志」。**选举民主与协商民主是两种民主形式，不是一组统一**——这是本题唯一的坑，也是这组知识的唯一设错点。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>三、英语二 · 外刊精读与词汇（5 题）
+    <span class="secmeta">5 题</span></h2>
+  
+<div class="q" data-q="16" data-type="fill">
+  <div class="qhead">
+    <span class="qno">16</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">词汇回滚</span>
+  </div>
+  <div class="stem">根据中文提示写出英文单词或词组（只写英文）：
+（1）严厉打击、镇压（违法犯罪行为）：____
+（2）北美的大草原：____</div>
+  <div class="fills"><input class="fillin" type="text" data-q="16" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="16" data-b="1" placeholder="第 2 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="16">查看解析</button>
+    <span class="saved" data-saved="16"></span>
+  </div>
+  <div class="ansbox" data-ans="16" hidden><div class="ansline"><b>参考答案</b>（1）crack down on　（2）prairie</div><div class="ansline"><b>得分点</b>（, 1, ）, c, r, a, c, k,  , d, o, w, n,  , o, n, （, 1,  , 分, ，, 写,  , c, r, a, c, k,  , d, o, w, n,  , 也, 给, 分, ）, ；, （, 2, ）, p, r, a, i, r, i, e, （, 1,  , 分, ）</div><div class="ansline"><b>解析</b>这两条你上次都没答对：**crack down on** 你写成「崩塌」——「崩塌」是 **collapse**，crack down 是「打压」，动作方向相反；**prairie** 你写了个问号。记忆抓手：crack down 联想「警方扫荡」，它是个**朝外施压**的动作；collapse 才是「自己塌下来」。prairie／plain／plateau 三个一起记——**草原／平原／高原**，按「高度」排：prairie（草原）＜ plain（平原）＜ plateau（高原，词形也最长）。</div></div>
+</div>
+<div class="q" data-q="17" data-type="translate">
+  <div class="qhead">
+    <span class="qno">17</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">长难句翻译（比较级）</span>
+  </div>
+  <div class="stem">翻译下面这个句子，并指出其中的比较结构：
+
+Calabash grandpa&#x27;s gourd-selling videos, which turned him into an overnight internet sensation, are far more likely to be watched by netizens who feel nostalgic for a quieter, slower rural life than by those chasing commercial trends.</div>
+  <textarea class="transin" data-q="17" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="17">查看解析</button>
+    <span class="saved" data-saved="17"></span>
+  </div>
+  <div class="ansbox" data-ans="17" hidden><div class="ansline"><b>参考答案</b>参考译文：葫芦爷爷那些让他一夜之间成为网络红人的卖葫芦视频，被那些怀念更安静、更缓慢的乡村生活的网民观看的可能性，远远大于那些追逐商业潮流的人。
+主干：videos are far more likely to be watched by A than by B.
+比较结构：far more likely ... than ...（远远更可能……而不是……），比较对象是两类网民（netizens who feel nostalgic ... 与 those chasing commercial trends）。</div><div class="ansline"><b>得分点</b>①, 主, 干, 识, 别, 正, 确, （, v, i, d, e, o, s,  , +,  , a, r, e,  , m, o, r, e,  , l, i, k, e, l, y,  , t, o,  , b, e,  , w, a, t, c, h, e, d,  , b, y,  , A,  , t, h, a, n,  , b, y,  , B, ）, （, 2,  , 分, ）, ②, f, a, r,  , m, o, r, e,  , l, i, k, e, l, y,  , 的, 「, 远, 远, 更, 有, 可, 能, 」, 必, 须, 译, 出, ，, 不, 能, 只, 译, 「, 更, 有, 可, 能, 」, （, 1,  , 分, ）, ③, 非, 限, 制, 性, 定, 语, 从, 句,  , w, h, i, c, h,  , t, u, r, n, e, d,  , h, i, m,  , i, n, t, o,  , ., ., .,  , 译, 出, 「, 这, 使, 他, 成, 为, …, …, 」, 而, 不, 是, 硬, 译, 成, 前, 置, 定, 语, （, 1,  , 分, ）, ④, t, h, o, s, e,  , 译, 出, 「, 那, 些, …, …, 的, 人, 」, ，, 不, 能, 漏, （, 1,  , 分, ）, ⑤, n, o, s, t, a, l, g, i, c,  , f, o, r,  , 译, 出, 「, 怀, 念, ／, 怀, 旧, 」, 而, 非, 「, 悲, 伤, 」, （, 1,  , 分, ）</div><div class="ansline"><b>解析</b>**你上次的 P2 失分点就是漏译比较级**（把 far more likely 只译成「感到受到威胁」，丢了程度）。英二翻译里，**比较级和程度副词是硬扣分点**，far / much / far more 必须译出「远远、得多」。另外注意 `those` 作代词回指时必须译成「那些……的人」，不能省。这句的背景是 9.19 反馈里那篇外刊《Calabash grandpa cuts down viral gourds to reclaim quiet life》——用词跟反馈主题是同源的。</div></div>
+</div>
+<div class="q" data-q="18" data-type="translate">
+  <div class="qhead">
+    <span class="qno">18</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">词汇理解</span>
+  </div>
+  <div class="stem">翻译短语/短句，注意划线词的准确含义：
+
+（1）He cut down the viral gourds to **reclaim** a quiet life.
+（2）The trend is **squarely** in the hands of the audience.
+（3）Calabash grandpa **eschews** commercial endorsements.</div>
+  <textarea class="transin" data-q="18" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="18">查看解析</button>
+    <span class="saved" data-saved="18"></span>
+  </div>
+  <div class="ansbox" data-ans="18" hidden><div class="ansline"><b>参考答案</b>（1）他砍掉了那些走红的葫芦，以求**重拾／夺回**一份宁静的生活。
+（2）这一趋势**完全／恰恰**掌握在受众手中。
+（3）葫芦爷爷**回避／拒绝**商业代言。</div><div class="ansline"><b>得分点</b>（, 1, ）, r, e, c, l, a, i, m, ＝, 重, 拾, 、, 夺, 回, （, 1,  , 分, ）, ；, （, 2, ）, s, q, u, a, r, e, l, y, ＝, 完, 全, 地, 、, 确, 确, 实, 实, 地, （, 1,  , 分, ）, ；, （, 3, ）, e, s, c, h, e, w, ＝, 回, 避, 、, 避, 免, （, 1,  , 分, ）</div><div class="ansline"><b>解析</b>这三个词都是你 9.18／9.19 精读里出现过的。**reclaim** 别译成「声明」（那是 claim）；**squarely** 别译成「正方形地」——它是副词，意为「完全地、不偏不倚地」；**eschew** 的搭配常见形式是 **eschew + 名词**（eschew temptation / eschew violence），它比 avoid 更书面。记忆抓手：reclaim = re + claim，「再要回来」；squarely 联想「正方形摆得四平八稳」→ 完全地。</div></div>
+</div>
+<div class="q" data-q="19" data-type="short">
+  <div class="qhead">
+    <span class="qno">19</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">词汇精读方法</span>
+  </div>
+  <div class="stem">（1）写出 backdrop 的常见搭配（至少两个），并说明它的本义与引申义。
+（2）你在精读外刊时，如果遇到「认识每个词但读不懂整句」的情况，按什么顺序排查最有效？请给出你的方法（3 步以内）。</div>
+  <textarea class="shortin" data-q="19" rows="4" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="19">查看解析</button>
+    <span class="saved" data-saved="19"></span>
+  </div>
+  <div class="ansbox" data-ans="19" hidden><div class="ansline"><b>参考答案</b>（1）搭配：against the backdrop of ...（在……背景下）、as a backdrop to ...（作为……的陪衬／背景）、on a backdrop of ...。本义＝舞台布景、背景幕布；引申义＝（事件的）背景、大环境。
+（2）建议的排查顺序：
+① 先找**主干**（主语＋谓语＋宾语），把定语从句、插入语、介词短语全部暂时划掉；
+② 再看**逻辑连接词**（but / however / therefore / while / than），确定句内几层意思之间的关系（转折？因果？比较？）；
+③ 最后把划掉的部分**逐块挂回主干**，确认每一块修饰的是谁（尤其注意 those / which 的指代对象）。</div><div class="ansline"><b>得分点</b>（, 1, ）, 写, 出, 至, 少, 两, 个, 搭, 配, （, 1,  , 分, ）, ；, 本, 义, 舞, 台, 布, 景, （, 1,  , 分, ）, ；, 引, 申, 义, 背, 景, 、, 大, 环, 境, （, 1,  , 分, ）, 
+, （, 2, ）, 三, 点, 方, 法, 各,  , 1,  , 分, ：, 先, 抓, 主, 干, ／, 再, 找, 逻, 辑, 连, 接, 词, ／, 最, 后, 逐, 块, 挂, 回, 并, 确, 认, 指, 代, 。, 方, 法, 必, 须, 可, 操, 作, ，, 写, 「, 多, 读, 多, 练, 」, 不, 给, 分, 。</div><div class="ansline"><b>解析</b>第（2）问没有唯一答案，我看的是你的方法**能不能落地**。如果你答的是「多背单词」「多读几遍」，这属于没建立方法——精读卡壳 90% 不是词汇问题，是**主干没找出来**。你上次长难句漏译比较级，本质也是这个：你逐词读过去了，但没有先把主干和逻辑关系拎出来。建议固定一套动作，每次遇到长句都按这三步走，形成肌肉记忆。
+（3）顺带一提：backdrop 在 9.19 反馈里你是跟中文「背景幕布」一起记的，这个记法没问题，但考试考的是搭配（against the backdrop of），光记中文义拿不到分。</div></div>
+</div>
+<div class="q" data-q="20" data-type="short">
+  <div class="qhead">
+    <span class="qno">20</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">论述题首段方法（反思）</span>
+  </div>
+  <div class="stem">结合你今天学的「首段写法」，请为下面这道题**写一个引言式的开头段**（只需写第一段，150 字以内）：
+
+「请结合实例，论述中国国际传播能力建设面临的挑战与路径。」
+
+并在段后标注：你用的是引言式的哪一条子路径（理论、名言＋问题 / 背景＋问题 / 大背景式套具）。</div>
+  <textarea class="shortin" data-q="20" rows="4" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="20">查看解析</button>
+    <span class="saved" data-saved="20"></span>
+  </div>
+  <div class="ansbox" data-ans="20" hidden><div class="ansline"><b>参考答案</b>参考示例（背景＋问题路径）：
+当今世界正经历百年未有之大变局，中国日益走近世界舞台中央，但国际舆论格局「西强我弱」的态势尚未根本改变。中国故事能否被听懂、中国声音能否被采信，已成为关乎国家形象与安全的重要课题。然而，当前我国国际传播仍面临话语体系与叙事方式的双重困境，传播效能与大国地位尚不匹配。基于此，本文拟从……展开论述。
+
+（若用「理论、名言＋问题」路径，可引入：修昔底德陷阱所揭示的结构性恐惧，或共情传播理论对情感路径的强调。）</div><div class="ansline"><b>得分点</b>①, 符, 合, 引, 言, 式, 结, 构, ，, 先, 铺, 垫, 后, 落, 到, 问, 题, ／, 论, 点, （, 2,  , 分, ）, ②, 必, 须, 点, 出, 「, 问, 题, 」, 或, 亮, 出, 论, 点, ，, 不, 能, 只, 铺, 背, 景, 不, 收, 口, （, 2,  , 分, ）, ③, 能, 自, 然, 嵌, 入, 今, 天, 学, 的, 至, 少, 一, 个, 知, 识, 点, （, 修, 昔, 底, 德, 陷, 阱, ／, 共, 情, 传, 播, ／, 国, 际, 传, 播, 体, 系, ／, 十, 五, 五, 规, 划, 表, 述, ）, （, 1,  , 分, ）, ④, 段, 末, 标, 注, 所, 用, 子, 路, 径, （, 1,  , 分, ）</div><div class="ansline"><b>解析</b>这题考的是**你会不会用**，不是会不会背。讲义里那张图给你的是「入口清单」，真正的评分点是**铺垫与论点的衔接**——很多人的首段死在「背景写了一百字，问题一句没提」。对照检查两点：有没有一句明确的问题句／论点句？这句是不是出现在段末而不是段中？
+再强调讲义里的三个入口：① 理论、名言＋问题；② 背景＋问题；③ 大背景式套具。第三种最省力也最容易空，用它的时候必须靠后面的论据补回来。</div></div>
+</div>
+</section>
+
+  <div class="done-tip" id="doneTip">
+    <b>🎉 全部作答完毕</b>
+    点右下角「导出我的答案」，把导出的文件发给我，我会逐题批改并给出评分与改进建议。
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="tb-inner">
+    <button class="btn btn-main" id="btnExport">导出我的答案</button>
+    <button class="btn btn-ghost" id="btnRevealAll">展开全部解析</button>
+    <button class="btn btn-ghost" id="btnReset">清空重做</button>
+    <span class="tb-count" id="tbCount">0 / 20</span>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">你的答案（复制后发给我批改）</div>
+    <div class="modal-body">
+      <div class="modal-tip">
+        全选复制下面的内容，粘贴到对话里发给我即可。也可以点「下载 .md」保存成文件再上传。
+      </div>
+      <textarea id="exportArea" readonly></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="btnCloseModal">关闭</button>
+      <button class="btn btn-main" id="btnDownload">下载 .md</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ = {"title": "考研每日测验 · 9.21 综合卷（素材：9.19 反馈 + 拽上岸第三讲重点笔记）", "date": "2026-09-21", "sections": [{"name": "一、专业课 · 国际传播与答题方法（7 题）", "questions": [{"id": 1, "type": "short", "rows": 7, "kp": "修昔底德陷阱", "stem": "（1）「修昔底德陷阱」由谁提出？说法源自哪一历史事件？\n（2）用一句话概括它的核心逻辑（提示：新兴大国与守成大国之间发生了什么）。\n（3）在国际传播的题目里，这个陷阱通常用来解释什么现象？", "answer": "（1）由美国哈佛大学教授格雷厄姆·艾利森提出，说法源自古希腊历史学家修昔底德对伯罗奔尼撒战争的记述。\n（2）核心逻辑：雅典的崛起给斯巴达带来恐惧，使战争变得不可避免——即一个新崛起的大国必然会挑战守成大国的地位，而守成大国也必然会采取措施进行遏制和打压，两者的冲突甚至战争在所难免。\n（3）在国际传播题里，用来解释西方对中国崛起的结构性恐惧与战略打压，进而说明中国国际传播面临的「信任赤字／话语困境」的深层国际政治根源，为「构建更有效力的国际传播体系」提供必要性论证。", "keys": "提出者艾利森（1分）；源自伯罗奔尼撒战争／修昔底德（1分）；新兴大国挑战守成大国 + 守成大国遏制打压（2分）；用于解释西方对华战略焦虑／国际传播困境根源（1分）", "explain": "三个采分点别混：①提出者是**格雷厄姆·艾利森**（哈佛），不是修昔底德本人——修昔底德只是「说法源头」；②历史事件是**伯罗奔尼撒战争**（雅典 vs 斯巴达）；③答国际传播题时要落到「结构性恐惧→话语权受压→所以要建强国际传播体系」的因果链上，只解释名词不给落地分。", "_id": 1}, {"id": 2, "type": "short", "rows": 6, "kp": "塔西佗陷阱", "stem": "（1）「塔西佗陷阱」得名于谁？它指的是什么现象？\n（2）在公共卫生事件、突发事件舆情应对的题目里，这个陷阱一般用来说明什么问题？", "answer": "（1）得名于古罗马时代的历史学家塔西佗。后被引申为一种社会现象：指当政府部门或某一组织失去公信力时，无论说真话还是假话，做好事还是坏事，都会被认为是说假话、做坏事。\n（2）在突发事件／公共卫生事件舆情题里，用于说明：政府或机构的公信力一旦受损，后续所有信息发布都会被「先验地质疑」，形成「说什么都不信」的恶性循环；因此应对的关键不只是「及时发声」，而是日常公信力的长期积累与信息公开的制度化。", "keys": "得名塔西佗（古罗马历史学家）（1分）；失去公信力后真话假话都被否定（2分）；用来说明突发事件中政府公信力受损→信息发布失效（2分）；点出「公信力需日常积累、非临场可补」（1分，加分点）", "explain": "这题的深水区在第二问。只答出定义是名词解释水平；能把它接到「舆情应对的信任前提」上，才是论述题水平。另外必须点出一个前提：这个陷阱的成立条件是**公信力已经失去**——不是所有质疑都叫塔西佗陷阱，别滥用。做笔记时把「修昔底德陷阱」和「塔西佗陷阱」放一起对比记，两个都出自历史学家名字，容易串。区分抓手：**修昔底德管外部（国与国），塔西佗管内部（官与民）**。", "_id": 2}, {"id": 3, "type": "short", "rows": 5, "kp": "共情传播", "stem": "（1）什么是「共情传播」？它在社交媒体时代成立的原因是什么？\n（2）笔记中提到共情传播通过什么方式引导受众？受众由此产生的解码方式叫什么？最终达到什么效果？", "answer": "（1）共情传播指通过唤起受众情感共鸣来达成传播效果的传播方式。它在社交媒体时代成立的原因：社交媒体时代情绪化信息的传播速度远快于理性讨论，情感比事实更容易获得转发与扩散。\n（2）共情传播通过「拉近心理距离」（消解传受双方的心理距离），引导受众产生「偏好式解码」——即受众倾向于按传播者预期的方向理解信息，产生同向的认知和情感反应，从而减少文化折扣、提升传播效果。", "keys": "共情传播定义＝以情感共鸣达成传播（1分）；原因＝社交媒体时代情绪化信息传播快于理性讨论（2分）；方式＝拉近心理距离（1分）；解码方式＝偏好式解码（1分）；效果＝产生同向认知与情感反应／减少文化折扣（1分）", "explain": "「偏好式解码」是这里最值钱的术语（霍尔的三种解码立场之一：偏好式／协商式／对抗式）。如果你只写了「产生共鸣」而没写出这个术语，按意思给部分分，但术语分丢了。记忆抓手：霍尔三解码——**偏好式（完全按编码者意图读）→ 协商式（部分接受）→ 对抗式（反过来读）**；共情传播要的是把受众拉向第一档。这一条是 9.18 那本题「霍尔解码」和今天这题的同源考点，务必串起来背。", "_id": 3}, {"id": 4, "type": "choice", "kp": "国际传播体系建设（十五五规划）", "stem": "2026 年「十五五」规划纲要就国际传播提出要求，下列表述与纲要精神**不一致**的一项是？", "options": ["提升中华文明传播力影响力，加快构建中国话语和中国叙事体系", "提升国际传播效能，加强对外文化交流合作，展现可信、可爱、可敬的中国形象", "构建多渠道、立体式对外传播格局，全面提升国际话语权", "推动中国故事单一化、集中化表达，优先输出统一口径的官方叙事"], "answer": "D", "explain": "D 项内部就自相矛盾——纲要原文明确要求推动中国故事和中国声音**全球化、区域化、分众化**表达。「分众化」恰恰是反对「单一化、集中化」的。A、B、C 三项均为纲要原话。本题的设错点在「把三个『化』反着写」，这也是政治选择题最常见的设错手法：**改动原文里的程度词或方向词**。记忆抓手：中国故事三「化」——**全球化、区域化、分众化**，一句话记住「对不同国家、不同区域、不同人群讲不同的话」。", "_id": 4}, {"id": 5, "type": "choice", "kp": "国际传播主体与载体", "stem": "根据「构建更有效力的国际传播体系」的相关表述，下列关于培育国际传播主体的要求，表述正确的一项是？", "options": ["培育全球化、市场化、专业化的国际传播主体，增强主流媒体国际传播能力", "培育本土化、行政化、单一化的国际传播主体，以主流媒体为唯一渠道", "构建广播电视与新媒体各自独立、互不衔接的传播矩阵", "以政府为唯一对外发声主体，社会组织与企业不参与国际传播"], "answer": "A", "explain": "A 是原文表述。B 把「全球化、市场化、专业化」偷换为「本土化、行政化、单一化」，是完全反向的干扰项；C 错在把「构建广播电视与新媒体**国际传播矩阵**」拆成互不衔接——矩阵的要义正是协同；D 错在把主体单一化，原文明确要「鼓励文化企业国际化经营」，主体是多元的。本条还有一个高频考点藏在后面：**推动优质网络文学、网络游戏、影视动漫、精品展览等出海**——注意它列的四类是「网络文学、网络游戏、影视动漫、精品展览」，这四个具体的文化产品门类常被拿来设错。", "_id": 5}, {"id": 6, "type": "choice", "kp": "论述题首段写法（导学课2）", "stem": "关于论述题第一段的开头写法，讲义把它归为「摘要式」与「引言式」两大类。下列对二者的区分，正确的一项是？", "options": ["摘要式＝概念＋问题（论点）；引言式可走「理论、名言＋问题」或「背景＋问题」两条路", "摘要式＝背景＋问题；引言式＝概念＋问题", "两者本质相同，都是为了凑字数，写法上可以互换", "引言式只能用名人名言开头，使用背景开头属于摘要式"], "answer": "A", "explain": "讲义图给的框架是清晰的二分：**摘要式**（一个出口）＝概念＋问题（亮出论点）；**引言式**（三个出口）＝①理论、名言＋问题 ②背景＋问题 ③大背景式的套具。D 项是典型错误——把「背景＋问题」错划进摘要式，实际上它是引言式的分支之一。C 项「本质相同」是错的：摘要式开门见山先说概念，引言式先铺垫再落到问题，两者的**铺垫长度**不同。记忆抓手：**摘要式先给答案，引言式先给场子**。注意讲义里还专门提了一句「大背背景式的套具」——那是引言式第三种，指的是成套的背景模板。", "_id": 6}, {"id": 7, "type": "fill", "blanks": 6, "kp": "媒介系统与社会世界六维", "stem": "讲义用同心圆梳理「主题词衍生出的理论、背景」。请补全各维度的名称：\n\n（1）内圈圆心为____。\n（2）内圈的四个蓝色/红色扇区依次为：媒介组织·传播者、____、____、受众·用户。（按讲义图中从上到下顺序）\n（3）外圈统称为____，其六个维度依次为：政治、____、____、外交与国际关系、社会思潮与群体、国家建设与社会治理。", "answer": "（1）媒介系统\n（2）媒介技术、内容·产品\n（3）社会世界；经济、文化", "keys": "每空 1 分，共 6 分：（1）媒介系统；（2）媒介技术、内容·产品；（3）社会世界、经济、文化", "explain": "这张图的用法是：写论述题要「从主题词衍生出理论与背景」时，就拿这个同心圆当检索清单——先在内圈四要素里找落点（是媒介技术问题？还是内容产品问题？），再到外圈六维里找外部背景（政治／经济／文化……）。注意外圈六维的完整清单是**政治、经济、文化、外交与国际关系、社会思潮与群体、国家建设与社会治理**共六项。这张图和你 9.18 反馈里那张「社会框架 PETCSI」是配套的：**同心圆负责找「在哪个层面」，PETCSI 负责给「具体维度」**。背图时建议自己动手画一遍，比看图记三遍有效。", "_id": 7}]}, {"name": "二、政治 · 科技自立自强与法治（8 题 · 全部单选）", "questions": [{"id": 8, "type": "choice", "kp": "科技自立自强", "stem": "「科技自立自强是国家强盛之基、安全之要。」关于这一论断，下列理解**不正确**的一项是？", "options": ["科技自立自强是国家强盛之基，说明科技创新在现代化建设全局中居于核心地位", "科技自立自强是安全之要，说明关键核心技术受制于人是最大的安全隐患", "科技自立自强意味着要关起门来搞研发，减少国际科技交流合作", "实现科技自立自强要打好关键核心技术攻坚战，强化国家战略科技力量"], "answer": "C", "explain": "C 项错在把「自立自强」等同于「封闭自守」。自立自强的对立面是**依附性**，不是**开放性**——我们强调自主可控，同时坚定推进开放合作。这是本考点最常见的「过度引申式」干扰项。记忆抓手：**自立自强 ≠ 关门主义**，凡是把「自主」读成「排外」的选项一律排除。", "_id": 8}, {"id": 9, "type": "choice", "kp": "法治体系五大体系（回滚）", "stem": "中国特色社会主义法治体系是一个系统完备的整体。若按「从立法到落地、从约束到保障、从国法到党内」的逻辑推导，下列排序与五大体系的构成**最吻合**的一项是？", "options": ["法律规范体系 → 法治实施体系 → 法治监督体系 → 法治保障体系 → 党内法规体系", "法治实施体系 → 法律规范体系 → 法治保障体系 → 法治监督体系 → 党内法规体系", "法律规范体系 → 法治监督体系 → 法治实施体系 → 党内法规体系 → 法治保障体系", "党内法规体系 → 法律规范体系 → 法治实施体系 → 法治监督体系 → 法治保障体系"], "answer": "A", "explain": "这题你上次是**五空全空**，这次换成排序题再考一遍。正确链条仍然是：**规 → 实 → 监 → 保 → 党**（法律**规**范 → 法治**实**施 → 法治**监**督 → 法治**保**障 → **党**内法规）。B、C、D 三项打乱了「实施→监督→保障」的顺序，D 还把党内法规提到第一位——党内法规是体系的收口，不是起点。背诵顺序建议：先背这条五字链，再去填「以宪法为核心／以党章为根本」这类细节。**先骨架，后血肉。**", "_id": 9}, {"id": 10, "type": "choice", "kp": "法治道路核心要义（回滚）", "stem": "中国特色社会主义法治道路的核心要义包含三个要点。若题目问「其中为法治道路提供**最根本保证**的是哪一条」，正确选项应是？", "options": ["坚持党的领导", "坚持中国特色社会主义制度", "贯彻中国特色社会主义法治理论", "坚持全面依法治国基本方略"], "answer": "A", "explain": "上你答成「中国人民的爱国情怀和坚持奋斗」——那是**主观感受替换客观表述**，政治选择题的经典失分模式。答案必须是文件原话。记忆抓手：见「最根本」→ 落点必然是**党的领导**，只有三个后缀：坚强领导（成就来源）／最核心最根本的问题（统战）／最根本的保证（法治道路）。这道题换成了「给定三个要义让你挑」的问法，考点没变，检验的是你是否真的记住了对应关系。", "_id": 10}, {"id": 11, "type": "choice", "kp": "党的显著标志（回滚）", "stem": "关于中国共产党的优良作风与鲜明品格，下列表述正确的一项是？", "options": ["理论联系实际、密切联系群众、批评和自我批评，是党的三大优良作风；勇于自我革命是我们党区别于其他政党的显著标志", "理论联系实际、密切联系群众、批评和自我批评，连同「人民至上」，共同构成党的三大优良作风", "勇于自我革命是党的三大优良作风之一，是我们党区别于其他政党的显著标志", "党的三大优良作风与「勇于自我革命」均出自党的七大《论联合政府》报告"], "answer": "A", "explain": "**这题是你 9.17 反馈里那处原始笔误的直接复现**——你当时把「三大优良作风」和「勇于自我革命」并列成一句，AI 补充明确提醒要拆开，你没改，9.18 测验就答错了。两条独立来源必须各背各的：① 党的**七大（1945）**：理论联系实际、密切联系群众、批评和自我批评，是**三大**优良作风（不是「三个」，不含「人民至上」）；② 党的**十九届六中全会《决议》**：**勇于自我革命**是区别于其他政党的显著标志。B 项塞进了「人民至上」，C 项把「自我革命」混进优良作风，D 项把两者都归到七大。这次再错，就要回去把 9.17 和 9.18 两份反馈里的这一条一起改掉。", "_id": 11}, {"id": 12, "type": "choice", "kp": "法治中国建设的工作布局", "stem": "法治中国建设的工作布局可概括为「三个坚持」。下列**不属于**这一工作布局的是？", "options": ["坚持依法治国、依法执政、依法行政共同推进", "坚持法治国家、法治政府、法治社会一体建设", "坚持科学立法、严格执法、公正司法、全民守法全面推进", "坚持党的领导、人民当家作主、依法治国有机统一"], "answer": "D", "explain": "「三个坚持」工作布局是：① 依法治国、依法执政、依法行政共同推进；② 法治国家、法治政府、法治社会一体建设；③ 科学立法、严格执法、公正司法、全民守法全面推进。D 项「党的领导、人民当家作主、依法治国有机统一」是**社会主义民主政治**的表述（三者有机统一是政治文明的核心命题），不属于法治中国建设的工作布局。这组三个「坚持」极容易和 D 项混淆——记法：**工作布局三个坚持全在「法」字上转（法治国家／依法执政／科学立法），D 项多了「人民当家作主」，是政治不是法治。**", "_id": 12}, {"id": 13, "type": "choice", "kp": "全面依法治国总抓手", "stem": "全面推进依法治国涉及很多方面，在实际工作中必须有一个总揽全局、牵引各方的总抓手。这个总抓手是？", "options": ["建设中国特色社会主义法治体系", "建设社会主义法治国家", "全面贯彻实施宪法", "坚持依宪治国、依宪执政"], "answer": "A", "explain": "**建设中国特色社会主义法治体系**是全面依法治国的**总抓手**。B 项「建设社会主义法治国家」是**总目标**；C、D 两项说的是宪法，宪法是**根本法**、依宪治国是**根本要求**，都不是「总抓手」。这组四个概念是高频连考点，建议做成一张对照表：总目标（法治国家）／总抓手（法治体系）／根本法（宪法）／根本要求（依宪治国、依宪执政）。记忆抓手：**抓「体系」——因为有体系才能抓住东西**。", "_id": 13}, {"id": 14, "type": "choice", "kp": "法治国家·政府·社会", "stem": "关于法治国家、法治政府、法治社会三者的定位，下列对应正确的一项是？", "options": ["法治国家是法治建设的目标，法治政府是建设法治国家的重点任务和主体工程，法治社会是构筑法治国家的基础", "法治政府是法治建设的目标，法治国家是重点任务，法治社会是主体工程", "法治社会是法治建设的目标，法治国家是基础，法治政府是重点任务", "三者是并列关系，没有主次之分，也没有目标与基础之分"], "answer": "A", "explain": "A 是标准表述：**国家是目标、政府是重点任务和主体工程、社会是基础**。B、C 两项打乱了三者的定位词（这是最常见的设错方式——把定语整体换位）；D 项说「并列无主次」是错的，三者虽然「一体建设」，但定位各有分工。记忆抓手：**目标在前（国家），工程在中（政府），基础在下（社会）**——从大到小、从上到下排一遍。", "_id": 14}, {"id": 15, "type": "choice", "kp": "全过程人民民主（回滚）", "stem": "「全过程人民民主」强调「四个相统一」。下列**不属于**这四个相统一的是？", "options": ["过程民主和成果民主相统一", "程序民主和实质民主相统一", "直接民主和间接民主相统一", "选举民主和协商民主相统一"], "answer": "D", "explain": "上你选错了这一条（把包含项当成了不包含项）。四个相统一＝过程民主与成果民主、程序民主与实质民主、直接民主与间接民主、**人民民主与国家意志**。所以 D 项「选举民主和协商民主相统一」不在其中。记忆抓手：「四对」里有三对是「同一民主的两个侧面」（过程/成果、程序/实质、直接/间接），最后一对是「人民民主/国家意志」。**选举民主与协商民主是两种民主形式，不是一组统一**——这是本题唯一的坑，也是这组知识的唯一设错点。", "_id": 15}]}, {"name": "三、英语二 · 外刊精读与词汇（5 题）", "questions": [{"id": 16, "type": "fill", "blanks": 2, "kp": "词汇回滚", "stem": "根据中文提示写出英文单词或词组（只写英文）：\n（1）严厉打击、镇压（违法犯罪行为）：____\n（2）北美的大草原：____", "answer": "（1）crack down on　（2）prairie", "keys": "（1）crack down on（1 分，写 crack down 也给分）；（2）prairie（1 分）", "explain": "这两条你上次都没答对：**crack down on** 你写成「崩塌」——「崩塌」是 **collapse**，crack down 是「打压」，动作方向相反；**prairie** 你写了个问号。记忆抓手：crack down 联想「警方扫荡」，它是个**朝外施压**的动作；collapse 才是「自己塌下来」。prairie／plain／plateau 三个一起记——**草原／平原／高原**，按「高度」排：prairie（草原）＜ plain（平原）＜ plateau（高原，词形也最长）。", "_id": 16}, {"id": 17, "type": "translate", "kp": "长难句翻译（比较级）", "stem": "翻译下面这个句子，并指出其中的比较结构：\n\nCalabash grandpa's gourd-selling videos, which turned him into an overnight internet sensation, are far more likely to be watched by netizens who feel nostalgic for a quieter, slower rural life than by those chasing commercial trends.", "answer": "参考译文：葫芦爷爷那些让他一夜之间成为网络红人的卖葫芦视频，被那些怀念更安静、更缓慢的乡村生活的网民观看的可能性，远远大于那些追逐商业潮流的人。\n主干：videos are far more likely to be watched by A than by B.\n比较结构：far more likely ... than ...（远远更可能……而不是……），比较对象是两类网民（netizens who feel nostalgic ... 与 those chasing commercial trends）。", "keys": "①主干识别正确（videos + are more likely to be watched by A than by B）（2 分）②far more likely 的「远远更有可能」必须译出，不能只译「更有可能」（1 分）③非限制性定语从句 which turned him into ... 译出「这使他成为……」而不是硬译成前置定语（1 分）④those 译出「那些……的人」，不能漏（1 分）⑤nostalgic for 译出「怀念／怀旧」而非「悲伤」（1 分）", "explain": "**你上次的 P2 失分点就是漏译比较级**（把 far more likely 只译成「感到受到威胁」，丢了程度）。英二翻译里，**比较级和程度副词是硬扣分点**，far / much / far more 必须译出「远远、得多」。另外注意 `those` 作代词回指时必须译成「那些……的人」，不能省。这句的背景是 9.19 反馈里那篇外刊《Calabash grandpa cuts down viral gourds to reclaim quiet life》——用词跟反馈主题是同源的。", "_id": 17}, {"id": 18, "type": "translate", "kp": "词汇理解", "stem": "翻译短语/短句，注意划线词的准确含义：\n\n（1）He cut down the viral gourds to **reclaim** a quiet life.\n（2）The trend is **squarely** in the hands of the audience.\n（3）Calabash grandpa **eschews** commercial endorsements.", "answer": "（1）他砍掉了那些走红的葫芦，以求**重拾／夺回**一份宁静的生活。\n（2）这一趋势**完全／恰恰**掌握在受众手中。\n（3）葫芦爷爷**回避／拒绝**商业代言。", "keys": "（1）reclaim＝重拾、夺回（1 分）；（2）squarely＝完全地、确确实实地（1 分）；（3）eschew＝回避、避免（1 分）", "explain": "这三个词都是你 9.18／9.19 精读里出现过的。**reclaim** 别译成「声明」（那是 claim）；**squarely** 别译成「正方形地」——它是副词，意为「完全地、不偏不倚地」；**eschew** 的搭配常见形式是 **eschew + 名词**（eschew temptation / eschew violence），它比 avoid 更书面。记忆抓手：reclaim = re + claim，「再要回来」；squarely 联想「正方形摆得四平八稳」→ 完全地。", "_id": 18}, {"id": 19, "type": "short", "rows": 4, "kp": "词汇精读方法", "stem": "（1）写出 backdrop 的常见搭配（至少两个），并说明它的本义与引申义。\n（2）你在精读外刊时，如果遇到「认识每个词但读不懂整句」的情况，按什么顺序排查最有效？请给出你的方法（3 步以内）。", "answer": "（1）搭配：against the backdrop of ...（在……背景下）、as a backdrop to ...（作为……的陪衬／背景）、on a backdrop of ...。本义＝舞台布景、背景幕布；引申义＝（事件的）背景、大环境。\n（2）建议的排查顺序：\n① 先找**主干**（主语＋谓语＋宾语），把定语从句、插入语、介词短语全部暂时划掉；\n② 再看**逻辑连接词**（but / however / therefore / while / than），确定句内几层意思之间的关系（转折？因果？比较？）；\n③ 最后把划掉的部分**逐块挂回主干**，确认每一块修饰的是谁（尤其注意 those / which 的指代对象）。", "keys": "（1）写出至少两个搭配（1 分）；本义舞台布景（1 分）；引申义背景、大环境（1 分）\n（2）三点方法各 1 分：先抓主干／再找逻辑连接词／最后逐块挂回并确认指代。方法必须可操作，写「多读多练」不给分。", "explain": "第（2）问没有唯一答案，我看的是你的方法**能不能落地**。如果你答的是「多背单词」「多读几遍」，这属于没建立方法——精读卡壳 90% 不是词汇问题，是**主干没找出来**。你上次长难句漏译比较级，本质也是这个：你逐词读过去了，但没有先把主干和逻辑关系拎出来。建议固定一套动作，每次遇到长句都按这三步走，形成肌肉记忆。\n（3）顺带一提：backdrop 在 9.19 反馈里你是跟中文「背景幕布」一起记的，这个记法没问题，但考试考的是搭配（against the backdrop of），光记中文义拿不到分。", "_id": 19}, {"id": 20, "type": "short", "rows": 4, "kp": "论述题首段方法（反思）", "stem": "结合你今天学的「首段写法」，请为下面这道题**写一个引言式的开头段**（只需写第一段，150 字以内）：\n\n「请结合实例，论述中国国际传播能力建设面临的挑战与路径。」\n\n并在段后标注：你用的是引言式的哪一条子路径（理论、名言＋问题 / 背景＋问题 / 大背景式套具）。", "answer": "参考示例（背景＋问题路径）：\n当今世界正经历百年未有之大变局，中国日益走近世界舞台中央，但国际舆论格局「西强我弱」的态势尚未根本改变。中国故事能否被听懂、中国声音能否被采信，已成为关乎国家形象与安全的重要课题。然而，当前我国国际传播仍面临话语体系与叙事方式的双重困境，传播效能与大国地位尚不匹配。基于此，本文拟从……展开论述。\n\n（若用「理论、名言＋问题」路径，可引入：修昔底德陷阱所揭示的结构性恐惧，或共情传播理论对情感路径的强调。）", "keys": "①符合引言式结构，先铺垫后落到问题／论点（2 分）②必须点出「问题」或亮出论点，不能只铺背景不收口（2 分）③能自然嵌入今天学的至少一个知识点（修昔底德陷阱／共情传播／国际传播体系／十五五规划表述）（1 分）④段末标注所用子路径（1 分）", "explain": "这题考的是**你会不会用**，不是会不会背。讲义里那张图给你的是「入口清单」，真正的评分点是**铺垫与论点的衔接**——很多人的首段死在「背景写了一百字，问题一句没提」。对照检查两点：有没有一句明确的问题句／论点句？这句是不是出现在段末而不是段中？\n再强调讲义里的三个入口：① 理论、名言＋问题；② 背景＋问题；③ 大背景式套具。第三种最省力也最容易空，用它的时候必须靠后面的论据补回来。", "_id": 20}]}]};
+const QUIZID = "2026-09-21";
+const KEY = "quiz_" + QUIZID;
+const TOTAL = 20;
+
+// ---- 状态存取 ----
+let state = JSON.parse(localStorage.getItem(KEY) || "{}");
+
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+function answeredCount(){
+  let n = 0;
+  QUIZ.sections.forEach(s => s.questions.forEach((q, i) => {
+    const id = q._id;
+    const v = state[id];
+    if (q.type === "choice") { if (v) n++; }
+    else if (q.type === "fill") {
+      if (v && Object.values(v).some(x => (x||"").trim())) n++;
+    }
+    else { if (v && v.trim()) n++; }
+  }));
+  return n;
+}
+
+function updateProgress(){
+  const n = answeredCount();
+  const pct = Math.round(n / TOTAL * 100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("ptext").textContent = `已作答 ${n} / ${TOTAL}`;
+  document.getElementById("tbCount").textContent = `${n} / ${TOTAL}`;
+  document.getElementById("doneTip").classList.toggle("show", n >= TOTAL);
+}
+
+function flashSaved(n){
+  const el = document.querySelector(`.saved[data-saved="${n}"]`);
+  if (!el) return;
+  el.textContent = "已保存";
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 1200);
+}
+
+// ---- 绑定交互 ----
+document.querySelectorAll(".opt input").forEach(inp => {
+  inp.addEventListener("change", e => {
+    const n = +e.target.name.replace("q", "");
+    state[n] = e.target.value;
+    save(); updateProgress(); flashSaved(n);
+  });
+});
+
+document.querySelectorAll(".fillin").forEach(inp => {
+  inp.addEventListener("input", e => {
+    const n = e.target.dataset.q, b = e.target.dataset.b;
+    state[n] = state[n] || {};
+    state[n][b] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+document.querySelectorAll(".shortin,.transin").forEach(ta => {
+  ta.addEventListener("input", e => {
+    const n = e.target.dataset.q;
+    state[n] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+// 查看解析
+document.querySelectorAll(".btn-ans").forEach(b => {
+  b.addEventListener("click", () => {
+    const n = b.dataset.q;
+    const box = document.querySelector(`.ansbox[data-ans="${n}"]`);
+    const open = !box.hidden;
+    box.hidden = open;
+    b.textContent = open ? "查看解析" : "收起解析";
+  });
+});
+
+document.getElementById("btnRevealAll").addEventListener("click", function(){
+  const anyHidden = [...document.querySelectorAll(".ansbox")].some(b => b.hidden);
+  document.querySelectorAll(".ansbox").forEach(b => b.hidden = !anyHidden);
+  document.querySelectorAll(".btn-ans").forEach(b => {
+    b.textContent = anyHidden ? "收起解析" : "查看解析";
+  });
+  this.textContent = anyHidden ? "收起全部解析" : "展开全部解析";
+});
+
+// 清空
+document.getElementById("btnReset").addEventListener("click", () => {
+  if (!confirm("确定清空全部作答？此操作不可撤销。")) return;
+  state = {}; save();
+  document.querySelectorAll(".opt input").forEach(i => i.checked = false);
+  document.querySelectorAll(".fillin,.shortin,.transin").forEach(i => i.value = "");
+  updateProgress();
+});
+
+// ---- 导出答案 ----
+function buildExport(){
+  const L = [];
+  L.push(`# ${QUIZ.title} — 我的作答`);
+  L.push("");
+  L.push(`日期：${QUIZ.date}`);
+  L.push(`完成：${answeredCount()} / ${TOTAL} 题`);
+  L.push("");
+  const tname = {choice:"单选", fill:"填空", short:"问答", translate:"长难句翻译"};
+  QUIZ.sections.forEach(s => {
+    L.push(`## ${s.name}`);
+    L.push("");
+    s.questions.forEach(q => {
+      const v = state[q._id];
+      L.push(`### ${q._id}. [${tname[q.type]}]`);
+      L.push(q.stem);
+      L.push("");
+      if (q.type === "choice") {
+        L.push(`**我的答案：** ${v ? v : "（未作答）"}`);
+      } else if (q.type === "fill") {
+        const arr = [];
+        for (let i = 0; i < (q.blanks || 1); i++) {
+          const k = String(i);
+          arr.push(`第${i+1}空：${(v && v[k]) ? v[k] : "（空）"}`);
+        }
+        L.push(`**我的答案：** ${arr.join("　")}`);
+      } else {
+        L.push(`**我的答案：**`);
+        L.push("");
+        L.push(v && v.trim() ? v : "（未作答）");
+      }
+      L.push("");
+    });
+  });
+  return L.join("\n");
+}
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  document.getElementById("exportArea").value = buildExport();
+  document.getElementById("modal").classList.add("show");
+});
+document.getElementById("btnCloseModal").addEventListener("click", () => {
+  document.getElementById("modal").classList.remove("show");
+});
+document.getElementById("btnDownload").addEventListener("click", () => {
+  const blob = new Blob([buildExport()], {type:"text/markdown;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${QUIZID}-我的作答.md`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") e.target.classList.remove("show");
+});
+
+// ---- 恢复状态 ----
+(function restore(){
+  document.querySelectorAll(".opt input").forEach(inp => {
+    const n = +inp.name.replace("q", "");
+    if (state[n] === inp.value) inp.checked = true;
+  });
+  document.querySelectorAll(".fillin").forEach(inp => {
+    const n = inp.dataset.q, b = inp.dataset.b;
+    if (state[n] && state[n][b] != null) inp.value = state[n][b];
+  });
+  document.querySelectorAll(".shortin,.transin").forEach(ta => {
+    const n = ta.dataset.q;
+    if (state[n] != null) ta.value = state[n];
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
