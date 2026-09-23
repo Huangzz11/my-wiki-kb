@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考研每日测验 · 9.23 综合卷（素材：9月新传热点案例整理）</title>
+<style>
+:root{
+  --bg:#f7f8fb; --card:#fff; --ink:#1c2430; --sub:#60708a;
+  --line:#e3e8f0; --blue:#2F5B9E; --blue-l:#e8eef8;
+  --green:#1f8a52; --green-l:#e6f5ec;
+  --amber:#b4740a; --amber-l:#fdf3e0;
+  --red:#c0392b; --red-l:#fdeceb;
+  --violet:#6b4ea8; --violet-l:#f0ebfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+    "Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.7;
+  padding:0 0 120px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+/* 顶部 */
+header{
+  background:linear-gradient(135deg,#2F5B9E 0%,#40699f 60%,#5b7fb5 100%);
+  color:#fff;padding:34px 0 26px;margin-bottom:24px;
+  box-shadow:0 2px 14px rgba(47,91,158,.18);
+}
+header h1{font-size:23px;font-weight:650;letter-spacing:.3px;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.85}
+.statline{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chip{
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);
+  border-radius:999px;padding:4px 13px;font-size:12.5px;backdrop-filter:blur(4px)
+}
+
+/* 进度条 */
+.progress-sticky{
+  position:sticky;top:0;z-index:50;background:rgba(247,248,251,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  padding:10px 0;margin-bottom:8px;
+}
+.pbar{height:7px;background:#e6eaf2;border-radius:99px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,#2F5B9E,#5b8fd4);
+  border-radius:99px;transition:width .35s ease}
+.ptext{font-size:12.5px;color:var(--sub);margin-top:6px;display:flex;
+  justify-content:space-between}
+
+/* 分区 */
+.sec{margin:30px 0 0}
+.sec h2{
+  font-size:16.5px;font-weight:640;color:var(--blue);
+  display:flex;align-items:center;gap:9px;padding-bottom:9px;
+  border-bottom:2px solid var(--blue-l);margin-bottom:16px;
+}
+.dot{width:9px;height:9px;border-radius:3px;background:var(--blue);
+  display:inline-block;flex:0 0 auto}
+.secmeta{margin-left:auto;font-size:12px;color:var(--sub);font-weight:400}
+
+/* 题目卡片 */
+.q{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:17px 19px;margin-bottom:13px;transition:border-color .2s,box-shadow .2s;
+}
+.q:focus-within{border-color:#b9cdea;box-shadow:0 3px 14px rgba(47,91,158,.09)}
+.qhead{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.qno{
+  width:26px;height:26px;border-radius:8px;background:var(--blue);
+  color:#fff;font-size:13px;font-weight:600;display:flex;
+  align-items:center;justify-content:center;flex:0 0 auto;
+}
+.qtag{font-size:11.5px;padding:2px 9px;border-radius:6px;font-weight:500}
+.t-choice{background:var(--blue-l);color:var(--blue)}
+.t-fill{background:var(--green-l);color:var(--green)}
+.t-short{background:var(--violet-l);color:var(--violet)}
+.t-translate{background:var(--amber-l);color:var(--amber)}
+.kp{font-size:11.5px;color:var(--sub);margin-left:auto}
+.stem{font-size:14.8px;margin-bottom:12px;white-space:pre-wrap}
+
+/* 单选 */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 13px;
+  border:1px solid var(--line);border-radius:9px;cursor:pointer;
+  transition:all .16s;font-size:14.2px;
+}
+.opt:hover{background:#f4f7fc;border-color:#c3d5ee}
+.opt input{display:none}
+.opt .letter{
+  width:21px;height:21px;border-radius:6px;background:#eef1f6;color:var(--sub);
+  font-size:12px;font-weight:600;display:flex;align-items:center;
+  justify-content:center;flex:0 0 auto;margin-top:2px;transition:all .16s;
+}
+.opt input:checked~.letter{background:var(--blue);color:#fff}
+.opt:has(input:checked){background:var(--blue-l);border-color:#9dbde6}
+.otext{flex:1}
+
+/* 填空 */
+.fills{display:flex;flex-direction:column;gap:8px}
+.fillin{
+  font-family:inherit;font-size:14.2px;padding:9px 13px;
+  border:1px solid var(--line);border-radius:8px;background:#fcfdff;
+  transition:all .16s;width:100%;
+}
+.fillin:focus{outline:none;border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 文本域 */
+.shortin,.transin{
+  font-family:inherit;font-size:14.2px;line-height:1.75;padding:11px 14px;
+  border:1px solid var(--line);border-radius:9px;background:#fcfdff;
+  width:100%;resize:vertical;transition:all .16s;
+}
+.shortin:focus,.transin:focus{outline:none;border-color:var(--blue);
+  background:#fff;box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 按钮与解析 */
+.qfoot{display:flex;align-items:center;gap:11px;margin-top:11px}
+.btn-ans{
+  font-family:inherit;font-size:12.5px;padding:5px 13px;border-radius:7px;
+  border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;
+  transition:all .16s;
+}
+.btn-ans:hover{background:var(--blue-l);border-color:#a8c4e8;color:var(--blue)}
+.saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
+.saved.show{opacity:1}
+.ansbox{
+  margin-top:12px;padding:13px 15px;background:#fafbfd;
+  border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-size:13.8px;
+}
+.ansline{margin-bottom:8px;display:flex;gap:9px;line-height:1.7}
+.ansline:last-child{margin-bottom:0}
+.ansline b{
+  flex:0 0 auto;color:var(--blue);font-size:12px;font-weight:640;
+  background:var(--blue-l);padding:2px 8px;border-radius:5px;height:fit-content;
+  margin-top:3px;
+}
+.ansline .got{color:var(--green);font-weight:600}
+
+/* 底部操作栏 */
+.toolbar{
+  position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);padding:12px 20px;z-index:60;
+  backdrop-filter:blur(10px);box-shadow:0 -2px 16px rgba(28,36,48,.07);
+}
+.tb-inner{max-width:820px;margin:0 auto;display:flex;
+  align-items:center;gap:11px;flex-wrap:wrap}
+.btn{
+  font-family:inherit;font-size:13.5px;padding:9px 19px;border-radius:9px;
+  border:none;cursor:pointer;font-weight:530;transition:all .16s;
+}
+.btn-main{background:var(--blue);color:#fff}
+.btn-main:hover{background:#264d87;transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--sub);border:1px solid var(--line)}
+.btn-ghost:hover{background:#f4f6fa;color:var(--ink)}
+.tb-count{font-size:13px;color:var(--sub);margin-left:auto}
+
+/* 完成提示 */
+.done-tip{
+  margin-top:22px;padding:18px 20px;border-radius:12px;
+  background:var(--green-l);border:1px solid #bfe5ce;color:#14603a;
+  font-size:14px;display:none;
+}
+.done-tip.show{display:block}
+.done-tip b{display:block;margin-bottom:6px;font-size:15px}
+
+/* 答案导出弹层 */
+.modal{
+  position:fixed;inset:0;background:rgba(20,28,40,.5);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:#fff;border-radius:14px;max-width:660px;width:100%;
+  max-height:82vh;display:flex;flex-direction:column;overflow:hidden;
+}
+.modal-head{padding:17px 21px;border-bottom:1px solid var(--line);
+  font-weight:620;font-size:15.5px;color:var(--blue)}
+.modal-body{padding:18px 21px;overflow-y:auto;flex:1}
+.modal-body textarea{
+  width:100%;height:340px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.65;border:1px solid var(--line);
+  border-radius:9px;padding:13px;background:#fafbfd;resize:vertical;
+}
+.modal-foot{padding:14px 21px;border-top:1px solid var(--line);
+  display:flex;gap:10px;justify-content:flex-end}
+.modal-tip{font-size:12.5px;color:var(--sub);margin-bottom:11px;line-height:1.65}
+
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  header{padding:26px 0 20px}
+  header h1{font-size:19px}
+  .q{padding:14px 15px}
+  .stem{font-size:14.2px}
+  .tb-count{display:none}
+  .kp{margin-left:0;width:100%}
+}
+@media print{
+  .toolbar,.btn-ans,.progress-sticky{display:none}
+  .ansbox[hidden]{display:block!important}
+  .q{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>考研每日测验 · 9.23 综合卷（素材：9月新传热点案例整理）</h1>
+    <div class="meta">2026-09-23 · 共 20 题 · 今晚 22:30 自动生成</div>
+    <div class="statline">
+      <span class="chip">单选 12</span>
+      <span class="chip">填空 2</span>
+      <span class="chip">问答 4</span>
+      <span class="chip">长难句 2</span>
+    </div>
+  </div>
+</header>
+
+<div class="progress-sticky">
+  <div class="wrap">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <div class="ptext">
+      <span id="ptext">已作答 0 / 20</span>
+      <span>进度自动保存，刷新不丢</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  
+<section class="sec">
+  <h2><span class="dot"></span>一、专业课 · 9月热点案例与理论调用（8 题）
+    <span class="secmeta">8 题</span></h2>
+  
+<div class="q" data-q="1" data-type="short">
+  <div class="qhead">
+    <span class="qno">1</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">流量乱象与媒介伦理</span>
+  </div>
+  <div class="stem">结合「葫芦老人被网红围观侵扰」事件，回答：
+
+（1）该事件属于哪个舆情母题？请再举出两个同类事件。
+（2）事件中老人「把葫芦全部摘下」这一行为的传播学意义是什么？
+（3）请写出该事件可用的 3 个新传理论术语，并各用一句话说明如何嵌入答题。</div>
+  <textarea class="shortin" data-q="1" rows="8" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="1">查看解析</button>
+    <span class="saved" data-saved="1"></span>
+  </div>
+  <div class="ansbox" data-ans="1" hidden><div class="ansline"><b>参考答案</b>（1）母题是「流量暴力对普通人日常生活的系统性侵扰」／「素人被流量裹挟」。同类：西安「孤独树」被围观、武汉「糖水爷爷」被网暴、淄博「鸭头小哥」被围堵、贵州「村超」村民被打扰等（答出任意两个即可）。
+（2）老人摘葫芦是「以自我消解换取安宁」的防御性行为，是用放弃符号价值来终止算法虹吸——本质上是普通人在无力对抗平台流量时的被动退出；它把私人生活被迫公共化后的代价具象化了。
+（3）可用术语：① 安宁权（新兴权利议题，指个人生活不被过度打扰的权利）；② 算法虹吸效应（平台算法把偶发热度不断放大为持续流量）；③ 流量暴力（流量追逐对当事人造成的骚扰性伤害）；④ 媒介事件的异化（本非策划的媒介事件被强行扩大）；⑤ 数字围观的越界（詹金斯的参与式文化走向骚扰性参与）。答出 3 个并说明用法即可。</div><div class="ansline"><b>得分点</b>母, 题, 判, 断, 准, 确, （, 1,  , 分, ）, ；, 举, 出,  , 2,  , 个, 同, 类, 事, 件, （, 2,  , 分, ）, ；, 摘, 葫, 芦, 的, 传, 播, 学, 意, 义, 解, 释, 到, 位, （, 2,  , 分, ）, ；, 3,  , 个, 术, 语, 准, 确, 各,  , 1,  , 分, （, 3,  , 分, ）, ；, 术, 语, 与, 答, 题, 结, 合, 的, 说, 明, （, 2,  , 分, ）</div><div class="ansline"><b>解析</b>这道题的关键是「从事件跳到术语」。你整理表里已写清新传考点（流量暴力／安宁权／算法虹吸／舆情母题），批改时会看你能不能把「术语名 + 使用场景」连起来，而不是只背出名字。注意「舆情母题」是个加分项词——能从个案抽象出母题，是案例分析题拿高分的关键动作。</div></div>
+</div>
+<div class="q" data-q="2" data-type="short">
+  <div class="qhead">
+    <span class="qno">2</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">舆论反转与流量伦理</span>
+  </div>
+  <div class="stem">阅读材料并作答：
+
+【材料】某网红自编自导「资助女学生后反遭威胁」的剧情化内容，借剧情反转吸粉引流。另一案例中，一女子称在餐厅被 4 岁男童「摸臀」，监控还原为男童跑动中无意碰到，与其表述相去甚远；该女子账号粉丝从 1 万涨至 3.2 万，平台对其采取「禁止关注」措施。
+
+（1）两则材料共同指向哪一种传播现象？请给出现象名称并下定义。
+（2）从「标签化传播」的角度，分析第二则材料中「性骚扰」这一标签的传播后果。
+（3）题目若要求你答「治理路径」，请按「平台—法律—受众」三层各给一条具体措施。</div>
+  <textarea class="shortin" data-q="2" rows="7" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="2">查看解析</button>
+    <span class="saved" data-saved="2"></span>
+  </div>
+  <div class="ansbox" data-ans="2" hidden><div class="ansline"><b>参考答案</b>（1）舆论反转（或称「舆情反转」「新闻反转」）。定义：指在新闻报道或网络舆论发展过程中，随着新事实、新证据的出现，公众对事件的性质判断和情感倾向发生方向性逆转的现象。它与后真相语境、情绪先行、事实核查滞后密切相关。
+（2）「性骚扰」是高道德负荷标签，一旦贴上会立即启动公众的道德审判；标签化传播把「行为人的行为性质」直接等同于「行为人的道德本质」，压缩了事实核查的空间。其后果包括：① 舆论极化与性别对立被制造和放大；② 当事人（含被指认的儿童及其家庭）承受不可逆的名誉损害；③ 私人纠纷被公共化审判，而真相在情绪洪流中退场；④ 反转发生后，公众对同类真实受害者的信任反而被透支。
+（3）平台层：建立标签使用与敏感议题的内容审核分级机制，对高争议内容延缓分发而非助推；法律层：完善网络名誉权与个人信息保护的追责路径，明确造谣传谣的民事与行政责任衔接；受众层：提升媒介素养，培养「先核查后转发」的等待意识，警惕情绪化叙事带来的框架效应。</div><div class="ansline"><b>得分点</b>准, 确, 给, 出, 「, 舆, 论, 反, 转, 」, 并, 下, 定, 义, （, 2,  , 分, ）, ；, 标, 签, 化, 的, 传, 播, 后, 果, 答, 出,  , 3,  , 点, （, 3,  , 分, ）, ；, 三, 层, 治, 理, 措, 施, 具, 体, 不, 空, 泛, （, 3,  , 分, ）</div><div class="ansline"><b>解析</b>舆情反转题最容易写成「所以我们要不信谣不传谣」的套话。得分点在于把机制讲清楚：反转的成因（情绪先行、核查滞后、平台助推）—后果（信任透支、次生伤害）—治理（分层）。另外注意「标签化」与「刻板印象」不同：标签化是传播动作，刻板印象是认知结果，写答案时不要混用。</div></div>
+</div>
+<div class="q" data-q="3" data-type="choice">
+  <div class="qhead">
+    <span class="qno">3</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">微短剧治理与算法责任</span>
+  </div>
+  <div class="stem">《微短剧发展管理办法》（国家广电总局令第 16 号）自 2026 年 9 月 1 日起施行。关于其核心制度设计，下列表述**不正确**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q3" value="A"><span class="letter">A</span><span class="otext">A. 实行三类分级管理：一类为特殊题材，二类为一般题材，三类为低投资题材</span></label><label class="opt"><input type="radio" name="q3" value="B"><span class="letter">B</span><span class="otext">B. 建立「备案公示＋发行许可」制度，并划定 11 条内容红线</span></label><label class="opt"><input type="radio" name="q3" value="C"><span class="letter">C</span><span class="otext">C. AI 生成的微短剧可以豁免内容标注要求，由平台事后抽查即可</span></label><label class="opt"><input type="radio" name="q3" value="D"><span class="letter">D</span><span class="otext">D. 平台须定期审核算法，不得使用诱导沉迷、过度消费的算法，并优先推荐优质内容</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="3">查看解析</button>
+    <span class="saved" data-saved="3"></span>
+  </div>
+  <div class="ansbox" data-ans="3" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>C 错。办法明确「AI 剧须标注提示标识」，这是**强制的事前标注义务**，不存在「豁免＋事后抽查」的空间——正是这一条把 AI 内容纳入了可追溯的治理链条。A、B、D 均为办法原文要点。记忆抓手：三类分级（特/一/低投资）、两道关口（备案公示＋发行许可）、十一条红线、一个重点（算法不得诱导沉迷，须优先推优）。另外顺带记一组数据：全国微短剧用户超 8 亿，短视频用户 10.74 亿，微短剧人均日使用 129 分钟。</div></div>
+</div>
+<div class="q" data-q="4" data-type="choice">
+  <div class="qhead">
+    <span class="qno">4</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">舆论监督的边界</span>
+  </div>
+  <div class="stem">「清朗·优化营商网络环境」专项行动重点整治恶意炒作涉企信息、恶意诋毁抹黑企业、集纳炒作涉企负面、借监督之名牟利等行为。据此，下列关于「舆论监督」与「网络黑公关」的区分，最恰当的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q4" value="A"><span class="letter">A</span><span class="otext">A. 只要报道内容属实，就一律属于合法的舆论监督，不受限制</span></label><label class="opt"><input type="radio" name="q4" value="B"><span class="letter">B</span><span class="otext">B. 舆论监督以公共利益为出发点、以事实为根据；黑公关以牟取非法利益为目的、常虚构或选择性放大事实</span></label><label class="opt"><input type="radio" name="q4" value="C"><span class="letter">C</span><span class="otext">C. 企业经营活动涉及公共利益有限，因此舆论监督的边界应严格限定在消费者投诉范围内</span></label><label class="opt"><input type="radio" name="q4" value="D"><span class="letter">D</span><span class="otext">D. 舆论监督属于媒体的法定权利，普通网民和自媒体不享有此项权利</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="4">查看解析</button>
+    <span class="saved" data-saved="4"></span>
+  </div>
+  <div class="ansbox" data-ans="4" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>B 是唯一把「目的正当性＋事实真实性」两条判准同时讲清的选项。A 错在「内容属实即合法」——割裂了目的与手段，真实信息被组织化、集纳化地反复推送同样可能构成侵权与不正当竞争。C 错在过度限缩，舆论监督的对象不限于消费者投诉。D 错在主体范围——我国语境下舆论监督的主体是人民群众，媒体只是重要渠道，自媒体与网民同样在监督体系内。</div></div>
+</div>
+<div class="q" data-q="5" data-type="choice">
+  <div class="qhead">
+    <span class="qno">5</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">AIGC 与新闻生产</span>
+  </div>
+  <div class="stem">在中国报业传媒智能传播体系建设大会上，有观点提出「AI 推动新闻业从『工具革命』走向『认知革命』」，并强调认知革命的具体表现。下列**不属于**该「认知革命」表现的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q5" value="A"><span class="letter">A</span><span class="otext">A. 语义关联能力，使机器能理解内容之间的意义关系而非仅做关键词匹配</span></label><label class="opt"><input type="radio" name="q5" value="B"><span class="letter">B</span><span class="otext">B. 情感计算能力，使机器能识别和度量传播内容中的情感倾向</span></label><label class="opt"><input type="radio" name="q5" value="C"><span class="letter">C</span><span class="otext">C. 因果推理能力，使机器能对事件之间的因果链条作出推断</span></label><label class="opt"><input type="radio" name="q5" value="D"><span class="letter">D</span><span class="otext">D. 自动排版能力，使新闻版面可以在无人干预下完成版式设计</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="5">查看解析</button>
+    <span class="saved" data-saved="5"></span>
+  </div>
+  <div class="ansbox" data-ans="5" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>D 属于「工具革命」范畴——它提升的是生产效率，没有改变机器对内容的理解层次。所谓「认知革命」的三个标志是语义关联、情感计算、因果推理（对应讲义原话「从工具革命到认知革命」）。这个区分在论述题里非常好用：开口就说「媒体融合的智能化不止是效率提升，更是认知层次的跃迁」，然后展开三个能力维度，评卷老师一眼就能看到你有框架。</div></div>
+</div>
+<div class="q" data-q="6" data-type="choice">
+  <div class="qhead">
+    <span class="qno">6</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">意见领袖与品牌舆情</span>
+  </div>
+  <div class="stem">罗永浩吐槽某冰淇淋品牌「难吃」，并附前置免责声明。事件随后从口味吐槽扩散到品牌定价、预制菜、流量权力直至企业存亡议题，9 天内在 9 个平台产生 144 条热搜，敏感信息占比 78.2%。品牌方采取「冷处理」未回应，反而引发更大讨论，同期另一品牌宣布降价「复活」。据此，下列分析**不正确**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q6" value="A"><span class="letter">A</span><span class="otext">A. 这是典型的「次生议题扩散」：原初议题（口味）在传播中被替换和叠加为定价、行业伦理等新议题</span></label><label class="opt"><input type="radio" name="q6" value="B"><span class="letter">B</span><span class="otext">B. 前置免责声明可降低发布者的法律风险，但不能阻断舆论对品牌的实际冲击</span></label><label class="opt"><input type="radio" name="q6" value="C"><span class="letter">C</span><span class="otext">C. 品牌方的「冷处理」之所以失效，是因为危机公关中沉默会被公众解读为默认或傲慢</span></label><label class="opt"><input type="radio" name="q6" value="D"><span class="letter">D</span><span class="otext">D. 敏感信息占比高说明舆情已经进入衰退期，此时无需回应，等热度自然消退即可</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="6">查看解析</button>
+    <span class="saved" data-saved="6"></span>
+  </div>
+  <div class="ansbox" data-ans="6" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>D 是错误推断。敏感信息占比高（78.2%）且热搜密集，恰恰说明舆情处于**高活跃期而非衰退期**。判断舆情阶段看的是讨论量变化曲线与议题扩散范围，不是敏感信息比例。A、B、C 均成立。补充一条：这道题的「企业存亡效应」值得单独记——大 V 一句话能影响企业生死，这是 KOL 话语权在平台时代的极端体现，也是论述「意见领袖角色变迁」时最有力的案例。</div></div>
+</div>
+<div class="q" data-q="7" data-type="fill">
+  <div class="qhead">
+    <span class="qno">7</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">网络生态治理（净网—2026）</span>
+  </div>
+  <div class="stem">公安部「净网—2026」专项行动通报数据：累计侦办网络违法犯罪案件 3.6 万余起，其中网络谣言 1.1 万余起（含 AI 生成谣言），侵犯公民个人信息 4100 余起，网络水军 190 余起，网络暴力 2500 余起。
+
+请按通报口径补全网络水军的四类典型行为：
+
+____、舆情敲诈、____、有偿删帖。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="7" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="3" placeholder="第 4 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="7">查看解析</button>
+    <span class="saved" data-saved="7"></span>
+  </div>
+  <div class="ansbox" data-ans="7" hidden><div class="ansline"><b>参考答案</b>造谣引流、舆情敲诈、刷量控评、有偿删帖</div><div class="ansline"><b>得分点</b>每, 空,  , 1,  , 分, （, 共,  , 2,  , 空, 新, 填,  , +,  , 2,  , 空, 已, 给, ）</div><div class="ansline"><b>解析</b>网络水军四类行为：**造谣引流 → 舆情敲诈 → 刷量控评 → 有偿删帖**。记成一条业务链最好记：先造谣把人引过来（造谣引流），拿住把柄要钱（舆情敲诈），再刷数据粉饰（刷量控评），最后收钱删帖（有偿删帖）——四步就是一门完整的黑产生意。另外网络暴力的三类表现也一并记下：开盒挂人、侮辱诽谤、电话短信轰炸。</div></div>
+</div>
+<div class="q" data-q="8" data-type="short">
+  <div class="qhead">
+    <span class="qno">8</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">AI 幻觉与人机协同</span>
+  </div>
+  <div class="stem">某行业媒体发文指出，推进新闻生产智能化的关键在于「标准化规范＋专业化赋能＋体系化监管」，其中最突出的风险是通用大模型因语料混杂而产生 AI 幻觉。
+
+（1）请给「AI 幻觉」下一个定义，并指出它在新闻生产中的三种具体表现。
+（2）针对这一风险，文中给出的两项对策是什么？请分别说明其针对的问题。</div>
+  <textarea class="shortin" data-q="8" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="8">查看解析</button>
+    <span class="saved" data-saved="8"></span>
+  </div>
+  <div class="ansbox" data-ans="8" hidden><div class="ansline"><b>参考答案</b>（1）AI 幻觉（hallucination）：指生成式人工智能在缺乏可靠依据的情况下，输出看似合理、表述流畅但与事实不符的内容的现象，其根源在于模型的概率生成机制与训练语料的混杂、不足。在新闻生产中的三种表现：① 事实偏差——细节与真实情况不符；② 数据虚构——编造统计数据、时间、引语与信源；③ 观点偏颇——受语料中的倾向性影响，给出失衡的判断。
+（2）对策一：搭建专属化、标准化、权威化的媒体智能数据库。针对的问题是通用语料的混杂与不可控——以权威语料从源头锚定模型的输出基准，属于「治本」。对策二：人机协同，明确分工——AI 承接素材抓取、初写、转写等重复性环节，编辑聚焦选题策划、内容深耕、舆论引导、终审把关。针对的问题是责任主体模糊——把价值判断与终审权留在人手里，属于「治权」。</div><div class="ansline"><b>得分点</b>A, I,  , 幻, 觉, 定, 义, 准, 确, （, 2,  , 分, ）, ；, 三, 种, 表, 现, 各,  , 1,  , 分, （, 3,  , 分, ）, ；, 两, 项, 对, 策, 及, 各, 自, 针, 对, 的, 问, 题, （, 3,  , 分, ）</div><div class="ansline"><b>解析</b>这题考的是「风险—对策」的对应关系，很多人的答案会写成一堆并列的治理措施，看不出为什么需要这一条。要抓住：媒体专属语料库解决的是「源头不可控」，人机协同解决的是「责任无处落」。这两条正好对应「技术治理＋组织治理」两个层次，是很标准的论述题骨架。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>二、政治 · 错题回滚（8 题 · 全部单选）
+    <span class="secmeta">8 题</span></h2>
+  
+<div class="q" data-q="9" data-type="choice">
+  <div class="qhead">
+    <span class="qno">9</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">教育强国「六个以」（P0 回滚）</span>
+  </div>
+  <div class="stem">建设教育强国，要把握好教育强国建设的「六个以」。下列关于这组表述的对应关系，**不正确**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q9" value="A"><span class="letter">A</span><span class="otext">A. 根本保证——坚持党对教育事业的全面领导</span></label><label class="opt"><input type="radio" name="q9" value="B"><span class="letter">B</span><span class="otext">B. 根本任务——立德树人</span></label><label class="opt"><input type="radio" name="q9" value="C"><span class="letter">C</span><span class="otext">C. 根本目标——办好人民满意的教育</span></label><label class="opt"><input type="radio" name="q9" value="D"><span class="letter">D</span><span class="otext">D. 重要使命——服务中华民族伟大复兴</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="9">查看解析</button>
+    <span class="saved" data-saved="9"></span>
+  </div>
+  <div class="ansbox" data-ans="9" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>选 C。「办好人民满意的教育」对应的是**根本尺度**（人民满意是根本尺度），不是根本目标；**根本目标**是「培养担当民族复兴大任的时代新人」（即「育才」）。
+A、B、D 均正确：根本保证＝党的领导（保→党）；根本任务＝立德树人（任→德育）；重要使命＝服务中华民族伟大复兴（使→复兴）。
+记忆抓手（口诀六连）：保→党｜任→德育｜目→育才｜使→复兴｜路→现代化｜功→领现代化。**「人民满意」是根本尺度，不是目标**——这对词是高频设错点，你上次四个空全靠语感硬造，这次务必背成原话。</div></div>
+</div>
+<div class="q" data-q="10" data-type="choice">
+  <div class="qhead">
+    <span class="qno">10</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">统一战线三个「最」（P0 回滚）</span>
+  </div>
+  <div class="stem">关于统一战线，下列说法正确的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q10" value="A"><span class="letter">A</span><span class="otext">A. 统战工作的本质要求是大团结大联合，解决的是人心和力量问题</span></label><label class="opt"><input type="radio" name="q10" value="B"><span class="letter">B</span><span class="otext">B. 统战工作解决的核心问题是差异和分歧问题</span></label><label class="opt"><input type="radio" name="q10" value="C"><span class="letter">C</span><span class="otext">C. 统一战线的关键就是坚持党的领导</span></label><label class="opt"><input type="radio" name="q10" value="D"><span class="letter">D</span><span class="otext">D. 人民民主是统一战线最鲜明的特征</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="10">查看解析</button>
+    <span class="saved" data-saved="10"></span>
+  </div>
+  <div class="ansbox" data-ans="10" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>A 对。B 错：统战解决的是**人心和力量**问题（你上次答成「差异」，那只是要处理的对象，不是要解决的问题）。C 错：关键＝坚持**求同存异**；**党的领导**是最鲜明的特征，两者不能对调。D 错：最鲜明的特征是**党的领导**，不是人民民主。
+记忆抓手（四级递进链，不能跳步）：联合（本质要求）→ 人心（解决对象）→ 存异（关键方法）→ 党旗（最鲜明特征）。</div></div>
+</div>
+<div class="q" data-q="11" data-type="choice">
+  <div class="qhead">
+    <span class="qno">11</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">全过程人民民主「四个相统一」（P0 回滚）</span>
+  </div>
+  <div class="stem">「全过程人民民主」强调「四个相统一」。下列组合中，**有一对不属于**这四个相统一，它是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q11" value="A"><span class="letter">A</span><span class="otext">A. 过程民主与成果民主相统一</span></label><label class="opt"><input type="radio" name="q11" value="B"><span class="letter">B</span><span class="otext">B. 程序民主与实质民主相统一</span></label><label class="opt"><input type="radio" name="q11" value="C"><span class="letter">C</span><span class="otext">C. 直接民主与间接民主相统一</span></label><label class="opt"><input type="radio" name="q11" value="D"><span class="letter">D</span><span class="otext">D. 选举民主与协商民主相统一</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="11">查看解析</button>
+    <span class="saved" data-saved="11"></span>
+  </div>
+  <div class="ansbox" data-ans="11" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>选 D。四个相统一的第四对是**人民民主与国家意志相统一**，不是「选举民主与协商民主」。
+记忆抓手：四对里前三对都是「同一民主的两个侧面」——过程／成果、程序／实质、直接／间接；只有最后一对跳出了这个模式，是「人民民主／国家意志」。而**选举民主与协商民主是两种民主形式**（并列关系），构成不了「统一」这个动作——凡是看到「A 与 B 相统一」，先问一句：它俩是不是同一个东西的两面？不是就不是答案。</div></div>
+</div>
+<div class="q" data-q="12" data-type="choice">
+  <div class="qhead">
+    <span class="qno">12</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">法治体系五大体系（P1 回滚）</span>
+  </div>
+  <div class="stem">中国特色社会主义法治体系由五个子体系构成。下列不属于这五个子体系的是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q12" value="A"><span class="letter">A</span><span class="otext">A. 法律规范体系</span></label><label class="opt"><input type="radio" name="q12" value="B"><span class="letter">B</span><span class="otext">B. 法治监督体系</span></label><label class="opt"><input type="radio" name="q12" value="C"><span class="letter">C</span><span class="otext">C. 党外监督体系</span></label><label class="opt"><input type="radio" name="q12" value="D"><span class="letter">D</span><span class="otext">D. 党内法规体系</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="12">查看解析</button>
+    <span class="saved" data-saved="12"></span>
+  </div>
+  <div class="ansbox" data-ans="12" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>选 C。「党外监督体系」不是五大体系的构成部分——你会被「监督」二字吸引，但五大体系里的监督是**法治监督体系**。五个体系是：法律规范体系、法治实施体系、法治监督体系、法治保障体系、党内法规体系。
+记忆抓手（五字链）：**规 → 实 → 监 → 保 → 党**。法律**规**范 → 法治**实**施 → 法治**监**督 → 法治**保**障 → **党**内法规。先把这个顺口溜背熟，再补每条的内涵，你上次是反着来的（先抠细节再背骨架），所以骨架塌了。</div></div>
+</div>
+<div class="q" data-q="13" data-type="choice">
+  <div class="qhead">
+    <span class="qno">13</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">「最根本的保证」（P1 回滚）</span>
+  </div>
+  <div class="stem">关于「最根本」这一表述，下列对应关系**不正确**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q13" value="A"><span class="letter">A</span><span class="otext">A. 中国特色社会主义法治道路最根本的保证——坚持中国共产党的领导</span></label><label class="opt"><input type="radio" name="q13" value="B"><span class="letter">B</span><span class="otext">B. 实现中华民族伟大复兴最根本的保证——中国人民的爱国情怀和奋斗精神</span></label><label class="opt"><input type="radio" name="q13" value="C"><span class="letter">C</span><span class="otext">C. 统一战线最核心最根本的问题——坚持党的领导</span></label><label class="opt"><input type="radio" name="q13" value="D"><span class="letter">D</span><span class="otext">D. 我国社会主义法治最根本的保证——坚持党的领导、坚持中国特色社会主义制度</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="13">查看解析</button>
+    <span class="saved" data-saved="13"></span>
+  </div>
+  <div class="ansbox" data-ans="13" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>选 B。B 是你上次的原错——「爱国情怀和奋斗精神」是主观感受，不是文件表述。成就来源类表述的第一条是**有中国共产党的坚强领导**。
+记忆抓手（硬规则）：见到「最根本／最核心」，落点必是**党的领导**。只有三个后缀要分清：坚强领导（成就来源）／最核心最根本的问题（统战）／最根本的保证（法治）。政治选择题里，凡答案写的是「群众的某种情感、某种精神」，基本可以直接排除。</div></div>
+</div>
+<div class="q" data-q="14" data-type="choice">
+  <div class="qhead">
+    <span class="qno">14</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">党的显著标志（P0 回滚）</span>
+  </div>
+  <div class="stem">关于中国共产党的优良作风与鲜明品格，下列表述完全正确的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q14" value="A"><span class="letter">A</span><span class="otext">A. 理论联系实际、密切联系群众、批评和自我批评，是党的三大优良作风</span></label><label class="opt"><input type="radio" name="q14" value="B"><span class="letter">B</span><span class="otext">B. 理论联系实际、密切联系群众、批评和自我批评，以及人民至上、勇于自我革命，都是党的三大优良作风</span></label><label class="opt"><input type="radio" name="q14" value="C"><span class="letter">C</span><span class="otext">C. 勇于自我革命是党在七大上确立的三大优良作风之一</span></label><label class="opt"><input type="radio" name="q14" value="D"><span class="letter">D</span><span class="otext">D. 党的三大优良作风形成于十九届六中全会</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="14">查看解析</button>
+    <span class="saved" data-saved="14"></span>
+  </div>
+  <div class="ansbox" data-ans="14" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>选 A。这题是你连续第二次踩的坑——上次你选的正是把「人民至上」「勇于自我革命」并进三大作风的那个选项，而这个错误写法来自你自己反馈文档的原文，AI 当时提醒要拆开，你没改。**这是本卷最该盯的一题。**
+B 错：三大优良作风只有三条，不含「人民至上」，也不含「勇于自我革命」。C 错：党的七大（1945）确立的是三大优良作风；「勇于自我革命」出自十九届六中全会《决议》，两者来源不同。D 错：三大优良作风形成于**党的七大（1945）**。
+记忆抓手（两条独立来源，各背各的）：七大 1945 → 三大优良作风（联系实际／联系群众／批评与自我批评）；十九届六中全会《决议》 → 勇于自我革命是区别于其他政党的显著标志。</div></div>
+</div>
+<div class="q" data-q="15" data-type="choice">
+  <div class="qhead">
+    <span class="qno">15</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">法治中国建设的工作布局</span>
+  </div>
+  <div class="stem">全面推进依法治国的工作布局可以概括为「三个坚持」。下列**不属于**这一工作布局的是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q15" value="A"><span class="letter">A</span><span class="otext">A. 坚持依法治国、依法执政、依法行政共同推进</span></label><label class="opt"><input type="radio" name="q15" value="B"><span class="letter">B</span><span class="otext">B. 坚持法治国家、法治政府、法治社会一体建设</span></label><label class="opt"><input type="radio" name="q15" value="C"><span class="letter">C</span><span class="otext">C. 坚持科学立法、严格执法、公正司法、全民守法</span></label><label class="opt"><input type="radio" name="q15" value="D"><span class="letter">D</span><span class="otext">D. 坚持党的领导、人民当家作主、依法治国有机统一</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="15">查看解析</button>
+    <span class="saved" data-saved="15"></span>
+  </div>
+  <div class="ansbox" data-ans="15" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>选 C。C 是「全面依法治国的**基本要求**」（也叫「十六字方针」的扩展），不是**工作布局**。工作布局「三个坚持」＝ A（依法治国／依法执政／依法行政共同推进）、B（法治国家／法治政府／法治社会一体建设）、D（党的领导／人民当家作主／依法治国有机统一）。
+记忆抓手：把「布局」理解成**搭台子**——谁在推（依法治国/执政/行政）、搭在哪（国家/政府/社会）、按什么原则搭（党的领导/人民当家作主/依法治国）。而 C 是**干活的标准**（立法—执法—司法—守法四环节），两者层次不同。</div></div>
+</div>
+<div class="q" data-q="16" data-type="choice">
+  <div class="qhead">
+    <span class="qno">16</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">党的自我革命与法治建设</span>
+  </div>
+  <div class="stem">关于全面依法治国与党的自我革命，下列说法**不正确**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q16" value="A"><span class="letter">A</span><span class="otext">A. 全面依法治国必须坚持一个总揽全局、牵引各方的总抓手，即建设中国特色社会主义法治体系</span></label><label class="opt"><input type="radio" name="q16" value="B"><span class="letter">B</span><span class="otext">B. 法治国家是法治建设的目标，法治政府是重点任务和主体工程，法治社会是基础</span></label><label class="opt"><input type="radio" name="q16" value="C"><span class="letter">C</span><span class="otext">C. 依规治党与依法治国是相互独立的两个系统，二者不存在统一性</span></label><label class="opt"><input type="radio" name="q16" value="D"><span class="letter">D</span><span class="otext">D. 党内法规体系是中国特色社会主义法治体系的组成部分之一</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="16">查看解析</button>
+    <span class="saved" data-saved="16"></span>
+  </div>
+  <div class="ansbox" data-ans="16" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>选 C。依规治党与依法治国是**统一**的——党内法规体系本身就是中国特色社会主义法治体系的组成部分（五大体系中的第五项），党的自我革命同样要在法治轨道上推进。C 的「相互独立、不存在统一性」是典型的绝对化表述，政治选择题里这类词基本可以直接排除。
+A、B、D 均正确：总抓手＝建设中国特色社会主义法治体系；法治国家是目标／法治政府是重点任务和主体工程／法治社会是基础；五大体系含党内法规体系。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>三、英语二 · 词汇与长难句（4 题）
+    <span class="secmeta">4 题</span></h2>
+  
+<div class="q" data-q="17" data-type="fill">
+  <div class="qhead">
+    <span class="qno">17</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">英语词汇回滚</span>
+  </div>
+  <div class="stem">根据中文提示写出英文单词或词组（只写英文）：
+
+（1）严厉打击、镇压（违法犯罪行为）：____
+（2）北美的大草原：____
+（3）更棘手的（形容问题）：____
+（4）背景幕布；（引申）事件的背景：____</div>
+  <div class="fills"><input class="fillin" type="text" data-q="17" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="17" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="17" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="17" data-b="3" placeholder="第 4 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="17">查看解析</button>
+    <span class="saved" data-saved="17"></span>
+  </div>
+  <div class="ansbox" data-ans="17" hidden><div class="ansline"><b>参考答案</b>crack down on / prairie / thornier / backdrop</div><div class="ansline"><b>得分点</b>每, 空,  , 1,  , 分</div><div class="ansline"><b>解析</b>四个词全是错题本条目。（1）crack down on——你曾答成「崩塌」，崩塌是 collapse；crack down 是朝外的打压动作，联想「警方扫荡」。（2）prairie——与 plain（平原）／plateau（高原）三个一起记：草原／平原／高原，同属地貌词族。（3）thornier——thorn（刺）本义，带刺的引申为「棘手的」，搭配是「问题更棘手」，不是「更尖锐」（尖锐是 sharper）。（4）backdrop——本义是舞台背景幕布，引申为事件发生的大背景；写作里常与 against the backdrop of 搭配。</div></div>
+</div>
+<div class="q" data-q="18" data-type="translate">
+  <div class="qhead">
+    <span class="qno">18</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">长难句·比较结构（P2 回滚）</span>
+  </div>
+  <div class="stem">翻译下面这个句子，并指出其中的比较结构：
+
+Its residents are far more likely to welcome a quiet night&#x27;s sleep than to celebrate the arrival of yet another wave of visitors.</div>
+  <textarea class="transin" data-q="18" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="18">查看解析</button>
+    <span class="saved" data-saved="18"></span>
+  </div>
+  <div class="ansbox" data-ans="18" hidden><div class="ansline"><b>参考答案</b>译文：这里的居民**远远更有可能**欢迎一个安静的夜晚，而不是庆祝又一波游客的到来。
+主干：Its residents（主语）＋ are likely to welcome A than to celebrate B（比较结构作谓语部分）。
+比较结构：**far more likely to … than to …** —— far 是程度副词修饰比较级 more likely；than 引出比较对象（to celebrate …）。</div><div class="ansline"><b>得分点</b>「, f, a, r,  , m, o, r, e,  , l, i, k, e, l, y, 」, 译, 为, 「, 远, 远, 更, 有, 可, 能, 」, 不, 得, 省, 略, （, 2,  , 分, ）, ；, t, h, a, n,  , 前, 后, 的, 比, 较, 对, 象, 译, 出, （, 2,  , 分, ）, ；, 主, 干, 结, 构, 判, 断, 正, 确, （, 1,  , 分, ）</div><div class="ansline"><b>解析</b>这道题跟你上次错的是同一个结构——上次你把 far more likely 直接吞掉，只译成「感到受到威胁」。英语二翻译里，**比较级和程度副词是明确的采分点，省略就扣分**。记住口诀：看到 more / less / -er 后面跟着 than，先把「更……」写出来，再看 far／much／even／still 这类程度词，一律译成「远远／更加」。</div></div>
+</div>
+<div class="q" data-q="19" data-type="translate">
+  <div class="qhead">
+    <span class="qno">19</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">长难句·词义辨析</span>
+  </div>
+  <div class="stem">翻译下列句子，注意加点词的准确含义：
+
+（1）Both brands are eager to **reclaim** the narrative before the story hardens.
+（2）The incident was a **dress rehearsal** for how the platform handles viral harm.
+（3）The official response only **compounded** the public&#x27;s mistrust.</div>
+  <textarea class="transin" data-q="19" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="19">查看解析</button>
+    <span class="saved" data-saved="19"></span>
+  </div>
+  <div class="ansbox" data-ans="19" hidden><div class="ansline"><b>参考答案</b>（1）两个品牌都急于在舆论定形之前**夺回**叙事主导权。
+（2）这起事件是检验该平台如何处置流量伤害的**一次预演（彩排）**。
+（3）官方的回应只是**加剧（加重）**了公众的不信任。</div><div class="ansline"><b>得分点</b>r, e, c, l, a, i, m,  , 译, 出, 「, 夺, 回, /, 收, 回, 」, 而, 非, 「, 宣, 称, 」, ；, d, r, e, s, s,  , r, e, h, e, a, r, s, a, l,  , 译, 出, 「, 预, 演, /, 彩, 排, 」, 的, 引, 申, 义, ；, c, o, m, p, o, u, n, d,  , 译, 出, 「, 加, 剧, /, 使, 恶, 化, 」, 而, 非, 「, 复, 合, 」, （, 每, 题,  , 5,  , 分, ，, 其, 中, 加, 点, 词, 准, 确,  , 3,  , 分, 、, 整, 句, 通, 顺,  , 2,  , 分, ）</div><div class="ansline"><b>解析</b>三个词的共同特征是**熟悉词表 + 陌生词义**，这是英语二翻译最喜欢设的点。（1）reclaim 常见义是「开垦／回收」，但宾语是 narrative 时只能译「夺回」；（2）dress rehearsal 字面是「带妆彩排」，这里取了「正式事件之前的检验」的引申义；（3）compound 作动词是「使……更糟」，不是「合成」。做题时的动作：先判定词性（是名词还是动词），再根据宾语定语义——**宾语决定动词词义**。</div></div>
+</div>
+<div class="q" data-q="20" data-type="short">
+  <div class="qhead">
+    <span class="qno">20</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">翻译方法反思</span>
+  </div>
+  <div class="stem">（1）你在英语二翻译里如果遇到「每个词都认识，但整句读不顺」的情况，按什么顺序排查最有效？请给出 3 步以内的排查清单。
+（2）针对本次回滚的 far more likely … than 结构，写出你自己的一句提醒（不超过 20 字）。</div>
+  <textarea class="shortin" data-q="20" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="20">查看解析</button>
+    <span class="saved" data-saved="20"></span>
+  </div>
+  <div class="ansbox" data-ans="20" hidden><div class="ansline"><b>参考答案</b>（1）推荐排查顺序：
+① **先找主干**——圈出主语和谓语（跳过定语从句、插入语、介词短语），把句子压缩成「谁 做了什么」。
+② **再判结构**——看有没有比较结构（more/-er … than）、并列结构（and/or/but）、否定或倒装。这三个是最容易漏译的部分。
+③ **最后安枝叶**——把修饰成分（定语、状语、同位语）按汉语习惯重新排序，再通读一遍看逻辑是否顺。
+（2）示例：见 more/-er 必找 than，见 far/much/even 必译「远远」。</div><div class="ansline"><b>得分点</b>给, 出, 可, 操, 作, 的, 三, 步, （, 3,  , 分, ，, 每, 步,  , 1,  , 分, ）, ；, 三, 步, 体, 现, 「, 先, 主, 干, 后, 枝, 叶, 」, 的, 正, 确, 顺, 序, （, 1,  , 分, ）, ；, 自, 我, 提, 醒, 具, 体, 、, 用, 到, 本, 次, 错, 点, （, 1,  , 分, ）</div><div class="ansline"><b>解析</b>很多人翻译卡住的真实原因是**从第一个词开始逐词顺译**，读到一半结构就乱了。正确动作是先做减法（剥掉修饰找主干），再做加法（把枝叶重新挂上去）。这个顺序值得固化成本能——英语二翻译的句子长度普遍不长，用这个方法基本不会出现结构性的漏译。</div></div>
+</div>
+</section>
+
+  <div class="done-tip" id="doneTip">
+    <b>🎉 全部作答完毕</b>
+    点右下角「导出我的答案」，把导出的文件发给我，我会逐题批改并给出评分与改进建议。
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="tb-inner">
+    <button class="btn btn-main" id="btnExport">导出我的答案</button>
+    <button class="btn btn-ghost" id="btnRevealAll">展开全部解析</button>
+    <button class="btn btn-ghost" id="btnReset">清空重做</button>
+    <span class="tb-count" id="tbCount">0 / 20</span>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">你的答案（复制后发给我批改）</div>
+    <div class="modal-body">
+      <div class="modal-tip">
+        全选复制下面的内容，粘贴到对话里发给我即可。也可以点「下载 .md」保存成文件再上传。
+      </div>
+      <textarea id="exportArea" readonly></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="btnCloseModal">关闭</button>
+      <button class="btn btn-main" id="btnDownload">下载 .md</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ = {"title": "考研每日测验 · 9.23 综合卷（素材：9月新传热点案例整理）", "date": "2026-09-23", "sections": [{"name": "一、专业课 · 9月热点案例与理论调用（8 题）", "questions": [{"id": 1, "type": "short", "rows": 8, "kp": "流量乱象与媒介伦理", "stem": "结合「葫芦老人被网红围观侵扰」事件，回答：\n\n（1）该事件属于哪个舆情母题？请再举出两个同类事件。\n（2）事件中老人「把葫芦全部摘下」这一行为的传播学意义是什么？\n（3）请写出该事件可用的 3 个新传理论术语，并各用一句话说明如何嵌入答题。", "answer": "（1）母题是「流量暴力对普通人日常生活的系统性侵扰」／「素人被流量裹挟」。同类：西安「孤独树」被围观、武汉「糖水爷爷」被网暴、淄博「鸭头小哥」被围堵、贵州「村超」村民被打扰等（答出任意两个即可）。\n（2）老人摘葫芦是「以自我消解换取安宁」的防御性行为，是用放弃符号价值来终止算法虹吸——本质上是普通人在无力对抗平台流量时的被动退出；它把私人生活被迫公共化后的代价具象化了。\n（3）可用术语：① 安宁权（新兴权利议题，指个人生活不被过度打扰的权利）；② 算法虹吸效应（平台算法把偶发热度不断放大为持续流量）；③ 流量暴力（流量追逐对当事人造成的骚扰性伤害）；④ 媒介事件的异化（本非策划的媒介事件被强行扩大）；⑤ 数字围观的越界（詹金斯的参与式文化走向骚扰性参与）。答出 3 个并说明用法即可。", "keys": "母题判断准确（1 分）；举出 2 个同类事件（2 分）；摘葫芦的传播学意义解释到位（2 分）；3 个术语准确各 1 分（3 分）；术语与答题结合的说明（2 分）", "explain": "这道题的关键是「从事件跳到术语」。你整理表里已写清新传考点（流量暴力／安宁权／算法虹吸／舆情母题），批改时会看你能不能把「术语名 + 使用场景」连起来，而不是只背出名字。注意「舆情母题」是个加分项词——能从个案抽象出母题，是案例分析题拿高分的关键动作。", "_id": 1}, {"id": 2, "type": "short", "rows": 7, "kp": "舆论反转与流量伦理", "stem": "阅读材料并作答：\n\n【材料】某网红自编自导「资助女学生后反遭威胁」的剧情化内容，借剧情反转吸粉引流。另一案例中，一女子称在餐厅被 4 岁男童「摸臀」，监控还原为男童跑动中无意碰到，与其表述相去甚远；该女子账号粉丝从 1 万涨至 3.2 万，平台对其采取「禁止关注」措施。\n\n（1）两则材料共同指向哪一种传播现象？请给出现象名称并下定义。\n（2）从「标签化传播」的角度，分析第二则材料中「性骚扰」这一标签的传播后果。\n（3）题目若要求你答「治理路径」，请按「平台—法律—受众」三层各给一条具体措施。", "answer": "（1）舆论反转（或称「舆情反转」「新闻反转」）。定义：指在新闻报道或网络舆论发展过程中，随着新事实、新证据的出现，公众对事件的性质判断和情感倾向发生方向性逆转的现象。它与后真相语境、情绪先行、事实核查滞后密切相关。\n（2）「性骚扰」是高道德负荷标签，一旦贴上会立即启动公众的道德审判；标签化传播把「行为人的行为性质」直接等同于「行为人的道德本质」，压缩了事实核查的空间。其后果包括：① 舆论极化与性别对立被制造和放大；② 当事人（含被指认的儿童及其家庭）承受不可逆的名誉损害；③ 私人纠纷被公共化审判，而真相在情绪洪流中退场；④ 反转发生后，公众对同类真实受害者的信任反而被透支。\n（3）平台层：建立标签使用与敏感议题的内容审核分级机制，对高争议内容延缓分发而非助推；法律层：完善网络名誉权与个人信息保护的追责路径，明确造谣传谣的民事与行政责任衔接；受众层：提升媒介素养，培养「先核查后转发」的等待意识，警惕情绪化叙事带来的框架效应。", "keys": "准确给出「舆论反转」并下定义（2 分）；标签化的传播后果答出 3 点（3 分）；三层治理措施具体不空泛（3 分）", "explain": "舆情反转题最容易写成「所以我们要不信谣不传谣」的套话。得分点在于把机制讲清楚：反转的成因（情绪先行、核查滞后、平台助推）—后果（信任透支、次生伤害）—治理（分层）。另外注意「标签化」与「刻板印象」不同：标签化是传播动作，刻板印象是认知结果，写答案时不要混用。", "_id": 2}, {"id": 3, "type": "choice", "kp": "微短剧治理与算法责任", "stem": "《微短剧发展管理办法》（国家广电总局令第 16 号）自 2026 年 9 月 1 日起施行。关于其核心制度设计，下列表述**不正确**的一项是？", "options": ["A. 实行三类分级管理：一类为特殊题材，二类为一般题材，三类为低投资题材", "B. 建立「备案公示＋发行许可」制度，并划定 11 条内容红线", "C. AI 生成的微短剧可以豁免内容标注要求，由平台事后抽查即可", "D. 平台须定期审核算法，不得使用诱导沉迷、过度消费的算法，并优先推荐优质内容"], "answer": "C", "explain": "C 错。办法明确「AI 剧须标注提示标识」，这是**强制的事前标注义务**，不存在「豁免＋事后抽查」的空间——正是这一条把 AI 内容纳入了可追溯的治理链条。A、B、D 均为办法原文要点。记忆抓手：三类分级（特/一/低投资）、两道关口（备案公示＋发行许可）、十一条红线、一个重点（算法不得诱导沉迷，须优先推优）。另外顺带记一组数据：全国微短剧用户超 8 亿，短视频用户 10.74 亿，微短剧人均日使用 129 分钟。", "_id": 3}, {"id": 4, "type": "choice", "kp": "舆论监督的边界", "stem": "「清朗·优化营商网络环境」专项行动重点整治恶意炒作涉企信息、恶意诋毁抹黑企业、集纳炒作涉企负面、借监督之名牟利等行为。据此，下列关于「舆论监督」与「网络黑公关」的区分，最恰当的一项是？", "options": ["A. 只要报道内容属实，就一律属于合法的舆论监督，不受限制", "B. 舆论监督以公共利益为出发点、以事实为根据；黑公关以牟取非法利益为目的、常虚构或选择性放大事实", "C. 企业经营活动涉及公共利益有限，因此舆论监督的边界应严格限定在消费者投诉范围内", "D. 舆论监督属于媒体的法定权利，普通网民和自媒体不享有此项权利"], "answer": "B", "explain": "B 是唯一把「目的正当性＋事实真实性」两条判准同时讲清的选项。A 错在「内容属实即合法」——割裂了目的与手段，真实信息被组织化、集纳化地反复推送同样可能构成侵权与不正当竞争。C 错在过度限缩，舆论监督的对象不限于消费者投诉。D 错在主体范围——我国语境下舆论监督的主体是人民群众，媒体只是重要渠道，自媒体与网民同样在监督体系内。", "_id": 4}, {"id": 5, "type": "choice", "kp": "AIGC 与新闻生产", "stem": "在中国报业传媒智能传播体系建设大会上，有观点提出「AI 推动新闻业从『工具革命』走向『认知革命』」，并强调认知革命的具体表现。下列**不属于**该「认知革命」表现的一项是？", "options": ["A. 语义关联能力，使机器能理解内容之间的意义关系而非仅做关键词匹配", "B. 情感计算能力，使机器能识别和度量传播内容中的情感倾向", "C. 因果推理能力，使机器能对事件之间的因果链条作出推断", "D. 自动排版能力，使新闻版面可以在无人干预下完成版式设计"], "answer": "D", "explain": "D 属于「工具革命」范畴——它提升的是生产效率，没有改变机器对内容的理解层次。所谓「认知革命」的三个标志是语义关联、情感计算、因果推理（对应讲义原话「从工具革命到认知革命」）。这个区分在论述题里非常好用：开口就说「媒体融合的智能化不止是效率提升，更是认知层次的跃迁」，然后展开三个能力维度，评卷老师一眼就能看到你有框架。", "_id": 5}, {"id": 6, "type": "choice", "kp": "意见领袖与品牌舆情", "stem": "罗永浩吐槽某冰淇淋品牌「难吃」，并附前置免责声明。事件随后从口味吐槽扩散到品牌定价、预制菜、流量权力直至企业存亡议题，9 天内在 9 个平台产生 144 条热搜，敏感信息占比 78.2%。品牌方采取「冷处理」未回应，反而引发更大讨论，同期另一品牌宣布降价「复活」。据此，下列分析**不正确**的一项是？", "options": ["A. 这是典型的「次生议题扩散」：原初议题（口味）在传播中被替换和叠加为定价、行业伦理等新议题", "B. 前置免责声明可降低发布者的法律风险，但不能阻断舆论对品牌的实际冲击", "C. 品牌方的「冷处理」之所以失效，是因为危机公关中沉默会被公众解读为默认或傲慢", "D. 敏感信息占比高说明舆情已经进入衰退期，此时无需回应，等热度自然消退即可"], "answer": "D", "explain": "D 是错误推断。敏感信息占比高（78.2%）且热搜密集，恰恰说明舆情处于**高活跃期而非衰退期**。判断舆情阶段看的是讨论量变化曲线与议题扩散范围，不是敏感信息比例。A、B、C 均成立。补充一条：这道题的「企业存亡效应」值得单独记——大 V 一句话能影响企业生死，这是 KOL 话语权在平台时代的极端体现，也是论述「意见领袖角色变迁」时最有力的案例。", "_id": 6}, {"id": 7, "type": "fill", "blanks": 4, "kp": "网络生态治理（净网—2026）", "stem": "公安部「净网—2026」专项行动通报数据：累计侦办网络违法犯罪案件 3.6 万余起，其中网络谣言 1.1 万余起（含 AI 生成谣言），侵犯公民个人信息 4100 余起，网络水军 190 余起，网络暴力 2500 余起。\n\n请按通报口径补全网络水军的四类典型行为：\n\n____、舆情敲诈、____、有偿删帖。", "answer": "造谣引流、舆情敲诈、刷量控评、有偿删帖", "keys": "每空 1 分（共 2 空新填 + 2 空已给）", "explain": "网络水军四类行为：**造谣引流 → 舆情敲诈 → 刷量控评 → 有偿删帖**。记成一条业务链最好记：先造谣把人引过来（造谣引流），拿住把柄要钱（舆情敲诈），再刷数据粉饰（刷量控评），最后收钱删帖（有偿删帖）——四步就是一门完整的黑产生意。另外网络暴力的三类表现也一并记下：开盒挂人、侮辱诽谤、电话短信轰炸。", "_id": 7}, {"id": 8, "type": "short", "rows": 6, "kp": "AI 幻觉与人机协同", "stem": "某行业媒体发文指出，推进新闻生产智能化的关键在于「标准化规范＋专业化赋能＋体系化监管」，其中最突出的风险是通用大模型因语料混杂而产生 AI 幻觉。\n\n（1）请给「AI 幻觉」下一个定义，并指出它在新闻生产中的三种具体表现。\n（2）针对这一风险，文中给出的两项对策是什么？请分别说明其针对的问题。", "answer": "（1）AI 幻觉（hallucination）：指生成式人工智能在缺乏可靠依据的情况下，输出看似合理、表述流畅但与事实不符的内容的现象，其根源在于模型的概率生成机制与训练语料的混杂、不足。在新闻生产中的三种表现：① 事实偏差——细节与真实情况不符；② 数据虚构——编造统计数据、时间、引语与信源；③ 观点偏颇——受语料中的倾向性影响，给出失衡的判断。\n（2）对策一：搭建专属化、标准化、权威化的媒体智能数据库。针对的问题是通用语料的混杂与不可控——以权威语料从源头锚定模型的输出基准，属于「治本」。对策二：人机协同，明确分工——AI 承接素材抓取、初写、转写等重复性环节，编辑聚焦选题策划、内容深耕、舆论引导、终审把关。针对的问题是责任主体模糊——把价值判断与终审权留在人手里，属于「治权」。", "keys": "AI 幻觉定义准确（2 分）；三种表现各 1 分（3 分）；两项对策及各自针对的问题（3 分）", "explain": "这题考的是「风险—对策」的对应关系，很多人的答案会写成一堆并列的治理措施，看不出为什么需要这一条。要抓住：媒体专属语料库解决的是「源头不可控」，人机协同解决的是「责任无处落」。这两条正好对应「技术治理＋组织治理」两个层次，是很标准的论述题骨架。", "_id": 8}]}, {"name": "二、政治 · 错题回滚（8 题 · 全部单选）", "questions": [{"id": 9, "type": "choice", "kp": "教育强国「六个以」（P0 回滚）", "stem": "建设教育强国，要把握好教育强国建设的「六个以」。下列关于这组表述的对应关系，**不正确**的一项是？", "options": ["A. 根本保证——坚持党对教育事业的全面领导", "B. 根本任务——立德树人", "C. 根本目标——办好人民满意的教育", "D. 重要使命——服务中华民族伟大复兴"], "answer": "C", "explain": "选 C。「办好人民满意的教育」对应的是**根本尺度**（人民满意是根本尺度），不是根本目标；**根本目标**是「培养担当民族复兴大任的时代新人」（即「育才」）。\nA、B、D 均正确：根本保证＝党的领导（保→党）；根本任务＝立德树人（任→德育）；重要使命＝服务中华民族伟大复兴（使→复兴）。\n记忆抓手（口诀六连）：保→党｜任→德育｜目→育才｜使→复兴｜路→现代化｜功→领现代化。**「人民满意」是根本尺度，不是目标**——这对词是高频设错点，你上次四个空全靠语感硬造，这次务必背成原话。", "_id": 9}, {"id": 10, "type": "choice", "kp": "统一战线三个「最」（P0 回滚）", "stem": "关于统一战线，下列说法正确的一项是？", "options": ["A. 统战工作的本质要求是大团结大联合，解决的是人心和力量问题", "B. 统战工作解决的核心问题是差异和分歧问题", "C. 统一战线的关键就是坚持党的领导", "D. 人民民主是统一战线最鲜明的特征"], "answer": "A", "explain": "A 对。B 错：统战解决的是**人心和力量**问题（你上次答成「差异」，那只是要处理的对象，不是要解决的问题）。C 错：关键＝坚持**求同存异**；**党的领导**是最鲜明的特征，两者不能对调。D 错：最鲜明的特征是**党的领导**，不是人民民主。\n记忆抓手（四级递进链，不能跳步）：联合（本质要求）→ 人心（解决对象）→ 存异（关键方法）→ 党旗（最鲜明特征）。", "_id": 10}, {"id": 11, "type": "choice", "kp": "全过程人民民主「四个相统一」（P0 回滚）", "stem": "「全过程人民民主」强调「四个相统一」。下列组合中，**有一对不属于**这四个相统一，它是？", "options": ["A. 过程民主与成果民主相统一", "B. 程序民主与实质民主相统一", "C. 直接民主与间接民主相统一", "D. 选举民主与协商民主相统一"], "answer": "D", "explain": "选 D。四个相统一的第四对是**人民民主与国家意志相统一**，不是「选举民主与协商民主」。\n记忆抓手：四对里前三对都是「同一民主的两个侧面」——过程／成果、程序／实质、直接／间接；只有最后一对跳出了这个模式，是「人民民主／国家意志」。而**选举民主与协商民主是两种民主形式**（并列关系），构成不了「统一」这个动作——凡是看到「A 与 B 相统一」，先问一句：它俩是不是同一个东西的两面？不是就不是答案。", "_id": 11}, {"id": 12, "type": "choice", "kp": "法治体系五大体系（P1 回滚）", "stem": "中国特色社会主义法治体系由五个子体系构成。下列不属于这五个子体系的是？", "options": ["A. 法律规范体系", "B. 法治监督体系", "C. 党外监督体系", "D. 党内法规体系"], "answer": "C", "explain": "选 C。「党外监督体系」不是五大体系的构成部分——你会被「监督」二字吸引，但五大体系里的监督是**法治监督体系**。五个体系是：法律规范体系、法治实施体系、法治监督体系、法治保障体系、党内法规体系。\n记忆抓手（五字链）：**规 → 实 → 监 → 保 → 党**。法律**规**范 → 法治**实**施 → 法治**监**督 → 法治**保**障 → **党**内法规。先把这个顺口溜背熟，再补每条的内涵，你上次是反着来的（先抠细节再背骨架），所以骨架塌了。", "_id": 12}, {"id": 13, "type": "choice", "kp": "「最根本的保证」（P1 回滚）", "stem": "关于「最根本」这一表述，下列对应关系**不正确**的一项是？", "options": ["A. 中国特色社会主义法治道路最根本的保证——坚持中国共产党的领导", "B. 实现中华民族伟大复兴最根本的保证——中国人民的爱国情怀和奋斗精神", "C. 统一战线最核心最根本的问题——坚持党的领导", "D. 我国社会主义法治最根本的保证——坚持党的领导、坚持中国特色社会主义制度"], "answer": "B", "explain": "选 B。B 是你上次的原错——「爱国情怀和奋斗精神」是主观感受，不是文件表述。成就来源类表述的第一条是**有中国共产党的坚强领导**。\n记忆抓手（硬规则）：见到「最根本／最核心」，落点必是**党的领导**。只有三个后缀要分清：坚强领导（成就来源）／最核心最根本的问题（统战）／最根本的保证（法治）。政治选择题里，凡答案写的是「群众的某种情感、某种精神」，基本可以直接排除。", "_id": 13}, {"id": 14, "type": "choice", "kp": "党的显著标志（P0 回滚）", "stem": "关于中国共产党的优良作风与鲜明品格，下列表述完全正确的一项是？", "options": ["A. 理论联系实际、密切联系群众、批评和自我批评，是党的三大优良作风", "B. 理论联系实际、密切联系群众、批评和自我批评，以及人民至上、勇于自我革命，都是党的三大优良作风", "C. 勇于自我革命是党在七大上确立的三大优良作风之一", "D. 党的三大优良作风形成于十九届六中全会"], "answer": "A", "explain": "选 A。这题是你连续第二次踩的坑——上次你选的正是把「人民至上」「勇于自我革命」并进三大作风的那个选项，而这个错误写法来自你自己反馈文档的原文，AI 当时提醒要拆开，你没改。**这是本卷最该盯的一题。**\nB 错：三大优良作风只有三条，不含「人民至上」，也不含「勇于自我革命」。C 错：党的七大（1945）确立的是三大优良作风；「勇于自我革命」出自十九届六中全会《决议》，两者来源不同。D 错：三大优良作风形成于**党的七大（1945）**。\n记忆抓手（两条独立来源，各背各的）：七大 1945 → 三大优良作风（联系实际／联系群众／批评与自我批评）；十九届六中全会《决议》 → 勇于自我革命是区别于其他政党的显著标志。", "_id": 14}, {"id": 15, "type": "choice", "kp": "法治中国建设的工作布局", "stem": "全面推进依法治国的工作布局可以概括为「三个坚持」。下列**不属于**这一工作布局的是？", "options": ["A. 坚持依法治国、依法执政、依法行政共同推进", "B. 坚持法治国家、法治政府、法治社会一体建设", "C. 坚持科学立法、严格执法、公正司法、全民守法", "D. 坚持党的领导、人民当家作主、依法治国有机统一"], "answer": "C", "explain": "选 C。C 是「全面依法治国的**基本要求**」（也叫「十六字方针」的扩展），不是**工作布局**。工作布局「三个坚持」＝ A（依法治国／依法执政／依法行政共同推进）、B（法治国家／法治政府／法治社会一体建设）、D（党的领导／人民当家作主／依法治国有机统一）。\n记忆抓手：把「布局」理解成**搭台子**——谁在推（依法治国/执政/行政）、搭在哪（国家/政府/社会）、按什么原则搭（党的领导/人民当家作主/依法治国）。而 C 是**干活的标准**（立法—执法—司法—守法四环节），两者层次不同。", "_id": 15}, {"id": 16, "type": "choice", "kp": "党的自我革命与法治建设", "stem": "关于全面依法治国与党的自我革命，下列说法**不正确**的一项是？", "options": ["A. 全面依法治国必须坚持一个总揽全局、牵引各方的总抓手，即建设中国特色社会主义法治体系", "B. 法治国家是法治建设的目标，法治政府是重点任务和主体工程，法治社会是基础", "C. 依规治党与依法治国是相互独立的两个系统，二者不存在统一性", "D. 党内法规体系是中国特色社会主义法治体系的组成部分之一"], "answer": "C", "explain": "选 C。依规治党与依法治国是**统一**的——党内法规体系本身就是中国特色社会主义法治体系的组成部分（五大体系中的第五项），党的自我革命同样要在法治轨道上推进。C 的「相互独立、不存在统一性」是典型的绝对化表述，政治选择题里这类词基本可以直接排除。\nA、B、D 均正确：总抓手＝建设中国特色社会主义法治体系；法治国家是目标／法治政府是重点任务和主体工程／法治社会是基础；五大体系含党内法规体系。", "_id": 16}]}, {"name": "三、英语二 · 词汇与长难句（4 题）", "questions": [{"id": 17, "type": "fill", "blanks": 4, "kp": "英语词汇回滚", "stem": "根据中文提示写出英文单词或词组（只写英文）：\n\n（1）严厉打击、镇压（违法犯罪行为）：____\n（2）北美的大草原：____\n（3）更棘手的（形容问题）：____\n（4）背景幕布；（引申）事件的背景：____", "answer": "crack down on / prairie / thornier / backdrop", "keys": "每空 1 分", "explain": "四个词全是错题本条目。（1）crack down on——你曾答成「崩塌」，崩塌是 collapse；crack down 是朝外的打压动作，联想「警方扫荡」。（2）prairie——与 plain（平原）／plateau（高原）三个一起记：草原／平原／高原，同属地貌词族。（3）thornier——thorn（刺）本义，带刺的引申为「棘手的」，搭配是「问题更棘手」，不是「更尖锐」（尖锐是 sharper）。（4）backdrop——本义是舞台背景幕布，引申为事件发生的大背景；写作里常与 against the backdrop of 搭配。", "_id": 17}, {"id": 18, "type": "translate", "kp": "长难句·比较结构（P2 回滚）", "stem": "翻译下面这个句子，并指出其中的比较结构：\n\nIts residents are far more likely to welcome a quiet night's sleep than to celebrate the arrival of yet another wave of visitors.", "answer": "译文：这里的居民**远远更有可能**欢迎一个安静的夜晚，而不是庆祝又一波游客的到来。\n主干：Its residents（主语）＋ are likely to welcome A than to celebrate B（比较结构作谓语部分）。\n比较结构：**far more likely to … than to …** —— far 是程度副词修饰比较级 more likely；than 引出比较对象（to celebrate …）。", "keys": "「far more likely」译为「远远更有可能」不得省略（2 分）；than 前后的比较对象译出（2 分）；主干结构判断正确（1 分）", "explain": "这道题跟你上次错的是同一个结构——上次你把 far more likely 直接吞掉，只译成「感到受到威胁」。英语二翻译里，**比较级和程度副词是明确的采分点，省略就扣分**。记住口诀：看到 more / less / -er 后面跟着 than，先把「更……」写出来，再看 far／much／even／still 这类程度词，一律译成「远远／更加」。", "_id": 18}, {"id": 19, "type": "translate", "kp": "长难句·词义辨析", "stem": "翻译下列句子，注意加点词的准确含义：\n\n（1）Both brands are eager to **reclaim** the narrative before the story hardens.\n（2）The incident was a **dress rehearsal** for how the platform handles viral harm.\n（3）The official response only **compounded** the public's mistrust.", "answer": "（1）两个品牌都急于在舆论定形之前**夺回**叙事主导权。\n（2）这起事件是检验该平台如何处置流量伤害的**一次预演（彩排）**。\n（3）官方的回应只是**加剧（加重）**了公众的不信任。", "keys": "reclaim 译出「夺回/收回」而非「宣称」；dress rehearsal 译出「预演/彩排」的引申义；compound 译出「加剧/使恶化」而非「复合」（每题 5 分，其中加点词准确 3 分、整句通顺 2 分）", "explain": "三个词的共同特征是**熟悉词表 + 陌生词义**，这是英语二翻译最喜欢设的点。（1）reclaim 常见义是「开垦／回收」，但宾语是 narrative 时只能译「夺回」；（2）dress rehearsal 字面是「带妆彩排」，这里取了「正式事件之前的检验」的引申义；（3）compound 作动词是「使……更糟」，不是「合成」。做题时的动作：先判定词性（是名词还是动词），再根据宾语定语义——**宾语决定动词词义**。", "_id": 19}, {"id": 20, "type": "short", "rows": 5, "kp": "翻译方法反思", "stem": "（1）你在英语二翻译里如果遇到「每个词都认识，但整句读不顺」的情况，按什么顺序排查最有效？请给出 3 步以内的排查清单。\n（2）针对本次回滚的 far more likely … than 结构，写出你自己的一句提醒（不超过 20 字）。", "answer": "（1）推荐排查顺序：\n① **先找主干**——圈出主语和谓语（跳过定语从句、插入语、介词短语），把句子压缩成「谁 做了什么」。\n② **再判结构**——看有没有比较结构（more/-er … than）、并列结构（and/or/but）、否定或倒装。这三个是最容易漏译的部分。\n③ **最后安枝叶**——把修饰成分（定语、状语、同位语）按汉语习惯重新排序，再通读一遍看逻辑是否顺。\n（2）示例：见 more/-er 必找 than，见 far/much/even 必译「远远」。", "keys": "给出可操作的三步（3 分，每步 1 分）；三步体现「先主干后枝叶」的正确顺序（1 分）；自我提醒具体、用到本次错点（1 分）", "explain": "很多人翻译卡住的真实原因是**从第一个词开始逐词顺译**，读到一半结构就乱了。正确动作是先做减法（剥掉修饰找主干），再做加法（把枝叶重新挂上去）。这个顺序值得固化成本能——英语二翻译的句子长度普遍不长，用这个方法基本不会出现结构性的漏译。", "_id": 20}]}]};
+const QUIZID = "2026-09-23";
+const KEY = "quiz_" + QUIZID;
+const TOTAL = 20;
+
+// ---- 状态存取 ----
+let state = JSON.parse(localStorage.getItem(KEY) || "{}");
+
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+function answeredCount(){
+  let n = 0;
+  QUIZ.sections.forEach(s => s.questions.forEach((q, i) => {
+    const id = q._id;
+    const v = state[id];
+    if (q.type === "choice") { if (v) n++; }
+    else if (q.type === "fill") {
+      if (v && Object.values(v).some(x => (x||"").trim())) n++;
+    }
+    else { if (v && v.trim()) n++; }
+  }));
+  return n;
+}
+
+function updateProgress(){
+  const n = answeredCount();
+  const pct = Math.round(n / TOTAL * 100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("ptext").textContent = `已作答 ${n} / ${TOTAL}`;
+  document.getElementById("tbCount").textContent = `${n} / ${TOTAL}`;
+  document.getElementById("doneTip").classList.toggle("show", n >= TOTAL);
+}
+
+function flashSaved(n){
+  const el = document.querySelector(`.saved[data-saved="${n}"]`);
+  if (!el) return;
+  el.textContent = "已保存";
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 1200);
+}
+
+// ---- 绑定交互 ----
+document.querySelectorAll(".opt input").forEach(inp => {
+  inp.addEventListener("change", e => {
+    const n = +e.target.name.replace("q", "");
+    state[n] = e.target.value;
+    save(); updateProgress(); flashSaved(n);
+  });
+});
+
+document.querySelectorAll(".fillin").forEach(inp => {
+  inp.addEventListener("input", e => {
+    const n = e.target.dataset.q, b = e.target.dataset.b;
+    state[n] = state[n] || {};
+    state[n][b] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+document.querySelectorAll(".shortin,.transin").forEach(ta => {
+  ta.addEventListener("input", e => {
+    const n = e.target.dataset.q;
+    state[n] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+// 查看解析
+document.querySelectorAll(".btn-ans").forEach(b => {
+  b.addEventListener("click", () => {
+    const n = b.dataset.q;
+    const box = document.querySelector(`.ansbox[data-ans="${n}"]`);
+    const open = !box.hidden;
+    box.hidden = open;
+    b.textContent = open ? "查看解析" : "收起解析";
+  });
+});
+
+document.getElementById("btnRevealAll").addEventListener("click", function(){
+  const anyHidden = [...document.querySelectorAll(".ansbox")].some(b => b.hidden);
+  document.querySelectorAll(".ansbox").forEach(b => b.hidden = !anyHidden);
+  document.querySelectorAll(".btn-ans").forEach(b => {
+    b.textContent = anyHidden ? "收起解析" : "查看解析";
+  });
+  this.textContent = anyHidden ? "收起全部解析" : "展开全部解析";
+});
+
+// 清空
+document.getElementById("btnReset").addEventListener("click", () => {
+  if (!confirm("确定清空全部作答？此操作不可撤销。")) return;
+  state = {}; save();
+  document.querySelectorAll(".opt input").forEach(i => i.checked = false);
+  document.querySelectorAll(".fillin,.shortin,.transin").forEach(i => i.value = "");
+  updateProgress();
+});
+
+// ---- 导出答案 ----
+function buildExport(){
+  const L = [];
+  L.push(`# ${QUIZ.title} — 我的作答`);
+  L.push("");
+  L.push(`日期：${QUIZ.date}`);
+  L.push(`完成：${answeredCount()} / ${TOTAL} 题`);
+  L.push("");
+  const tname = {choice:"单选", fill:"填空", short:"问答", translate:"长难句翻译"};
+  QUIZ.sections.forEach(s => {
+    L.push(`## ${s.name}`);
+    L.push("");
+    s.questions.forEach(q => {
+      const v = state[q._id];
+      L.push(`### ${q._id}. [${tname[q.type]}]`);
+      L.push(q.stem);
+      L.push("");
+      if (q.type === "choice") {
+        L.push(`**我的答案：** ${v ? v : "（未作答）"}`);
+      } else if (q.type === "fill") {
+        const arr = [];
+        for (let i = 0; i < (q.blanks || 1); i++) {
+          const k = String(i);
+          arr.push(`第${i+1}空：${(v && v[k]) ? v[k] : "（空）"}`);
+        }
+        L.push(`**我的答案：** ${arr.join("　")}`);
+      } else {
+        L.push(`**我的答案：**`);
+        L.push("");
+        L.push(v && v.trim() ? v : "（未作答）");
+      }
+      L.push("");
+    });
+  });
+  return L.join("\n");
+}
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  document.getElementById("exportArea").value = buildExport();
+  document.getElementById("modal").classList.add("show");
+});
+document.getElementById("btnCloseModal").addEventListener("click", () => {
+  document.getElementById("modal").classList.remove("show");
+});
+document.getElementById("btnDownload").addEventListener("click", () => {
+  const blob = new Blob([buildExport()], {type:"text/markdown;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${QUIZID}-我的作答.md`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") e.target.classList.remove("show");
+});
+
+// ---- 恢复状态 ----
+(function restore(){
+  document.querySelectorAll(".opt input").forEach(inp => {
+    const n = +inp.name.replace("q", "");
+    if (state[n] === inp.value) inp.checked = true;
+  });
+  document.querySelectorAll(".fillin").forEach(inp => {
+    const n = inp.dataset.q, b = inp.dataset.b;
+    if (state[n] && state[n][b] != null) inp.value = state[n][b];
+  });
+  document.querySelectorAll(".shortin,.transin").forEach(ta => {
+    const n = ta.dataset.q;
+    if (state[n] != null) ta.value = state[n];
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
