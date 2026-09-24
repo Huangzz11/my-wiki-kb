@@ -94,6 +94,13 @@ agent_created: true
 
 刊头文案按**批次**命名（如「九月热点事件案例分析」），同一批次的图卡共用同一个刊头。加了刊头后 p1 正文相应减一段或删掉收束句。`.masthead` 只在 p1 出现，改这段 CSS 不会波及后续页面。
 
+**署名规范（所有版式通用，2026-09-24 统一改定）**
+
+- 画面署名一律为 **「小鱼学新传」**，**绝不出现「小黄」**（那只是口语昵称，仅内部使用）。
+- **期号不上画面**：封面标题不带期号，内页导航条不带期号前缀；期号只留在笔记 frontmatter 与页脚页码。
+- 带刊头的版式**每一张左上角都要有署名**：p1 放 `.masthead` 左侧（右侧配日期 `2026.09`，`justify-content: space-between`），p2–p5 放 `.mini-bar` 最左侧，后接事件名与分区名，用 `<span class="sep">/</span>` 分隔。
+- 刊头文案按**批次**命名（如「九月新传热点案例分析」），同一批次共用；事件标题作为次级标题，字号要明显小于刊头（Anthropic 版：刊头 62px / 事件标题 56px）。
+
 **页脚规范（B 版式，所有新图沿用）**
 
 - 左侧署名固定为 **「小鱼学新传」**（用户品牌名）。
@@ -195,6 +202,19 @@ p1 = 页头 + pill + 主标题 + chips + 事件回顾（3 段）；p2 = 视角 1
 **参考资料页排版**：B 版式用 `.sources`，字号 17px、行高 1.55、色值 #7a7a7a，必须加 `word-break: break-all`（长链接会撑破容器）；A 版式用 `.sources`（20px / #7d8b93）。参考资料固定放最后一页，字号小于正文，符合用户要求。
 
 **A 版式的溢出校验**：`shoot.js` 检测 `card.scrollHeight > 1440`，并额外打印 `footTop` 与 `contentBottom`。**当 `contentBottom` 超过 `footTop` 时，即使 `scrollHeight` 仍是 1440，也已经真的压住了页脚**——A 版式 `.foot` 用了 `margin-top:auto`，会吸收掉溢出而不撑高卡片，只靠 scrollHeight 判断会漏检。这是 A 版式相比 B 版式最容易踩的坑。
+
+**第二个盲区：`contentBottom` 本身可能是恒定值**（2026-09-24 做 Anthropic 版封面大标题时撞上）。若版式里 `.hint` 也带 `margin-top:auto`，`contentBottom` 会**恒等于 `footTop − hint 与 foot 的固定间距`**（Anthropic 版恒为 1333），内容再怎么涨都不变，只盯它必然漏检。可靠判据是另外两个：
+
+- **`hintGap`** = `hint.getBoundingClientRect().top − 前一元素.bottom`。**落到 0 就是真挤满**，再长 1px 即溢出；正常应留 30px 以上。
+- **`miniBarW`** = `.mini-bar` 的 `scrollWidth`。**> 928**（1080 − 76×2）说明内页导航条已折行。
+
+```javascript
+const hint = document.querySelector('.hint');
+const prev = hint.previousElementSibling;
+const gap = prev ? Math.round(hint.getBoundingClientRect().top - prev.getBoundingClientRect().bottom) : null;
+```
+
+新做版式时，这两个判据要一并写进 `shoot.js`。
 
 ## 第三步补充：抓取 SPA 类参考资料
 
