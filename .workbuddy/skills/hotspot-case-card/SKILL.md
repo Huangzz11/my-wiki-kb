@@ -6,6 +6,9 @@ agent_created: true
 
 > **优先使用 `xiaohuang-hotspot-case`**（用户级 skill，位于 `~/.workbuddy/skills/`）。
 > 那份是端到端流程（核查 → 五视角 → 图卡 → 文案 → 归档推送 → 桌面副本），日常一句话产出走它。
+> **2026-09-24 起它的默认模板已换成 Anthropic 风格版**（暖米白底 + 赭橙强调 + 衬线标题），
+> 并在 `templates/` 目录内自带可直接复制的 `style.css` / `shoot.js` / 五页骨架 / 官方字体；
+> 绿版降为备选（`templates/legacy-green/`）。
 > 本文件保留的是**技术细节与踩坑记录**：版式基线对照、溢出诊断方法、SPA 抓取脚本、各期风格沿革。两者冲突时以 `xiaohuang-hotspot-case` 为准。
 
 # Hotspot Case Card · 新传热点案例图卡与笔记
