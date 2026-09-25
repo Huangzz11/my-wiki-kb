@@ -178,6 +178,16 @@ p1 = 页头 + pill + 主标题 + chips + 事件回顾（3 段）；p2 = 视角 1
 
 **论述题答题体会显著增加溢出概率**（21 期首轮实测 p2 超 54px、p3 超 145px、p4 超 39px，而 20 期首轮全部通过）。预留策略：写的时候每视角控制在 3 段、每段 3 行以内；渲染后优先「精简文字」而不是「压缩字号」。
 
+**p5 是溢出重灾区，必须预先控量**（23 期首轮实测 p5 超 237px，占该轮全部超量的 74%——同轮 p1/p3/p4 合计仅超 88px）。该页堆了 `.ext` 同源案例 + `.sources` 参考资料 + `.disclaim` 待核说明三块，任一超量都会连锁顶爆。写 p5 时的硬上限：
+
+| 块 | 上限 |
+|---|---|
+| `.ext` 同源案例 | 4 条，每条 ≤ 60 字（压成一句，删掉评述尾巴） |
+| `.sources` 参考资料 | 9 条（超了就合并同日同源的多篇报道） |
+| `.disclaim` 待核说明 | 4 条，每条 ≤ 50 字 |
+
+溢出时的删减顺序：**先压 `.ext` 每条 → 再合并 `.sources` → 最后精简 `.disclaim`**。参考资料是可信度背书，不要为腾地方先删它。
+
 **单页微调字号用页面内联 style，不要改共享的 `style.css`**。某个页面溢出而其他页正常时，在该页 `<head>` 里 `<link>` 之后插一个 `<style>` 块覆盖：
 
 ```html
@@ -238,14 +248,26 @@ fs.writeFileSync('输出路径.txt', txt, 'utf8');
 ## 第四步：归档与提交
 
 1. 图卡从 `<事件名>_新传案例/images/` 复制到 `kb/新传热点事件解读/images/` 并重命名为 `<编号>-<事件名>-0X.png`。
+   - **平铺，不建子目录。** 12—22 期全部平铺在 `images/`，不要建 `<编号>-<事件名>_assets/`。（`_assets/` 子目录是 `kb/考研每日反馈/` 的规则，两个目录约定不同，别串。）23 期首次归档误用子目录，已纠正。
+   - **不另建独立文案文件。** 小红书文案写进笔记 `<编号>-<事件名>.md` 的 `## 小红书文案` 章节。
 2. 更新 `kb/新传热点事件解读/README.md` 的目录表。
-3. 更新 `kb/wiki/index.md` 的「热点解读」段、追加 `kb/wiki/log.md`。
-4. 提交推送：
+3. 复制一套到桌面 `C:\Users\lancy\Desktop\<编号>_<事件名>_图卡\`，**只放 5 张 PNG**（20、22 期均为纯 PNG，不放文案与笔记）。
+4. 更新 `kb/wiki/index.md` 的「热点解读」段、追加 `kb/wiki/log.md`。
+5. 提交推送：
 
 ```bash
-git add -A && git commit -m "feat(热点解读): 收录 <编号> <事件名>" && \
-git push origin main    # remote 为 ssh://git@ssh.github.com:443/Huangzz11/my-wiki-kb.git
+# 必须带 SSH 保活参数（不带时大陆网络下 push 常报 send-pack 断连）
+# 必须加 `| cat` 管道——用 out=$(git push ...) 命令替换会静默失败（变量空、无报错、实际未推）
+GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes \
+  -o ServerAliveInterval=15 -o ServerAliveCountMax=10 -o TCPKeepAlive=yes -o ConnectTimeout=30" \
+  git push origin main 2>&1 | cat
+# 成功判据用 SHA 比对，不看输出文本
+git fetch origin main >/dev/null 2>&1
+[ "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" ] && echo "VERIFIED" || echo "WARN: 未推送成功"
 ```
+
+- 需 `dangerouslyDisableSandbox: true`，默认沙箱拒读 `~/.ssh/` 会报 `Connection reset ... port 443`。
+- 推送前先 `git fetch` + rebase（仓库有两条自动推送链，远端常领先）。
 
 - 图卡源文件（HTML/CSS/JS）**不提交**，只提交 PNG 与笔记。
 - 仓库 `git config user.name` 需为 `Huangzz11`、`user.email` 为 `Huangzz11@users.noreply.github.com`。
