@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考研每日测验 · 9.26 综合卷（素材：宝厂拽上岸第五讲 · 政治传播与媒介政策）</title>
+<style>
+:root{
+  --bg:#f7f8fb; --card:#fff; --ink:#1c2430; --sub:#60708a;
+  --line:#e3e8f0; --blue:#2F5B9E; --blue-l:#e8eef8;
+  --green:#1f8a52; --green-l:#e6f5ec;
+  --amber:#b4740a; --amber-l:#fdf3e0;
+  --red:#c0392b; --red-l:#fdeceb;
+  --violet:#6b4ea8; --violet-l:#f0ebfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+    "Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.7;
+  padding:0 0 120px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+/* 顶部 */
+header{
+  background:linear-gradient(135deg,#2F5B9E 0%,#40699f 60%,#5b7fb5 100%);
+  color:#fff;padding:34px 0 26px;margin-bottom:24px;
+  box-shadow:0 2px 14px rgba(47,91,158,.18);
+}
+header h1{font-size:23px;font-weight:650;letter-spacing:.3px;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.85}
+.statline{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chip{
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);
+  border-radius:999px;padding:4px 13px;font-size:12.5px;backdrop-filter:blur(4px)
+}
+
+/* 进度条 */
+.progress-sticky{
+  position:sticky;top:0;z-index:50;background:rgba(247,248,251,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  padding:10px 0;margin-bottom:8px;
+}
+.pbar{height:7px;background:#e6eaf2;border-radius:99px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,#2F5B9E,#5b8fd4);
+  border-radius:99px;transition:width .35s ease}
+.ptext{font-size:12.5px;color:var(--sub);margin-top:6px;display:flex;
+  justify-content:space-between}
+
+/* 分区 */
+.sec{margin:30px 0 0}
+.sec h2{
+  font-size:16.5px;font-weight:640;color:var(--blue);
+  display:flex;align-items:center;gap:9px;padding-bottom:9px;
+  border-bottom:2px solid var(--blue-l);margin-bottom:16px;
+}
+.dot{width:9px;height:9px;border-radius:3px;background:var(--blue);
+  display:inline-block;flex:0 0 auto}
+.secmeta{margin-left:auto;font-size:12px;color:var(--sub);font-weight:400}
+
+/* 题目卡片 */
+.q{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:17px 19px;margin-bottom:13px;transition:border-color .2s,box-shadow .2s;
+}
+.q:focus-within{border-color:#b9cdea;box-shadow:0 3px 14px rgba(47,91,158,.09)}
+.qhead{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.qno{
+  width:26px;height:26px;border-radius:8px;background:var(--blue);
+  color:#fff;font-size:13px;font-weight:600;display:flex;
+  align-items:center;justify-content:center;flex:0 0 auto;
+}
+.qtag{font-size:11.5px;padding:2px 9px;border-radius:6px;font-weight:500}
+.t-choice{background:var(--blue-l);color:var(--blue)}
+.t-fill{background:var(--green-l);color:var(--green)}
+.t-short{background:var(--violet-l);color:var(--violet)}
+.t-translate{background:var(--amber-l);color:var(--amber)}
+.kp{font-size:11.5px;color:var(--sub);margin-left:auto}
+.stem{font-size:14.8px;margin-bottom:12px;white-space:pre-wrap}
+
+/* 单选 */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 13px;
+  border:1px solid var(--line);border-radius:9px;cursor:pointer;
+  transition:all .16s;font-size:14.2px;
+}
+.opt:hover{background:#f4f7fc;border-color:#c3d5ee}
+.opt input{display:none}
+.opt .letter{
+  width:21px;height:21px;border-radius:6px;background:#eef1f6;color:var(--sub);
+  font-size:12px;font-weight:600;display:flex;align-items:center;
+  justify-content:center;flex:0 0 auto;margin-top:2px;transition:all .16s;
+}
+.opt input:checked~.letter{background:var(--blue);color:#fff}
+.opt:has(input:checked){background:var(--blue-l);border-color:#9dbde6}
+.otext{flex:1}
+
+/* 填空 */
+.fills{display:flex;flex-direction:column;gap:8px}
+.fillin{
+  font-family:inherit;font-size:14.2px;padding:9px 13px;
+  border:1px solid var(--line);border-radius:8px;background:#fcfdff;
+  transition:all .16s;width:100%;
+}
+.fillin:focus{outline:none;border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 文本域 */
+.shortin,.transin{
+  font-family:inherit;font-size:14.2px;line-height:1.75;padding:11px 14px;
+  border:1px solid var(--line);border-radius:9px;background:#fcfdff;
+  width:100%;resize:vertical;transition:all .16s;
+}
+.shortin:focus,.transin:focus{outline:none;border-color:var(--blue);
+  background:#fff;box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 按钮与解析 */
+.qfoot{display:flex;align-items:center;gap:11px;margin-top:11px}
+.btn-ans{
+  font-family:inherit;font-size:12.5px;padding:5px 13px;border-radius:7px;
+  border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;
+  transition:all .16s;
+}
+.btn-ans:hover{background:var(--blue-l);border-color:#a8c4e8;color:var(--blue)}
+.saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
+.saved.show{opacity:1}
+.ansbox{
+  margin-top:12px;padding:13px 15px;background:#fafbfd;
+  border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-size:13.8px;
+}
+.ansline{margin-bottom:8px;display:flex;gap:9px;line-height:1.7}
+.ansline:last-child{margin-bottom:0}
+.ansline b{
+  flex:0 0 auto;color:var(--blue);font-size:12px;font-weight:640;
+  background:var(--blue-l);padding:2px 8px;border-radius:5px;height:fit-content;
+  margin-top:3px;
+}
+.ansline .got{color:var(--green);font-weight:600}
+
+/* 底部操作栏 */
+.toolbar{
+  position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);padding:12px 20px;z-index:60;
+  backdrop-filter:blur(10px);box-shadow:0 -2px 16px rgba(28,36,48,.07);
+}
+.tb-inner{max-width:820px;margin:0 auto;display:flex;
+  align-items:center;gap:11px;flex-wrap:wrap}
+.btn{
+  font-family:inherit;font-size:13.5px;padding:9px 19px;border-radius:9px;
+  border:none;cursor:pointer;font-weight:530;transition:all .16s;
+}
+.btn-main{background:var(--blue);color:#fff}
+.btn-main:hover{background:#264d87;transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--sub);border:1px solid var(--line)}
+.btn-ghost:hover{background:#f4f6fa;color:var(--ink)}
+.tb-count{font-size:13px;color:var(--sub);margin-left:auto}
+
+/* 完成提示 */
+.done-tip{
+  margin-top:22px;padding:18px 20px;border-radius:12px;
+  background:var(--green-l);border:1px solid #bfe5ce;color:#14603a;
+  font-size:14px;display:none;
+}
+.done-tip.show{display:block}
+.done-tip b{display:block;margin-bottom:6px;font-size:15px}
+
+/* 答案导出弹层 */
+.modal{
+  position:fixed;inset:0;background:rgba(20,28,40,.5);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:#fff;border-radius:14px;max-width:660px;width:100%;
+  max-height:82vh;display:flex;flex-direction:column;overflow:hidden;
+}
+.modal-head{padding:17px 21px;border-bottom:1px solid var(--line);
+  font-weight:620;font-size:15.5px;color:var(--blue)}
+.modal-body{padding:18px 21px;overflow-y:auto;flex:1}
+.modal-body textarea{
+  width:100%;height:340px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.65;border:1px solid var(--line);
+  border-radius:9px;padding:13px;background:#fafbfd;resize:vertical;
+}
+.modal-foot{padding:14px 21px;border-top:1px solid var(--line);
+  display:flex;gap:10px;justify-content:flex-end}
+.modal-tip{font-size:12.5px;color:var(--sub);margin-bottom:11px;line-height:1.65}
+
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  header{padding:26px 0 20px}
+  header h1{font-size:19px}
+  .q{padding:14px 15px}
+  .stem{font-size:14.2px}
+  .tb-count{display:none}
+  .kp{margin-left:0;width:100%}
+}
+@media print{
+  .toolbar,.btn-ans,.progress-sticky{display:none}
+  .ansbox[hidden]{display:block!important}
+  .q{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>考研每日测验 · 9.26 综合卷（素材：宝厂拽上岸第五讲 · 政治传播与媒介政策）</h1>
+    <div class="meta">2026-09-26 · 共 20 题 · 今晚 22:30 自动生成</div>
+    <div class="statline">
+      <span class="chip">单选 12</span>
+      <span class="chip">填空 2</span>
+      <span class="chip">问答 5</span>
+      <span class="chip">长难句 1</span>
+    </div>
+  </div>
+</header>
+
+<div class="progress-sticky">
+  <div class="wrap">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <div class="ptext">
+      <span id="ptext">已作答 0 / 20</span>
+      <span>进度自动保存，刷新不丢</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  
+<section class="sec">
+  <h2><span class="dot"></span>一、专业课 · 政治传播与媒介政策（8 题）
+    <span class="secmeta">8 题</span></h2>
+  
+<div class="q" data-q="1" data-type="choice">
+  <div class="qhead">
+    <span class="qno">1</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">政治传播的定义</span>
+  </div>
+  <div class="stem">关于「政治传播」的界定，下列说法**不准确**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q1" value="A"><span class="letter">A</span><span class="otext">政治传播是指特定政治共同体中政治信息扩散和被接受的过程</span></label><label class="opt"><input type="radio" name="q1" value="B"><span class="letter">B</span><span class="otext">政治传播既包括政治共同体内部的政治信息流动，也包括政治共同体之间的政治信息流动</span></label><label class="opt"><input type="radio" name="q1" value="C"><span class="letter">C</span><span class="otext">政治传播的主体只能是政党、国家、政府，社会组织与个人不构成政治传播主体</span></label><label class="opt"><input type="radio" name="q1" value="D"><span class="letter">D</span><span class="otext">「政治信息」与「扩散和被接受」分别对应「政治」与「传播」两个概念的本质要素</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="1">查看解析</button>
+    <span class="saved" data-saved="1"></span>
+  </div>
+  <div class="ansbox" data-ans="1" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>C 错在「只能」。定义出自荆学民（2014）：政治传播是特定政治共同体中政治信息扩散和被接受的过程，是政治共同体内与政治共同体间的政治信息的流动过程。主体这条线在讲义里的表述是「政党主体主导、社会主体补充」——政党、国家、政府是三位一体的主导主体，实践方向恰恰是培育「社会」乃至个体成为与之互补、良性互动的补充主体，所以「只能」二字直接推翻。A、B 是定义原话；D 是讲义对定义的两点拆解：从「政治」里解构出「政治信息」，从「传播」里解构出「扩散和被接受」。</div></div>
+</div>
+<div class="q" data-q="2" data-type="choice">
+  <div class="qhead">
+    <span class="qno">2</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">媒介政治化 vs 媒介化政治</span>
+  </div>
+  <div class="stem">「媒介政治化」与「媒介化政治」经常被混用，但二者的出发点与指向不同。下列辨析**正确**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q2" value="A"><span class="letter">A</span><span class="otext">媒介政治化以政治为主体，研究媒介如何摆脱政治控制并反过来形塑政治生活</span></label><label class="opt"><input type="radio" name="q2" value="B"><span class="letter">B</span><span class="otext">媒介化政治从媒介出发，把媒介视为具有鲜明政治属性的宣传工具</span></label><label class="opt"><input type="radio" name="q2" value="C"><span class="letter">C</span><span class="otext">媒介政治化从媒介出发，考察政治施控、操纵媒介的过程与方法，以及媒介受控、依附政治的表现</span></label><label class="opt"><input type="radio" name="q2" value="D"><span class="letter">D</span><span class="otext">两者是同义互训的关系，都指政治与媒介相互渗透、边界消融的过程</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="2">查看解析</button>
+    <span class="saved" data-saved="2"></span>
+  </div>
+  <div class="ansbox" data-ans="2" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>C 正确。记忆思路：谁在前面，主体就是谁。「媒介政治化」站在媒介这一侧，看政治怎么管媒介（政治施控、操纵媒介，媒介受控、依附政治）；「媒介化政治」站在政治这一侧，看媒介怎么改变政治（新闻媒体在结构与功能上形成机制化运作模式，并不断形塑政治，影响整个政治生活的发展方向与进程）。A、B 恰好把两个词的解释对调了，这是这类题最常见的互换陷阱。D 错在「同义互训」，两者主体不同、指向相反。</div></div>
+</div>
+<div class="q" data-q="3" data-type="choice">
+  <div class="qhead">
+    <span class="qno">3</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">媒介化的四个渐进过程</span>
+  </div>
+  <div class="stem">学者舒尔茨认为媒介化包含四个渐进过程。下列关于四个环节的名称与含义对应**不正确**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q3" value="A"><span class="letter">A</span><span class="otext">扩展：媒介延伸了人跨越时空交流的能力</span></label><label class="opt"><input type="radio" name="q3" value="B"><span class="letter">B</span><span class="otext">替代：媒介替代了部分社会机构、社会活动的功能，并在一定程度上改变了后者的性质</span></label><label class="opt"><input type="radio" name="q3" value="C"><span class="letter">C</span><span class="otext">融合：媒体活动与传统意义上的非媒体活动相统一，二者界限逐渐模糊</span></label><label class="opt"><input type="radio" name="q3" value="D"><span class="letter">D</span><span class="otext">适应：社会行动者被动接受不断增强的媒体力量，不得不放弃原有的行为方式</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="3">查看解析</button>
+    <span class="saved" data-saved="3"></span>
+  </div>
+  <div class="ansbox" data-ans="3" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>D 把「适应」说成了被动屈从。舒尔茨的「适应」指不断增强的媒体力量激发了社会行动者**达权通变**的意愿，社会行动者开始主动利用媒体推广自己、吸引注意力——是主动的。四过程背成一条链：扩（延伸交流能力）→ 替（取代机构功能并改变其性质）→ 融（媒体活动与非媒体活动界限模糊）→ 适（社会行动者主动利用媒体）。另外补一句：夏瓦把媒介化与全球化、商业化并称为影响人类社会的核心「元进程」。</div></div>
+</div>
+<div class="q" data-q="4" data-type="fill">
+  <div class="qhead">
+    <span class="qno">4</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">政治传播的中国实践：方向与路径</span>
+  </div>
+  <div class="stem">讲义用「从……到……」的句式概括中国政治传播实践的方向与路径。请补全下面两条：
+（1）传播主体：从单一的政党主体到 ____、____。
+（2）传播方法：从 ____ 到 ____。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="4" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="4" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="4" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="4" data-b="3" placeholder="第 4 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="4">查看解析</button>
+    <span class="saved" data-saved="4"></span>
+  </div>
+  <div class="ansbox" data-ans="4" hidden><div class="ansline"><b>参考答案</b>（1）政党主体主导、社会主体补充　（2）理性灌输、感性感染</div><div class="ansline"><b>得分点</b>每空 1 分，共 4 分, （1）必须写出「主导」「补充」两个定位词，顺序不能颠倒, （2）写成「说教」「共情」「灌输」「感染」随意搭配的不给分，必须是「理性灌输 → 感性感染」</div><div class="ansline"><b>解析</b>主体这条线的前提是政党、国家、政府「三位一体」，方向是给社会乃至个体留出补充主体的位置，所以「主导」在前、「补充」在后，顺序颠倒就等于说反了。方法这条线的理论依据是汤普森《意识形态与现代文化》（2005）：传播技术从语音到文字、从文字到图片、从图片到影像、从影像到场景的变革，要求意识形态传播更加影像化、符号化、故事化、场景化，所以终点是「感性感染」而不是继续「理性灌输」。讲义给的例子是@中国军号《李幼斌李云龙跨时空对话》——经典影视 IP × 九三阅兵节点 × AI 技术，就是「场景化感性感染」的实操版。</div></div>
+</div>
+<div class="q" data-q="5" data-type="short">
+  <div class="qhead">
+    <span class="qno">5</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">政务新媒体的现实困境</span>
+  </div>
+  <div class="stem">政务新媒体在实践中的现实困境可归纳为三种。请写出这三种困境的名称，并各用一两句话说明其核心矛盾。</div>
+  <textarea class="shortin" data-q="5" rows="7" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="5">查看解析</button>
+    <span class="saved" data-saved="5"></span>
+  </div>
+  <div class="ansbox" data-ans="5" hidden><div class="ansline"><b>参考答案</b>①角色困境：政务新媒体兼具政务信息的传播属性与媒介平台的传播属性，两个属性在网络空间中交织碰撞。传播效果层面，政府部门在现实社会中的权威性、唯一性角色，到网络空间里退化为传播的「节点」，传播能否实现取决于公众的主动认同，甚至遭到质疑和否定；传播方式层面，科层制的层级性、封闭性、滞后性，与网络空间信息的多元性、开放性、自由性相冲突。
+②表达困境：传播内容层面表现为「表达内容多，但整体质量优异少」——多采取「保险式」表达，内容以缺乏民生、不痛不痒的解释类、宣传类为主，沦为「微博宣传栏」「微信手机报」，到达率低、黏性不足；传播规范层面表现为「表达方式多样，但规范性表达少」——淘宝体、咆哮体、卖萌体屡见不鲜，若一味为圈粉而卖萌，忽略传播内容，久而久之会令公众厌烦。
+③参与困境：公众对即时响应和个性化互动提出较高要求，与政府部门的被动滞后形成矛盾；「低互动、弱联动」「只管发布，不管回复」普遍存在，被动回应占据主导，长此以往政务新媒体的「塔西佗效应」更易发酵，直接影响公众的参与意愿和参与程度。</div><div class="ansline"><b>得分点</b>三个困境名称写对各 1 分（角色／表达／参与），共 3 分, 每个困境的核心矛盾说清楚，各再给 1 分，共 3 分, 答到「传播中心 → 传播节点」「科层制 vs 网络空间」「保险式表达」「塔西佗效应」等术语可加印象分</div><div class="ansline"><b>解析</b>三层是「身份—说话—互动」的递进：先卡在我是谁（角色），再卡在说什么、怎么说（表达），最后卡在回不回、怎么回（参与）。讲义批注把实践中的毛病概括成「不敢发，不会发，胡乱发」——答题时把这三个词当引子，再往三层困境上落，比空谈概念有分量。理论依据可以挂德罗尔的「逆境/动员」框架：常态下应当从强化的政治动员转向常态的政治沟通。</div></div>
+</div>
+<div class="q" data-q="6" data-type="short">
+  <div class="qhead">
+    <span class="qno">6</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">政务新媒体的发展路径</span>
+  </div>
+  <div class="stem">政务新媒体的发展路径可以从「主体—内容／主体—行动／主体—关系」三组要素组合来理解。请写出这三条路径的完整名称，并各说明它解决的核心问题。</div>
+  <textarea class="shortin" data-q="6" rows="7" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="6">查看解析</button>
+    <span class="saved" data-saved="6"></span>
+  </div>
+  <div class="ansbox" data-ans="6" hidden><div class="ansline"><b>参考答案</b>①「主体—内容」驱动传播—效果路径：由政府推动，以内容供给为策略，以效果为评价取向，致力于政府信息、行为、政策、法令、议程、决议在网络空间的传播，也重视提供意识形态、观念与文化。核心问题是「怎么把政务信息有效传出去」。
+②「主体—行动」推进服务—绩效路径：服务型政府要求强化公共服务职能、创新行政体制和管理方式，目前公共服务多停留在预约、缴费、查询等初级阶段，「指尖政府」的推广并未完成，要求做到近用性强、操作便捷、路径简化。核心问题是「怎么把事办成、把服务做实」。
+③「主体—关系」连结社会网络路径：发展基于政务新媒体的社会网络与社交网络，重视用户、公民的作用与精神，释放社会互动、参与、自治方面的潜能。核心问题是「怎么把公众连起来、让他们参与进来」——这也是三要素中目前强调最不足的一块。</div><div class="ansline"><b>得分点</b>三条路径的完整名称写对各 1 分，共 3 分（须包含「传播—效果／服务—绩效／社会网络」的落点）, 每条路径解决的核心问题说清楚，各再给 1 分，共 3 分, 点出「关系」要素目前强调不足，加 1 分</div><div class="ansline"><b>解析</b>理论依据是 T.Davis 和 M.Mintz 提出的社交媒体技术运用原则：用户生产内容、形成社交网络、发展协作关系、组织集体行动并跨平台分享数据。讲义由此抽出主体、内容、关系、行动四项基础要素；主体是三条路径共同的一端，另一端分别是内容、行动、关系，所以路径也只有三条。口诀：内容管传播效果，行动管服务绩效，关系管社会网络。</div></div>
+</div>
+<div class="q" data-q="7" data-type="short">
+  <div class="qhead">
+    <span class="qno">7</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">「十五五」规划纲要 · 媒体变革与网络治理</span>
+  </div>
+  <div class="stem">2026 年《「十五五」规划纲要》中与新闻舆论工作关系最直接的是第十篇。请分别写出该篇中「关于媒体变革」与「关于网络治理」两部分的重点要求（每部分写两条）。</div>
+  <textarea class="shortin" data-q="7" rows="7" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="7">查看解析</button>
+    <span class="saved" data-saved="7"></span>
+  </div>
+  <div class="ansbox" data-ans="7" hidden><div class="ansline"><b>参考答案</b>关于媒体变革：
+①深化主流媒体系统性变革，推进新闻宣传和网络舆论一体化管理，提高主流舆论引导能力；
+②加强全媒体传播体系建设，构建适应全媒体生产传播工作机制和评价体系。
+关于网络治理：
+①提升信息化条件下文化领域治理能力，培育积极健康、向上向善的网络文化，共建网上美好精神家园；
+②健全网络综合治理格局，完善网络生态治理长效机制，规范网络内容生产、信息发布和传播流程，督促互联网企业履行社会责任。</div><div class="ansline"><b>得分点</b>媒体变革两条各 1 分，共 2 分, 网络治理两条各 1 分，共 2 分, 四个关键词组答到即给分：系统性变革／一体化管理／全媒体传播体系／网络生态治理长效机制</div><div class="ansline"><b>解析</b>纲要全文近 6 万字、共 18 篇，与新闻舆论工作最直接的是第十篇《激发全民族文化创新创造活力，繁荣发展社会主义文化》，共含四块：媒体变革、网络治理、文化事业、国际传播。国际传播那一块 9.21 卷已经考过，本次不重复。这四条都是可以直接搬进论述题的**政策类论据**，写「媒体融合」或「网络治理」题时，把「十五五规划纲要明确要求……」这句引出来，答案的政策站位立刻不一样。</div></div>
+</div>
+<div class="q" data-q="8" data-type="short">
+  <div class="qhead">
+    <span class="qno">8</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">三个「法」的分工（回滚）</span>
+  </div>
+  <div class="stem">（回滚题）讲义里的「社会环境法」「社会要素法」「社会思维法」三个「法」，常被当成同一个分析框架的不同叫法。请说明三者的分工差别，并各指出它最适合回答哪一类提问。</div>
+  <textarea class="shortin" data-q="8" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="8">查看解析</button>
+    <span class="saved" data-saved="8"></span>
+  </div>
+  <div class="ansbox" data-ans="8" hidden><div class="ansline"><b>参考答案</b>三者是三套不同的操作路径，不是 PETCSI 的不同说法。
+①社会环境法：列六类环境，回答的是「外因与大背景」（学理依据：克罗兹的四大元过程、史安斌与盛阳的「四化」）；
+②社会要素法：列政策、法律、资本、市场、技术、公民、舆论七要素，拆解构成要件（学理依据：十九届四中全会关于社会治理体系的表述）；
+③社会思维法：专门回答「怎么做」，按政治／经济／文化／技术／国际五个维度给出思维词。
+一句话分工：问「为什么」用环境法，问「是什么构成」用要素法，问「怎么办」用思维法。</div><div class="ansline"><b>得分点</b>三个「法」各自的对象与要素说对，各 1 分，共 3 分, 明确否掉「三者＝PETCSI 的不同叫法」这一说法，1 分, 给出「为什么／是什么构成／怎么办」的分工口诀，1 分</div><div class="ansline"><b>解析</b>上次你的答案是「就是『社会框架 PETCSI』的不同说法」，这是方向性错误。PETCSI 是**分析维度**（政治、经济、文化、技术、社会、国际），三个「法」是**三套不同的操作路径**——维度回答「往哪个方向看」，路径回答「这一步具体怎么做」。这两层不能对等。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>二、政治 · 时政与法治（9 题 · 全部单选）
+    <span class="secmeta">9 题</span></h2>
+  
+<div class="q" data-q="9" data-type="choice">
+  <div class="qhead">
+    <span class="qno">9</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">教育强国「六个以」（回滚）</span>
+  </div>
+  <div class="stem">（回滚题）教育强国建设的「六个以」，每一项都有固定搭配。下列关于其搭配的说法**错误**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q9" value="A"><span class="letter">A</span><span class="otext">以坚持党对教育事业的全面领导为根本保证</span></label><label class="opt"><input type="radio" name="q9" value="B"><span class="letter">B</span><span class="otext">以立德树人为根本任务</span></label><label class="opt"><input type="radio" name="q9" value="C"><span class="letter">C</span><span class="otext">以服务中华民族伟大复兴为根本目标</span></label><label class="opt"><input type="radio" name="q9" value="D"><span class="letter">D</span><span class="otext">让人民满意是建设教育强国的根本尺度</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="9">查看解析</button>
+    <span class="saved" data-saved="9"></span>
+  </div>
+  <div class="ansbox" data-ans="9" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>C 错——服务中华民族伟大复兴是**重要使命**，不是根本目标；根本目标是「为党育人、为国育才」。D 是对的，而且正是高频设错点：「人民满意」对应的是**根本尺度**，不要和目标、使命、任务混。两个抓手：保（证）→党；任（务）→德育；目（标）→育才；使（命）→复兴；路（径）→现代化；功（能）→领现代化。上次你填出的「根本方向／基本目标／最终目的／最终标准」四个词全是自造的，属于从没背过原表述、靠语感硬猜——这类题只能靠把六个后缀背成顺口溜来解决。</div></div>
+</div>
+<div class="q" data-q="10" data-type="choice">
+  <div class="qhead">
+    <span class="qno">10</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">全过程人民民主 · 四个相统一（回滚）</span>
+  </div>
+  <div class="stem">（回滚题）「全过程人民民主」强调「四个相统一」。下列四组搭配中，**不属于**这四个「相统一」的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q10" value="A"><span class="letter">A</span><span class="otext">过程民主与成果民主相统一</span></label><label class="opt"><input type="radio" name="q10" value="B"><span class="letter">B</span><span class="otext">程序民主与实质民主相统一</span></label><label class="opt"><input type="radio" name="q10" value="C"><span class="letter">C</span><span class="otext">选举民主与协商民主相统一</span></label><label class="opt"><input type="radio" name="q10" value="D"><span class="letter">D</span><span class="otext">直接民主与间接民主相统一</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="10">查看解析</button>
+    <span class="saved" data-saved="10"></span>
+  </div>
+  <div class="ansbox" data-ans="10" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>四个相统一＝过程民主与成果民主、程序民主与实质民主、直接民主与间接民主、人民民主与国家意志。C 是干扰项——选举民主与协商民主是社会主义民主的两种重要形式（常用表述是「相互补充、相得益彰」），但两者是**并列的形式**，不构成一组「统一」。上次你选成了包含项、把方向做反了，说明盯的是内容而不是结构。识别办法：凡是「相统一」的，必然是一件事的两个侧面；凡是「两种形式／两条路径／两个渠道」并列的，都不是。口诀：三对是同一民主的两个侧面（过程／成果、程序／实质、直接／间接），第四对是「人民民主／国家意志」。</div></div>
+</div>
+<div class="q" data-q="11" data-type="choice">
+  <div class="qhead">
+    <span class="qno">11</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">党的显著标志（回滚）</span>
+  </div>
+  <div class="stem">（回滚题）关于中国共产党的优良作风与鲜明品格，下列表述**正确**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q11" value="A"><span class="letter">A</span><span class="otext">理论联系实际、密切联系群众、批评和自我批评，是党在七大上确立的三个优良作风，「人民至上」是其中的第一条</span></label><label class="opt"><input type="radio" name="q11" value="B"><span class="letter">B</span><span class="otext">「人民至上」与「勇于自我革命」同属党在七大上确立的三大优良作风</span></label><label class="opt"><input type="radio" name="q11" value="C"><span class="letter">C</span><span class="otext">勇于自我革命是中国共产党区别于其他政党的显著标志</span></label><label class="opt"><input type="radio" name="q11" value="D"><span class="letter">D</span><span class="otext">三大优良作风、「人民至上」、勇于自我革命三者并列，共同构成党的显著标志</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="11">查看解析</button>
+    <span class="saved" data-saved="11"></span>
+  </div>
+  <div class="ansbox" data-ans="11" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>C 正确，出自党的十九届六中全会《决议》。A、B、D 复刻的正是你 9.17 反馈里的写法——把三者捏成一句并列，AI 补充当时已经提醒要拆开，你没有改。正确记法是**两条独立来源、各背各的**：党的七大（1945）确立的是理论联系实际、密切联系群众、批评和自我批评这**三大**优良作风（是「三大」，不是「三个」，也不含「人民至上」）；**勇于自我革命**出自十九届六中全会《决议》，是区别于其他政党的显著标志。D 是最像的一句，也是你连着两次都栽在同一处的那一句——这道题请你回去把 9.17 反馈原文改掉。</div></div>
+</div>
+<div class="q" data-q="12" data-type="choice">
+  <div class="qhead">
+    <span class="qno">12</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">「九个坚持」的统领</span>
+  </div>
+  <div class="stem">2018 年 8 月 21 日全国宣传思想工作会议总结的「九个坚持」，其中居于统领地位、被称为做好新时代宣传思想工作最重要的基础和最根本出发点的是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q12" value="A"><span class="letter">A</span><span class="otext">坚持「两个巩固」</span></label><label class="opt"><input type="radio" name="q12" value="B"><span class="letter">B</span><span class="otext">坚持党对意识形态工作的领导权</span></label><label class="opt"><input type="radio" name="q12" value="C"><span class="letter">C</span><span class="otext">坚持提高新闻舆论传播力、引导力、影响力、公信力</span></label><label class="opt"><input type="radio" name="q12" value="D"><span class="letter">D</span><span class="otext">坚持讲好中国故事、传播好中国声音</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="12">查看解析</button>
+    <span class="saved" data-saved="12"></span>
+  </div>
+  <div class="ansbox" data-ans="12" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>「九个坚持」是由政治统领、根本任务、工作举措组成的一个内容完备、体系严密的有机整体，其中「坚持党对意识形态工作的领导权」起统领作用，是做好新时代宣传思想工作最重要的基础和最根本的出发点。A「两个巩固」＝巩固马克思主义在意识形态领域的指导地位、巩固全党全国人民团结奋斗的共同思想基础，属于根本任务层，不是统领层。C、D 都是工作举措。</div></div>
+</div>
+<div class="q" data-q="13" data-type="choice">
+  <div class="qhead">
+    <span class="qno">13</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">《中国共产党宣传工作条例》</span>
+  </div>
+  <div class="stem">2019 年《中国共产党宣传工作条例》是中国共产党成立以来第一部关于宣传工作的党内法规文件。该《条例》规定的宣传工作的根本任务，可以概括为？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q13" value="A"><span class="letter">A</span><span class="otext">「一个高举、两个巩固、三个建设」</span></label><label class="opt"><input type="radio" name="q13" value="B"><span class="letter">B</span><span class="otext">「一个高举、两个巩固、四个自信」</span></label><label class="opt"><input type="radio" name="q13" value="C"><span class="letter">C</span><span class="otext">「两个巩固、三个建设、四个意识」</span></label><label class="opt"><input type="radio" name="q13" value="D"><span class="letter">D</span><span class="otext">「一个高举、三个建设、四个全面」</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="13">查看解析</button>
+    <span class="saved" data-saved="13"></span>
+  </div>
+  <div class="ansbox" data-ans="13" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>一个高举＝高举中国特色社会主义伟大旗帜；两个巩固＝巩固马克思主义在意识形态领域的指导地位、巩固全党全国人民团结奋斗的共同思想基础；三个建设＝建设具有强大凝聚力和引领力的社会主义意识形态、建设具有强大生命力和创造力的社会主义精神文明、建设具有强大感召力和影响力的中华文化软实力。三个「建设」的后缀分别是凝聚力引领力／生命力创造力／感召力影响力，三对力不要串位。</div></div>
+</div>
+<div class="q" data-q="14" data-type="choice">
+  <div class="qhead">
+    <span class="qno">14</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">2016「2·19」讲话的基本方针</span>
+  </div>
+  <div class="stem">2016 年 2 月 19 日习近平在党的新闻舆论工作座谈会上的讲话，明确了党的新闻舆论工作必须遵循的基本方针。这一基本方针是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q14" value="A"><span class="letter">A</span><span class="otext">团结稳定鼓劲、正面宣传为主</span></label><label class="opt"><input type="radio" name="q14" value="B"><span class="letter">B</span><span class="otext">高举旗帜、引领导向，围绕中心、服务大局</span></label><label class="opt"><input type="radio" name="q14" value="C"><span class="letter">C</span><span class="otext">澄清谬误、明辨是非，连接中外、沟通世界</span></label><label class="opt"><input type="radio" name="q14" value="D"><span class="letter">D</span><span class="otext">创新理念、内容、体裁、形式、方法、手段、业态、体制、机制</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="14">查看解析</button>
+    <span class="saved" data-saved="14"></span>
+  </div>
+  <div class="ansbox" data-ans="14" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>A 是基本方针。B、C 出自「2·19」讲话中界定的新闻舆论工作**职责和使命**（完整为 48 字：高举旗帜、引领导向，围绕中心、服务大局，团结人民、鼓舞士气，成风化人、凝心聚力，澄清谬误、明辨是非，连接中外、沟通世界），是使命不是方针。D 是提高传播力、引导力、影响力、公信力时提出的要求（创新九个方面），也不是方针。同一篇讲话里，「职责使命／基本方针／四力要求／党媒姓党」四块最容易张冠李戴，建议按「是什么—怎么做—做到什么程度—谁来领导」四问对齐。</div></div>
+</div>
+<div class="q" data-q="15" data-type="choice">
+  <div class="qhead">
+    <span class="qno">15</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">AI 生成内容标识办法</span>
+  </div>
+  <div class="stem">2025 年 9 月 1 日起施行的《人工智能生成合成内容标识办法》规定，人工智能生成合成内容标识主要包括两种形式。下列说法**正确**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q15" value="A"><span class="letter">A</span><span class="otext">只指标显式标识，即在生成合成内容或交互场景界面中添加、可被用户明显感知到的标识</span></label><label class="opt"><input type="radio" name="q15" value="B"><span class="letter">B</span><span class="otext">指标显式标识与隐式标识两种，前者可被用户明显感知，后者以技术措施添加在文件数据中、不易被明显感知</span></label><label class="opt"><input type="radio" name="q15" value="C"><span class="letter">C</span><span class="otext">只指隐式标识，即以技术措施添加在文件数据中、不易被用户明显感知到的标识</span></label><label class="opt"><input type="radio" name="q15" value="D"><span class="letter">D</span><span class="otext">指水印标识与区块链标识两种，分别对应图片视频与文本内容</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="15">查看解析</button>
+    <span class="saved" data-saved="15"></span>
+  </div>
+  <div class="ansbox" data-ans="15" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>《标识办法》由网信办、工信部、公安部、广电总局四部门联合发布，2025 年 3 月发布、同年 9 月 1 日起施行，明确标识分**显式标识**和**隐式标识**两种。D 的两组术语是编造的。同族的四部法规建议一起背：2023 年 1 月 10 日施行《互联网信息服务深度合成管理规定》；2023 年 8 月 15 日施行《生成式人工智能服务管理暂行办法》（坚持发展和安全并重、促进创新和依法治理相结合，包容审慎、分类分级监管）；2024 年 8 月 1 日施行《网络暴力信息治理规定》；2025 年 9 月 1 日施行《人工智能生成合成内容标识办法》。</div></div>
+</div>
+<div class="q" data-q="16" data-type="choice">
+  <div class="qhead">
+    <span class="qno">16</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">「十五五」规划纲要 · 文化事业</span>
+  </div>
+  <div class="stem">2026 年《「十五五」规划纲要》就「关于文化事业」提出多项要求。下列表述**不属于**该部分要求的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q16" value="A"><span class="letter">A</span><span class="otext">加强新型广电网络建设，提升超高清内容制播能力</span></label><label class="opt"><input type="radio" name="q16" value="B"><span class="letter">B</span><span class="otext">深化互联网电视「套娃」收费和操作复杂治理</span></label><label class="opt"><input type="radio" name="q16" value="C"><span class="letter">C</span><span class="otext">发展数字动漫、沉浸式展演、线上演播、短视频、微短剧等新型文化业态</span></label><label class="opt"><input type="radio" name="q16" value="D"><span class="letter">D</span><span class="otext">推进新闻宣传和网络舆论一体化管理，提高主流舆论引导能力</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="16">查看解析</button>
+    <span class="saved" data-saved="16"></span>
+  </div>
+  <div class="ansbox" data-ans="16" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>D 属于纲要中「关于媒体变革」的内容。这四块（媒体变革／网络治理／文化事业／国际传播）措辞风格接近，按「管媒体—管网—办文化—走出去」四格分类记：媒体变革管的是**主流媒体和舆论机制**，文化事业管的是**产品、业态、基础设施**。A、B、C 都落在广电网络与文化业态上，只有 D 的主语是「新闻宣传和网络舆论」，落在媒体变革那一格。</div></div>
+</div>
+<div class="q" data-q="17" data-type="choice">
+  <div class="qhead">
+    <span class="qno">17</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">媒体融合与国家广电机构改革</span>
+  </div>
+  <div class="stem">关于我国媒体融合与广播电视机构改革，下列说法**不正确**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q17" value="A"><span class="letter">A</span><span class="otext">2014 年《关于推动传统媒体和新兴媒体融合发展的指导意见》标志着媒体融合上升为国家战略，在党的新闻政策史上属第一次，具有里程碑意义</span></label><label class="opt"><input type="radio" name="q17" value="B"><span class="letter">B</span><span class="otext">2020 年 6 月中央深改委会议审议通过的《关于加快推进媒体深度融合发展的指导意见》，被称为媒体融合的「2.0 版」改革方案</span></label><label class="opt"><input type="radio" name="q17" value="C"><span class="letter">C</span><span class="otext">2018 年《深化党和国家机构改革方案》整合中央电视台（中国国际电视台）、中央人民广播电台、中国国际广播电台，组建中央广播电视总台，作为国务院直属事业单位，归口中央宣传部领导</span></label><label class="opt"><input type="radio" name="q17" value="D"><span class="letter">D</span><span class="otext">组建中央广播电视总台后，对内、对外统一呼号为「中国之声」</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="17">查看解析</button>
+    <span class="saved" data-saved="17"></span>
+  </div>
+  <div class="ansbox" data-ans="17" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>D 错在「统一」二字。原方案是**对内保留原呼号，对外统一呼号为「中国之声」**。C 有两处最容易设错的细节，两处都是对的：「国务院直属事业单位」和「归口中央宣传部领导」。另外补一个易混点：2013 年国家新闻出版总署与国家广播电影电视总局合并为国家新闻出版广电总局，2018 年又拆成三个独立部门——国家广播电视总局（国务院直属机构）、国家新闻出版署（国家版权局）、国家电影局（中宣部加挂后两个牌子）。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>三、英语二 · 外刊精读与词汇（3 题）
+    <span class="secmeta">3 题</span></h2>
+  
+<div class="q" data-q="18" data-type="fill">
+  <div class="qhead">
+    <span class="qno">18</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">词汇回滚</span>
+  </div>
+  <div class="stem">根据括号内的中文提示，用英语补全句子（每空写单词或词组）：
+（1）警方昨夜对非法赌博活动进行了严厉打击：The police ____ illegal gambling last night.
+（2）北美大草原上几乎没有人烟：Almost nobody lives on the ____ of North America.
+（3）这道题比上一道更棘手：This problem is ____ than the last one.</div>
+  <div class="fills"><input class="fillin" type="text" data-q="18" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="18">查看解析</button>
+    <span class="saved" data-saved="18"></span>
+  </div>
+  <div class="ansbox" data-ans="18" hidden><div class="ansline"><b>参考答案</b>（1）cracked down on　（2）prairie　（3）thornier</div><div class="ansline"><b>得分点</b>每空 1 分，共 3 分, （1）必须含 down on，写成 crack／crack on／crack down 不带 on 的均不给分, （3）优先写 thornier；写成 more thorny 语法不算错，但不地道，按半分计</div><div class="ansline"><b>解析</b>上次你把 crack down on 译成了「崩塌」——「崩塌」是 collapse／cave in，与这个词组无关。crack down on 是朝外的**打压**动作，联想「警方扫荡、集中整治」。prairie 与 plain（平原）、plateau（高原）一起记：三个都是「一大片地」，高度递进。thorny 本义「多刺的」，引申「棘手的」，双音节以 y 结尾的词比较级变 y 为 i 加 -er。</div></div>
+</div>
+<div class="q" data-q="19" data-type="translate">
+  <div class="qhead">
+    <span class="qno">19</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">长难句翻译（回滚）</span>
+  </div>
+  <div class="stem">（回滚题）翻译下面这个句子，并完成两件事：
+（1）指出全句的**主干**；
+（2）说明其中的比较结构和条件补充成分分别该怎么处理。
+
+Those confronted with the prospect of a long and empty retirement are far more likely to feel threatened, unless they can find ways to make passing time fulfilling.</div>
+  <textarea class="transin" data-q="19" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="19">查看解析</button>
+    <span class="saved" data-saved="19"></span>
+  </div>
+  <div class="ansbox" data-ans="19" hidden><div class="ansline"><b>参考答案</b>译文：那些即将面对漫长而空虚的退休生活的人，感到受威胁的可能性要大得多——除非他们能找到让时间过得充实的方法。
+主干：Those are far more likely to feel threatened. 其中 confronted with the prospect of a long and empty retirement 是过去分词短语作后置定语，修饰主语 Those。
+比较结构：far more likely to 是「程度副词 far + 比较级 more likely」的加强结构，必须译出「远远更可能／可能性大得多」，不能只译成「更可能」，更不能漏掉。
+条件补充：unless 引导否定条件状语从句（＝if they cannot find ways...），译成「除非……」；to make passing time fulfilling 是不定式作后置定语，修饰 ways。</div><div class="ansline"><b>得分点</b>主干找对 2 分（主语 Those + 系表 are likely，后置定语要认出来）, far more likely 译出程度加强 2 分，漏掉 far 扣 1 分, unless 从句处理和 to make passing time fulfilling 的译法各 1 分，共 2 分</div><div class="ansline"><b>解析</b>上次你的失分点只有一个：**把 far more likely 漏掉了**，只译成「感到受到威胁」。英二翻译里比较级和程度副词是硬扣分点，far／much／a great deal／rather + 比较级必须体现出来。另外 those 要补出名词性所指——「那些……的人」，光写「那些」在采分点上算不完整。</div></div>
+</div>
+<div class="q" data-q="20" data-type="short">
+  <div class="qhead">
+    <span class="qno">20</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">外刊精读方法反思</span>
+  </div>
+  <div class="stem">结合你错题本里反复出现的两类错误——「词汇方向性错误」（如 crack down on 译成「崩塌」）与「漏掉程度修饰」（如 far more likely 只译成「更可能」）——给自己写一份**外刊精读自检清单**：3 条，每条一句话，写清楚翻译之前你会做什么检查。</div>
+  <textarea class="shortin" data-q="20" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="20">查看解析</button>
+    <span class="saved" data-saved="20"></span>
+  </div>
+  <div class="ansbox" data-ans="20" hidden><div class="ansline"><b>参考答案</b>参考方向（不唯一，写到可操作的动作即可）：
+① 词组整块记，先判方向再定词义：动词+介词的固定搭配（crack down on／jump at／pass with flying colours）不拆成单词去背，先判断动作是朝外还是朝内、是打压还是崩塌，再选中文。
+② 翻译前先圈出程度词与比较级：far／much／a great deal／rather／barely／hardly 这类词单独标出来，逐一如实译，宁可啰嗦也不要漏。
+③ 译完回读一遍，专查三类高频漏项：省略的主语（those／one）有没有补出所指、否定与条件（unless／hardly／no longer）有没有转成通顺中文、抽象名词有没有落地成具体说法。</div><div class="ansline"><b>得分点</b>三条各 1 分，指向可操作的具体动作给满分, 只重复「多背单词」「多做精读」这类空话不给分, 能点出「整块记搭配」「圈程度词」「回读查漏项」三点中任一，各加印象分</div><div class="ansline"><b>解析</b>这道题不看你写得多漂亮，看你能不能把错误还原成**动作**。你的两类错误其实是同一个病根：把英文当「词表」逐词对译，而不是当「结构」整块理解——所以既会认错搭配的方向，也会漏掉修饰的力度。清单的意义在于把它变成翻译前的固定程序，而不是事后懊悔。</div></div>
+</div>
+</section>
+
+  <div class="done-tip" id="doneTip">
+    <b>🎉 全部作答完毕</b>
+    点右下角「导出我的答案」，把导出的文件发给我，我会逐题批改并给出评分与改进建议。
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="tb-inner">
+    <button class="btn btn-main" id="btnExport">导出我的答案</button>
+    <button class="btn btn-ghost" id="btnRevealAll">展开全部解析</button>
+    <button class="btn btn-ghost" id="btnReset">清空重做</button>
+    <span class="tb-count" id="tbCount">0 / 20</span>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">你的答案（复制后发给我批改）</div>
+    <div class="modal-body">
+      <div class="modal-tip">
+        全选复制下面的内容，粘贴到对话里发给我即可。也可以点「下载 .md」保存成文件再上传。
+      </div>
+      <textarea id="exportArea" readonly></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="btnCloseModal">关闭</button>
+      <button class="btn btn-main" id="btnDownload">下载 .md</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ = {"title": "考研每日测验 · 9.26 综合卷（素材：宝厂拽上岸第五讲 · 政治传播与媒介政策）", "date": "2026-09-26", "sections": [{"name": "一、专业课 · 政治传播与媒介政策（8 题）", "questions": [{"id": 1, "type": "choice", "kp": "政治传播的定义", "stem": "关于「政治传播」的界定，下列说法**不准确**的一项是？", "options": ["政治传播是指特定政治共同体中政治信息扩散和被接受的过程", "政治传播既包括政治共同体内部的政治信息流动，也包括政治共同体之间的政治信息流动", "政治传播的主体只能是政党、国家、政府，社会组织与个人不构成政治传播主体", "「政治信息」与「扩散和被接受」分别对应「政治」与「传播」两个概念的本质要素"], "answer": "C", "explain": "C 错在「只能」。定义出自荆学民（2014）：政治传播是特定政治共同体中政治信息扩散和被接受的过程，是政治共同体内与政治共同体间的政治信息的流动过程。主体这条线在讲义里的表述是「政党主体主导、社会主体补充」——政党、国家、政府是三位一体的主导主体，实践方向恰恰是培育「社会」乃至个体成为与之互补、良性互动的补充主体，所以「只能」二字直接推翻。A、B 是定义原话；D 是讲义对定义的两点拆解：从「政治」里解构出「政治信息」，从「传播」里解构出「扩散和被接受」。", "_id": 1}, {"id": 2, "type": "choice", "kp": "媒介政治化 vs 媒介化政治", "stem": "「媒介政治化」与「媒介化政治」经常被混用，但二者的出发点与指向不同。下列辨析**正确**的一项是？", "options": ["媒介政治化以政治为主体，研究媒介如何摆脱政治控制并反过来形塑政治生活", "媒介化政治从媒介出发，把媒介视为具有鲜明政治属性的宣传工具", "媒介政治化从媒介出发，考察政治施控、操纵媒介的过程与方法，以及媒介受控、依附政治的表现", "两者是同义互训的关系，都指政治与媒介相互渗透、边界消融的过程"], "answer": "C", "explain": "C 正确。记忆思路：谁在前面，主体就是谁。「媒介政治化」站在媒介这一侧，看政治怎么管媒介（政治施控、操纵媒介，媒介受控、依附政治）；「媒介化政治」站在政治这一侧，看媒介怎么改变政治（新闻媒体在结构与功能上形成机制化运作模式，并不断形塑政治，影响整个政治生活的发展方向与进程）。A、B 恰好把两个词的解释对调了，这是这类题最常见的互换陷阱。D 错在「同义互训」，两者主体不同、指向相反。", "_id": 2}, {"id": 3, "type": "choice", "kp": "媒介化的四个渐进过程", "stem": "学者舒尔茨认为媒介化包含四个渐进过程。下列关于四个环节的名称与含义对应**不正确**的一项是？", "options": ["扩展：媒介延伸了人跨越时空交流的能力", "替代：媒介替代了部分社会机构、社会活动的功能，并在一定程度上改变了后者的性质", "融合：媒体活动与传统意义上的非媒体活动相统一，二者界限逐渐模糊", "适应：社会行动者被动接受不断增强的媒体力量，不得不放弃原有的行为方式"], "answer": "D", "explain": "D 把「适应」说成了被动屈从。舒尔茨的「适应」指不断增强的媒体力量激发了社会行动者**达权通变**的意愿，社会行动者开始主动利用媒体推广自己、吸引注意力——是主动的。四过程背成一条链：扩（延伸交流能力）→ 替（取代机构功能并改变其性质）→ 融（媒体活动与非媒体活动界限模糊）→ 适（社会行动者主动利用媒体）。另外补一句：夏瓦把媒介化与全球化、商业化并称为影响人类社会的核心「元进程」。", "_id": 3}, {"id": 4, "type": "fill", "blanks": 4, "kp": "政治传播的中国实践：方向与路径", "stem": "讲义用「从……到……」的句式概括中国政治传播实践的方向与路径。请补全下面两条：\n（1）传播主体：从单一的政党主体到 ____、____。\n（2）传播方法：从 ____ 到 ____。", "answer": "（1）政党主体主导、社会主体补充　（2）理性灌输、感性感染", "keys": ["每空 1 分，共 4 分", "（1）必须写出「主导」「补充」两个定位词，顺序不能颠倒", "（2）写成「说教」「共情」「灌输」「感染」随意搭配的不给分，必须是「理性灌输 → 感性感染」"], "explain": "主体这条线的前提是政党、国家、政府「三位一体」，方向是给社会乃至个体留出补充主体的位置，所以「主导」在前、「补充」在后，顺序颠倒就等于说反了。方法这条线的理论依据是汤普森《意识形态与现代文化》（2005）：传播技术从语音到文字、从文字到图片、从图片到影像、从影像到场景的变革，要求意识形态传播更加影像化、符号化、故事化、场景化，所以终点是「感性感染」而不是继续「理性灌输」。讲义给的例子是@中国军号《李幼斌李云龙跨时空对话》——经典影视 IP × 九三阅兵节点 × AI 技术，就是「场景化感性感染」的实操版。", "_id": 4}, {"id": 5, "type": "short", "rows": 7, "kp": "政务新媒体的现实困境", "stem": "政务新媒体在实践中的现实困境可归纳为三种。请写出这三种困境的名称，并各用一两句话说明其核心矛盾。", "answer": "①角色困境：政务新媒体兼具政务信息的传播属性与媒介平台的传播属性，两个属性在网络空间中交织碰撞。传播效果层面，政府部门在现实社会中的权威性、唯一性角色，到网络空间里退化为传播的「节点」，传播能否实现取决于公众的主动认同，甚至遭到质疑和否定；传播方式层面，科层制的层级性、封闭性、滞后性，与网络空间信息的多元性、开放性、自由性相冲突。\n②表达困境：传播内容层面表现为「表达内容多，但整体质量优异少」——多采取「保险式」表达，内容以缺乏民生、不痛不痒的解释类、宣传类为主，沦为「微博宣传栏」「微信手机报」，到达率低、黏性不足；传播规范层面表现为「表达方式多样，但规范性表达少」——淘宝体、咆哮体、卖萌体屡见不鲜，若一味为圈粉而卖萌，忽略传播内容，久而久之会令公众厌烦。\n③参与困境：公众对即时响应和个性化互动提出较高要求，与政府部门的被动滞后形成矛盾；「低互动、弱联动」「只管发布，不管回复」普遍存在，被动回应占据主导，长此以往政务新媒体的「塔西佗效应」更易发酵，直接影响公众的参与意愿和参与程度。", "keys": ["三个困境名称写对各 1 分（角色／表达／参与），共 3 分", "每个困境的核心矛盾说清楚，各再给 1 分，共 3 分", "答到「传播中心 → 传播节点」「科层制 vs 网络空间」「保险式表达」「塔西佗效应」等术语可加印象分"], "explain": "三层是「身份—说话—互动」的递进：先卡在我是谁（角色），再卡在说什么、怎么说（表达），最后卡在回不回、怎么回（参与）。讲义批注把实践中的毛病概括成「不敢发，不会发，胡乱发」——答题时把这三个词当引子，再往三层困境上落，比空谈概念有分量。理论依据可以挂德罗尔的「逆境/动员」框架：常态下应当从强化的政治动员转向常态的政治沟通。", "_id": 5}, {"id": 6, "type": "short", "rows": 7, "kp": "政务新媒体的发展路径", "stem": "政务新媒体的发展路径可以从「主体—内容／主体—行动／主体—关系」三组要素组合来理解。请写出这三条路径的完整名称，并各说明它解决的核心问题。", "answer": "①「主体—内容」驱动传播—效果路径：由政府推动，以内容供给为策略，以效果为评价取向，致力于政府信息、行为、政策、法令、议程、决议在网络空间的传播，也重视提供意识形态、观念与文化。核心问题是「怎么把政务信息有效传出去」。\n②「主体—行动」推进服务—绩效路径：服务型政府要求强化公共服务职能、创新行政体制和管理方式，目前公共服务多停留在预约、缴费、查询等初级阶段，「指尖政府」的推广并未完成，要求做到近用性强、操作便捷、路径简化。核心问题是「怎么把事办成、把服务做实」。\n③「主体—关系」连结社会网络路径：发展基于政务新媒体的社会网络与社交网络，重视用户、公民的作用与精神，释放社会互动、参与、自治方面的潜能。核心问题是「怎么把公众连起来、让他们参与进来」——这也是三要素中目前强调最不足的一块。", "keys": ["三条路径的完整名称写对各 1 分，共 3 分（须包含「传播—效果／服务—绩效／社会网络」的落点）", "每条路径解决的核心问题说清楚，各再给 1 分，共 3 分", "点出「关系」要素目前强调不足，加 1 分"], "explain": "理论依据是 T.Davis 和 M.Mintz 提出的社交媒体技术运用原则：用户生产内容、形成社交网络、发展协作关系、组织集体行动并跨平台分享数据。讲义由此抽出主体、内容、关系、行动四项基础要素；主体是三条路径共同的一端，另一端分别是内容、行动、关系，所以路径也只有三条。口诀：内容管传播效果，行动管服务绩效，关系管社会网络。", "_id": 6}, {"id": 7, "type": "short", "rows": 7, "kp": "「十五五」规划纲要 · 媒体变革与网络治理", "stem": "2026 年《「十五五」规划纲要》中与新闻舆论工作关系最直接的是第十篇。请分别写出该篇中「关于媒体变革」与「关于网络治理」两部分的重点要求（每部分写两条）。", "answer": "关于媒体变革：\n①深化主流媒体系统性变革，推进新闻宣传和网络舆论一体化管理，提高主流舆论引导能力；\n②加强全媒体传播体系建设，构建适应全媒体生产传播工作机制和评价体系。\n关于网络治理：\n①提升信息化条件下文化领域治理能力，培育积极健康、向上向善的网络文化，共建网上美好精神家园；\n②健全网络综合治理格局，完善网络生态治理长效机制，规范网络内容生产、信息发布和传播流程，督促互联网企业履行社会责任。", "keys": ["媒体变革两条各 1 分，共 2 分", "网络治理两条各 1 分，共 2 分", "四个关键词组答到即给分：系统性变革／一体化管理／全媒体传播体系／网络生态治理长效机制"], "explain": "纲要全文近 6 万字、共 18 篇，与新闻舆论工作最直接的是第十篇《激发全民族文化创新创造活力，繁荣发展社会主义文化》，共含四块：媒体变革、网络治理、文化事业、国际传播。国际传播那一块 9.21 卷已经考过，本次不重复。这四条都是可以直接搬进论述题的**政策类论据**，写「媒体融合」或「网络治理」题时，把「十五五规划纲要明确要求……」这句引出来，答案的政策站位立刻不一样。", "_id": 7}, {"id": 8, "type": "short", "rows": 6, "kp": "三个「法」的分工（回滚）", "stem": "（回滚题）讲义里的「社会环境法」「社会要素法」「社会思维法」三个「法」，常被当成同一个分析框架的不同叫法。请说明三者的分工差别，并各指出它最适合回答哪一类提问。", "answer": "三者是三套不同的操作路径，不是 PETCSI 的不同说法。\n①社会环境法：列六类环境，回答的是「外因与大背景」（学理依据：克罗兹的四大元过程、史安斌与盛阳的「四化」）；\n②社会要素法：列政策、法律、资本、市场、技术、公民、舆论七要素，拆解构成要件（学理依据：十九届四中全会关于社会治理体系的表述）；\n③社会思维法：专门回答「怎么做」，按政治／经济／文化／技术／国际五个维度给出思维词。\n一句话分工：问「为什么」用环境法，问「是什么构成」用要素法，问「怎么办」用思维法。", "keys": ["三个「法」各自的对象与要素说对，各 1 分，共 3 分", "明确否掉「三者＝PETCSI 的不同叫法」这一说法，1 分", "给出「为什么／是什么构成／怎么办」的分工口诀，1 分"], "explain": "上次你的答案是「就是『社会框架 PETCSI』的不同说法」，这是方向性错误。PETCSI 是**分析维度**（政治、经济、文化、技术、社会、国际），三个「法」是**三套不同的操作路径**——维度回答「往哪个方向看」，路径回答「这一步具体怎么做」。这两层不能对等。", "_id": 8}]}, {"name": "二、政治 · 时政与法治（9 题 · 全部单选）", "questions": [{"id": 9, "type": "choice", "kp": "教育强国「六个以」（回滚）", "stem": "（回滚题）教育强国建设的「六个以」，每一项都有固定搭配。下列关于其搭配的说法**错误**的一项是？", "options": ["以坚持党对教育事业的全面领导为根本保证", "以立德树人为根本任务", "以服务中华民族伟大复兴为根本目标", "让人民满意是建设教育强国的根本尺度"], "answer": "C", "explain": "C 错——服务中华民族伟大复兴是**重要使命**，不是根本目标；根本目标是「为党育人、为国育才」。D 是对的，而且正是高频设错点：「人民满意」对应的是**根本尺度**，不要和目标、使命、任务混。两个抓手：保（证）→党；任（务）→德育；目（标）→育才；使（命）→复兴；路（径）→现代化；功（能）→领现代化。上次你填出的「根本方向／基本目标／最终目的／最终标准」四个词全是自造的，属于从没背过原表述、靠语感硬猜——这类题只能靠把六个后缀背成顺口溜来解决。", "_id": 9}, {"id": 10, "type": "choice", "kp": "全过程人民民主 · 四个相统一（回滚）", "stem": "（回滚题）「全过程人民民主」强调「四个相统一」。下列四组搭配中，**不属于**这四个「相统一」的一项是？", "options": ["过程民主与成果民主相统一", "程序民主与实质民主相统一", "选举民主与协商民主相统一", "直接民主与间接民主相统一"], "answer": "C", "explain": "四个相统一＝过程民主与成果民主、程序民主与实质民主、直接民主与间接民主、人民民主与国家意志。C 是干扰项——选举民主与协商民主是社会主义民主的两种重要形式（常用表述是「相互补充、相得益彰」），但两者是**并列的形式**，不构成一组「统一」。上次你选成了包含项、把方向做反了，说明盯的是内容而不是结构。识别办法：凡是「相统一」的，必然是一件事的两个侧面；凡是「两种形式／两条路径／两个渠道」并列的，都不是。口诀：三对是同一民主的两个侧面（过程／成果、程序／实质、直接／间接），第四对是「人民民主／国家意志」。", "_id": 10}, {"id": 11, "type": "choice", "kp": "党的显著标志（回滚）", "stem": "（回滚题）关于中国共产党的优良作风与鲜明品格，下列表述**正确**的一项是？", "options": ["理论联系实际、密切联系群众、批评和自我批评，是党在七大上确立的三个优良作风，「人民至上」是其中的第一条", "「人民至上」与「勇于自我革命」同属党在七大上确立的三大优良作风", "勇于自我革命是中国共产党区别于其他政党的显著标志", "三大优良作风、「人民至上」、勇于自我革命三者并列，共同构成党的显著标志"], "answer": "C", "explain": "C 正确，出自党的十九届六中全会《决议》。A、B、D 复刻的正是你 9.17 反馈里的写法——把三者捏成一句并列，AI 补充当时已经提醒要拆开，你没有改。正确记法是**两条独立来源、各背各的**：党的七大（1945）确立的是理论联系实际、密切联系群众、批评和自我批评这**三大**优良作风（是「三大」，不是「三个」，也不含「人民至上」）；**勇于自我革命**出自十九届六中全会《决议》，是区别于其他政党的显著标志。D 是最像的一句，也是你连着两次都栽在同一处的那一句——这道题请你回去把 9.17 反馈原文改掉。", "_id": 11}, {"id": 12, "type": "choice", "kp": "「九个坚持」的统领", "stem": "2018 年 8 月 21 日全国宣传思想工作会议总结的「九个坚持」，其中居于统领地位、被称为做好新时代宣传思想工作最重要的基础和最根本出发点的是？", "options": ["坚持「两个巩固」", "坚持党对意识形态工作的领导权", "坚持提高新闻舆论传播力、引导力、影响力、公信力", "坚持讲好中国故事、传播好中国声音"], "answer": "B", "explain": "「九个坚持」是由政治统领、根本任务、工作举措组成的一个内容完备、体系严密的有机整体，其中「坚持党对意识形态工作的领导权」起统领作用，是做好新时代宣传思想工作最重要的基础和最根本的出发点。A「两个巩固」＝巩固马克思主义在意识形态领域的指导地位、巩固全党全国人民团结奋斗的共同思想基础，属于根本任务层，不是统领层。C、D 都是工作举措。", "_id": 12}, {"id": 13, "type": "choice", "kp": "《中国共产党宣传工作条例》", "stem": "2019 年《中国共产党宣传工作条例》是中国共产党成立以来第一部关于宣传工作的党内法规文件。该《条例》规定的宣传工作的根本任务，可以概括为？", "options": ["「一个高举、两个巩固、三个建设」", "「一个高举、两个巩固、四个自信」", "「两个巩固、三个建设、四个意识」", "「一个高举、三个建设、四个全面」"], "answer": "A", "explain": "一个高举＝高举中国特色社会主义伟大旗帜；两个巩固＝巩固马克思主义在意识形态领域的指导地位、巩固全党全国人民团结奋斗的共同思想基础；三个建设＝建设具有强大凝聚力和引领力的社会主义意识形态、建设具有强大生命力和创造力的社会主义精神文明、建设具有强大感召力和影响力的中华文化软实力。三个「建设」的后缀分别是凝聚力引领力／生命力创造力／感召力影响力，三对力不要串位。", "_id": 13}, {"id": 14, "type": "choice", "kp": "2016「2·19」讲话的基本方针", "stem": "2016 年 2 月 19 日习近平在党的新闻舆论工作座谈会上的讲话，明确了党的新闻舆论工作必须遵循的基本方针。这一基本方针是？", "options": ["团结稳定鼓劲、正面宣传为主", "高举旗帜、引领导向，围绕中心、服务大局", "澄清谬误、明辨是非，连接中外、沟通世界", "创新理念、内容、体裁、形式、方法、手段、业态、体制、机制"], "answer": "A", "explain": "A 是基本方针。B、C 出自「2·19」讲话中界定的新闻舆论工作**职责和使命**（完整为 48 字：高举旗帜、引领导向，围绕中心、服务大局，团结人民、鼓舞士气，成风化人、凝心聚力，澄清谬误、明辨是非，连接中外、沟通世界），是使命不是方针。D 是提高传播力、引导力、影响力、公信力时提出的要求（创新九个方面），也不是方针。同一篇讲话里，「职责使命／基本方针／四力要求／党媒姓党」四块最容易张冠李戴，建议按「是什么—怎么做—做到什么程度—谁来领导」四问对齐。", "_id": 14}, {"id": 15, "type": "choice", "kp": "AI 生成内容标识办法", "stem": "2025 年 9 月 1 日起施行的《人工智能生成合成内容标识办法》规定，人工智能生成合成内容标识主要包括两种形式。下列说法**正确**的一项是？", "options": ["只指标显式标识，即在生成合成内容或交互场景界面中添加、可被用户明显感知到的标识", "指标显式标识与隐式标识两种，前者可被用户明显感知，后者以技术措施添加在文件数据中、不易被明显感知", "只指隐式标识，即以技术措施添加在文件数据中、不易被用户明显感知到的标识", "指水印标识与区块链标识两种，分别对应图片视频与文本内容"], "answer": "B", "explain": "《标识办法》由网信办、工信部、公安部、广电总局四部门联合发布，2025 年 3 月发布、同年 9 月 1 日起施行，明确标识分**显式标识**和**隐式标识**两种。D 的两组术语是编造的。同族的四部法规建议一起背：2023 年 1 月 10 日施行《互联网信息服务深度合成管理规定》；2023 年 8 月 15 日施行《生成式人工智能服务管理暂行办法》（坚持发展和安全并重、促进创新和依法治理相结合，包容审慎、分类分级监管）；2024 年 8 月 1 日施行《网络暴力信息治理规定》；2025 年 9 月 1 日施行《人工智能生成合成内容标识办法》。", "_id": 15}, {"id": 16, "type": "choice", "kp": "「十五五」规划纲要 · 文化事业", "stem": "2026 年《「十五五」规划纲要》就「关于文化事业」提出多项要求。下列表述**不属于**该部分要求的一项是？", "options": ["加强新型广电网络建设，提升超高清内容制播能力", "深化互联网电视「套娃」收费和操作复杂治理", "发展数字动漫、沉浸式展演、线上演播、短视频、微短剧等新型文化业态", "推进新闻宣传和网络舆论一体化管理，提高主流舆论引导能力"], "answer": "D", "explain": "D 属于纲要中「关于媒体变革」的内容。这四块（媒体变革／网络治理／文化事业／国际传播）措辞风格接近，按「管媒体—管网—办文化—走出去」四格分类记：媒体变革管的是**主流媒体和舆论机制**，文化事业管的是**产品、业态、基础设施**。A、B、C 都落在广电网络与文化业态上，只有 D 的主语是「新闻宣传和网络舆论」，落在媒体变革那一格。", "_id": 16}, {"id": 17, "type": "choice", "kp": "媒体融合与国家广电机构改革", "stem": "关于我国媒体融合与广播电视机构改革，下列说法**不正确**的一项是？", "options": ["2014 年《关于推动传统媒体和新兴媒体融合发展的指导意见》标志着媒体融合上升为国家战略，在党的新闻政策史上属第一次，具有里程碑意义", "2020 年 6 月中央深改委会议审议通过的《关于加快推进媒体深度融合发展的指导意见》，被称为媒体融合的「2.0 版」改革方案", "2018 年《深化党和国家机构改革方案》整合中央电视台（中国国际电视台）、中央人民广播电台、中国国际广播电台，组建中央广播电视总台，作为国务院直属事业单位，归口中央宣传部领导", "组建中央广播电视总台后，对内、对外统一呼号为「中国之声」"], "answer": "D", "explain": "D 错在「统一」二字。原方案是**对内保留原呼号，对外统一呼号为「中国之声」**。C 有两处最容易设错的细节，两处都是对的：「国务院直属事业单位」和「归口中央宣传部领导」。另外补一个易混点：2013 年国家新闻出版总署与国家广播电影电视总局合并为国家新闻出版广电总局，2018 年又拆成三个独立部门——国家广播电视总局（国务院直属机构）、国家新闻出版署（国家版权局）、国家电影局（中宣部加挂后两个牌子）。", "_id": 17}]}, {"name": "三、英语二 · 外刊精读与词汇（3 题）", "questions": [{"id": 18, "type": "fill", "blanks": 3, "kp": "词汇回滚", "stem": "根据括号内的中文提示，用英语补全句子（每空写单词或词组）：\n（1）警方昨夜对非法赌博活动进行了严厉打击：The police ____ illegal gambling last night.\n（2）北美大草原上几乎没有人烟：Almost nobody lives on the ____ of North America.\n（3）这道题比上一道更棘手：This problem is ____ than the last one.", "answer": "（1）cracked down on　（2）prairie　（3）thornier", "keys": ["每空 1 分，共 3 分", "（1）必须含 down on，写成 crack／crack on／crack down 不带 on 的均不给分", "（3）优先写 thornier；写成 more thorny 语法不算错，但不地道，按半分计"], "explain": "上次你把 crack down on 译成了「崩塌」——「崩塌」是 collapse／cave in，与这个词组无关。crack down on 是朝外的**打压**动作，联想「警方扫荡、集中整治」。prairie 与 plain（平原）、plateau（高原）一起记：三个都是「一大片地」，高度递进。thorny 本义「多刺的」，引申「棘手的」，双音节以 y 结尾的词比较级变 y 为 i 加 -er。", "_id": 18}, {"id": 19, "type": "translate", "kp": "长难句翻译（回滚）", "stem": "（回滚题）翻译下面这个句子，并完成两件事：\n（1）指出全句的**主干**；\n（2）说明其中的比较结构和条件补充成分分别该怎么处理。\n\nThose confronted with the prospect of a long and empty retirement are far more likely to feel threatened, unless they can find ways to make passing time fulfilling.", "answer": "译文：那些即将面对漫长而空虚的退休生活的人，感到受威胁的可能性要大得多——除非他们能找到让时间过得充实的方法。\n主干：Those are far more likely to feel threatened. 其中 confronted with the prospect of a long and empty retirement 是过去分词短语作后置定语，修饰主语 Those。\n比较结构：far more likely to 是「程度副词 far + 比较级 more likely」的加强结构，必须译出「远远更可能／可能性大得多」，不能只译成「更可能」，更不能漏掉。\n条件补充：unless 引导否定条件状语从句（＝if they cannot find ways...），译成「除非……」；to make passing time fulfilling 是不定式作后置定语，修饰 ways。", "keys": ["主干找对 2 分（主语 Those + 系表 are likely，后置定语要认出来）", "far more likely 译出程度加强 2 分，漏掉 far 扣 1 分", "unless 从句处理和 to make passing time fulfilling 的译法各 1 分，共 2 分"], "explain": "上次你的失分点只有一个：**把 far more likely 漏掉了**，只译成「感到受到威胁」。英二翻译里比较级和程度副词是硬扣分点，far／much／a great deal／rather + 比较级必须体现出来。另外 those 要补出名词性所指——「那些……的人」，光写「那些」在采分点上算不完整。", "_id": 19}, {"id": 20, "type": "short", "rows": 6, "kp": "外刊精读方法反思", "stem": "结合你错题本里反复出现的两类错误——「词汇方向性错误」（如 crack down on 译成「崩塌」）与「漏掉程度修饰」（如 far more likely 只译成「更可能」）——给自己写一份**外刊精读自检清单**：3 条，每条一句话，写清楚翻译之前你会做什么检查。", "answer": "参考方向（不唯一，写到可操作的动作即可）：\n① 词组整块记，先判方向再定词义：动词+介词的固定搭配（crack down on／jump at／pass with flying colours）不拆成单词去背，先判断动作是朝外还是朝内、是打压还是崩塌，再选中文。\n② 翻译前先圈出程度词与比较级：far／much／a great deal／rather／barely／hardly 这类词单独标出来，逐一如实译，宁可啰嗦也不要漏。\n③ 译完回读一遍，专查三类高频漏项：省略的主语（those／one）有没有补出所指、否定与条件（unless／hardly／no longer）有没有转成通顺中文、抽象名词有没有落地成具体说法。", "keys": ["三条各 1 分，指向可操作的具体动作给满分", "只重复「多背单词」「多做精读」这类空话不给分", "能点出「整块记搭配」「圈程度词」「回读查漏项」三点中任一，各加印象分"], "explain": "这道题不看你写得多漂亮，看你能不能把错误还原成**动作**。你的两类错误其实是同一个病根：把英文当「词表」逐词对译，而不是当「结构」整块理解——所以既会认错搭配的方向，也会漏掉修饰的力度。清单的意义在于把它变成翻译前的固定程序，而不是事后懊悔。", "_id": 20}]}]};
+const QUIZID = "2026-09-26";
+const KEY = "quiz_" + QUIZID;
+const TOTAL = 20;
+
+// ---- 状态存取 ----
+let state = JSON.parse(localStorage.getItem(KEY) || "{}");
+
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+function answeredCount(){
+  let n = 0;
+  QUIZ.sections.forEach(s => s.questions.forEach((q, i) => {
+    const id = q._id;
+    const v = state[id];
+    if (q.type === "choice") { if (v) n++; }
+    else if (q.type === "fill") {
+      if (v && Object.values(v).some(x => (x||"").trim())) n++;
+    }
+    else { if (v && v.trim()) n++; }
+  }));
+  return n;
+}
+
+function updateProgress(){
+  const n = answeredCount();
+  const pct = Math.round(n / TOTAL * 100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("ptext").textContent = `已作答 ${n} / ${TOTAL}`;
+  document.getElementById("tbCount").textContent = `${n} / ${TOTAL}`;
+  document.getElementById("doneTip").classList.toggle("show", n >= TOTAL);
+}
+
+function flashSaved(n){
+  const el = document.querySelector(`.saved[data-saved="${n}"]`);
+  if (!el) return;
+  el.textContent = "已保存";
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 1200);
+}
+
+// ---- 绑定交互 ----
+document.querySelectorAll(".opt input").forEach(inp => {
+  inp.addEventListener("change", e => {
+    const n = +e.target.name.replace("q", "");
+    state[n] = e.target.value;
+    save(); updateProgress(); flashSaved(n);
+  });
+});
+
+document.querySelectorAll(".fillin").forEach(inp => {
+  inp.addEventListener("input", e => {
+    const n = e.target.dataset.q, b = e.target.dataset.b;
+    state[n] = state[n] || {};
+    state[n][b] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+document.querySelectorAll(".shortin,.transin").forEach(ta => {
+  ta.addEventListener("input", e => {
+    const n = e.target.dataset.q;
+    state[n] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+// 查看解析
+document.querySelectorAll(".btn-ans").forEach(b => {
+  b.addEventListener("click", () => {
+    const n = b.dataset.q;
+    const box = document.querySelector(`.ansbox[data-ans="${n}"]`);
+    const open = !box.hidden;
+    box.hidden = open;
+    b.textContent = open ? "查看解析" : "收起解析";
+  });
+});
+
+document.getElementById("btnRevealAll").addEventListener("click", function(){
+  const anyHidden = [...document.querySelectorAll(".ansbox")].some(b => b.hidden);
+  document.querySelectorAll(".ansbox").forEach(b => b.hidden = !anyHidden);
+  document.querySelectorAll(".btn-ans").forEach(b => {
+    b.textContent = anyHidden ? "收起解析" : "查看解析";
+  });
+  this.textContent = anyHidden ? "收起全部解析" : "展开全部解析";
+});
+
+// 清空
+document.getElementById("btnReset").addEventListener("click", () => {
+  if (!confirm("确定清空全部作答？此操作不可撤销。")) return;
+  state = {}; save();
+  document.querySelectorAll(".opt input").forEach(i => i.checked = false);
+  document.querySelectorAll(".fillin,.shortin,.transin").forEach(i => i.value = "");
+  updateProgress();
+});
+
+// ---- 导出答案 ----
+function buildExport(){
+  const L = [];
+  L.push(`# ${QUIZ.title} — 我的作答`);
+  L.push("");
+  L.push(`日期：${QUIZ.date}`);
+  L.push(`完成：${answeredCount()} / ${TOTAL} 题`);
+  L.push("");
+  const tname = {choice:"单选", fill:"填空", short:"问答", translate:"长难句翻译"};
+  QUIZ.sections.forEach(s => {
+    L.push(`## ${s.name}`);
+    L.push("");
+    s.questions.forEach(q => {
+      const v = state[q._id];
+      L.push(`### ${q._id}. [${tname[q.type]}]`);
+      L.push(q.stem);
+      L.push("");
+      if (q.type === "choice") {
+        L.push(`**我的答案：** ${v ? v : "（未作答）"}`);
+      } else if (q.type === "fill") {
+        const arr = [];
+        for (let i = 0; i < (q.blanks || 1); i++) {
+          const k = String(i);
+          arr.push(`第${i+1}空：${(v && v[k]) ? v[k] : "（空）"}`);
+        }
+        L.push(`**我的答案：** ${arr.join("　")}`);
+      } else {
+        L.push(`**我的答案：**`);
+        L.push("");
+        L.push(v && v.trim() ? v : "（未作答）");
+      }
+      L.push("");
+    });
+  });
+  return L.join("\n");
+}
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  document.getElementById("exportArea").value = buildExport();
+  document.getElementById("modal").classList.add("show");
+});
+document.getElementById("btnCloseModal").addEventListener("click", () => {
+  document.getElementById("modal").classList.remove("show");
+});
+document.getElementById("btnDownload").addEventListener("click", () => {
+  const blob = new Blob([buildExport()], {type:"text/markdown;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${QUIZID}-我的作答.md`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") e.target.classList.remove("show");
+});
+
+// ---- 恢复状态 ----
+(function restore(){
+  document.querySelectorAll(".opt input").forEach(inp => {
+    const n = +inp.name.replace("q", "");
+    if (state[n] === inp.value) inp.checked = true;
+  });
+  document.querySelectorAll(".fillin").forEach(inp => {
+    const n = inp.dataset.q, b = inp.dataset.b;
+    if (state[n] && state[n][b] != null) inp.value = state[n][b];
+  });
+  document.querySelectorAll(".shortin,.transin").forEach(ta => {
+    const n = ta.dataset.q;
+    if (state[n] != null) ta.value = state[n];
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
