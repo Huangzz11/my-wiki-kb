@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考研每日测验 · 10.3 综合卷（素材：宝厂拽上岸第六讲 · 人际传播与群体传播）</title>
+<style>
+:root{
+  --bg:#f7f8fb; --card:#fff; --ink:#1c2430; --sub:#60708a;
+  --line:#e3e8f0; --blue:#2F5B9E; --blue-l:#e8eef8;
+  --green:#1f8a52; --green-l:#e6f5ec;
+  --amber:#b4740a; --amber-l:#fdf3e0;
+  --red:#c0392b; --red-l:#fdeceb;
+  --violet:#6b4ea8; --violet-l:#f0ebfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+    "Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.7;
+  padding:0 0 120px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+/* 顶部 */
+header{
+  background:linear-gradient(135deg,#2F5B9E 0%,#40699f 60%,#5b7fb5 100%);
+  color:#fff;padding:34px 0 26px;margin-bottom:24px;
+  box-shadow:0 2px 14px rgba(47,91,158,.18);
+}
+header h1{font-size:23px;font-weight:650;letter-spacing:.3px;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.85}
+.statline{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chip{
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);
+  border-radius:999px;padding:4px 13px;font-size:12.5px;backdrop-filter:blur(4px)
+}
+
+/* 进度条 */
+.progress-sticky{
+  position:sticky;top:0;z-index:50;background:rgba(247,248,251,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  padding:10px 0;margin-bottom:8px;
+}
+.pbar{height:7px;background:#e6eaf2;border-radius:99px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,#2F5B9E,#5b8fd4);
+  border-radius:99px;transition:width .35s ease}
+.ptext{font-size:12.5px;color:var(--sub);margin-top:6px;display:flex;
+  justify-content:space-between}
+
+/* 分区 */
+.sec{margin:30px 0 0}
+.sec h2{
+  font-size:16.5px;font-weight:640;color:var(--blue);
+  display:flex;align-items:center;gap:9px;padding-bottom:9px;
+  border-bottom:2px solid var(--blue-l);margin-bottom:16px;
+}
+.dot{width:9px;height:9px;border-radius:3px;background:var(--blue);
+  display:inline-block;flex:0 0 auto}
+.secmeta{margin-left:auto;font-size:12px;color:var(--sub);font-weight:400}
+
+/* 题目卡片 */
+.q{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:17px 19px;margin-bottom:13px;transition:border-color .2s,box-shadow .2s;
+}
+.q:focus-within{border-color:#b9cdea;box-shadow:0 3px 14px rgba(47,91,158,.09)}
+.qhead{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.qno{
+  width:26px;height:26px;border-radius:8px;background:var(--blue);
+  color:#fff;font-size:13px;font-weight:600;display:flex;
+  align-items:center;justify-content:center;flex:0 0 auto;
+}
+.qtag{font-size:11.5px;padding:2px 9px;border-radius:6px;font-weight:500}
+.t-choice{background:var(--blue-l);color:var(--blue)}
+.t-fill{background:var(--green-l);color:var(--green)}
+.t-short{background:var(--violet-l);color:var(--violet)}
+.t-translate{background:var(--amber-l);color:var(--amber)}
+.kp{font-size:11.5px;color:var(--sub);margin-left:auto}
+.stem{font-size:14.8px;margin-bottom:12px;white-space:pre-wrap}
+
+/* 单选 */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 13px;
+  border:1px solid var(--line);border-radius:9px;cursor:pointer;
+  transition:all .16s;font-size:14.2px;
+}
+.opt:hover{background:#f4f7fc;border-color:#c3d5ee}
+.opt input{display:none}
+.opt .letter{
+  width:21px;height:21px;border-radius:6px;background:#eef1f6;color:var(--sub);
+  font-size:12px;font-weight:600;display:flex;align-items:center;
+  justify-content:center;flex:0 0 auto;margin-top:2px;transition:all .16s;
+}
+.opt input:checked~.letter{background:var(--blue);color:#fff}
+.opt:has(input:checked){background:var(--blue-l);border-color:#9dbde6}
+.otext{flex:1}
+
+/* 填空 */
+.fills{display:flex;flex-direction:column;gap:8px}
+.fillin{
+  font-family:inherit;font-size:14.2px;padding:9px 13px;
+  border:1px solid var(--line);border-radius:8px;background:#fcfdff;
+  transition:all .16s;width:100%;
+}
+.fillin:focus{outline:none;border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 文本域 */
+.shortin,.transin{
+  font-family:inherit;font-size:14.2px;line-height:1.75;padding:11px 14px;
+  border:1px solid var(--line);border-radius:9px;background:#fcfdff;
+  width:100%;resize:vertical;transition:all .16s;
+}
+.shortin:focus,.transin:focus{outline:none;border-color:var(--blue);
+  background:#fff;box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 按钮与解析 */
+.qfoot{display:flex;align-items:center;gap:11px;margin-top:11px}
+.btn-ans{
+  font-family:inherit;font-size:12.5px;padding:5px 13px;border-radius:7px;
+  border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;
+  transition:all .16s;
+}
+.btn-ans:hover{background:var(--blue-l);border-color:#a8c4e8;color:var(--blue)}
+.saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
+.saved.show{opacity:1}
+.ansbox{
+  margin-top:12px;padding:13px 15px;background:#fafbfd;
+  border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-size:13.8px;
+}
+.ansline{margin-bottom:8px;display:flex;gap:9px;line-height:1.7}
+.ansline:last-child{margin-bottom:0}
+.ansline b{
+  flex:0 0 auto;color:var(--blue);font-size:12px;font-weight:640;
+  background:var(--blue-l);padding:2px 8px;border-radius:5px;height:fit-content;
+  margin-top:3px;
+}
+.ansline .got{color:var(--green);font-weight:600}
+
+/* 底部操作栏 */
+.toolbar{
+  position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);padding:12px 20px;z-index:60;
+  backdrop-filter:blur(10px);box-shadow:0 -2px 16px rgba(28,36,48,.07);
+}
+.tb-inner{max-width:820px;margin:0 auto;display:flex;
+  align-items:center;gap:11px;flex-wrap:wrap}
+.btn{
+  font-family:inherit;font-size:13.5px;padding:9px 19px;border-radius:9px;
+  border:none;cursor:pointer;font-weight:530;transition:all .16s;
+}
+.btn-main{background:var(--blue);color:#fff}
+.btn-main:hover{background:#264d87;transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--sub);border:1px solid var(--line)}
+.btn-ghost:hover{background:#f4f6fa;color:var(--ink)}
+.tb-count{font-size:13px;color:var(--sub);margin-left:auto}
+
+/* 完成提示 */
+.done-tip{
+  margin-top:22px;padding:18px 20px;border-radius:12px;
+  background:var(--green-l);border:1px solid #bfe5ce;color:#14603a;
+  font-size:14px;display:none;
+}
+.done-tip.show{display:block}
+.done-tip b{display:block;margin-bottom:6px;font-size:15px}
+
+/* 答案导出弹层 */
+.modal{
+  position:fixed;inset:0;background:rgba(20,28,40,.5);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:#fff;border-radius:14px;max-width:660px;width:100%;
+  max-height:82vh;display:flex;flex-direction:column;overflow:hidden;
+}
+.modal-head{padding:17px 21px;border-bottom:1px solid var(--line);
+  font-weight:620;font-size:15.5px;color:var(--blue)}
+.modal-body{padding:18px 21px;overflow-y:auto;flex:1}
+.modal-body textarea{
+  width:100%;height:340px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.65;border:1px solid var(--line);
+  border-radius:9px;padding:13px;background:#fafbfd;resize:vertical;
+}
+.modal-foot{padding:14px 21px;border-top:1px solid var(--line);
+  display:flex;gap:10px;justify-content:flex-end}
+.modal-tip{font-size:12.5px;color:var(--sub);margin-bottom:11px;line-height:1.65}
+
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  header{padding:26px 0 20px}
+  header h1{font-size:19px}
+  .q{padding:14px 15px}
+  .stem{font-size:14.2px}
+  .tb-count{display:none}
+  .kp{margin-left:0;width:100%}
+}
+@media print{
+  .toolbar,.btn-ans,.progress-sticky{display:none}
+  .ansbox[hidden]{display:block!important}
+  .q{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>考研每日测验 · 10.3 综合卷（素材：宝厂拽上岸第六讲 · 人际传播与群体传播）</h1>
+    <div class="meta">2026-10-03 · 共 20 题 · 今晚 22:30 自动生成</div>
+    <div class="statline">
+      <span class="chip">单选 12</span>
+      <span class="chip">填空 2</span>
+      <span class="chip">问答 5</span>
+      <span class="chip">长难句 1</span>
+    </div>
+  </div>
+</header>
+
+<div class="progress-sticky">
+  <div class="wrap">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <div class="ptext">
+      <span id="ptext">已作答 0 / 20</span>
+      <span>进度自动保存，刷新不丢</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  
+<section class="sec">
+  <h2><span class="dot"></span>一、专业课 · 人际传播与群体传播（8 题）
+    <span class="secmeta">8 题</span></h2>
+  
+<div class="q" data-q="1" data-type="choice">
+  <div class="qhead">
+    <span class="qno">1</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">人际传播的定义与多媒体性</span>
+  </div>
+  <div class="stem">关于「人际传播是真正意义上的多媒体传播」，下列说法**不准确**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q1" value="A"><span class="letter">A</span><span class="otext">人际传播综合运用语言与非语言两类媒介，语言又分声音语言与书写语言</span></label><label class="opt"><input type="radio" name="q1" value="B"><span class="letter">B</span><span class="otext">姿态、表情、眼神、身体接触、外观形象等非语言媒介，使信息传递更丰富生动</span></label><label class="opt"><input type="radio" name="q1" value="C"><span class="letter">C</span><span class="otext">人际传播之所以被称为多媒体传播，关键在于它使用了手机、视频、直播等新媒体工具</span></label><label class="opt"><input type="radio" name="q1" value="D"><span class="letter">D</span><span class="otext">声音语言通过声调、语速、音量传达情感态度，书写语言通过字体、笔画展现个性</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="1">查看解析</button>
+    <span class="saved" data-saved="1"></span>
+  </div>
+  <div class="ansbox" data-ans="1" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>C 是典型的偷换概念。「多媒体」在这里指**多重媒介形式**（语言＋姿态＋表情＋眼神＋接触＋外观），不是指使用了多种**媒体设备**。人际传播之所以是「真正意义上的多媒体」，恰恰因为在场交流天然同时调用多种符号系统——面对面才是全媒介的。讲义在这一点上把「多媒体」与「全媒体」并列讨论，考频极高（西政 2024、华科 2023、西北大学 2025 都考过）。</div></div>
+</div>
+<div class="q" data-q="2" data-type="choice">
+  <div class="qhead">
+    <span class="qno">2</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">约哈里之窗</span>
+  </div>
+  <div class="stem">约哈里之窗用四个方格说明人际传播中信息流动的地带。下列四组「区域名称—含义」的对应，**不正确**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q2" value="A"><span class="letter">A</span><span class="otext">开放区域：各方认为可以公开的信息</span></label><label class="opt"><input type="radio" name="q2" value="B"><span class="letter">B</span><span class="otext">盲目区域：自己不知而他人知道的评价</span></label><label class="opt"><input type="radio" name="q2" value="C"><span class="letter">C</span><span class="otext">秘密区域：各方均不知晓的潜能，遇新情况会生成显现</span></label><label class="opt"><input type="radio" name="q2" value="D"><span class="letter">D</span><span class="otext">未知区域：扩大开放区域能提高互动效率，自我表露是向未知区域过渡的过程</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="2">查看解析</button>
+    <span class="saved" data-saved="2"></span>
+  </div>
+  <div class="ansbox" data-ans="2" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>C 把「秘密区域」和「未知区域」的解释对调了。正确对应：**开放区域**＝可公开；**盲目区域**＝自己不知、他人知道（盲点）；**秘密区域**＝不公开的纯私人信息及弱点；**未知区域**＝各方均不知晓的潜能，遇新情况会显现。约哈里之窗由约瑟夫·卢夫特与哈瑞·英汉姆 1955 年提出，「约哈里」正是二人名字（Joseph＋Harry）的合写——记住这个构词就不会把提出者记成一个人。</div></div>
+</div>
+<div class="q" data-q="3" data-type="choice">
+  <div class="qhead">
+    <span class="qno">3</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">姿态的五种传播功能</span>
+  </div>
+  <div class="stem">日本学者船津卫认为，体态（姿态）在传播和自我表达中至少有五种功能。下列对应**正确**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q3" value="A"><span class="letter">A</span><span class="otext">说「我很高兴」却板着面孔——这是「补充语言」</span></label><label class="opt"><input type="radio" name="q3" value="B"><span class="letter">B</span><span class="otext">使用语言困难或不便明说时，用耸肩、撇嘴、眼神传达意义——这是「代替语言」</span></label><label class="opt"><input type="radio" name="q3" value="C"><span class="letter">C</span><span class="otext">讲话中配合挥手、握拳、上身前倾以加强语言力量——这是「控制语言」</span></label><label class="opt"><input type="radio" name="q3" value="D"><span class="letter">D</span><span class="otext">高兴时开怀大笑、悲痛时痛哭——这是「强调语言」</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="3">查看解析</button>
+    <span class="saved" data-saved="3"></span>
+  </div>
+  <div class="ansbox" data-ans="3" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>B 正确。五功能的顺序与含义要背准：①**强调语言**——挥手、握拳、上身前倾，给语言加力；②**补充语言**——语言不充分时用摆手、点头、摇头补足；③**代替语言**——说不出口或不便明说时用耸肩、撇嘴、眼神替代；④**控制语言**——体态形成情境，对语言效果加以限制（说「我很高兴」却板着脸，效果打折）；⑤**表达超语言的意义**——开怀大笑、痛哭比陈述性语言更能传达心情。A 是「控制语言」，C 是「强调语言」，D 是「表达超语言的意义」，三项都被挪了位。这道题顺手把「为什么人际传播是真正意义上的多媒体传播」也一并串起来了（中南财经政法 2024、扬州大学 2026 考过）。</div></div>
+</div>
+<div class="q" data-q="4" data-type="fill">
+  <div class="qhead">
+    <span class="qno">4</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">网络人际传播的渠道特点</span>
+  </div>
+  <div class="stem">网络人际传播的渠道特点主要有五条。请补全下面这条链（每空填一个短语）：
+（1）技术和平台依赖性 →（2）交流对象的 ____ 与 ____ →（3）交流手段的 ____ →（4）传播情境的 ____ →（5）____。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="4" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="4" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="4" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="4" data-b="3" placeholder="第 4 空" autocomplete="off"><input class="fillin" type="text" data-q="4" data-b="4" placeholder="第 5 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="4">查看解析</button>
+    <span class="saved" data-saved="4"></span>
+  </div>
+  <div class="ansbox" data-ans="4" hidden><div class="ansline"><b>参考答案</b>（2）广泛性、可控性　（3）可选择性　（4）虚拟性　（5）语境坍塌</div><div class="ansline"><b>得分点</b>每空 1 分，共 5 分, （2）必须写出「广泛性」「可控性」两项，缺一项或顺序颠倒扣 0.5 分, （3）（4）须准确写「可选择性」「虚拟性」，写成「多样性」「抽象性」不给分, （5）必须写「语境坍塌」，写「语境崩溃」也可给分（同一概念的不同译法）</div><div class="ansline"><b>解析</b>这五条是「技术—对象—手段—情境—后果」的递进链，最后一条不是并列项，前四条累积出的整体后果就是**语境坍塌**（context collapse，丹娜·博伊德）：原本在现实中彼此分离的多种社会语境被折叠进同一平台，用户被迫同时面对需要不同社会反应的人群。背法：技术打底（平台依赖）→ 对象两头（既广又可控）→ 手段可选 → 情境虚拟 → 语境坍塌。</div></div>
+</div>
+<div class="q" data-q="5" data-type="short">
+  <div class="qhead">
+    <span class="qno">5</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">社交媒体中的自我呈现</span>
+  </div>
+  <div class="stem">社交媒体中的自我呈现与传统面对面互动有显著差别。请从「自我陈列」「给予强化与流露弱化」「观众隔离」三个角度，说明社交媒体自我呈现的特点，并各指出它带来的后果。</div>
+  <textarea class="shortin" data-q="5" rows="7" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="5">查看解析</button>
+    <span class="saved" data-saved="5"></span>
+  </div>
+  <div class="ansbox" data-ans="5" hidden><div class="ansline"><b>参考答案</b>①从自我呈现到自我陈列（自我陈列）：传统自我呈现依托面对面、身体在场；社交媒体中人们把自我作为展品「陈列」出来，伯尼·霍根用「展览会」比喻这一变化——自我成为被观看的对象，可被检索、可被复制、可长期留存，人的身份从「表演者」变为「展品」。后果是自我形象可被随时调取、被陌生人围观，隐私与形象管理的压力同步上升。
+②给予强化、流露弱化：戈夫曼区分「给予」（有意传达）与「流露」（无意泄露）；社交媒体中线上交流缺乏身体在场，无意流露的渠道被大幅压缩，用户得以更精细地控制「给予」的内容，雪莉·特克尔称之为「人性游乐场」（《群体性孤独》）。后果是自我形象日益精修、更具表演性，也更容易显得「完美而不真实」。
+③观众隔离与观众想象：线上无法确知谁在看，用户只能凭借想象推定受众，并采取「最小公约数原则」——按最保守的观众标准来发布内容，以规避风险。后果是表达趋于同质化、安全化，多元表达被压缩，也出现「平台摇摆」（Tandoc 等）——把不同关系分配到不同平台以完成「社交切断」下的「社会联结」。</div><div class="ansline"><b>得分点</b>三条各写对「特点」给 2 分，共 6 分, 每条能落到具体学者或概念（霍根「展览会」／特克尔「人性游乐场」／最小公约数原则／平台摇摆）各加 0.5 分，最高加 1.5 分, 结合社交媒体实际经验展开，酌情 0.5—1 分, 总分不超过 8 分</div><div class="ansline"><b>解析</b>这一题是「概念＋机制」的复合题。核心逻辑是：**身体缺席 → 流露渠道萎缩 → 控制力看似增强 → 但语境边界消失（语境坍塌）→ 控制力被反噬**。答这类题不要停在列举，要把「为什么」串成因果链。理论资源可挂：戈夫曼拟剧论（前台/后台、给予/流露）、布尔迪厄（「物的展览与品味表演」）、贝尔克 Belk（1988，「自我延伸」——物品被看作自我的延伸）。</div></div>
+</div>
+<div class="q" data-q="6" data-type="short">
+  <div class="qhead">
+    <span class="qno">6</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">网络人际传播对现实人际关系的影响</span>
+  </div>
+  <div class="stem">试论网络人际传播对现实人际关系的影响。（要求分正负两面作答，每面至少写出两条）</div>
+  <textarea class="shortin" data-q="6" rows="7" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="6">查看解析</button>
+    <span class="saved" data-saved="6"></span>
+  </div>
+  <div class="ansbox" data-ans="6" hidden><div class="ansline"><b>参考答案</b>正面影响：
+①解压阀与替代品：网络交流可在一定程度上替代面对面互动，为人际压力提供释放出口，并对线下关系形成补充；
+②可控社交：交流对象、时机、频率均可选择与控制，降低社交成本，为弱势群体或高焦虑人群提供更易进入的社交通道；
+③情绪调节：网络去抑制效应（舒勒）带来更少的约束性与更高的自我表露性，情绪分享与重建式对话（视角转换、刺激再评价）有助于情绪恢复。
+负面影响：
+①致幻剂效应（「金发女郎效应」）：可控社交让人误以为可以「随时开始、随时结束」，产生对关系的虚假掌控感；
+②过度依赖与群体性孤独：雪莉·特克尔指出「我们在一起，但彼此孤独」——过度依赖线上连接反而削弱现实交往能力，副语言可供性（表情、语气、身体接触）的缺失使亲密感难以真正建立；
+③关系的表层化：柯泽、宋小康指出虚拟交往中双方越来越倾向于以自我美化方式呈现，符号日益脱离真实，导致现实人际关系中的信任与深度被削弱。</div><div class="ansline"><b>得分点</b>正反两面各至少两条，每条 1 分，共 4 分, 正面答到「解压阀」「可控社交」「情绪调节」任一组合即可；负面答到「金发女郎效应」「群体性孤独」「副语言缺失」任一组合即可, 能引用特克尔《群体性孤独》、舒勒「网络去抑制效应」等学者观点，每条加 0.5 分，最高加 1.5 分, 总分不超过 7 分</div><div class="ansline"><b>解析</b>这题是典型的「影响题」，阅卷看的是**正反结构 + 术语 + 学者**三件套。分值分配上，结构（正反各两条）是底线分，术语与学者是提档分。切记不要只答一面——「试论……」的问法天然要求正反兼顾。结尾收一句「关键在于网络连接是补充还是替代现实关系，取决于使用方式与主体能力」，把落点抬起来。</div></div>
+</div>
+<div class="q" data-q="7" data-type="short">
+  <div class="qhead">
+    <span class="qno">7</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">网络群体极化的定义及其形成机制</span>
+  </div>
+  <div class="stem">网络群体极化的定义及其形成机制。（深圳大学 2026 真题）请先给出定义，再从至少四个层面说明其形成机制。</div>
+  <textarea class="shortin" data-q="7" rows="8" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="7">查看解析</button>
+    <span class="saved" data-saved="7"></span>
+  </div>
+  <div class="ansbox" data-ans="7" hidden><div class="ansline"><b>参考答案</b>【定义】网络群体极化指群体成员在讨论后，其态度或观点沿着讨论前既有的偏向方向继续移动，最终形成的群体立场比成员个人态度的平均值更趋极端。1976 年戴维·迈尔斯与赫尔穆特·拉姆首次正式提出这一概念；凯斯·桑斯坦将之引入互联网视域（《网络共和国》），指出志同道合的团体沟通后想法未必改变，但形式上变得更极端。
+【形成机制】
+①直接原因——争议性源头事件刺激社会现实矛盾：争议事件触碰社会深层矛盾，使分散情绪获得聚焦点；当个体事件被赋予社会矛盾符号，讨论便从事实转向价值立场对抗。
+②心理机制——个体认同联结为集体认同：社会认同理论（塔菲尔与特纳）揭示，个体一旦归入某群体便倾向采纳该群体立场；虚假共识效应让人误以为自己的极端立场代表多数。
+③传播结构——圈层传播重新赋权：自媒体与意见领袖绕过专业媒体直触受众，在缺乏约束时倾向选择情绪化、对立性表达以获取流量，形成情绪螺旋上升。
+④社会文化——权力博弈下圈层文化外溢：极化已超越单纯观点分歧，演变为不同圈层文化之间的权力博弈，专业媒体与监管缺位使理性引导失效。
+⑤智能传播——算法主导下极化结构的系统性强化：算法聚合带来回声室放大撕裂；社交机器人制造虚假意见环境、抛出「愤怒诱饵」（2025 牛津年度词汇）。</div><div class="ansline"><b>得分点</b>定义部分：答出「既有偏向继续移动」「比个人态度平均值更极端」给 2 分；答出 1976 年迈尔斯与拉姆或桑斯坦《网络共和国》加 1 分, 机制部分：每答到一个层面并说明清楚给 1.5 分，四个层面共 6 分（答满五层不额外加分）, 术语加分：社会认同理论／虚假共识效应／回声室／愤怒诱饵，答到 2 个以上加 1 分, 总分不超过 10 分</div><div class="ansline"><b>解析</b>这题是深大 2026 真题，讲义给了完整的五机制框架，属于「背了就有分」的高频题。答题结构：先定义（含提出者与年份）→ 再机制（五层递进：事件起点 → 心理偏移 → 结构加速 → 文化驱动 → 技术强化）→ 最后治理收尾（多维度协同）。五层机制记成一条链：**事件（起点）→ 认同（心理）→ 圈层（结构）→ 文化（动力）→ 算法（强化）**。千万不要只答「群体压力」「沉默螺旋」两个词就收笔，那是最低档的答法。</div></div>
+</div>
+<div class="q" data-q="8" data-type="short">
+  <div class="qhead">
+    <span class="qno">8</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">「群氓的智慧」还是「群体性迷失」</span>
+  </div>
+  <div class="stem">网络带来的是「群氓的智慧」还是「群体性迷失」？请表明立场，并分别说明群体智慧的成因与群体性迷失的成因，最后给出你的判断依据。</div>
+  <textarea class="shortin" data-q="8" rows="7" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="8">查看解析</button>
+    <span class="saved" data-saved="8"></span>
+  </div>
+  <div class="ansbox" data-ans="8" hidden><div class="ansline"><b>参考答案</b>【立场】两者并非非此即彼，而取决于具体条件与机制的组合。当社会网络的对等开放、个体互补、利他行为与自组织机制占据主导时，群体趋向智慧；当群体心理、信息遮蔽与匿名效应未被有效约束时，群体则滑向迷失。
+【群体智慧的成因】
+①社会网络铺垫基础：互联网对等开放的连接使每个节点既是接收端也是发射端（克莱·舍基《未来是湿的》；克里斯塔斯基《大连接》指出社会网络是「自退火」的）。
+②个体间的互补：桑斯坦在《信息乌托邦》中提出三种机制——群体等于其最好成员、聚合、协同与学习。案例：2021 年郑州暴雨「救命文档」，24 小时内自发更新至第 270 余版，访问量近 650 万次。
+③利他行为与自组织机制：舍基认为人在社会环境中表现得没那么自私，分享行为在网络中普遍存在，自组织使聚合从混沌走向秩序。
+【群体性迷失的成因】
+①群体心理：非理性机制与群体压力，个体在群体心理作用下丧失理性，出现集体性愚笨、癫狂或盲从（詹尼斯 1972 年提出「群体盲思」）。
+②信息的遮蔽：信息不完整导致判断偏差，且偏差在群体中广泛传播，群体讨论强化多数人持有的信息、忽视少数持有的信息。
+③匿名效应：事实上的或自我感觉中的匿名都使个体自我约束感下降，去个体化状态下情绪更易释放。（注意：实名制普及后匿名解释力下降，需更综合考量。）
+【判断依据】群体智慧并非自然涌现，关键在于改善连接、聚合及互动的**结构与机制**——多中心的分布式网络、开放流动的聚合结构、分工／激励／校正的协作机制，以及哈贝马斯所称「理想的商谈环境」。</div><div class="ansline"><b>得分点</b>立场明确且给出条件性判断（非非此即彼），2 分, 群体智慧成因三条，每条 1 分，共 3 分, 群体迷失成因三条，每条 1 分，共 3 分, 学者与案例加分：舍基／克里斯塔斯基／桑斯坦／詹尼斯任一学者或「救命文档」案例，加 1 分, 末尾能落到「结构与机制」或「理想的商谈环境」，加 1 分, 总分不超过 10 分</div><div class="ansline"><b>解析</b>这是华南理工 2026、大连理工 2023、电子科技大学 2024 反复考的顶级高频题。讲义给的标准答法是**「两者并非非此即彼」+ 各自成因 + 条件性判断**，不要选边站到底。关键区分：「群体智慧」的核心词是**互补与聚合**，「群体性迷失」的核心词是**盲目与放大**——前者放大正确的是分散信息的整合能力，后者放大的是既有的错误与情绪。詹尼斯「群体盲思」（Groupthink，1972）与桑斯坦《信息乌托邦》常成对出现，注意别把提出者记混。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>二、政治 · 时政与法治（9 题 · 全部单选）
+    <span class="secmeta">9 题</span></h2>
+  
+<div class="q" data-q="9" data-type="choice">
+  <div class="qhead">
+    <span class="qno">9</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">统战三个「最」（回滚）</span>
+  </div>
+  <div class="stem">（回滚题）关于新时代爱国统一战线的若干定位，下列表述**正确**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q9" value="A"><span class="letter">A</span><span class="otext">统一战线工作的本质要求是求同存异</span></label><label class="opt"><input type="radio" name="q9" value="B"><span class="letter">B</span><span class="otext">统战工作解决的是人心和力量问题，这是统一战线的关键</span></label><label class="opt"><input type="radio" name="q9" value="C"><span class="letter">C</span><span class="otext">坚持求同存异，是统一战线工作的关键所在</span></label><label class="opt"><input type="radio" name="q9" value="D"><span class="letter">D</span><span class="otext">党的领导是统一战线最鲜明的特征，也是统一战线的本质要求</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="9">查看解析</button>
+    <span class="saved" data-saved="9"></span>
+  </div>
+  <div class="ansbox" data-ans="9" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>C 正确。三级定位要分清——**本质要求**＝大团结大联合（解决的是**人心和力量**问题）；**关键**＝坚持**求同存异**；**最鲜明的特征**＝**党的领导**。A 把「关键」安到了「本质要求」上；B 把「人心和力量」安到了「关键」上；D 把「党的领导」（特征）说成了「本质要求」。上次你的答案是「大／差异」——只记住了「有个大字的词」，把「大团结大联合」记成「大」、「人心和力量」记成「差异」。记忆抓手：四级递进链——**联合（本质）→ 人心（对象）→ 存异（方法）→ 党旗（特征）**，四步不能跳。</div></div>
+</div>
+<div class="q" data-q="10" data-type="choice">
+  <div class="qhead">
+    <span class="qno">10</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">法治体系五大体系（回滚）</span>
+  </div>
+  <div class="stem">（回滚题）中国特色社会主义法治体系由五个子体系构成。下列不属于这五大体系的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q10" value="A"><span class="letter">A</span><span class="otext">法律规范体系</span></label><label class="opt"><input type="radio" name="q10" value="B"><span class="letter">B</span><span class="otext">法治实施体系</span></label><label class="opt"><input type="radio" name="q10" value="C"><span class="letter">C</span><span class="otext">法治监督体系</span></label><label class="opt"><input type="radio" name="q10" value="D"><span class="letter">D</span><span class="otext">社会治理体系</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="10">查看解析</button>
+    <span class="saved" data-saved="10"></span>
+  </div>
+  <div class="ansbox" data-ans="10" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>D 不属于。五大体系＝**法律规**范体系 → 法治**实**施体系 → 法治**监**督体系 → 法治**保**障体系 → **党**内法规体系。上次你五空全空，只答对了宪法、党章、民主集中制三个细节点，说明**背诵顺序反了**——应该先把五字骨架背成顺口溜（**规 → 实 → 监 → 保 → 党**），再往里填细节。另注意：「社会治理体系」是一个独立概念（十九届四中全会提出，含共建共治共享），与法治体系不是一回事，容易拿来当干扰项。</div></div>
+</div>
+<div class="q" data-q="11" data-type="choice">
+  <div class="qhead">
+    <span class="qno">11</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">老年数字鸿沟的两个细分术语（回滚）</span>
+  </div>
+  <div class="stem">（回滚题）老年群体的数字鸿沟在传统「接入沟」之外，还常被进一步细分为两个术语。下列组合**正确**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q11" value="A"><span class="letter">A</span><span class="otext">动机沟、风险与收益沟</span></label><label class="opt"><input type="radio" name="q11" value="B"><span class="letter">B</span><span class="otext">知识沟、使用沟</span></label><label class="opt"><input type="radio" name="q11" value="C"><span class="letter">C</span><span class="otext">信息沟、素养沟</span></label><label class="opt"><input type="radio" name="q11" value="D"><span class="letter">D</span><span class="otext">接入沟、数智沟</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="11">查看解析</button>
+    <span class="saved" data-saved="11"></span>
+  </div>
+  <div class="ansbox" data-ans="11" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>A 正确。老年数字鸿沟的三个层次：**没条件（接入）→ 不愿用（动机沟）→ 用了不划算（风险与收益沟）**。其中「动机沟」指从「技术不可及」转向「主观不接入」——不是不会用，而是不想用；「风险与收益沟」指接入增加—风险暴露增加—实际收益有限，导致老人主动退出。B 的「知识沟、使用沟」是数字鸿沟谱系中的通用环节（芝麻街研究的知识沟、接入后的使用沟），不属于老年群体的专门细分；C、D 同理属于谱系通用词，不是本题所问的两个细分术语。上次两空均空，这一对词要专门记。</div></div>
+</div>
+<div class="q" data-q="12" data-type="choice">
+  <div class="qhead">
+    <span class="qno">12</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">数字鸿沟谱系（回滚）</span>
+  </div>
+  <div class="stem">（回滚题）数字鸿沟的谱系通常被表述为一条从「知道与否」到「用得好不好」的链条。下列顺序**完全正确**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q12" value="A"><span class="letter">A</span><span class="otext">知识沟 → 数字鸿沟 → 数智鸿沟</span></label><label class="opt"><input type="radio" name="q12" value="B"><span class="letter">B</span><span class="otext">知识沟 → 信息沟 → 数字鸿沟（接入沟）→ 使用沟（素养沟）→ 数智鸿沟</span></label><label class="opt"><input type="radio" name="q12" value="C"><span class="letter">C</span><span class="otext">数字鸿沟 → 知识沟 → 信息沟 → 使用沟</span></label><label class="opt"><input type="radio" name="q12" value="D"><span class="letter">D</span><span class="otext">知识沟 → 接入沟 → 信息沟 → 数智沟</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="12">查看解析</button>
+    <span class="saved" data-saved="12"></span>
+  </div>
+  <div class="ansbox" data-ans="12" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>B 正确，五环齐全。记忆抓手：**知识 → 信息 → 接入 → 使用 → 数智**。前两个是「知道与否」（知识沟、信息沟），中间两个是「能不能用」（接入沟、使用沟／素养沟），最后是「用得好不好」（数智鸿沟）。上次你答的是「知识沟 → 数字鸿沟 → 数智鸿沟」，把中间两环全丢了，而且没点出「接入沟」这个术语。你会举芝麻街的例子说明概念理解到位，问题在**会举例、不会列谱系**——这类题按环数给分，缺环就是缺分。</div></div>
+</div>
+<div class="q" data-q="13" data-type="choice">
+  <div class="qhead">
+    <span class="qno">13</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">三个「法」的分工（回滚 · 换问法）</span>
+  </div>
+  <div class="stem">（回滚题）若一道论述题问「分析某类现象的**构成要件**」，按讲义给出的方法体系，应当优先选用哪一套「法」？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q13" value="A"><span class="letter">A</span><span class="otext">社会环境法，因为它列举了六类环境</span></label><label class="opt"><input type="radio" name="q13" value="B"><span class="letter">B</span><span class="otext">社会要素法，因为它按政策、法律、资本、市场、技术、公民、舆论七要素拆解构成要件</span></label><label class="opt"><input type="radio" name="q13" value="C"><span class="letter">C</span><span class="otext">社会思维法，因为它按政治／经济／文化／技术／国际五个维度给出思维词</span></label><label class="opt"><input type="radio" name="q13" value="D"><span class="letter">D</span><span class="otext">三者皆可，因为它们本质上是 PETCSI 分析框架的不同叫法</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="13">查看解析</button>
+    <span class="saved" data-saved="13"></span>
+  </div>
+  <div class="ansbox" data-ans="13" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>B 正确。三个「法」的分工口诀：问「**为什么**（外因与大背景）」用**社会环境法**；问「**是什么构成**（拆构成要件）」用**社会要素法**；问「**怎么办**」用**社会思维法**。D 是你上次的原答案（「就是『社会框架 PETCSI』的不同说法」），方向性错误——PETCSI 是**分析维度**（政治、经济、文化、技术、社会、国际），三个「法」是**三套不同的操作路径**。维度回答「往哪个方向看」，路径回答「这一步具体怎么做」，这两层不能对等。本次特意换成「给情境选方法」的问法，看你是记住了口诀还是只记住了名词。</div></div>
+</div>
+<div class="q" data-q="14" data-type="choice">
+  <div class="qhead">
+    <span class="qno">14</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">「最根本」的三条线（回滚）</span>
+  </div>
+  <div class="stem">（回滚题）下列三处关于「最根本」的表述，**全部正确**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q14" value="A"><span class="letter">A</span><span class="otext">爱国情怀和坚持奋斗是我们取得一切成就最根本的原因</span></label><label class="opt"><input type="radio" name="q14" value="B"><span class="letter">B</span><span class="otext">有中国共产党的坚强领导，是我们取得一切成就最根本的原因</span></label><label class="opt"><input type="radio" name="q14" value="C"><span class="letter">C</span><span class="otext">统战工作最根本的是解决人民对美好生活的向往</span></label><label class="opt"><input type="radio" name="q14" value="D"><span class="letter">D</span><span class="otext">全面依法治国最根本的保证是完善法律规范体系</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="14">查看解析</button>
+    <span class="saved" data-saved="14"></span>
+  </div>
+  <div class="ansbox" data-ans="14" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>B 正确。见「最根本」→ 落点必然是**党的领导**，只有三个固定后缀：**坚强领导**（成就来源）／**最核心最根本的问题**（统战——即人心和力量问题）／**最根本的保证**（法治）。A 是你上次的答案，属于**主观感受替换客观表述**——政治选择题最常见的失分模式：答案必须是文件原话，不是自己的理解。C 把统战的「最核心最根本的问题」偷换成「人民对美好生活的向往」（这是另一处的表述，不属统战此处）；D 把法治「最根本的保证」安到了「完善法律规范体系」上（法律规范体系是五大体系之首，但「最根本的保证」指党的领导）。</div></div>
+</div>
+<div class="q" data-q="15" data-type="choice">
+  <div class="qhead">
+    <span class="qno">15</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">教育强国的「根本尺度」</span>
+  </div>
+  <div class="stem">在教育强国建设的「六个以」中，与「人民满意」相匹配的定位是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q15" value="A"><span class="letter">A</span><span class="otext">根本任务</span></label><label class="opt"><input type="radio" name="q15" value="B"><span class="letter">B</span><span class="otext">根本目标</span></label><label class="opt"><input type="radio" name="q15" value="C"><span class="letter">C</span><span class="otext">根本尺度</span></label><label class="opt"><input type="radio" name="q15" value="D"><span class="letter">D</span><span class="otext">重要使命</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="15">查看解析</button>
+    <span class="saved" data-saved="15"></span>
+  </div>
+  <div class="ansbox" data-ans="15" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>C 正确。六个后缀与内容的固定搭配：**根本保证**（坚持党对教育事业的全面领导）→ **根本任务**（立德树人）→ **根本目标**（为党育人、为国育才）→ **重要使命**（服务中华民族伟大复兴）→ **基本路径**（服务社会主义现代化建设）→ **核心功能**（支撑引领中国式现代化）。「人民满意」对应的是**根本尺度**，不是目标、不是使命、不是任务——这对词是高频设错点。顺口溜：保（证）→党；任（务）→德育；目（标）→育才；使（命）→复兴；路（径）→现代化；功（能）→领现代化。</div></div>
+</div>
+<div class="q" data-q="16" data-type="choice">
+  <div class="qhead">
+    <span class="qno">16</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">党的显著标志（回滚 · 第三次回滚）</span>
+  </div>
+  <div class="stem">（回滚题）关于中国共产党的优良作风与「显著标志」，下列表述**正确**的一项是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q16" value="A"><span class="letter">A</span><span class="otext">理论联系实际、密切联系群众、批评和自我批评，是党在七大确立的三大优良作风；「人民至上」是这三大作风的第一条</span></label><label class="opt"><input type="radio" name="q16" value="B"><span class="letter">B</span><span class="otext">勇于自我革命，是中国共产党区别于其他政党的显著标志</span></label><label class="opt"><input type="radio" name="q16" value="C"><span class="letter">C</span><span class="otext">「人民至上」与「勇于自我革命」同属党在七大上确立的三大优良作风</span></label><label class="opt"><input type="radio" name="q16" value="D"><span class="letter">D</span><span class="otext">三大优良作风、「人民至上」、勇于自我革命三者并列，共同构成党的显著标志</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="16">查看解析</button>
+    <span class="saved" data-saved="16"></span>
+  </div>
+  <div class="ansbox" data-ans="16" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>B 正确，出自党的十九届六中全会《决议》：**勇于自我革命**是中国共产党区别于其他政党的显著标志。A、C、D 复刻的正是你 **9.17 反馈原文**里的写法——把三者捏成一句并列。这是本题**连续第三次**回滚，上次你仍选错，说明问题不在「没记住」，而在**反馈文档本身的错误没被清除**。请今天就回去把 9.17 反馈那一段改掉，否则它会第三次在考场上复现。正确记法：两条**独立来源、各背各的**——党的**七大（1945）**确立的是理论联系实际、密切联系群众、批评和自我批评这**三大**优良作风（是「三大」不是「三个」，且**不含**「人民至上」）；**勇于自我革命**出自**十九届六中全会《决议》**。</div></div>
+</div>
+<div class="q" data-q="17" data-type="choice">
+  <div class="qhead">
+    <span class="qno">17</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">全过程人民民主「四个相统一」</span>
+  </div>
+  <div class="stem">「全过程人民民主」的「四个相统一」，其结构规律可以概括为？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q17" value="A"><span class="letter">A</span><span class="otext">四组都是「同一民主的两个侧面」，共四对</span></label><label class="opt"><input type="radio" name="q17" value="B"><span class="letter">B</span><span class="otext">三对是同一民主的两个侧面，第四对是「人民民主与国家意志」</span></label><label class="opt"><input type="radio" name="q17" value="C"><span class="letter">C</span><span class="otext">前三对是形式并列，第四对是内容统一</span></label><label class="opt"><input type="radio" name="q17" value="D"><span class="letter">D</span><span class="otext">四组都是「民主形式」与「民主渠道」的并列组合</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="17">查看解析</button>
+    <span class="saved" data-saved="17"></span>
+  </div>
+  <div class="ansbox" data-ans="17" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>B 正确。四个相统一＝过程民主与成果民主、程序民主与实质民主、直接民主与间接民主、人民民主与国家意志。结构规律：**前三对是「同一民主的两个侧面」**（过程／成果、程序／实质、直接／间接），**第四对是「人民民主／国家意志」**。识别办法：凡是「相统一」的，必然是一件事的两个侧面；凡是「两种形式／两条路径／两个渠道」并列的，都不是。特别提醒：**选举民主与协商民主**是社会主义民主的两种重要形式（常表述为「相互补充、相得益彰」），它们**并列但不构成一组统一**，是最常见的干扰项。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>三、英语二 · 外刊精读与词汇（3 题）
+    <span class="secmeta">3 题</span></h2>
+  
+<div class="q" data-q="18" data-type="fill">
+  <div class="qhead">
+    <span class="qno">18</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">英语词汇回滚（crack down on / prairie / thornier）</span>
+  </div>
+  <div class="stem">根据括号内中文提示，用英语补全句子（每空写一个单词或词组）：
+（1）警方昨夜对非法赌博活动进行了严厉打击：The police ______ illegal gambling last night.（严厉打击）
+（2）这片广袤的______一望无际：The vast ______ stretched as far as the eye could see.（大草原）
+（3）这个问题比前一个更为棘手：This problem is ______ than the previous one.（更为棘手）</div>
+  <div class="fills"><input class="fillin" type="text" data-q="18" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="18">查看解析</button>
+    <span class="saved" data-saved="18"></span>
+  </div>
+  <div class="ansbox" data-ans="18" hidden><div class="ansline"><b>参考答案</b>（1）cracked down on　（2）prairie　（3）thornier</div><div class="ansline"><b>得分点</b>每空 1 分，共 3 分, （1）必须写出 crack down on（时态可变），只写 crack down 不带 on 扣 0.5 分；写成 collapsed／broke down 不给分, （2）拼写 prairie 全对才给分（易错为 paririe／praire）, （3）必须写比较级 thornier，写 more thorny 可给分，写 more sharp 不给分</div><div class="ansline"><b>解析</b>三处都是上次的原错点：**crack down on** 你译成「崩塌」（崩塌是 collapse）——crack down 是动作朝向外的「打压」，联想「警方扫荡」；**prairie** 你写了「？」——与 plain（平原）、plateau（高原）一起记，三个都是地貌词；**thornier** 你写成「更尖锐」——thorny 本义「多刺的」，引申「棘手的」，搭配是「问题更棘手」而非「更尖锐」（尖锐多用 sharp／acute）。这三个词属于**看懂了但方向记反**的类型，比不认识的词更危险。</div></div>
+</div>
+<div class="q" data-q="19" data-type="translate">
+  <div class="qhead">
+    <span class="qno">19</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">长难句翻译（回滚 · 比较级与条件补充）</span>
+  </div>
+  <div class="stem">（回滚题）翻译下面这个句子，并完成两件事：
+（1）指出全句的**主干**；
+（2）说明其中的**比较结构**与**条件补充成分**分别该怎么处理。
+
+Those who feel their livelihoods are under threat from automation are far more likely to feel threatened by immigrants, if they believe that the newcomers are competing for the same scarce resources.</div>
+  <textarea class="transin" data-q="19" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="19">查看解析</button>
+    <span class="saved" data-saved="19"></span>
+  </div>
+  <div class="ansbox" data-ans="19" hidden><div class="ansline"><b>参考答案</b>【译文】那些感到自己的生计正受到自动化威胁的人，如果认为新来的移民正在争夺同样稀缺的资源，就**远远更有可能**感到自己受到移民的威胁。
+【主干】Those ... are far more likely to feel threatened by immigrants.（那些……的人远远更有可能感到受到移民的威胁）
+【比较结构】far more likely 是「程度副词 far + 比较级 more likely」，必须译出「远远／要……得多」，**不能省成「更有可能」**——这是英二翻译的固定扣分点。
+【条件补充成分】if they believe that ... 是条件状语从句，且其中嵌套了 that 引导的宾语从句（the newcomers are competing for the same scarce resources）。处理方式：if 从句按中文习惯**前置于主句**（「如果……，就……」），嵌套的 that 从句用「认为……」直接带出，不必另起句子。</div><div class="ansline"><b>得分点</b>译文基本正确、语序通顺，2 分, far more likely 译出「远远／要……得多」，1.5 分（只译「更有可能」得 0.5 分）, 主干识别正确（Those ... are far more likely to feel threatened），1 分, if 条件从句处理正确（前置），0.5 分, those 译出「……的人」（关系代词引导的定语从句归化为名词），加 0.5 分, 总分不超过 5 分</div><div class="ansline"><b>解析</b>上次你的译文只写了「感到受到威胁」，漏掉了 **far more likely（远远更有可能）**。要点：英二翻译里**比较级和程度副词不能省略**，尤其是 far／much／a great deal／significantly 这类程度强化词，漏掉就是实打实的扣分点；另外 those 应译出「那些……的人」，关系代词引导的定语从句要归化成名词短语，不要译成「那些人们」。整体策略：先切主干（Those ... are ... likely to ...）→ 再挂修饰（who 从句、if 从句）→ 最后按中文语序重组（条件前置）。</div></div>
+</div>
+<div class="q" data-q="20" data-type="short">
+  <div class="qhead">
+    <span class="qno">20</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">外刊精读方法反思</span>
+  </div>
+  <div class="stem">结合你错题本里反复出现的两类错误——「词汇方向性错误」（如把 crack down on 译成「崩塌」）与「漏掉程度修饰」（如 far more likely 只译「更有可能」）——说说你在做外刊精读时应建立哪两条自查习惯，各举一个自查动作。</div>
+  <textarea class="shortin" data-q="20" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="20">查看解析</button>
+    <span class="saved" data-saved="20"></span>
+  </div>
+  <div class="ansbox" data-ans="20" hidden><div class="ansline"><b>参考答案</b>①针对「词汇方向性错误」：建立「动作朝向自查」。看到动词短语时先问一句「这个动作的力是朝外还是朝内」，crack down on 是向外打压（对象是被打击的一方），collapse 是向内自毁（主体自己垮掉）——方向一问，误译就现形。自查动作：把该短语按「谁对谁做了什么」拆成一句中文短句写下来，方向不对立刻暴露。
+②针对「漏掉程度修饰」：建立「程度词圈画自查」。读完句子先不回读，把 far / much / a great deal / significantly / far more / rather 等程度与频率修饰词全部圈出来，逐个确认是否在译文中落地。自查动作：译完后回读原文，用笔点着把每个程度词与译文对照，缺一个补一个。
+③根本上是把「看懂大意」的标准改成「看懂关系」——精确翻译考的是成分之间的关系（谁修饰谁、程度多少、条件是什么），不是大意复述。</div><div class="ansline"><b>得分点</b>两条自查习惯各 1.5 分，共 3 分, 每条必须配一个具体可执行的自查动作（不能只说「仔细检查」这类空话），各 1 分，共 2 分, 能点出「从看懂大意向看懂关系转变」，加 1 分, 总分不超过 6 分</div><div class="ansline"><b>解析</b>这题是元认知题，重点不在知识而在**方法落地**。阅卷看的是：你能否把「错误类型」翻译成「可执行动作」。空谈「认真、仔细、多练」一律不给动作分。这类反思如果写得具体，可以反过来沉淀进你的错题本「记忆抓手」栏，形成正向循环。</div></div>
+</div>
+</section>
+
+  <div class="done-tip" id="doneTip">
+    <b>🎉 全部作答完毕</b>
+    点右下角「导出我的答案」，把导出的文件发给我，我会逐题批改并给出评分与改进建议。
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="tb-inner">
+    <button class="btn btn-main" id="btnExport">导出我的答案</button>
+    <button class="btn btn-ghost" id="btnRevealAll">展开全部解析</button>
+    <button class="btn btn-ghost" id="btnReset">清空重做</button>
+    <span class="tb-count" id="tbCount">0 / 20</span>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">你的答案（复制后发给我批改）</div>
+    <div class="modal-body">
+      <div class="modal-tip">
+        全选复制下面的内容，粘贴到对话里发给我即可。也可以点「下载 .md」保存成文件再上传。
+      </div>
+      <textarea id="exportArea" readonly></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="btnCloseModal">关闭</button>
+      <button class="btn btn-main" id="btnDownload">下载 .md</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ = {"title": "考研每日测验 · 10.3 综合卷（素材：宝厂拽上岸第六讲 · 人际传播与群体传播）", "date": "2026-10-03", "sections": [{"name": "一、专业课 · 人际传播与群体传播（8 题）", "questions": [{"id": 1, "type": "choice", "kp": "人际传播的定义与多媒体性", "stem": "关于「人际传播是真正意义上的多媒体传播」，下列说法**不准确**的一项是？", "options": ["人际传播综合运用语言与非语言两类媒介，语言又分声音语言与书写语言", "姿态、表情、眼神、身体接触、外观形象等非语言媒介，使信息传递更丰富生动", "人际传播之所以被称为多媒体传播，关键在于它使用了手机、视频、直播等新媒体工具", "声音语言通过声调、语速、音量传达情感态度，书写语言通过字体、笔画展现个性"], "answer": "C", "explain": "C 是典型的偷换概念。「多媒体」在这里指**多重媒介形式**（语言＋姿态＋表情＋眼神＋接触＋外观），不是指使用了多种**媒体设备**。人际传播之所以是「真正意义上的多媒体」，恰恰因为在场交流天然同时调用多种符号系统——面对面才是全媒介的。讲义在这一点上把「多媒体」与「全媒体」并列讨论，考频极高（西政 2024、华科 2023、西北大学 2025 都考过）。", "_id": 1}, {"id": 2, "type": "choice", "kp": "约哈里之窗", "stem": "约哈里之窗用四个方格说明人际传播中信息流动的地带。下列四组「区域名称—含义」的对应，**不正确**的一项是？", "options": ["开放区域：各方认为可以公开的信息", "盲目区域：自己不知而他人知道的评价", "秘密区域：各方均不知晓的潜能，遇新情况会生成显现", "未知区域：扩大开放区域能提高互动效率，自我表露是向未知区域过渡的过程"], "answer": "C", "explain": "C 把「秘密区域」和「未知区域」的解释对调了。正确对应：**开放区域**＝可公开；**盲目区域**＝自己不知、他人知道（盲点）；**秘密区域**＝不公开的纯私人信息及弱点；**未知区域**＝各方均不知晓的潜能，遇新情况会显现。约哈里之窗由约瑟夫·卢夫特与哈瑞·英汉姆 1955 年提出，「约哈里」正是二人名字（Joseph＋Harry）的合写——记住这个构词就不会把提出者记成一个人。", "_id": 2}, {"id": 3, "type": "choice", "kp": "姿态的五种传播功能", "stem": "日本学者船津卫认为，体态（姿态）在传播和自我表达中至少有五种功能。下列对应**正确**的一项是？", "options": ["说「我很高兴」却板着面孔——这是「补充语言」", "使用语言困难或不便明说时，用耸肩、撇嘴、眼神传达意义——这是「代替语言」", "讲话中配合挥手、握拳、上身前倾以加强语言力量——这是「控制语言」", "高兴时开怀大笑、悲痛时痛哭——这是「强调语言」"], "answer": "B", "explain": "B 正确。五功能的顺序与含义要背准：①**强调语言**——挥手、握拳、上身前倾，给语言加力；②**补充语言**——语言不充分时用摆手、点头、摇头补足；③**代替语言**——说不出口或不便明说时用耸肩、撇嘴、眼神替代；④**控制语言**——体态形成情境，对语言效果加以限制（说「我很高兴」却板着脸，效果打折）；⑤**表达超语言的意义**——开怀大笑、痛哭比陈述性语言更能传达心情。A 是「控制语言」，C 是「强调语言」，D 是「表达超语言的意义」，三项都被挪了位。这道题顺手把「为什么人际传播是真正意义上的多媒体传播」也一并串起来了（中南财经政法 2024、扬州大学 2026 考过）。", "_id": 3}, {"id": 4, "type": "fill", "blanks": 5, "kp": "网络人际传播的渠道特点", "stem": "网络人际传播的渠道特点主要有五条。请补全下面这条链（每空填一个短语）：\n（1）技术和平台依赖性 →（2）交流对象的 ____ 与 ____ →（3）交流手段的 ____ →（4）传播情境的 ____ →（5）____。", "answer": "（2）广泛性、可控性　（3）可选择性　（4）虚拟性　（5）语境坍塌", "keys": ["每空 1 分，共 5 分", "（2）必须写出「广泛性」「可控性」两项，缺一项或顺序颠倒扣 0.5 分", "（3）（4）须准确写「可选择性」「虚拟性」，写成「多样性」「抽象性」不给分", "（5）必须写「语境坍塌」，写「语境崩溃」也可给分（同一概念的不同译法）"], "explain": "这五条是「技术—对象—手段—情境—后果」的递进链，最后一条不是并列项，前四条累积出的整体后果就是**语境坍塌**（context collapse，丹娜·博伊德）：原本在现实中彼此分离的多种社会语境被折叠进同一平台，用户被迫同时面对需要不同社会反应的人群。背法：技术打底（平台依赖）→ 对象两头（既广又可控）→ 手段可选 → 情境虚拟 → 语境坍塌。", "_id": 4}, {"id": 5, "type": "short", "rows": 7, "kp": "社交媒体中的自我呈现", "stem": "社交媒体中的自我呈现与传统面对面互动有显著差别。请从「自我陈列」「给予强化与流露弱化」「观众隔离」三个角度，说明社交媒体自我呈现的特点，并各指出它带来的后果。", "answer": "①从自我呈现到自我陈列（自我陈列）：传统自我呈现依托面对面、身体在场；社交媒体中人们把自我作为展品「陈列」出来，伯尼·霍根用「展览会」比喻这一变化——自我成为被观看的对象，可被检索、可被复制、可长期留存，人的身份从「表演者」变为「展品」。后果是自我形象可被随时调取、被陌生人围观，隐私与形象管理的压力同步上升。\n②给予强化、流露弱化：戈夫曼区分「给予」（有意传达）与「流露」（无意泄露）；社交媒体中线上交流缺乏身体在场，无意流露的渠道被大幅压缩，用户得以更精细地控制「给予」的内容，雪莉·特克尔称之为「人性游乐场」（《群体性孤独》）。后果是自我形象日益精修、更具表演性，也更容易显得「完美而不真实」。\n③观众隔离与观众想象：线上无法确知谁在看，用户只能凭借想象推定受众，并采取「最小公约数原则」——按最保守的观众标准来发布内容，以规避风险。后果是表达趋于同质化、安全化，多元表达被压缩，也出现「平台摇摆」（Tandoc 等）——把不同关系分配到不同平台以完成「社交切断」下的「社会联结」。", "keys": ["三条各写对「特点」给 2 分，共 6 分", "每条能落到具体学者或概念（霍根「展览会」／特克尔「人性游乐场」／最小公约数原则／平台摇摆）各加 0.5 分，最高加 1.5 分", "结合社交媒体实际经验展开，酌情 0.5—1 分", "总分不超过 8 分"], "explain": "这一题是「概念＋机制」的复合题。核心逻辑是：**身体缺席 → 流露渠道萎缩 → 控制力看似增强 → 但语境边界消失（语境坍塌）→ 控制力被反噬**。答这类题不要停在列举，要把「为什么」串成因果链。理论资源可挂：戈夫曼拟剧论（前台/后台、给予/流露）、布尔迪厄（「物的展览与品味表演」）、贝尔克 Belk（1988，「自我延伸」——物品被看作自我的延伸）。", "_id": 5}, {"id": 6, "type": "short", "rows": 7, "kp": "网络人际传播对现实人际关系的影响", "stem": "试论网络人际传播对现实人际关系的影响。（要求分正负两面作答，每面至少写出两条）", "answer": "正面影响：\n①解压阀与替代品：网络交流可在一定程度上替代面对面互动，为人际压力提供释放出口，并对线下关系形成补充；\n②可控社交：交流对象、时机、频率均可选择与控制，降低社交成本，为弱势群体或高焦虑人群提供更易进入的社交通道；\n③情绪调节：网络去抑制效应（舒勒）带来更少的约束性与更高的自我表露性，情绪分享与重建式对话（视角转换、刺激再评价）有助于情绪恢复。\n负面影响：\n①致幻剂效应（「金发女郎效应」）：可控社交让人误以为可以「随时开始、随时结束」，产生对关系的虚假掌控感；\n②过度依赖与群体性孤独：雪莉·特克尔指出「我们在一起，但彼此孤独」——过度依赖线上连接反而削弱现实交往能力，副语言可供性（表情、语气、身体接触）的缺失使亲密感难以真正建立；\n③关系的表层化：柯泽、宋小康指出虚拟交往中双方越来越倾向于以自我美化方式呈现，符号日益脱离真实，导致现实人际关系中的信任与深度被削弱。", "keys": ["正反两面各至少两条，每条 1 分，共 4 分", "正面答到「解压阀」「可控社交」「情绪调节」任一组合即可；负面答到「金发女郎效应」「群体性孤独」「副语言缺失」任一组合即可", "能引用特克尔《群体性孤独》、舒勒「网络去抑制效应」等学者观点，每条加 0.5 分，最高加 1.5 分", "总分不超过 7 分"], "explain": "这题是典型的「影响题」，阅卷看的是**正反结构 + 术语 + 学者**三件套。分值分配上，结构（正反各两条）是底线分，术语与学者是提档分。切记不要只答一面——「试论……」的问法天然要求正反兼顾。结尾收一句「关键在于网络连接是补充还是替代现实关系，取决于使用方式与主体能力」，把落点抬起来。", "_id": 6}, {"id": 7, "type": "short", "rows": 8, "kp": "网络群体极化的定义及其形成机制", "stem": "网络群体极化的定义及其形成机制。（深圳大学 2026 真题）请先给出定义，再从至少四个层面说明其形成机制。", "answer": "【定义】网络群体极化指群体成员在讨论后，其态度或观点沿着讨论前既有的偏向方向继续移动，最终形成的群体立场比成员个人态度的平均值更趋极端。1976 年戴维·迈尔斯与赫尔穆特·拉姆首次正式提出这一概念；凯斯·桑斯坦将之引入互联网视域（《网络共和国》），指出志同道合的团体沟通后想法未必改变，但形式上变得更极端。\n【形成机制】\n①直接原因——争议性源头事件刺激社会现实矛盾：争议事件触碰社会深层矛盾，使分散情绪获得聚焦点；当个体事件被赋予社会矛盾符号，讨论便从事实转向价值立场对抗。\n②心理机制——个体认同联结为集体认同：社会认同理论（塔菲尔与特纳）揭示，个体一旦归入某群体便倾向采纳该群体立场；虚假共识效应让人误以为自己的极端立场代表多数。\n③传播结构——圈层传播重新赋权：自媒体与意见领袖绕过专业媒体直触受众，在缺乏约束时倾向选择情绪化、对立性表达以获取流量，形成情绪螺旋上升。\n④社会文化——权力博弈下圈层文化外溢：极化已超越单纯观点分歧，演变为不同圈层文化之间的权力博弈，专业媒体与监管缺位使理性引导失效。\n⑤智能传播——算法主导下极化结构的系统性强化：算法聚合带来回声室放大撕裂；社交机器人制造虚假意见环境、抛出「愤怒诱饵」（2025 牛津年度词汇）。", "keys": ["定义部分：答出「既有偏向继续移动」「比个人态度平均值更极端」给 2 分；答出 1976 年迈尔斯与拉姆或桑斯坦《网络共和国》加 1 分", "机制部分：每答到一个层面并说明清楚给 1.5 分，四个层面共 6 分（答满五层不额外加分）", "术语加分：社会认同理论／虚假共识效应／回声室／愤怒诱饵，答到 2 个以上加 1 分", "总分不超过 10 分"], "explain": "这题是深大 2026 真题，讲义给了完整的五机制框架，属于「背了就有分」的高频题。答题结构：先定义（含提出者与年份）→ 再机制（五层递进：事件起点 → 心理偏移 → 结构加速 → 文化驱动 → 技术强化）→ 最后治理收尾（多维度协同）。五层机制记成一条链：**事件（起点）→ 认同（心理）→ 圈层（结构）→ 文化（动力）→ 算法（强化）**。千万不要只答「群体压力」「沉默螺旋」两个词就收笔，那是最低档的答法。", "_id": 7}, {"id": 8, "type": "short", "rows": 7, "kp": "「群氓的智慧」还是「群体性迷失」", "stem": "网络带来的是「群氓的智慧」还是「群体性迷失」？请表明立场，并分别说明群体智慧的成因与群体性迷失的成因，最后给出你的判断依据。", "answer": "【立场】两者并非非此即彼，而取决于具体条件与机制的组合。当社会网络的对等开放、个体互补、利他行为与自组织机制占据主导时，群体趋向智慧；当群体心理、信息遮蔽与匿名效应未被有效约束时，群体则滑向迷失。\n【群体智慧的成因】\n①社会网络铺垫基础：互联网对等开放的连接使每个节点既是接收端也是发射端（克莱·舍基《未来是湿的》；克里斯塔斯基《大连接》指出社会网络是「自退火」的）。\n②个体间的互补：桑斯坦在《信息乌托邦》中提出三种机制——群体等于其最好成员、聚合、协同与学习。案例：2021 年郑州暴雨「救命文档」，24 小时内自发更新至第 270 余版，访问量近 650 万次。\n③利他行为与自组织机制：舍基认为人在社会环境中表现得没那么自私，分享行为在网络中普遍存在，自组织使聚合从混沌走向秩序。\n【群体性迷失的成因】\n①群体心理：非理性机制与群体压力，个体在群体心理作用下丧失理性，出现集体性愚笨、癫狂或盲从（詹尼斯 1972 年提出「群体盲思」）。\n②信息的遮蔽：信息不完整导致判断偏差，且偏差在群体中广泛传播，群体讨论强化多数人持有的信息、忽视少数持有的信息。\n③匿名效应：事实上的或自我感觉中的匿名都使个体自我约束感下降，去个体化状态下情绪更易释放。（注意：实名制普及后匿名解释力下降，需更综合考量。）\n【判断依据】群体智慧并非自然涌现，关键在于改善连接、聚合及互动的**结构与机制**——多中心的分布式网络、开放流动的聚合结构、分工／激励／校正的协作机制，以及哈贝马斯所称「理想的商谈环境」。", "keys": ["立场明确且给出条件性判断（非非此即彼），2 分", "群体智慧成因三条，每条 1 分，共 3 分", "群体迷失成因三条，每条 1 分，共 3 分", "学者与案例加分：舍基／克里斯塔斯基／桑斯坦／詹尼斯任一学者或「救命文档」案例，加 1 分", "末尾能落到「结构与机制」或「理想的商谈环境」，加 1 分", "总分不超过 10 分"], "explain": "这是华南理工 2026、大连理工 2023、电子科技大学 2024 反复考的顶级高频题。讲义给的标准答法是**「两者并非非此即彼」+ 各自成因 + 条件性判断**，不要选边站到底。关键区分：「群体智慧」的核心词是**互补与聚合**，「群体性迷失」的核心词是**盲目与放大**——前者放大正确的是分散信息的整合能力，后者放大的是既有的错误与情绪。詹尼斯「群体盲思」（Groupthink，1972）与桑斯坦《信息乌托邦》常成对出现，注意别把提出者记混。", "_id": 8}]}, {"name": "二、政治 · 时政与法治（9 题 · 全部单选）", "questions": [{"id": 9, "type": "choice", "kp": "统战三个「最」（回滚）", "stem": "（回滚题）关于新时代爱国统一战线的若干定位，下列表述**正确**的一项是？", "options": ["统一战线工作的本质要求是求同存异", "统战工作解决的是人心和力量问题，这是统一战线的关键", "坚持求同存异，是统一战线工作的关键所在", "党的领导是统一战线最鲜明的特征，也是统一战线的本质要求"], "answer": "C", "explain": "C 正确。三级定位要分清——**本质要求**＝大团结大联合（解决的是**人心和力量**问题）；**关键**＝坚持**求同存异**；**最鲜明的特征**＝**党的领导**。A 把「关键」安到了「本质要求」上；B 把「人心和力量」安到了「关键」上；D 把「党的领导」（特征）说成了「本质要求」。上次你的答案是「大／差异」——只记住了「有个大字的词」，把「大团结大联合」记成「大」、「人心和力量」记成「差异」。记忆抓手：四级递进链——**联合（本质）→ 人心（对象）→ 存异（方法）→ 党旗（特征）**，四步不能跳。", "_id": 9}, {"id": 10, "type": "choice", "kp": "法治体系五大体系（回滚）", "stem": "（回滚题）中国特色社会主义法治体系由五个子体系构成。下列不属于这五大体系的一项是？", "options": ["法律规范体系", "法治实施体系", "法治监督体系", "社会治理体系"], "answer": "D", "explain": "D 不属于。五大体系＝**法律规**范体系 → 法治**实**施体系 → 法治**监**督体系 → 法治**保**障体系 → **党**内法规体系。上次你五空全空，只答对了宪法、党章、民主集中制三个细节点，说明**背诵顺序反了**——应该先把五字骨架背成顺口溜（**规 → 实 → 监 → 保 → 党**），再往里填细节。另注意：「社会治理体系」是一个独立概念（十九届四中全会提出，含共建共治共享），与法治体系不是一回事，容易拿来当干扰项。", "_id": 10}, {"id": 11, "type": "choice", "kp": "老年数字鸿沟的两个细分术语（回滚）", "stem": "（回滚题）老年群体的数字鸿沟在传统「接入沟」之外，还常被进一步细分为两个术语。下列组合**正确**的一项是？", "options": ["动机沟、风险与收益沟", "知识沟、使用沟", "信息沟、素养沟", "接入沟、数智沟"], "answer": "A", "explain": "A 正确。老年数字鸿沟的三个层次：**没条件（接入）→ 不愿用（动机沟）→ 用了不划算（风险与收益沟）**。其中「动机沟」指从「技术不可及」转向「主观不接入」——不是不会用，而是不想用；「风险与收益沟」指接入增加—风险暴露增加—实际收益有限，导致老人主动退出。B 的「知识沟、使用沟」是数字鸿沟谱系中的通用环节（芝麻街研究的知识沟、接入后的使用沟），不属于老年群体的专门细分；C、D 同理属于谱系通用词，不是本题所问的两个细分术语。上次两空均空，这一对词要专门记。", "_id": 11}, {"id": 12, "type": "choice", "kp": "数字鸿沟谱系（回滚）", "stem": "（回滚题）数字鸿沟的谱系通常被表述为一条从「知道与否」到「用得好不好」的链条。下列顺序**完全正确**的一项是？", "options": ["知识沟 → 数字鸿沟 → 数智鸿沟", "知识沟 → 信息沟 → 数字鸿沟（接入沟）→ 使用沟（素养沟）→ 数智鸿沟", "数字鸿沟 → 知识沟 → 信息沟 → 使用沟", "知识沟 → 接入沟 → 信息沟 → 数智沟"], "answer": "B", "explain": "B 正确，五环齐全。记忆抓手：**知识 → 信息 → 接入 → 使用 → 数智**。前两个是「知道与否」（知识沟、信息沟），中间两个是「能不能用」（接入沟、使用沟／素养沟），最后是「用得好不好」（数智鸿沟）。上次你答的是「知识沟 → 数字鸿沟 → 数智鸿沟」，把中间两环全丢了，而且没点出「接入沟」这个术语。你会举芝麻街的例子说明概念理解到位，问题在**会举例、不会列谱系**——这类题按环数给分，缺环就是缺分。", "_id": 12}, {"id": 13, "type": "choice", "kp": "三个「法」的分工（回滚 · 换问法）", "stem": "（回滚题）若一道论述题问「分析某类现象的**构成要件**」，按讲义给出的方法体系，应当优先选用哪一套「法」？", "options": ["社会环境法，因为它列举了六类环境", "社会要素法，因为它按政策、法律、资本、市场、技术、公民、舆论七要素拆解构成要件", "社会思维法，因为它按政治／经济／文化／技术／国际五个维度给出思维词", "三者皆可，因为它们本质上是 PETCSI 分析框架的不同叫法"], "answer": "B", "explain": "B 正确。三个「法」的分工口诀：问「**为什么**（外因与大背景）」用**社会环境法**；问「**是什么构成**（拆构成要件）」用**社会要素法**；问「**怎么办**」用**社会思维法**。D 是你上次的原答案（「就是『社会框架 PETCSI』的不同说法」），方向性错误——PETCSI 是**分析维度**（政治、经济、文化、技术、社会、国际），三个「法」是**三套不同的操作路径**。维度回答「往哪个方向看」，路径回答「这一步具体怎么做」，这两层不能对等。本次特意换成「给情境选方法」的问法，看你是记住了口诀还是只记住了名词。", "_id": 13}, {"id": 14, "type": "choice", "kp": "「最根本」的三条线（回滚）", "stem": "（回滚题）下列三处关于「最根本」的表述，**全部正确**的一项是？", "options": ["爱国情怀和坚持奋斗是我们取得一切成就最根本的原因", "有中国共产党的坚强领导，是我们取得一切成就最根本的原因", "统战工作最根本的是解决人民对美好生活的向往", "全面依法治国最根本的保证是完善法律规范体系"], "answer": "B", "explain": "B 正确。见「最根本」→ 落点必然是**党的领导**，只有三个固定后缀：**坚强领导**（成就来源）／**最核心最根本的问题**（统战——即人心和力量问题）／**最根本的保证**（法治）。A 是你上次的答案，属于**主观感受替换客观表述**——政治选择题最常见的失分模式：答案必须是文件原话，不是自己的理解。C 把统战的「最核心最根本的问题」偷换成「人民对美好生活的向往」（这是另一处的表述，不属统战此处）；D 把法治「最根本的保证」安到了「完善法律规范体系」上（法律规范体系是五大体系之首，但「最根本的保证」指党的领导）。", "_id": 14}, {"id": 15, "type": "choice", "kp": "教育强国的「根本尺度」", "stem": "在教育强国建设的「六个以」中，与「人民满意」相匹配的定位是？", "options": ["根本任务", "根本目标", "根本尺度", "重要使命"], "answer": "C", "explain": "C 正确。六个后缀与内容的固定搭配：**根本保证**（坚持党对教育事业的全面领导）→ **根本任务**（立德树人）→ **根本目标**（为党育人、为国育才）→ **重要使命**（服务中华民族伟大复兴）→ **基本路径**（服务社会主义现代化建设）→ **核心功能**（支撑引领中国式现代化）。「人民满意」对应的是**根本尺度**，不是目标、不是使命、不是任务——这对词是高频设错点。顺口溜：保（证）→党；任（务）→德育；目（标）→育才；使（命）→复兴；路（径）→现代化；功（能）→领现代化。", "_id": 15}, {"id": 16, "type": "choice", "kp": "党的显著标志（回滚 · 第三次回滚）", "stem": "（回滚题）关于中国共产党的优良作风与「显著标志」，下列表述**正确**的一项是？", "options": ["理论联系实际、密切联系群众、批评和自我批评，是党在七大确立的三大优良作风；「人民至上」是这三大作风的第一条", "勇于自我革命，是中国共产党区别于其他政党的显著标志", "「人民至上」与「勇于自我革命」同属党在七大上确立的三大优良作风", "三大优良作风、「人民至上」、勇于自我革命三者并列，共同构成党的显著标志"], "answer": "B", "explain": "B 正确，出自党的十九届六中全会《决议》：**勇于自我革命**是中国共产党区别于其他政党的显著标志。A、C、D 复刻的正是你 **9.17 反馈原文**里的写法——把三者捏成一句并列。这是本题**连续第三次**回滚，上次你仍选错，说明问题不在「没记住」，而在**反馈文档本身的错误没被清除**。请今天就回去把 9.17 反馈那一段改掉，否则它会第三次在考场上复现。正确记法：两条**独立来源、各背各的**——党的**七大（1945）**确立的是理论联系实际、密切联系群众、批评和自我批评这**三大**优良作风（是「三大」不是「三个」，且**不含**「人民至上」）；**勇于自我革命**出自**十九届六中全会《决议》**。", "_id": 16}, {"id": 17, "type": "choice", "kp": "全过程人民民主「四个相统一」", "stem": "「全过程人民民主」的「四个相统一」，其结构规律可以概括为？", "options": ["四组都是「同一民主的两个侧面」，共四对", "三对是同一民主的两个侧面，第四对是「人民民主与国家意志」", "前三对是形式并列，第四对是内容统一", "四组都是「民主形式」与「民主渠道」的并列组合"], "answer": "B", "explain": "B 正确。四个相统一＝过程民主与成果民主、程序民主与实质民主、直接民主与间接民主、人民民主与国家意志。结构规律：**前三对是「同一民主的两个侧面」**（过程／成果、程序／实质、直接／间接），**第四对是「人民民主／国家意志」**。识别办法：凡是「相统一」的，必然是一件事的两个侧面；凡是「两种形式／两条路径／两个渠道」并列的，都不是。特别提醒：**选举民主与协商民主**是社会主义民主的两种重要形式（常表述为「相互补充、相得益彰」），它们**并列但不构成一组统一**，是最常见的干扰项。", "_id": 17}]}, {"name": "三、英语二 · 外刊精读与词汇（3 题）", "questions": [{"id": 18, "type": "fill", "blanks": 3, "kp": "英语词汇回滚（crack down on / prairie / thornier）", "stem": "根据括号内中文提示，用英语补全句子（每空写一个单词或词组）：\n（1）警方昨夜对非法赌博活动进行了严厉打击：The police ______ illegal gambling last night.（严厉打击）\n（2）这片广袤的______一望无际：The vast ______ stretched as far as the eye could see.（大草原）\n（3）这个问题比前一个更为棘手：This problem is ______ than the previous one.（更为棘手）", "answer": "（1）cracked down on　（2）prairie　（3）thornier", "keys": ["每空 1 分，共 3 分", "（1）必须写出 crack down on（时态可变），只写 crack down 不带 on 扣 0.5 分；写成 collapsed／broke down 不给分", "（2）拼写 prairie 全对才给分（易错为 paririe／praire）", "（3）必须写比较级 thornier，写 more thorny 可给分，写 more sharp 不给分"], "explain": "三处都是上次的原错点：**crack down on** 你译成「崩塌」（崩塌是 collapse）——crack down 是动作朝向外的「打压」，联想「警方扫荡」；**prairie** 你写了「？」——与 plain（平原）、plateau（高原）一起记，三个都是地貌词；**thornier** 你写成「更尖锐」——thorny 本义「多刺的」，引申「棘手的」，搭配是「问题更棘手」而非「更尖锐」（尖锐多用 sharp／acute）。这三个词属于**看懂了但方向记反**的类型，比不认识的词更危险。", "_id": 18}, {"id": 19, "type": "translate", "kp": "长难句翻译（回滚 · 比较级与条件补充）", "stem": "（回滚题）翻译下面这个句子，并完成两件事：\n（1）指出全句的**主干**；\n（2）说明其中的**比较结构**与**条件补充成分**分别该怎么处理。\n\nThose who feel their livelihoods are under threat from automation are far more likely to feel threatened by immigrants, if they believe that the newcomers are competing for the same scarce resources.", "answer": "【译文】那些感到自己的生计正受到自动化威胁的人，如果认为新来的移民正在争夺同样稀缺的资源，就**远远更有可能**感到自己受到移民的威胁。\n【主干】Those ... are far more likely to feel threatened by immigrants.（那些……的人远远更有可能感到受到移民的威胁）\n【比较结构】far more likely 是「程度副词 far + 比较级 more likely」，必须译出「远远／要……得多」，**不能省成「更有可能」**——这是英二翻译的固定扣分点。\n【条件补充成分】if they believe that ... 是条件状语从句，且其中嵌套了 that 引导的宾语从句（the newcomers are competing for the same scarce resources）。处理方式：if 从句按中文习惯**前置于主句**（「如果……，就……」），嵌套的 that 从句用「认为……」直接带出，不必另起句子。", "keys": ["译文基本正确、语序通顺，2 分", "far more likely 译出「远远／要……得多」，1.5 分（只译「更有可能」得 0.5 分）", "主干识别正确（Those ... are far more likely to feel threatened），1 分", "if 条件从句处理正确（前置），0.5 分", "those 译出「……的人」（关系代词引导的定语从句归化为名词），加 0.5 分", "总分不超过 5 分"], "explain": "上次你的译文只写了「感到受到威胁」，漏掉了 **far more likely（远远更有可能）**。要点：英二翻译里**比较级和程度副词不能省略**，尤其是 far／much／a great deal／significantly 这类程度强化词，漏掉就是实打实的扣分点；另外 those 应译出「那些……的人」，关系代词引导的定语从句要归化成名词短语，不要译成「那些人们」。整体策略：先切主干（Those ... are ... likely to ...）→ 再挂修饰（who 从句、if 从句）→ 最后按中文语序重组（条件前置）。", "_id": 19}, {"id": 20, "type": "short", "rows": 5, "kp": "外刊精读方法反思", "stem": "结合你错题本里反复出现的两类错误——「词汇方向性错误」（如把 crack down on 译成「崩塌」）与「漏掉程度修饰」（如 far more likely 只译「更有可能」）——说说你在做外刊精读时应建立哪两条自查习惯，各举一个自查动作。", "answer": "①针对「词汇方向性错误」：建立「动作朝向自查」。看到动词短语时先问一句「这个动作的力是朝外还是朝内」，crack down on 是向外打压（对象是被打击的一方），collapse 是向内自毁（主体自己垮掉）——方向一问，误译就现形。自查动作：把该短语按「谁对谁做了什么」拆成一句中文短句写下来，方向不对立刻暴露。\n②针对「漏掉程度修饰」：建立「程度词圈画自查」。读完句子先不回读，把 far / much / a great deal / significantly / far more / rather 等程度与频率修饰词全部圈出来，逐个确认是否在译文中落地。自查动作：译完后回读原文，用笔点着把每个程度词与译文对照，缺一个补一个。\n③根本上是把「看懂大意」的标准改成「看懂关系」——精确翻译考的是成分之间的关系（谁修饰谁、程度多少、条件是什么），不是大意复述。", "keys": ["两条自查习惯各 1.5 分，共 3 分", "每条必须配一个具体可执行的自查动作（不能只说「仔细检查」这类空话），各 1 分，共 2 分", "能点出「从看懂大意向看懂关系转变」，加 1 分", "总分不超过 6 分"], "explain": "这题是元认知题，重点不在知识而在**方法落地**。阅卷看的是：你能否把「错误类型」翻译成「可执行动作」。空谈「认真、仔细、多练」一律不给动作分。这类反思如果写得具体，可以反过来沉淀进你的错题本「记忆抓手」栏，形成正向循环。", "_id": 20}]}]};
+const QUIZID = "2026-10-03";
+const KEY = "quiz_" + QUIZID;
+const TOTAL = 20;
+
+// ---- 状态存取 ----
+let state = JSON.parse(localStorage.getItem(KEY) || "{}");
+
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+function answeredCount(){
+  let n = 0;
+  QUIZ.sections.forEach(s => s.questions.forEach((q, i) => {
+    const id = q._id;
+    const v = state[id];
+    if (q.type === "choice") { if (v) n++; }
+    else if (q.type === "fill") {
+      if (v && Object.values(v).some(x => (x||"").trim())) n++;
+    }
+    else { if (v && v.trim()) n++; }
+  }));
+  return n;
+}
+
+function updateProgress(){
+  const n = answeredCount();
+  const pct = Math.round(n / TOTAL * 100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("ptext").textContent = `已作答 ${n} / ${TOTAL}`;
+  document.getElementById("tbCount").textContent = `${n} / ${TOTAL}`;
+  document.getElementById("doneTip").classList.toggle("show", n >= TOTAL);
+}
+
+function flashSaved(n){
+  const el = document.querySelector(`.saved[data-saved="${n}"]`);
+  if (!el) return;
+  el.textContent = "已保存";
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 1200);
+}
+
+// ---- 绑定交互 ----
+document.querySelectorAll(".opt input").forEach(inp => {
+  inp.addEventListener("change", e => {
+    const n = +e.target.name.replace("q", "");
+    state[n] = e.target.value;
+    save(); updateProgress(); flashSaved(n);
+  });
+});
+
+document.querySelectorAll(".fillin").forEach(inp => {
+  inp.addEventListener("input", e => {
+    const n = e.target.dataset.q, b = e.target.dataset.b;
+    state[n] = state[n] || {};
+    state[n][b] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+document.querySelectorAll(".shortin,.transin").forEach(ta => {
+  ta.addEventListener("input", e => {
+    const n = e.target.dataset.q;
+    state[n] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+// 查看解析
+document.querySelectorAll(".btn-ans").forEach(b => {
+  b.addEventListener("click", () => {
+    const n = b.dataset.q;
+    const box = document.querySelector(`.ansbox[data-ans="${n}"]`);
+    const open = !box.hidden;
+    box.hidden = open;
+    b.textContent = open ? "查看解析" : "收起解析";
+  });
+});
+
+document.getElementById("btnRevealAll").addEventListener("click", function(){
+  const anyHidden = [...document.querySelectorAll(".ansbox")].some(b => b.hidden);
+  document.querySelectorAll(".ansbox").forEach(b => b.hidden = !anyHidden);
+  document.querySelectorAll(".btn-ans").forEach(b => {
+    b.textContent = anyHidden ? "收起解析" : "查看解析";
+  });
+  this.textContent = anyHidden ? "收起全部解析" : "展开全部解析";
+});
+
+// 清空
+document.getElementById("btnReset").addEventListener("click", () => {
+  if (!confirm("确定清空全部作答？此操作不可撤销。")) return;
+  state = {}; save();
+  document.querySelectorAll(".opt input").forEach(i => i.checked = false);
+  document.querySelectorAll(".fillin,.shortin,.transin").forEach(i => i.value = "");
+  updateProgress();
+});
+
+// ---- 导出答案 ----
+function buildExport(){
+  const L = [];
+  L.push(`# ${QUIZ.title} — 我的作答`);
+  L.push("");
+  L.push(`日期：${QUIZ.date}`);
+  L.push(`完成：${answeredCount()} / ${TOTAL} 题`);
+  L.push("");
+  const tname = {choice:"单选", fill:"填空", short:"问答", translate:"长难句翻译"};
+  QUIZ.sections.forEach(s => {
+    L.push(`## ${s.name}`);
+    L.push("");
+    s.questions.forEach(q => {
+      const v = state[q._id];
+      L.push(`### ${q._id}. [${tname[q.type]}]`);
+      L.push(q.stem);
+      L.push("");
+      if (q.type === "choice") {
+        L.push(`**我的答案：** ${v ? v : "（未作答）"}`);
+      } else if (q.type === "fill") {
+        const arr = [];
+        for (let i = 0; i < (q.blanks || 1); i++) {
+          const k = String(i);
+          arr.push(`第${i+1}空：${(v && v[k]) ? v[k] : "（空）"}`);
+        }
+        L.push(`**我的答案：** ${arr.join("　")}`);
+      } else {
+        L.push(`**我的答案：**`);
+        L.push("");
+        L.push(v && v.trim() ? v : "（未作答）");
+      }
+      L.push("");
+    });
+  });
+  return L.join("\n");
+}
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  document.getElementById("exportArea").value = buildExport();
+  document.getElementById("modal").classList.add("show");
+});
+document.getElementById("btnCloseModal").addEventListener("click", () => {
+  document.getElementById("modal").classList.remove("show");
+});
+document.getElementById("btnDownload").addEventListener("click", () => {
+  const blob = new Blob([buildExport()], {type:"text/markdown;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${QUIZID}-我的作答.md`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") e.target.classList.remove("show");
+});
+
+// ---- 恢复状态 ----
+(function restore(){
+  document.querySelectorAll(".opt input").forEach(inp => {
+    const n = +inp.name.replace("q", "");
+    if (state[n] === inp.value) inp.checked = true;
+  });
+  document.querySelectorAll(".fillin").forEach(inp => {
+    const n = inp.dataset.q, b = inp.dataset.b;
+    if (state[n] && state[n][b] != null) inp.value = state[n][b];
+  });
+  document.querySelectorAll(".shortin,.transin").forEach(ta => {
+    const n = ta.dataset.q;
+    if (state[n] != null) ta.value = state[n];
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
