@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考研每日测验 · 网络综合治理与平台社会（含错题回滚）</title>
+<style>
+:root{
+  --bg:#f7f8fb; --card:#fff; --ink:#1c2430; --sub:#60708a;
+  --line:#e3e8f0; --blue:#2F5B9E; --blue-l:#e8eef8;
+  --green:#1f8a52; --green-l:#e6f5ec;
+  --amber:#b4740a; --amber-l:#fdf3e0;
+  --red:#c0392b; --red-l:#fdeceb;
+  --violet:#6b4ea8; --violet-l:#f0ebfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+    "Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.7;
+  padding:0 0 120px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+/* 顶部 */
+header{
+  background:linear-gradient(135deg,#2F5B9E 0%,#40699f 60%,#5b7fb5 100%);
+  color:#fff;padding:34px 0 26px;margin-bottom:24px;
+  box-shadow:0 2px 14px rgba(47,91,158,.18);
+}
+header h1{font-size:23px;font-weight:650;letter-spacing:.3px;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.85}
+.statline{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chip{
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);
+  border-radius:999px;padding:4px 13px;font-size:12.5px;backdrop-filter:blur(4px)
+}
+
+/* 进度条 */
+.progress-sticky{
+  position:sticky;top:0;z-index:50;background:rgba(247,248,251,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  padding:10px 0;margin-bottom:8px;
+}
+.pbar{height:7px;background:#e6eaf2;border-radius:99px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,#2F5B9E,#5b8fd4);
+  border-radius:99px;transition:width .35s ease}
+.ptext{font-size:12.5px;color:var(--sub);margin-top:6px;display:flex;
+  justify-content:space-between}
+
+/* 分区 */
+.sec{margin:30px 0 0}
+.sec h2{
+  font-size:16.5px;font-weight:640;color:var(--blue);
+  display:flex;align-items:center;gap:9px;padding-bottom:9px;
+  border-bottom:2px solid var(--blue-l);margin-bottom:16px;
+}
+.dot{width:9px;height:9px;border-radius:3px;background:var(--blue);
+  display:inline-block;flex:0 0 auto}
+.secmeta{margin-left:auto;font-size:12px;color:var(--sub);font-weight:400}
+
+/* 题目卡片 */
+.q{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:17px 19px;margin-bottom:13px;transition:border-color .2s,box-shadow .2s;
+}
+.q:focus-within{border-color:#b9cdea;box-shadow:0 3px 14px rgba(47,91,158,.09)}
+.qhead{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.qno{
+  width:26px;height:26px;border-radius:8px;background:var(--blue);
+  color:#fff;font-size:13px;font-weight:600;display:flex;
+  align-items:center;justify-content:center;flex:0 0 auto;
+}
+.qtag{font-size:11.5px;padding:2px 9px;border-radius:6px;font-weight:500}
+.t-choice{background:var(--blue-l);color:var(--blue)}
+.t-fill{background:var(--green-l);color:var(--green)}
+.t-short{background:var(--violet-l);color:var(--violet)}
+.t-translate{background:var(--amber-l);color:var(--amber)}
+.kp{font-size:11.5px;color:var(--sub);margin-left:auto}
+.stem{font-size:14.8px;margin-bottom:12px;white-space:pre-wrap}
+
+/* 单选 */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 13px;
+  border:1px solid var(--line);border-radius:9px;cursor:pointer;
+  transition:all .16s;font-size:14.2px;
+}
+.opt:hover{background:#f4f7fc;border-color:#c3d5ee}
+.opt input{display:none}
+.opt .letter{
+  width:21px;height:21px;border-radius:6px;background:#eef1f6;color:var(--sub);
+  font-size:12px;font-weight:600;display:flex;align-items:center;
+  justify-content:center;flex:0 0 auto;margin-top:2px;transition:all .16s;
+}
+.opt input:checked~.letter{background:var(--blue);color:#fff}
+.opt:has(input:checked){background:var(--blue-l);border-color:#9dbde6}
+.otext{flex:1}
+
+/* 填空 */
+.fills{display:flex;flex-direction:column;gap:8px}
+.fillin{
+  font-family:inherit;font-size:14.2px;padding:9px 13px;
+  border:1px solid var(--line);border-radius:8px;background:#fcfdff;
+  transition:all .16s;width:100%;
+}
+.fillin:focus{outline:none;border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 文本域 */
+.shortin,.transin{
+  font-family:inherit;font-size:14.2px;line-height:1.75;padding:11px 14px;
+  border:1px solid var(--line);border-radius:9px;background:#fcfdff;
+  width:100%;resize:vertical;transition:all .16s;
+}
+.shortin:focus,.transin:focus{outline:none;border-color:var(--blue);
+  background:#fff;box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 按钮与解析 */
+.qfoot{display:flex;align-items:center;gap:11px;margin-top:11px}
+.btn-ans{
+  font-family:inherit;font-size:12.5px;padding:5px 13px;border-radius:7px;
+  border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;
+  transition:all .16s;
+}
+.btn-ans:hover{background:var(--blue-l);border-color:#a8c4e8;color:var(--blue)}
+.saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
+.saved.show{opacity:1}
+.ansbox{
+  margin-top:12px;padding:13px 15px;background:#fafbfd;
+  border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-size:13.8px;
+}
+.ansline{margin-bottom:8px;display:flex;gap:9px;line-height:1.7}
+.ansline:last-child{margin-bottom:0}
+.ansline b{
+  flex:0 0 auto;color:var(--blue);font-size:12px;font-weight:640;
+  background:var(--blue-l);padding:2px 8px;border-radius:5px;height:fit-content;
+  margin-top:3px;
+}
+.ansline .got{color:var(--green);font-weight:600}
+
+/* 底部操作栏 */
+.toolbar{
+  position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);padding:12px 20px;z-index:60;
+  backdrop-filter:blur(10px);box-shadow:0 -2px 16px rgba(28,36,48,.07);
+}
+.tb-inner{max-width:820px;margin:0 auto;display:flex;
+  align-items:center;gap:11px;flex-wrap:wrap}
+.btn{
+  font-family:inherit;font-size:13.5px;padding:9px 19px;border-radius:9px;
+  border:none;cursor:pointer;font-weight:530;transition:all .16s;
+}
+.btn-main{background:var(--blue);color:#fff}
+.btn-main:hover{background:#264d87;transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--sub);border:1px solid var(--line)}
+.btn-ghost:hover{background:#f4f6fa;color:var(--ink)}
+.tb-count{font-size:13px;color:var(--sub);margin-left:auto}
+
+/* 完成提示 */
+.done-tip{
+  margin-top:22px;padding:18px 20px;border-radius:12px;
+  background:var(--green-l);border:1px solid #bfe5ce;color:#14603a;
+  font-size:14px;display:none;
+}
+.done-tip.show{display:block}
+.done-tip b{display:block;margin-bottom:6px;font-size:15px}
+
+/* 答案导出弹层 */
+.modal{
+  position:fixed;inset:0;background:rgba(20,28,40,.5);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:#fff;border-radius:14px;max-width:660px;width:100%;
+  max-height:82vh;display:flex;flex-direction:column;overflow:hidden;
+}
+.modal-head{padding:17px 21px;border-bottom:1px solid var(--line);
+  font-weight:620;font-size:15.5px;color:var(--blue)}
+.modal-body{padding:18px 21px;overflow-y:auto;flex:1}
+.modal-body textarea{
+  width:100%;height:340px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.65;border:1px solid var(--line);
+  border-radius:9px;padding:13px;background:#fafbfd;resize:vertical;
+}
+.modal-foot{padding:14px 21px;border-top:1px solid var(--line);
+  display:flex;gap:10px;justify-content:flex-end}
+.modal-tip{font-size:12.5px;color:var(--sub);margin-bottom:11px;line-height:1.65}
+
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  header{padding:26px 0 20px}
+  header h1{font-size:19px}
+  .q{padding:14px 15px}
+  .stem{font-size:14.2px}
+  .tb-count{display:none}
+  .kp{margin-left:0;width:100%}
+}
+@media print{
+  .toolbar,.btn-ans,.progress-sticky{display:none}
+  .ansbox[hidden]{display:block!important}
+  .q{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>考研每日测验 · 网络综合治理与平台社会（含错题回滚）</h1>
+    <div class="meta">2026-10-04 · 共 22 题 · 今晚 22:30 自动生成</div>
+    <div class="statline">
+      <span class="chip">单选 12</span>
+      <span class="chip">填空 4</span>
+      <span class="chip">问答 5</span>
+      <span class="chip">长难句 1</span>
+    </div>
+  </div>
+</header>
+
+<div class="progress-sticky">
+  <div class="wrap">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <div class="ptext">
+      <span id="ptext">已作答 0 / 22</span>
+      <span>进度自动保存，刷新不丢</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  
+<section class="sec">
+  <h2><span class="dot"></span>一、专业课 · 网络综合治理与平台社会
+    <span class="secmeta">11 题</span></h2>
+  
+<div class="q" data-q="1" data-type="short">
+  <div class="qhead">
+    <span class="qno">1</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">网络综合治理·困境</span>
+  </div>
+  <div class="stem">简述我国网络综合治理面临的四类困境（挑战），每类用一句话点明其核心矛盾。</div>
+  <textarea class="shortin" data-q="1" rows="8" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="1">查看解析</button>
+    <span class="saved" data-saved="1"></span>
+  </div>
+  <div class="ansbox" data-ans="1" hidden><div class="ansline"><b>参考答案</b>①主体协同困境：政府、平台、用户、企业、社会组织等多元主体诉求差异显著，企业面临公共性与商业性的冲突，三方向的利益平衡难度极大。②技术伦理困境：大数据、人工智能、云计算深度嵌入网络空间，AI 幻觉、深度伪造、信息偏食等新型风险涌现，而治理手段与监管体系更新滞后于技术迭代速度。③舆情治理困境：风险社会下网民情绪化、碎片化、极端化表达易引发观点对攻，滋生网络暴力甚至「开盒」，舆情治理愈加复杂。④追责体系困境：责任主体界定模糊（开发者／使用者／平台的责任划分缺明确法律依据），溯源与追责难度大（匿名账号、虚拟 IP、跨境服务器），形成「违法成本低、追责成本高」。</div><div class="ansline"><b>得分点</b>主体协同——公共性与商业性冲突，2分, 技术伦理——治理滞后于技术迭代，2分, 舆情治理——风险社会下的复杂性，2分, 追责体系——责任主体模糊 + 溯源追责困难，2分</div><div class="ansline"><b>解析</b>口诀：**主体散、技术快、舆情乱、追责难**。四条困境同时也是「为什么必须健全网络空间治理」的反面铺垫，答题时先列困境、再顺势接必要性，逻辑就顺了。</div></div>
+</div>
+<div class="q" data-q="2" data-type="short">
+  <div class="qhead">
+    <span class="qno">2</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">媒介化治理（高频名解）</span>
+  </div>
+  <div class="stem">名词解释：媒介化治理。要求写出：①概念出现的年份与学科归属；②定义；③治理主体的三个基本动作；④四个基本特征中至少写对 3 个。</div>
+  <textarea class="shortin" data-q="2" rows="9" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="2">查看解析</button>
+    <span class="saved" data-saved="2"></span>
+  </div>
+  <div class="ansbox" data-ans="2" hidden><div class="ansline"><b>参考答案</b>①「媒介化治理」是传播学与公共管理学的跨学科领域中兴起的新兴概念，2020 年出现。②可界定为「在多元主体构成的治理网络中发挥媒介重要性的长期过程」。③治理主体的三个基本动作：利用媒介技术（基于平台、互联网、算法等基础设施开展治理）；适应媒介逻辑（以媒介逻辑参与治理）；调动媒介资源（以媒介作为桥梁实现人、物、情感的充分连接，促进多方协同共治、建构认同）。④四个基本特征：是一个长期的动态的过程；本质是媒介在治理领域的重要影响；媒介化影响治理的所有方面，包括过程、制度、组织和行动者；利益相关者要适应媒介逻辑的需要。</div><div class="ansline"><b>得分点</b>年份 + 跨学科 + 定义，2分, 三个基本动作（利用媒介技术／适应媒介逻辑／调动媒介资源），2分, 四个特征至少写对 3 个，2分, 能举例《问政山东》或《新重庆》客户端，1分</div><div class="ansline"><b>解析</b>这是 2026 社科院、西南大学、中南民族大学考过的名解，务必背成完整链条。答题模板＝**什么时候出现的 + 谁提出的领域 + 一句话定义 + 三动作 + 四特征 + 一例**。《问政山东》可同时串起政治逻辑（党委领导）、媒介逻辑（问政展演）、公民逻辑（参与式治理），一例顶三例。</div></div>
+</div>
+<div class="q" data-q="3" data-type="choice">
+  <div class="qhead">
+    <span class="qno">3</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">网络治理发展阶段</span>
+  </div>
+  <div class="stem">关于我国网络治理的发展阶段（逻辑主线：政府主导 → 多主体协同 → 多主体、立体式逐步建成），下列表述正确的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q3" value="A"><span class="letter">A</span><span class="otext">21 世纪之初到 2014 年，以法律框架下的探索式刚性管控为主，体现政府为主导、自上而下的治理思路</span></label><label class="opt"><input type="radio" name="q3" value="B"><span class="letter">B</span><span class="otext">2014 年至 2018 年，我国从多主体协同重新回到政府单一管制</span></label><label class="opt"><input type="radio" name="q3" value="C"><span class="letter">C</span><span class="otext">2018 年之后，网络治理的研究目标从「统筹发展与安全」退回为单一的网络安全保障</span></label><label class="opt"><input type="radio" name="q3" value="D"><span class="letter">D</span><span class="otext">网络治理最早由联合国教科文组织于 1998 年提出</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="3">查看解析</button>
+    <span class="saved" data-saved="3"></span>
+  </div>
+  <div class="ansbox" data-ans="3" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>A 对，材料原文即「法律框架下的探索式刚性管控」「政府为主导的自上而下的治理思路」。B 错——2014 年 2 月中央网络安全和信息化领导小组成立，标志网络安全上升为国家战略，政府治理理念**向多主体协同方向转变**。C 错——2018 年后研究目标由传统单一网络安全保障**转向**「统筹发展与安全」的综合目标。D 错——网络治理最早由**国际电信联盟（ITU）**于 1998 年提出，与联合国教科文组织无关。</div></div>
+</div>
+<div class="q" data-q="4" data-type="choice">
+  <div class="qhead">
+    <span class="qno">4</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">网络暴力成因·理论家</span>
+  </div>
+  <div class="stem">在网络暴力成因的诸多解释中，提出「社会加速」（由科技加速、社会变迁加速、生活节奏的加速三因素推动）、并用以解释「以暴解压」扭曲心态的学者及其著作是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q4" value="A"><span class="letter">A</span><span class="otext">戈夫曼《日常生活中的自我呈现》</span></label><label class="opt"><input type="radio" name="q4" value="B"><span class="letter">B</span><span class="otext">乌尔里希·贝克《风险社会》</span></label><label class="opt"><input type="radio" name="q4" value="C"><span class="letter">C</span><span class="otext">哈特穆特·罗萨《加速：现代社会中时间结构的改变》</span></label><label class="opt"><input type="radio" name="q4" value="D"><span class="letter">D</span><span class="otext">安东尼·吉登斯《现代性的后果》</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="4">查看解析</button>
+    <span class="saved" data-saved="4"></span>
+  </div>
+  <div class="ansbox" data-ans="4" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>C 对。罗萨属法兰克福学派，其「社会加速」三因素即科技加速、社会变迁加速、生活节奏加速；社会加速下个体陷入忙碌的假象、承载巨大压力，部分网民把网络暴力当作「情绪出口」。A 戈夫曼的「拟剧理论」解释的是匿名环境下的切换：强关系朋友圈是「表演」的舞台，弱关系微博、贴吧中「宣泄」替代了「表演」。B 贝克的「风险社会」用来铺垫舆情治理的时代背景（「文明的火山上」）。D 吉登斯那句「技术进步表现为积极力量，但它并不总是如此」用来说明技术从赋能工具异化为暴力催化剂。四个人分工不同，答题时别串。</div></div>
+</div>
+<div class="q" data-q="5" data-type="choice">
+  <div class="qhead">
+    <span class="qno">5</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">平台社会与平台治理</span>
+  </div>
+  <div class="stem">关于平台社会与平台治理，下列说法**错误**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q5" value="A"><span class="letter">A</span><span class="otext">范·迪克（José van Dijck）等人在《平台社会：连接世界中的公共价值》中，把平台定义为「旨在组织用户之间进行交互的一种可编程的数字体系结构」</span></label><label class="opt"><input type="radio" name="q5" value="B"><span class="letter">B</span><span class="otext">平台的三大特征与运行机制是数据化、商品化、自动选择；平台企业在内部行使「准立法权」「准司法权」「准行政权」</span></label><label class="opt"><input type="radio" name="q5" value="C"><span class="letter">C</span><span class="otext">平台经济是典型的双边市场，一侧面对消费者（TO C），一侧面对商家（TO B）</span></label><label class="opt"><input type="radio" name="q5" value="D"><span class="letter">D</span><span class="otext">「避风港」原则至今仍是我国平台治理唯一的主导原则，平台无须承担内容治理责任</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="5">查看解析</button>
+    <span class="saved" data-saved="5"></span>
+  </div>
+  <div class="ansbox" data-ans="5" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>D 是错的。我国平台治理三阶段：2016 年前以「避风港」原则为主；2016—2020 年转入集中整治；2021 年后进入**常态化监管阶段，强调平台责任**。互联网平台应坚持「谁主办、谁负责，谁运营、谁负责，谁发布、谁负责」。A、B、C 均与材料一致。另请注意一个高频混淆点：研究批判性话语分析的**图恩·梵·迪克（Teun A. van Dijk）**，与提出平台社会的**何塞·范·迪克（José van Dijck）**，是荷兰两位不同的学者，写论述时别写成同一个人。</div></div>
+</div>
+<div class="q" data-q="6" data-type="fill">
+  <div class="qhead">
+    <span class="qno">6</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">综合治网格局（★★★★★）</span>
+  </div>
+  <div class="stem">2018 年全国网络安全和信息化工作会议上强调：「必须提高网络综合治理能力，形成 ____、____、____、____、____ 等多主体参与，经济、法律、技术等多种手段相结合的综合治网格局。」</div>
+  <div class="fills"><input class="fillin" type="text" data-q="6" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="6" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="6" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="6" data-b="3" placeholder="第 4 空" autocomplete="off"><input class="fillin" type="text" data-q="6" data-b="4" placeholder="第 5 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="6">查看解析</button>
+    <span class="saved" data-saved="6"></span>
+  </div>
+  <div class="ansbox" data-ans="6" hidden><div class="ansline"><b>参考答案</b>党委领导、政府管理、企业履责、社会监督、网民自律</div><div class="ansline"><b>得分点</b>每空 1 分，共 5 分, 顺序可换，但五主体不能漏、不能自造词</div><div class="ansline"><b>解析</b>五个主体必须背成链条：**党委领导 → 政府管理 → 企业履责 → 社会监督 → 网民自律**。这一句是网络综合治理、网络暴力治理、隐私权保护、平台治理四个专题共用的首条对策，属于「一段话打通多个题」的超级重点。</div></div>
+</div>
+<div class="q" data-q="7" data-type="fill">
+  <div class="qhead">
+    <span class="qno">7</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">网络暴力治理四对策</span>
+  </div>
+  <div class="stem">网络暴力治理的四条对策（填小标题关键词）：①坚持走中国特色治网之道，构建多元 ____ 治理格局；②坚持 ____ 管治网暴，营造清朗的网络空间；③主流媒体 ____ 引导，做到不失时、不失语、不失真、不失品、不失位；④压实 ____ 主体责任，对网络暴力亮红线、举红牌。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="7" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="3" placeholder="第 4 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="7">查看解析</button>
+    <span class="saved" data-saved="7"></span>
+  </div>
+  <div class="ansbox" data-ans="7" hidden><div class="ansline"><b>参考答案</b>主体协同、依法、舆论、平台</div><div class="ansline"><b>得分点</b>每空 1 分，共 4 分</div><div class="ansline"><b>解析</b>骨架＝**主体／法／媒体／平台**。这四条同时适用于网络暴力、隐私泄露、虚假新闻三个专题，只微调第一、二条的具体措辞。考试时先把骨架写出来，再按题目置换主语，是最省时的做法。</div></div>
+</div>
+<div class="q" data-q="8" data-type="choice">
+  <div class="qhead">
+    <span class="qno">8</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">新闻实务·编者按与编后语</span>
+  </div>
+  <div class="stem">新闻实务：关于编者按与编后语的区别，下列说法正确的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q8" value="A"><span class="letter">A</span><span class="otext">编者按由标题和正文组成，必须另拟标题，也可以署名</span></label><label class="opt"><input type="radio" name="q8" value="B"><span class="letter">B</span><span class="otext">编者按的主要目的在于提示和导读，即「于读前预先提示」；编后语侧重于指导读者消化报道，即「于读后进行点拨」</span></label><label class="opt"><input type="radio" name="q8" value="C"><span class="letter">C</span><span class="otext">文前按语是最常用的形式，写作时须拟标题并署名</span></label><label class="opt"><input type="radio" name="q8" value="D"><span class="letter">D</span><span class="otext">编后语篇幅一般比编者按短，只需粗线条勾勒，不作具体的分析论理</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="8">查看解析</button>
+    <span class="saved" data-saved="8"></span>
+  </div>
+  <div class="ansbox" data-ans="8" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>B 对。A 错——编者按由**文种名称和正文**组成，不须另拟标题。C 错——文前按语「不要拟标题，也不宜署名」，虽然它地位最重要、编排最突出。D 错——编后语篇幅一般**较编者按要长**，其引论、本论、结语三个部分比较完整，需要围绕论题展开分析议论。另需记住考情：编者按高频院校是安徽大学、山东大学、安徽师范大学，字数以 150—200 字为主，个别要求写编后语。</div></div>
+</div>
+<div class="q" data-q="9" data-type="short">
+  <div class="qhead">
+    <span class="qno">9</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">新闻实务·新闻述评</span>
+  </div>
+  <div class="stem">新闻实务：简述新闻述评（记者述评）的三个特点，并写出两条写作要求。</div>
+  <textarea class="shortin" data-q="9" rows="8" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="9">查看解析</button>
+    <span class="saved" data-saved="9"></span>
+  </div>
+  <div class="ansbox" data-ans="9" hidden><div class="ansline"><b>参考答案</b>新闻述评又称记者述评或述评新闻，是一种以事实为基础的评论、以评论为核心的新闻。三个特点：①从理论和实践的结合上分析问题，更有针对性——有事实作基础再作中肯评论，事实与道理相得益彰；②从点和面的结合上说明问题，更有普遍性——既有点上的典型材料又有面上的概括材料，既有现实情况又有历史资料作背景；③用有述有评、评述结合的方法论证问题，更有灵活性——可夹叙夹议、纵联横切、旁征博引，运笔自由、形式不拘一格。两条写作要求：①写好由头，巧用背景——以「述」为由、以「述」为主、以「评」点睛；②夹叙夹议，虚实结合——做到观点与材料、叙述与议论有机结合，熔叙议于一炉、事理为一体。</div><div class="ansline"><b>得分点</b>特点一：理论 + 实践结合，更有针对性，2分, 特点二：点 + 面结合，更有普遍性，2分, 特点三：有述有评、评述结合，更有灵活性，2分, 两条写作要求各 1.5 分，共 3分</div><div class="ansline"><b>解析</b>三个特点的关键词连成一条线：**针对性（理论与实践）→ 普遍性（点与面）→ 灵活性（述与评）**。写作模板另外背熟：标题＝核心观点；开头＝概括面上情况、提出总论点；正文＝点上事例 + 分论点，三组推进；结尾＝高昂激越式或精辟概括式。你正在准备的「主播说联播」口播和这道题的骨架是相通的——总论点先亮，再上事例支撑。</div></div>
+</div>
+<div class="q" data-q="10" data-type="choice">
+  <div class="qhead">
+    <span class="qno">10</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">后真相·谣言概念辨析</span>
+  </div>
+  <div class="stem">关于后真相时代的概念与传播机制，下列说法正确的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q10" value="A"><span class="letter">A</span><span class="otext">「Post-truth」1992 年首次被美国《国家》杂志用以描述水门事件等，2016 年被《牛津词典》评为年度词汇</span></label><label class="opt"><input type="radio" name="q10" value="B"><span class="letter">B</span><span class="otext">奥尔波特与波斯特曼 1947 年提出的谣言公式是 R =（I × A）÷ C</span></label><label class="opt"><input type="radio" name="q10" value="C"><span class="letter">C</span><span class="otext">「误导信息（disinformation）」指基本不涉及传播者主观意图的错误信息</span></label><label class="opt"><input type="radio" name="q10" value="D"><span class="letter">D</span><span class="otext">英文 rumor 已经对信息的真与假作了明确区分，因此与中文「谣言」完全对应</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="10">查看解析</button>
+    <span class="saved" data-saved="10"></span>
+  </div>
+  <div class="ansbox" data-ans="10" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>A 对。B 错——奥尔波特与波斯特曼的原式是 R = Importance × Ambiguity（重要性与模糊性之积），**克罗斯**随后引入公众批判能力因子 C，才扩展为 R ＝(I×A)/C，作者别张冠李戴。C 错——基本不涉及传播者主观意图的是**虚假信息（misinformation）**；误导信息（disinformation）有明确恶意，最早是冷战语境下的军事情报学概念，可视为虚假信息的子集。D 错——英文 rumor **未做真与假的区分**，正因如此，学界主张在描述「非官方、来源不明的讯息」时用更中性的「传言」替代「谣言」，以利公众表达的非罪化。补充关联：反转新闻的四个成因（情绪裹挟／社会心理即认知基模塑造／把关缺失／算法助推）与后真相的「六维原因框架」高度同源，答题可互相套用。</div></div>
+</div>
+<div class="q" data-q="11" data-type="short">
+  <div class="qhead">
+    <span class="qno">11</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">【错题回滚】数字鸿沟谱系</span>
+  </div>
+  <div class="stem">【错题回滚】问答：①写出数字鸿沟研究中从「知识沟」到「数智鸿沟」的完整谱系（至少 5 环，含中间两环的术语）；②老年群体数字鸿沟研究中，除「接入沟」外还有哪两个细分术语？各自的核心意涵是什么？</div>
+  <textarea class="shortin" data-q="11" rows="7" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="11">查看解析</button>
+    <span class="saved" data-saved="11"></span>
+  </div>
+  <div class="ansbox" data-ans="11" hidden><div class="ansline"><b>参考答案</b>①谱系五环：知识沟 → 信息沟 → 数字鸿沟（又称接入沟）→ 使用沟／素养沟 → 数智鸿沟。②老年数字鸿沟的两个细分术语：a. 动机沟——问题从「技术不可及」转向「主观不接入」，即有没有条件之外，还要看愿不愿意接入；b. 风险与收益沟——接入增加往往伴随风险暴露增加，而实际收益有限，导致老人主动回避。</div><div class="ansline"><b>得分点</b>谱系写得完整（知识 → 信息 → 接入 → 使用 → 数智），3分, 点出「数字鸿沟又称接入沟」这一别称，1分, 动机沟 + 核心意涵，2分, 风险与收益沟 + 核心意涵，2分</div><div class="ansline"><b>解析</b>上次你把谱系写成「知识沟 → 数字鸿沟 → 数智鸿沟」，中间两环缺失。记忆链：**知识 → 信息 → 接入 → 使用 → 数智**；前两环是「知道与否」，中间两环是「能不能用」，末环是「用得好不好」。老年专题再叠一层：**没条件（接入）→ 不愿用（动机）→ 用了不划算（风险与收益）**。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>二、政治（全单选）
+    <span class="secmeta">7 题</span></h2>
+  
+<div class="q" data-q="12" data-type="choice">
+  <div class="qhead">
+    <span class="qno">12</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">【错题回滚】教育强国六个「以」</span>
+  </div>
+  <div class="stem">【错题回滚】关于建设教育强国的「六个以」，下列配对完全正确的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q12" value="A"><span class="letter">A</span><span class="otext">根本任务——立德树人；根本目标——为党育人、为国育才</span></label><label class="opt"><input type="radio" name="q12" value="B"><span class="letter">B</span><span class="otext">根本任务——为党育人、为国育才；根本目标——立德树人</span></label><label class="opt"><input type="radio" name="q12" value="C"><span class="letter">C</span><span class="otext">根本尺度——立德树人；根本保证——人民满意</span></label><label class="opt"><input type="radio" name="q12" value="D"><span class="letter">D</span><span class="otext">根本保证——为党育人、为国育才；根本任务——坚持党的领导</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="12">查看解析</button>
+    <span class="saved" data-saved="12"></span>
+  </div>
+  <div class="ansbox" data-ans="12" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>A 对。记忆抓手：**保（证）→ 党；任（务）→ 德育；目（标）→ 育才**。另需单记一条：**人民满意是根本尺度**，它既不是「目标」也不是「保证」，这是最高频的设错点。上次你填下「根本方向／基本目标／最终目的／最终标准」四个自造词，属于从没背过原表述、靠语感硬猜，这次先把三个锚点钉死。</div></div>
+</div>
+<div class="q" data-q="13" data-type="choice">
+  <div class="qhead">
+    <span class="qno">13</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">【错题回滚·第三次】党的显著标志</span>
+  </div>
+  <div class="stem">【错题回滚·第三次】关于「党的显著标志」，下列表述正确的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q13" value="A"><span class="letter">A</span><span class="otext">理论联系实际、密切联系群众、批评和自我批评、人民至上，是中国共产党的显著标志</span></label><label class="opt"><input type="radio" name="q13" value="B"><span class="letter">B</span><span class="otext">党的三大优良作风与「勇于自我革命」并列，共同构成党的显著标志</span></label><label class="opt"><input type="radio" name="q13" value="C"><span class="letter">C</span><span class="otext">勇于自我革命是中国共产党区别于其他政党的显著标志</span></label><label class="opt"><input type="radio" name="q13" value="D"><span class="letter">D</span><span class="otext">党的七大提出「勇于自我革命」，十九届六中全会《决议》提出三大优良作风</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="13">查看解析</button>
+    <span class="saved" data-saved="13"></span>
+  </div>
+  <div class="ansbox" data-ans="13" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>C 对。**这条已经连滚两次，务必落到笔头。**两条来源各背各：①党的**七大（1945）**：理论联系实际、密切联系群众、批评和自我批评，是**三大**优良作风，不含「人民至上」；②党的十九届六中全会《决议》：**勇于自我革命**是中国共产党**区别于其他政党**的显著标志。A、B 就是你自己反馈文档里的原始错误写法——选它，等于笔记里的错漏原样迁到考场；D 把两个来源完全对调。**考完请回去修改 9.17 反馈原文。**</div></div>
+</div>
+<div class="q" data-q="14" data-type="choice">
+  <div class="qhead">
+    <span class="qno">14</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">【错题回滚】全过程人民民主四个相统一</span>
+  </div>
+  <div class="stem">【错题回滚】下列属于全过程人民民主「四个相统一」的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q14" value="A"><span class="letter">A</span><span class="otext">选举民主和协商民主相统一</span></label><label class="opt"><input type="radio" name="q14" value="B"><span class="letter">B</span><span class="otext">过程民主和成果民主相统一</span></label><label class="opt"><input type="radio" name="q14" value="C"><span class="letter">C</span><span class="otext">党内民主和人民民主相统一</span></label><label class="opt"><input type="radio" name="q14" value="D"><span class="letter">D</span><span class="otext">直接民主和代议民主相统一</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="14">查看解析</button>
+    <span class="saved" data-saved="14"></span>
+  </div>
+  <div class="ansbox" data-ans="14" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>B 对。四个相统一＝过程民主与成果民主、程序民主与实质民主、直接民主与**间接民主**、人民民主与国家意志。记忆抓手：前三对都是「同一民主的两个侧面」，第四对是「人民民主／国家意志」。**选举民主与协商民主是两种并列的民主形式，二者之间不构成一组「统一」**——上次你就把它当成了正确项。D 的「代议民主」是干扰词，正确说法是「间接民主」。</div></div>
+</div>
+<div class="q" data-q="15" data-type="choice">
+  <div class="qhead">
+    <span class="qno">15</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">【错题回滚】统战「三个最」</span>
+  </div>
+  <div class="stem">【错题回滚】关于统一战线的「三个层次」，下列表述正确的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q15" value="A"><span class="letter">A</span><span class="otext">本质要求是大团结大联合，解决的是人心和力量问题；关键是坚持求同存异；党的领导是统一战线最鲜明的特征</span></label><label class="opt"><input type="radio" name="q15" value="B"><span class="letter">B</span><span class="otext">本质要求是求同存异；关键是坚持大团结大联合；党的领导是统一战线最本质的特征</span></label><label class="opt"><input type="radio" name="q15" value="C"><span class="letter">C</span><span class="otext">本质要求是大团结大联合；关键是坚持党的领导；党的领导是统一战线最本质的特征</span></label><label class="opt"><input type="radio" name="q15" value="D"><span class="letter">D</span><span class="otext">本质要求是人心和力量；关键是坚持党的领导；党的领导是统一战线最鲜明的特征</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="15">查看解析</button>
+    <span class="saved" data-saved="15"></span>
+  </div>
+  <div class="ansbox" data-ans="15" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>A 对。四级递进链——**联合（本质）→ 人心（对象）→ 存异（方法）→ 党旗（特征）**，四步不能跳。上次你把「大团结大联合」缩写成「大」、把「人心和力量」写成「差异」，属于只记住了「有个大字」却没记完整表述。另注意「最**鲜明**的特征」是固定搭配，B、C 的「最**本质**的特征」是改字干扰。</div></div>
+</div>
+<div class="q" data-q="16" data-type="choice">
+  <div class="qhead">
+    <span class="qno">16</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">【错题回滚】法治体系五大体系</span>
+  </div>
+  <div class="stem">【错题回滚】中国特色社会主义法治体系包括五个子体系，下列**不属于**该五体系的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q16" value="A"><span class="letter">A</span><span class="otext">法律规范体系</span></label><label class="opt"><input type="radio" name="q16" value="B"><span class="letter">B</span><span class="otext">法治实施体系</span></label><label class="opt"><input type="radio" name="q16" value="C"><span class="letter">C</span><span class="otext">法治监督体系</span></label><label class="opt"><input type="radio" name="q16" value="D"><span class="letter">D</span><span class="otext">法治宣传体系</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="16">查看解析</button>
+    <span class="saved" data-saved="16"></span>
+  </div>
+  <div class="ansbox" data-ans="16" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>本题选 D（不属于）。五体系顺口溜：**规 → 实 → 监 → 保 → 党**（法律**规**范 → 法治**实**施 → 法治**监**督 → 法治**保**障 → **党**内法规）。上次你五空全空，说明背诵顺序反了：应当先把骨架背成顺口溜，再补细节（如「以宪法为核心」「以党章为根本」）。</div></div>
+</div>
+<div class="q" data-q="17" data-type="choice">
+  <div class="qhead">
+    <span class="qno">17</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">时政·平台经济与反垄断</span>
+  </div>
+  <div class="stem">2026 年 7 月，市场监管总局依据《中华人民共和国反垄断法》，对某平台企业滥用市场支配地位实施垄断行为作出行政处罚，罚没款合计 51.79 亿元。关于本案所体现的知识点，下列说法正确的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q17" value="A"><span class="letter">A</span><span class="otext">这是我国平台治理进入「常态化监管阶段」、强调平台责任的体现</span></label><label class="opt"><input type="radio" name="q17" value="B"><span class="letter">B</span><span class="otext">该处罚的法律依据是《中华人民共和国个人信息保护法》</span></label><label class="opt"><input type="radio" name="q17" value="C"><span class="letter">C</span><span class="otext">该案发生在我国平台治理的「避风港」原则阶段</span></label><label class="opt"><input type="radio" name="q17" value="D"><span class="letter">D</span><span class="otext">该案表明我国已放弃「多主体参与」的综合治网格局</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="17">查看解析</button>
+    <span class="saved" data-saved="17"></span>
+  </div>
+  <div class="ansbox" data-ans="17" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>A 对。三阶段：2016 年前「避风港」原则 → 2016—2020 集中整治 → **2021 年后常态化监管、强调平台责任**，本案是常态化监管的典型落点。B 错——依据是**《反垄断法》**，而《个人信息保护法》管的是个人信息处理，两者别混。C 错——时间线对不上。D 错——2018 年提出的「党委领导、政府管理、企业履责、社会监督、网民自律」多主体参与格局一直在强化，从未放弃。</div></div>
+</div>
+<div class="q" data-q="18" data-type="choice">
+  <div class="qhead">
+    <span class="qno">18</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">时政·十五五规划</span>
+  </div>
+  <div class="stem">「十五五」规划提出要落实的四个全球倡议，下列表述正确的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q18" value="A"><span class="letter">A</span><span class="otext">全球发展倡议、全球安全倡议、全球文明倡议、全球治理倡议</span></label><label class="opt"><input type="radio" name="q18" value="B"><span class="letter">B</span><span class="otext">全球发展倡议、全球安全倡议、全球文明倡议、全球生态倡议</span></label><label class="opt"><input type="radio" name="q18" value="C"><span class="letter">C</span><span class="otext">全球合作倡议、全球安全倡议、全球文明倡议、全球治理倡议</span></label><label class="opt"><input type="radio" name="q18" value="D"><span class="letter">D</span><span class="otext">全球发展倡议、全球和平倡议、全球文明倡议、全球治理倡议</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="18">查看解析</button>
+    <span class="saved" data-saved="18"></span>
+  </div>
+  <div class="ansbox" data-ans="18" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>A 对。四个倡议是固定表述：**发展 → 安全 → 文明 → 治理**。这条与专业课「新闻传播在社会治理中的作用——全球传播：讲好故事、传播全球治理观」直接挂钩，可用于国际传播与全球治理类论述题的开头引证。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>三、英语
+    <span class="secmeta">4 题</span></h2>
+  
+<div class="q" data-q="19" data-type="fill">
+  <div class="qhead">
+    <span class="qno">19</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">专业英语术语辨析</span>
+  </div>
+  <div class="stem">对照材料中的概念辨析表，填入对应的英文词：①______：a piece of information, or a story, that people talk about, but that may not be true（信源不明、可真可假、意图可有可无）；②______：有意为之的错误信息，具有明确恶意（最早为冷战语境的军事情报学概念）；③______：基本不涉及传播者主观意图的错误或误导信息；④______：假借新闻报道形式传播的错误虚假、耸人听闻的信息。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="19" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="19" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="19" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="19" data-b="3" placeholder="第 4 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="19">查看解析</button>
+    <span class="saved" data-saved="19"></span>
+  </div>
+  <div class="ansbox" data-ans="19" hidden><div class="ansline"><b>参考答案</b>rumor、disinformation、misinformation、fake news</div><div class="ansline"><b>得分点</b>每空 1 分，共 4 分, 拼写完整、大小写不敏感</div><div class="ansline"><b>解析</b>记忆分工：**rumor 只强调「信源不明、可真可假」；dis- 有恶意（想骗你）；mis- 无恶意（纯粹搞错了）；fake news 强调「假借了新闻的形式」**。这四个词能写进论述题的英文括注里，是低成本加分项。</div></div>
+</div>
+<div class="q" data-q="20" data-type="fill">
+  <div class="qhead">
+    <span class="qno">20</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">【错题回滚】英语词汇</span>
+  </div>
+  <div class="stem">【错题回滚】英语词汇填空：① The regulator has pledged to ______ illegal live-streaming platforms that sell personal data.（用 crack down 的适当形式）② The ______ stretched endlessly under the vast sky.（填「大草原」的英文）③ Compared with the previous one, this problem is far ______ .（用 thorny 的适当形式）</div>
+  <div class="fills"><input class="fillin" type="text" data-q="20" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="20" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="20" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="20">查看解析</button>
+    <span class="saved" data-saved="20"></span>
+  </div>
+  <div class="ansbox" data-ans="20" hidden><div class="ansline"><b>参考答案</b>crack down on、prairie、thornier</div><div class="ansline"><b>得分点</b>每空 1 分，共 3 分, crack down 不要漏介词 on, thornier 是比较级，拼写别丢 r</div><div class="ansline"><b>解析</b>三处都是上次的硬伤：**crack down on ＝ 严厉打击、镇压**（你写成了「崩塌」，那是 collapse）；**prairie ＝ 大草原**（和 plain 平原、plateau 高原一起记）；**thorny → thornier ＝ 更棘手的**（描述问题麻烦用 thorny，不用 sharp）。</div></div>
+</div>
+<div class="q" data-q="21" data-type="translate">
+  <div class="qhead">
+    <span class="qno">21</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">长难句翻译 + 概念辨析</span>
+  </div>
+  <div class="stem">把下面这句英文译成中文，并说明它为什么不宜译为「谣言」：
+
+rumor: a piece of information, or a story, that people talk about, but that may not be true</div>
+  <textarea class="transin" data-q="21" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="21">查看解析</button>
+    <span class="saved" data-saved="21"></span>
+  </div>
+  <div class="ansbox" data-ans="21" hidden><div class="ansline"><b>参考答案</b>译文：传言（流言）：人们谈论的、但可能并不真实的一条消息或一个故事。
+不宜译为「谣言」的原因：这条定义只强调「信源不明、真假未定」（may not be true，即可能真也可能假），完全没有涉及传播者的主观恶意；而中文「谣言」承载了「有意凭空捏造」的贬义与价值判断，语义更窄。因此学界主张，在描述「非官方、来源不明的讯息」时优先使用更中性的「传言」，以利于公众正常表达的非罪化。</div><div class="ansline"><b>得分点</b>句意准确：信源不明的消息／故事 + 可能并不真实，2分, 点出「可真可假」或「未做真假区分」，1分</div><div class="ansline"><b>解析</b>翻译难点在两个地方：①「a piece of information, or a story」是同位并列，译成「一条消息或一个故事」即可，不必逐字对齐；②`may not be true` 是**推测语气**，等于中文的「可能不真实」，也等于「可真可假」——这正是它与「谣言」的分界线。写成「不真实」，就把推测变成了断定，意思反了。</div></div>
+</div>
+<div class="q" data-q="22" data-type="short">
+  <div class="qhead">
+    <span class="qno">22</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">英语方法反思</span>
+  </div>
+  <div class="stem">英语方法反思：上次长难句翻译你漏译了 `are far more likely to feel threatened` 中的 `far more likely`（远远更有可能），只译出了「感到受到威胁」。请回答：①英二翻译中，比较级与程度副词为什么不能省？②写出你接下来处理这类句子的三步操作流程。</div>
+  <textarea class="shortin" data-q="22" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="22">查看解析</button>
+    <span class="saved" data-saved="22"></span>
+  </div>
+  <div class="ansbox" data-ans="22" hidden><div class="ansline"><b>参考答案</b>①原因：英二翻译按信息点计分，比较级（more／less）与程度副词（far／much／considerably／slightly）承载的是作者对程度的判断，属于命题人刻意设置的采分点。省略之后语义强度被抹平（「更有可能」退化成「有可能」，「远远更有可能」退化成「更有可能」），属于实质性失分。此外，those 一类的泛指代词也要译出（「那些……的人」），不能吞掉。②三步流程：第一步，先在原句上圈出所有比较结构（more／less／-er than、as…as、the more…the more）与程度副词，标为必译点；第二步，切分主干（主谓宾），再把修饰成分挂回主干，逐块对应成中文；第三步，回读自检——数一遍圈出的必译点是否全部落地，中文里有没有出现「更」「远远」「相当」这类对应词，缺一个就补一个。</div><div class="ansline"><b>得分点</b>解释比较级／程度副词属于采分点、省略会抹平语义强度，3分, 提到泛指代词 those 也要译出，1分, 三步流程具体可操作（圈标记 → 切主干挂修饰 → 回读自检），4分</div><div class="ansline"><b>解析</b>你上次的原文错法就是「漏比较级」，这次要求把动作固化成流程。口诀：**先圈「更」，再切主干，末尾数圈**。</div></div>
+</div>
+</section>
+
+  <div class="done-tip" id="doneTip">
+    <b>🎉 全部作答完毕</b>
+    点右下角「导出我的答案」，把导出的文件发给我，我会逐题批改并给出评分与改进建议。
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="tb-inner">
+    <button class="btn btn-main" id="btnExport">导出我的答案</button>
+    <button class="btn btn-ghost" id="btnRevealAll">展开全部解析</button>
+    <button class="btn btn-ghost" id="btnReset">清空重做</button>
+    <span class="tb-count" id="tbCount">0 / 22</span>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">你的答案（复制后发给我批改）</div>
+    <div class="modal-body">
+      <div class="modal-tip">
+        全选复制下面的内容，粘贴到对话里发给我即可。也可以点「下载 .md」保存成文件再上传。
+      </div>
+      <textarea id="exportArea" readonly></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="btnCloseModal">关闭</button>
+      <button class="btn btn-main" id="btnDownload">下载 .md</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ = {"title": "考研每日测验 · 网络综合治理与平台社会（含错题回滚）", "date": "2026-10-04", "sections": [{"name": "一、专业课 · 网络综合治理与平台社会", "questions": [{"id": 1, "type": "short", "rows": 8, "kp": "网络综合治理·困境", "stem": "简述我国网络综合治理面临的四类困境（挑战），每类用一句话点明其核心矛盾。", "answer": "①主体协同困境：政府、平台、用户、企业、社会组织等多元主体诉求差异显著，企业面临公共性与商业性的冲突，三方向的利益平衡难度极大。②技术伦理困境：大数据、人工智能、云计算深度嵌入网络空间，AI 幻觉、深度伪造、信息偏食等新型风险涌现，而治理手段与监管体系更新滞后于技术迭代速度。③舆情治理困境：风险社会下网民情绪化、碎片化、极端化表达易引发观点对攻，滋生网络暴力甚至「开盒」，舆情治理愈加复杂。④追责体系困境：责任主体界定模糊（开发者／使用者／平台的责任划分缺明确法律依据），溯源与追责难度大（匿名账号、虚拟 IP、跨境服务器），形成「违法成本低、追责成本高」。", "keys": ["主体协同——公共性与商业性冲突，2分", "技术伦理——治理滞后于技术迭代，2分", "舆情治理——风险社会下的复杂性，2分", "追责体系——责任主体模糊 + 溯源追责困难，2分"], "explain": "口诀：**主体散、技术快、舆情乱、追责难**。四条困境同时也是「为什么必须健全网络空间治理」的反面铺垫，答题时先列困境、再顺势接必要性，逻辑就顺了。", "_id": 1}, {"id": 2, "type": "short", "rows": 9, "kp": "媒介化治理（高频名解）", "stem": "名词解释：媒介化治理。要求写出：①概念出现的年份与学科归属；②定义；③治理主体的三个基本动作；④四个基本特征中至少写对 3 个。", "answer": "①「媒介化治理」是传播学与公共管理学的跨学科领域中兴起的新兴概念，2020 年出现。②可界定为「在多元主体构成的治理网络中发挥媒介重要性的长期过程」。③治理主体的三个基本动作：利用媒介技术（基于平台、互联网、算法等基础设施开展治理）；适应媒介逻辑（以媒介逻辑参与治理）；调动媒介资源（以媒介作为桥梁实现人、物、情感的充分连接，促进多方协同共治、建构认同）。④四个基本特征：是一个长期的动态的过程；本质是媒介在治理领域的重要影响；媒介化影响治理的所有方面，包括过程、制度、组织和行动者；利益相关者要适应媒介逻辑的需要。", "keys": ["年份 + 跨学科 + 定义，2分", "三个基本动作（利用媒介技术／适应媒介逻辑／调动媒介资源），2分", "四个特征至少写对 3 个，2分", "能举例《问政山东》或《新重庆》客户端，1分"], "explain": "这是 2026 社科院、西南大学、中南民族大学考过的名解，务必背成完整链条。答题模板＝**什么时候出现的 + 谁提出的领域 + 一句话定义 + 三动作 + 四特征 + 一例**。《问政山东》可同时串起政治逻辑（党委领导）、媒介逻辑（问政展演）、公民逻辑（参与式治理），一例顶三例。", "_id": 2}, {"id": 3, "type": "choice", "kp": "网络治理发展阶段", "stem": "关于我国网络治理的发展阶段（逻辑主线：政府主导 → 多主体协同 → 多主体、立体式逐步建成），下列表述正确的一项是：", "options": ["21 世纪之初到 2014 年，以法律框架下的探索式刚性管控为主，体现政府为主导、自上而下的治理思路", "2014 年至 2018 年，我国从多主体协同重新回到政府单一管制", "2018 年之后，网络治理的研究目标从「统筹发展与安全」退回为单一的网络安全保障", "网络治理最早由联合国教科文组织于 1998 年提出"], "answer": "A", "explain": "A 对，材料原文即「法律框架下的探索式刚性管控」「政府为主导的自上而下的治理思路」。B 错——2014 年 2 月中央网络安全和信息化领导小组成立，标志网络安全上升为国家战略，政府治理理念**向多主体协同方向转变**。C 错——2018 年后研究目标由传统单一网络安全保障**转向**「统筹发展与安全」的综合目标。D 错——网络治理最早由**国际电信联盟（ITU）**于 1998 年提出，与联合国教科文组织无关。", "_id": 3}, {"id": 4, "type": "choice", "kp": "网络暴力成因·理论家", "stem": "在网络暴力成因的诸多解释中，提出「社会加速」（由科技加速、社会变迁加速、生活节奏的加速三因素推动）、并用以解释「以暴解压」扭曲心态的学者及其著作是：", "options": ["戈夫曼《日常生活中的自我呈现》", "乌尔里希·贝克《风险社会》", "哈特穆特·罗萨《加速：现代社会中时间结构的改变》", "安东尼·吉登斯《现代性的后果》"], "answer": "C", "explain": "C 对。罗萨属法兰克福学派，其「社会加速」三因素即科技加速、社会变迁加速、生活节奏加速；社会加速下个体陷入忙碌的假象、承载巨大压力，部分网民把网络暴力当作「情绪出口」。A 戈夫曼的「拟剧理论」解释的是匿名环境下的切换：强关系朋友圈是「表演」的舞台，弱关系微博、贴吧中「宣泄」替代了「表演」。B 贝克的「风险社会」用来铺垫舆情治理的时代背景（「文明的火山上」）。D 吉登斯那句「技术进步表现为积极力量，但它并不总是如此」用来说明技术从赋能工具异化为暴力催化剂。四个人分工不同，答题时别串。", "_id": 4}, {"id": 5, "type": "choice", "kp": "平台社会与平台治理", "stem": "关于平台社会与平台治理，下列说法**错误**的一项是：", "options": ["范·迪克（José van Dijck）等人在《平台社会：连接世界中的公共价值》中，把平台定义为「旨在组织用户之间进行交互的一种可编程的数字体系结构」", "平台的三大特征与运行机制是数据化、商品化、自动选择；平台企业在内部行使「准立法权」「准司法权」「准行政权」", "平台经济是典型的双边市场，一侧面对消费者（TO C），一侧面对商家（TO B）", "「避风港」原则至今仍是我国平台治理唯一的主导原则，平台无须承担内容治理责任"], "answer": "D", "explain": "D 是错的。我国平台治理三阶段：2016 年前以「避风港」原则为主；2016—2020 年转入集中整治；2021 年后进入**常态化监管阶段，强调平台责任**。互联网平台应坚持「谁主办、谁负责，谁运营、谁负责，谁发布、谁负责」。A、B、C 均与材料一致。另请注意一个高频混淆点：研究批判性话语分析的**图恩·梵·迪克（Teun A. van Dijk）**，与提出平台社会的**何塞·范·迪克（José van Dijck）**，是荷兰两位不同的学者，写论述时别写成同一个人。", "_id": 5}, {"id": 6, "type": "fill", "blanks": 5, "kp": "综合治网格局（★★★★★）", "stem": "2018 年全国网络安全和信息化工作会议上强调：「必须提高网络综合治理能力，形成 ____、____、____、____、____ 等多主体参与，经济、法律、技术等多种手段相结合的综合治网格局。」", "answer": "党委领导、政府管理、企业履责、社会监督、网民自律", "keys": ["每空 1 分，共 5 分", "顺序可换，但五主体不能漏、不能自造词"], "explain": "五个主体必须背成链条：**党委领导 → 政府管理 → 企业履责 → 社会监督 → 网民自律**。这一句是网络综合治理、网络暴力治理、隐私权保护、平台治理四个专题共用的首条对策，属于「一段话打通多个题」的超级重点。", "_id": 6}, {"id": 7, "type": "fill", "blanks": 4, "kp": "网络暴力治理四对策", "stem": "网络暴力治理的四条对策（填小标题关键词）：①坚持走中国特色治网之道，构建多元 ____ 治理格局；②坚持 ____ 管治网暴，营造清朗的网络空间；③主流媒体 ____ 引导，做到不失时、不失语、不失真、不失品、不失位；④压实 ____ 主体责任，对网络暴力亮红线、举红牌。", "answer": "主体协同、依法、舆论、平台", "keys": ["每空 1 分，共 4 分"], "explain": "骨架＝**主体／法／媒体／平台**。这四条同时适用于网络暴力、隐私泄露、虚假新闻三个专题，只微调第一、二条的具体措辞。考试时先把骨架写出来，再按题目置换主语，是最省时的做法。", "_id": 7}, {"id": 8, "type": "choice", "kp": "新闻实务·编者按与编后语", "stem": "新闻实务：关于编者按与编后语的区别，下列说法正确的一项是：", "options": ["编者按由标题和正文组成，必须另拟标题，也可以署名", "编者按的主要目的在于提示和导读，即「于读前预先提示」；编后语侧重于指导读者消化报道，即「于读后进行点拨」", "文前按语是最常用的形式，写作时须拟标题并署名", "编后语篇幅一般比编者按短，只需粗线条勾勒，不作具体的分析论理"], "answer": "B", "explain": "B 对。A 错——编者按由**文种名称和正文**组成，不须另拟标题。C 错——文前按语「不要拟标题，也不宜署名」，虽然它地位最重要、编排最突出。D 错——编后语篇幅一般**较编者按要长**，其引论、本论、结语三个部分比较完整，需要围绕论题展开分析议论。另需记住考情：编者按高频院校是安徽大学、山东大学、安徽师范大学，字数以 150—200 字为主，个别要求写编后语。", "_id": 8}, {"id": 9, "type": "short", "rows": 8, "kp": "新闻实务·新闻述评", "stem": "新闻实务：简述新闻述评（记者述评）的三个特点，并写出两条写作要求。", "answer": "新闻述评又称记者述评或述评新闻，是一种以事实为基础的评论、以评论为核心的新闻。三个特点：①从理论和实践的结合上分析问题，更有针对性——有事实作基础再作中肯评论，事实与道理相得益彰；②从点和面的结合上说明问题，更有普遍性——既有点上的典型材料又有面上的概括材料，既有现实情况又有历史资料作背景；③用有述有评、评述结合的方法论证问题，更有灵活性——可夹叙夹议、纵联横切、旁征博引，运笔自由、形式不拘一格。两条写作要求：①写好由头，巧用背景——以「述」为由、以「述」为主、以「评」点睛；②夹叙夹议，虚实结合——做到观点与材料、叙述与议论有机结合，熔叙议于一炉、事理为一体。", "keys": ["特点一：理论 + 实践结合，更有针对性，2分", "特点二：点 + 面结合，更有普遍性，2分", "特点三：有述有评、评述结合，更有灵活性，2分", "两条写作要求各 1.5 分，共 3分"], "explain": "三个特点的关键词连成一条线：**针对性（理论与实践）→ 普遍性（点与面）→ 灵活性（述与评）**。写作模板另外背熟：标题＝核心观点；开头＝概括面上情况、提出总论点；正文＝点上事例 + 分论点，三组推进；结尾＝高昂激越式或精辟概括式。你正在准备的「主播说联播」口播和这道题的骨架是相通的——总论点先亮，再上事例支撑。", "_id": 9}, {"id": 10, "type": "choice", "kp": "后真相·谣言概念辨析", "stem": "关于后真相时代的概念与传播机制，下列说法正确的一项是：", "options": ["「Post-truth」1992 年首次被美国《国家》杂志用以描述水门事件等，2016 年被《牛津词典》评为年度词汇", "奥尔波特与波斯特曼 1947 年提出的谣言公式是 R =（I × A）÷ C", "「误导信息（disinformation）」指基本不涉及传播者主观意图的错误信息", "英文 rumor 已经对信息的真与假作了明确区分，因此与中文「谣言」完全对应"], "answer": "A", "explain": "A 对。B 错——奥尔波特与波斯特曼的原式是 R = Importance × Ambiguity（重要性与模糊性之积），**克罗斯**随后引入公众批判能力因子 C，才扩展为 R ＝(I×A)/C，作者别张冠李戴。C 错——基本不涉及传播者主观意图的是**虚假信息（misinformation）**；误导信息（disinformation）有明确恶意，最早是冷战语境下的军事情报学概念，可视为虚假信息的子集。D 错——英文 rumor **未做真与假的区分**，正因如此，学界主张在描述「非官方、来源不明的讯息」时用更中性的「传言」替代「谣言」，以利公众表达的非罪化。补充关联：反转新闻的四个成因（情绪裹挟／社会心理即认知基模塑造／把关缺失／算法助推）与后真相的「六维原因框架」高度同源，答题可互相套用。", "_id": 10}, {"id": 11, "type": "short", "rows": 7, "kp": "【错题回滚】数字鸿沟谱系", "stem": "【错题回滚】问答：①写出数字鸿沟研究中从「知识沟」到「数智鸿沟」的完整谱系（至少 5 环，含中间两环的术语）；②老年群体数字鸿沟研究中，除「接入沟」外还有哪两个细分术语？各自的核心意涵是什么？", "answer": "①谱系五环：知识沟 → 信息沟 → 数字鸿沟（又称接入沟）→ 使用沟／素养沟 → 数智鸿沟。②老年数字鸿沟的两个细分术语：a. 动机沟——问题从「技术不可及」转向「主观不接入」，即有没有条件之外，还要看愿不愿意接入；b. 风险与收益沟——接入增加往往伴随风险暴露增加，而实际收益有限，导致老人主动回避。", "keys": ["谱系写得完整（知识 → 信息 → 接入 → 使用 → 数智），3分", "点出「数字鸿沟又称接入沟」这一别称，1分", "动机沟 + 核心意涵，2分", "风险与收益沟 + 核心意涵，2分"], "explain": "上次你把谱系写成「知识沟 → 数字鸿沟 → 数智鸿沟」，中间两环缺失。记忆链：**知识 → 信息 → 接入 → 使用 → 数智**；前两环是「知道与否」，中间两环是「能不能用」，末环是「用得好不好」。老年专题再叠一层：**没条件（接入）→ 不愿用（动机）→ 用了不划算（风险与收益）**。", "_id": 11}]}, {"name": "二、政治（全单选）", "questions": [{"id": 12, "type": "choice", "kp": "【错题回滚】教育强国六个「以」", "stem": "【错题回滚】关于建设教育强国的「六个以」，下列配对完全正确的一项是：", "options": ["根本任务——立德树人；根本目标——为党育人、为国育才", "根本任务——为党育人、为国育才；根本目标——立德树人", "根本尺度——立德树人；根本保证——人民满意", "根本保证——为党育人、为国育才；根本任务——坚持党的领导"], "answer": "A", "explain": "A 对。记忆抓手：**保（证）→ 党；任（务）→ 德育；目（标）→ 育才**。另需单记一条：**人民满意是根本尺度**，它既不是「目标」也不是「保证」，这是最高频的设错点。上次你填下「根本方向／基本目标／最终目的／最终标准」四个自造词，属于从没背过原表述、靠语感硬猜，这次先把三个锚点钉死。", "_id": 12}, {"id": 13, "type": "choice", "kp": "【错题回滚·第三次】党的显著标志", "stem": "【错题回滚·第三次】关于「党的显著标志」，下列表述正确的一项是：", "options": ["理论联系实际、密切联系群众、批评和自我批评、人民至上，是中国共产党的显著标志", "党的三大优良作风与「勇于自我革命」并列，共同构成党的显著标志", "勇于自我革命是中国共产党区别于其他政党的显著标志", "党的七大提出「勇于自我革命」，十九届六中全会《决议》提出三大优良作风"], "answer": "C", "explain": "C 对。**这条已经连滚两次，务必落到笔头。**两条来源各背各：①党的**七大（1945）**：理论联系实际、密切联系群众、批评和自我批评，是**三大**优良作风，不含「人民至上」；②党的十九届六中全会《决议》：**勇于自我革命**是中国共产党**区别于其他政党**的显著标志。A、B 就是你自己反馈文档里的原始错误写法——选它，等于笔记里的错漏原样迁到考场；D 把两个来源完全对调。**考完请回去修改 9.17 反馈原文。**", "_id": 13}, {"id": 14, "type": "choice", "kp": "【错题回滚】全过程人民民主四个相统一", "stem": "【错题回滚】下列属于全过程人民民主「四个相统一」的一项是：", "options": ["选举民主和协商民主相统一", "过程民主和成果民主相统一", "党内民主和人民民主相统一", "直接民主和代议民主相统一"], "answer": "B", "explain": "B 对。四个相统一＝过程民主与成果民主、程序民主与实质民主、直接民主与**间接民主**、人民民主与国家意志。记忆抓手：前三对都是「同一民主的两个侧面」，第四对是「人民民主／国家意志」。**选举民主与协商民主是两种并列的民主形式，二者之间不构成一组「统一」**——上次你就把它当成了正确项。D 的「代议民主」是干扰词，正确说法是「间接民主」。", "_id": 14}, {"id": 15, "type": "choice", "kp": "【错题回滚】统战「三个最」", "stem": "【错题回滚】关于统一战线的「三个层次」，下列表述正确的一项是：", "options": ["本质要求是大团结大联合，解决的是人心和力量问题；关键是坚持求同存异；党的领导是统一战线最鲜明的特征", "本质要求是求同存异；关键是坚持大团结大联合；党的领导是统一战线最本质的特征", "本质要求是大团结大联合；关键是坚持党的领导；党的领导是统一战线最本质的特征", "本质要求是人心和力量；关键是坚持党的领导；党的领导是统一战线最鲜明的特征"], "answer": "A", "explain": "A 对。四级递进链——**联合（本质）→ 人心（对象）→ 存异（方法）→ 党旗（特征）**，四步不能跳。上次你把「大团结大联合」缩写成「大」、把「人心和力量」写成「差异」，属于只记住了「有个大字」却没记完整表述。另注意「最**鲜明**的特征」是固定搭配，B、C 的「最**本质**的特征」是改字干扰。", "_id": 15}, {"id": 16, "type": "choice", "kp": "【错题回滚】法治体系五大体系", "stem": "【错题回滚】中国特色社会主义法治体系包括五个子体系，下列**不属于**该五体系的一项是：", "options": ["法律规范体系", "法治实施体系", "法治监督体系", "法治宣传体系"], "answer": "D", "explain": "本题选 D（不属于）。五体系顺口溜：**规 → 实 → 监 → 保 → 党**（法律**规**范 → 法治**实**施 → 法治**监**督 → 法治**保**障 → **党**内法规）。上次你五空全空，说明背诵顺序反了：应当先把骨架背成顺口溜，再补细节（如「以宪法为核心」「以党章为根本」）。", "_id": 16}, {"id": 17, "type": "choice", "kp": "时政·平台经济与反垄断", "stem": "2026 年 7 月，市场监管总局依据《中华人民共和国反垄断法》，对某平台企业滥用市场支配地位实施垄断行为作出行政处罚，罚没款合计 51.79 亿元。关于本案所体现的知识点，下列说法正确的一项是：", "options": ["这是我国平台治理进入「常态化监管阶段」、强调平台责任的体现", "该处罚的法律依据是《中华人民共和国个人信息保护法》", "该案发生在我国平台治理的「避风港」原则阶段", "该案表明我国已放弃「多主体参与」的综合治网格局"], "answer": "A", "explain": "A 对。三阶段：2016 年前「避风港」原则 → 2016—2020 集中整治 → **2021 年后常态化监管、强调平台责任**，本案是常态化监管的典型落点。B 错——依据是**《反垄断法》**，而《个人信息保护法》管的是个人信息处理，两者别混。C 错——时间线对不上。D 错——2018 年提出的「党委领导、政府管理、企业履责、社会监督、网民自律」多主体参与格局一直在强化，从未放弃。", "_id": 17}, {"id": 18, "type": "choice", "kp": "时政·十五五规划", "stem": "「十五五」规划提出要落实的四个全球倡议，下列表述正确的一项是：", "options": ["全球发展倡议、全球安全倡议、全球文明倡议、全球治理倡议", "全球发展倡议、全球安全倡议、全球文明倡议、全球生态倡议", "全球合作倡议、全球安全倡议、全球文明倡议、全球治理倡议", "全球发展倡议、全球和平倡议、全球文明倡议、全球治理倡议"], "answer": "A", "explain": "A 对。四个倡议是固定表述：**发展 → 安全 → 文明 → 治理**。这条与专业课「新闻传播在社会治理中的作用——全球传播：讲好故事、传播全球治理观」直接挂钩，可用于国际传播与全球治理类论述题的开头引证。", "_id": 18}]}, {"name": "三、英语", "questions": [{"id": 19, "type": "fill", "blanks": 4, "kp": "专业英语术语辨析", "stem": "对照材料中的概念辨析表，填入对应的英文词：①______：a piece of information, or a story, that people talk about, but that may not be true（信源不明、可真可假、意图可有可无）；②______：有意为之的错误信息，具有明确恶意（最早为冷战语境的军事情报学概念）；③______：基本不涉及传播者主观意图的错误或误导信息；④______：假借新闻报道形式传播的错误虚假、耸人听闻的信息。", "answer": "rumor、disinformation、misinformation、fake news", "keys": ["每空 1 分，共 4 分", "拼写完整、大小写不敏感"], "explain": "记忆分工：**rumor 只强调「信源不明、可真可假」；dis- 有恶意（想骗你）；mis- 无恶意（纯粹搞错了）；fake news 强调「假借了新闻的形式」**。这四个词能写进论述题的英文括注里，是低成本加分项。", "_id": 19}, {"id": 20, "type": "fill", "blanks": 3, "kp": "【错题回滚】英语词汇", "stem": "【错题回滚】英语词汇填空：① The regulator has pledged to ______ illegal live-streaming platforms that sell personal data.（用 crack down 的适当形式）② The ______ stretched endlessly under the vast sky.（填「大草原」的英文）③ Compared with the previous one, this problem is far ______ .（用 thorny 的适当形式）", "answer": "crack down on、prairie、thornier", "keys": ["每空 1 分，共 3 分", "crack down 不要漏介词 on", "thornier 是比较级，拼写别丢 r"], "explain": "三处都是上次的硬伤：**crack down on ＝ 严厉打击、镇压**（你写成了「崩塌」，那是 collapse）；**prairie ＝ 大草原**（和 plain 平原、plateau 高原一起记）；**thorny → thornier ＝ 更棘手的**（描述问题麻烦用 thorny，不用 sharp）。", "_id": 20}, {"id": 21, "type": "translate", "kp": "长难句翻译 + 概念辨析", "stem": "把下面这句英文译成中文，并说明它为什么不宜译为「谣言」：\n\nrumor: a piece of information, or a story, that people talk about, but that may not be true", "answer": "译文：传言（流言）：人们谈论的、但可能并不真实的一条消息或一个故事。\n不宜译为「谣言」的原因：这条定义只强调「信源不明、真假未定」（may not be true，即可能真也可能假），完全没有涉及传播者的主观恶意；而中文「谣言」承载了「有意凭空捏造」的贬义与价值判断，语义更窄。因此学界主张，在描述「非官方、来源不明的讯息」时优先使用更中性的「传言」，以利于公众正常表达的非罪化。", "keys": ["句意准确：信源不明的消息／故事 + 可能并不真实，2分", "点出「可真可假」或「未做真假区分」，1分"], "explain": "翻译难点在两个地方：①「a piece of information, or a story」是同位并列，译成「一条消息或一个故事」即可，不必逐字对齐；②`may not be true` 是**推测语气**，等于中文的「可能不真实」，也等于「可真可假」——这正是它与「谣言」的分界线。写成「不真实」，就把推测变成了断定，意思反了。", "_id": 21}, {"id": 22, "type": "short", "rows": 5, "kp": "英语方法反思", "stem": "英语方法反思：上次长难句翻译你漏译了 `are far more likely to feel threatened` 中的 `far more likely`（远远更有可能），只译出了「感到受到威胁」。请回答：①英二翻译中，比较级与程度副词为什么不能省？②写出你接下来处理这类句子的三步操作流程。", "answer": "①原因：英二翻译按信息点计分，比较级（more／less）与程度副词（far／much／considerably／slightly）承载的是作者对程度的判断，属于命题人刻意设置的采分点。省略之后语义强度被抹平（「更有可能」退化成「有可能」，「远远更有可能」退化成「更有可能」），属于实质性失分。此外，those 一类的泛指代词也要译出（「那些……的人」），不能吞掉。②三步流程：第一步，先在原句上圈出所有比较结构（more／less／-er than、as…as、the more…the more）与程度副词，标为必译点；第二步，切分主干（主谓宾），再把修饰成分挂回主干，逐块对应成中文；第三步，回读自检——数一遍圈出的必译点是否全部落地，中文里有没有出现「更」「远远」「相当」这类对应词，缺一个就补一个。", "keys": ["解释比较级／程度副词属于采分点、省略会抹平语义强度，3分", "提到泛指代词 those 也要译出，1分", "三步流程具体可操作（圈标记 → 切主干挂修饰 → 回读自检），4分"], "explain": "你上次的原文错法就是「漏比较级」，这次要求把动作固化成流程。口诀：**先圈「更」，再切主干，末尾数圈**。", "_id": 22}]}]};
+const QUIZID = "2026-10-04";
+const KEY = "quiz_" + QUIZID;
+const TOTAL = 22;
+
+// ---- 状态存取 ----
+let state = JSON.parse(localStorage.getItem(KEY) || "{}");
+
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+function answeredCount(){
+  let n = 0;
+  QUIZ.sections.forEach(s => s.questions.forEach((q, i) => {
+    const id = q._id;
+    const v = state[id];
+    if (q.type === "choice") { if (v) n++; }
+    else if (q.type === "fill") {
+      if (v && Object.values(v).some(x => (x||"").trim())) n++;
+    }
+    else { if (v && v.trim()) n++; }
+  }));
+  return n;
+}
+
+function updateProgress(){
+  const n = answeredCount();
+  const pct = Math.round(n / TOTAL * 100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("ptext").textContent = `已作答 ${n} / ${TOTAL}`;
+  document.getElementById("tbCount").textContent = `${n} / ${TOTAL}`;
+  document.getElementById("doneTip").classList.toggle("show", n >= TOTAL);
+}
+
+function flashSaved(n){
+  const el = document.querySelector(`.saved[data-saved="${n}"]`);
+  if (!el) return;
+  el.textContent = "已保存";
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 1200);
+}
+
+// ---- 绑定交互 ----
+document.querySelectorAll(".opt input").forEach(inp => {
+  inp.addEventListener("change", e => {
+    const n = +e.target.name.replace("q", "");
+    state[n] = e.target.value;
+    save(); updateProgress(); flashSaved(n);
+  });
+});
+
+document.querySelectorAll(".fillin").forEach(inp => {
+  inp.addEventListener("input", e => {
+    const n = e.target.dataset.q, b = e.target.dataset.b;
+    state[n] = state[n] || {};
+    state[n][b] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+document.querySelectorAll(".shortin,.transin").forEach(ta => {
+  ta.addEventListener("input", e => {
+    const n = e.target.dataset.q;
+    state[n] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+// 查看解析
+document.querySelectorAll(".btn-ans").forEach(b => {
+  b.addEventListener("click", () => {
+    const n = b.dataset.q;
+    const box = document.querySelector(`.ansbox[data-ans="${n}"]`);
+    const open = !box.hidden;
+    box.hidden = open;
+    b.textContent = open ? "查看解析" : "收起解析";
+  });
+});
+
+document.getElementById("btnRevealAll").addEventListener("click", function(){
+  const anyHidden = [...document.querySelectorAll(".ansbox")].some(b => b.hidden);
+  document.querySelectorAll(".ansbox").forEach(b => b.hidden = !anyHidden);
+  document.querySelectorAll(".btn-ans").forEach(b => {
+    b.textContent = anyHidden ? "收起解析" : "查看解析";
+  });
+  this.textContent = anyHidden ? "收起全部解析" : "展开全部解析";
+});
+
+// 清空
+document.getElementById("btnReset").addEventListener("click", () => {
+  if (!confirm("确定清空全部作答？此操作不可撤销。")) return;
+  state = {}; save();
+  document.querySelectorAll(".opt input").forEach(i => i.checked = false);
+  document.querySelectorAll(".fillin,.shortin,.transin").forEach(i => i.value = "");
+  updateProgress();
+});
+
+// ---- 导出答案 ----
+function buildExport(){
+  const L = [];
+  L.push(`# ${QUIZ.title} — 我的作答`);
+  L.push("");
+  L.push(`日期：${QUIZ.date}`);
+  L.push(`完成：${answeredCount()} / ${TOTAL} 题`);
+  L.push("");
+  const tname = {choice:"单选", fill:"填空", short:"问答", translate:"长难句翻译"};
+  QUIZ.sections.forEach(s => {
+    L.push(`## ${s.name}`);
+    L.push("");
+    s.questions.forEach(q => {
+      const v = state[q._id];
+      L.push(`### ${q._id}. [${tname[q.type]}]`);
+      L.push(q.stem);
+      L.push("");
+      if (q.type === "choice") {
+        L.push(`**我的答案：** ${v ? v : "（未作答）"}`);
+      } else if (q.type === "fill") {
+        const arr = [];
+        for (let i = 0; i < (q.blanks || 1); i++) {
+          const k = String(i);
+          arr.push(`第${i+1}空：${(v && v[k]) ? v[k] : "（空）"}`);
+        }
+        L.push(`**我的答案：** ${arr.join("　")}`);
+      } else {
+        L.push(`**我的答案：**`);
+        L.push("");
+        L.push(v && v.trim() ? v : "（未作答）");
+      }
+      L.push("");
+    });
+  });
+  return L.join("\n");
+}
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  document.getElementById("exportArea").value = buildExport();
+  document.getElementById("modal").classList.add("show");
+});
+document.getElementById("btnCloseModal").addEventListener("click", () => {
+  document.getElementById("modal").classList.remove("show");
+});
+document.getElementById("btnDownload").addEventListener("click", () => {
+  const blob = new Blob([buildExport()], {type:"text/markdown;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${QUIZID}-我的作答.md`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") e.target.classList.remove("show");
+});
+
+// ---- 恢复状态 ----
+(function restore(){
+  document.querySelectorAll(".opt input").forEach(inp => {
+    const n = +inp.name.replace("q", "");
+    if (state[n] === inp.value) inp.checked = true;
+  });
+  document.querySelectorAll(".fillin").forEach(inp => {
+    const n = inp.dataset.q, b = inp.dataset.b;
+    if (state[n] && state[n][b] != null) inp.value = state[n][b];
+  });
+  document.querySelectorAll(".shortin,.transin").forEach(ta => {
+    const n = ta.dataset.q;
+    if (state[n] != null) ta.value = state[n];
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
