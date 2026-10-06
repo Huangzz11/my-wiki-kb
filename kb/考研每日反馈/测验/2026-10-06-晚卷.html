@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考研每日测验 · 10.6 晚卷（素材：🐟背诵计划 Day1 知识库原文版）</title>
+<style>
+:root{
+  --bg:#f7f8fb; --card:#fff; --ink:#1c2430; --sub:#60708a;
+  --line:#e3e8f0; --blue:#2F5B9E; --blue-l:#e8eef8;
+  --green:#1f8a52; --green-l:#e6f5ec;
+  --amber:#b4740a; --amber-l:#fdf3e0;
+  --red:#c0392b; --red-l:#fdeceb;
+  --violet:#6b4ea8; --violet-l:#f0ebfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+    "Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.7;
+  padding:0 0 120px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+/* 顶部 */
+header{
+  background:linear-gradient(135deg,#2F5B9E 0%,#40699f 60%,#5b7fb5 100%);
+  color:#fff;padding:34px 0 26px;margin-bottom:24px;
+  box-shadow:0 2px 14px rgba(47,91,158,.18);
+}
+header h1{font-size:23px;font-weight:650;letter-spacing:.3px;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.85}
+.statline{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chip{
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);
+  border-radius:999px;padding:4px 13px;font-size:12.5px;backdrop-filter:blur(4px)
+}
+
+/* 进度条 */
+.progress-sticky{
+  position:sticky;top:0;z-index:50;background:rgba(247,248,251,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  padding:10px 0;margin-bottom:8px;
+}
+.pbar{height:7px;background:#e6eaf2;border-radius:99px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,#2F5B9E,#5b8fd4);
+  border-radius:99px;transition:width .35s ease}
+.ptext{font-size:12.5px;color:var(--sub);margin-top:6px;display:flex;
+  justify-content:space-between}
+
+/* 分区 */
+.sec{margin:30px 0 0}
+.sec h2{
+  font-size:16.5px;font-weight:640;color:var(--blue);
+  display:flex;align-items:center;gap:9px;padding-bottom:9px;
+  border-bottom:2px solid var(--blue-l);margin-bottom:16px;
+}
+.dot{width:9px;height:9px;border-radius:3px;background:var(--blue);
+  display:inline-block;flex:0 0 auto}
+.secmeta{margin-left:auto;font-size:12px;color:var(--sub);font-weight:400}
+
+/* 题目卡片 */
+.q{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:17px 19px;margin-bottom:13px;transition:border-color .2s,box-shadow .2s;
+}
+.q:focus-within{border-color:#b9cdea;box-shadow:0 3px 14px rgba(47,91,158,.09)}
+.qhead{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.qno{
+  width:26px;height:26px;border-radius:8px;background:var(--blue);
+  color:#fff;font-size:13px;font-weight:600;display:flex;
+  align-items:center;justify-content:center;flex:0 0 auto;
+}
+.qtag{font-size:11.5px;padding:2px 9px;border-radius:6px;font-weight:500}
+.t-choice{background:var(--blue-l);color:var(--blue)}
+.t-fill{background:var(--green-l);color:var(--green)}
+.t-short{background:var(--violet-l);color:var(--violet)}
+.t-translate{background:var(--amber-l);color:var(--amber)}
+.kp{font-size:11.5px;color:var(--sub);margin-left:auto}
+.stem{font-size:14.8px;margin-bottom:12px;white-space:pre-wrap}
+
+/* 单选 */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 13px;
+  border:1px solid var(--line);border-radius:9px;cursor:pointer;
+  transition:all .16s;font-size:14.2px;
+}
+.opt:hover{background:#f4f7fc;border-color:#c3d5ee}
+.opt input{display:none}
+.opt .letter{
+  width:21px;height:21px;border-radius:6px;background:#eef1f6;color:var(--sub);
+  font-size:12px;font-weight:600;display:flex;align-items:center;
+  justify-content:center;flex:0 0 auto;margin-top:2px;transition:all .16s;
+}
+.opt input:checked~.letter{background:var(--blue);color:#fff}
+.opt:has(input:checked){background:var(--blue-l);border-color:#9dbde6}
+.otext{flex:1}
+
+/* 填空 */
+.fills{display:flex;flex-direction:column;gap:8px}
+.fillin{
+  font-family:inherit;font-size:14.2px;padding:9px 13px;
+  border:1px solid var(--line);border-radius:8px;background:#fcfdff;
+  transition:all .16s;width:100%;
+}
+.fillin:focus{outline:none;border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 文本域 */
+.shortin,.transin{
+  font-family:inherit;font-size:14.2px;line-height:1.75;padding:11px 14px;
+  border:1px solid var(--line);border-radius:9px;background:#fcfdff;
+  width:100%;resize:vertical;transition:all .16s;
+}
+.shortin:focus,.transin:focus{outline:none;border-color:var(--blue);
+  background:#fff;box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 按钮与解析 */
+.qfoot{display:flex;align-items:center;gap:11px;margin-top:11px}
+.btn-ans{
+  font-family:inherit;font-size:12.5px;padding:5px 13px;border-radius:7px;
+  border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;
+  transition:all .16s;
+}
+.btn-ans:hover{background:var(--blue-l);border-color:#a8c4e8;color:var(--blue)}
+.saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
+.saved.show{opacity:1}
+.ansbox{
+  margin-top:12px;padding:13px 15px;background:#fafbfd;
+  border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-size:13.8px;
+}
+.ansline{margin-bottom:8px;display:flex;gap:9px;line-height:1.7}
+.ansline:last-child{margin-bottom:0}
+.ansline b{
+  flex:0 0 auto;color:var(--blue);font-size:12px;font-weight:640;
+  background:var(--blue-l);padding:2px 8px;border-radius:5px;height:fit-content;
+  margin-top:3px;
+}
+.ansline .got{color:var(--green);font-weight:600}
+
+/* 底部操作栏 */
+.toolbar{
+  position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);padding:12px 20px;z-index:60;
+  backdrop-filter:blur(10px);box-shadow:0 -2px 16px rgba(28,36,48,.07);
+}
+.tb-inner{max-width:820px;margin:0 auto;display:flex;
+  align-items:center;gap:11px;flex-wrap:wrap}
+.btn{
+  font-family:inherit;font-size:13.5px;padding:9px 19px;border-radius:9px;
+  border:none;cursor:pointer;font-weight:530;transition:all .16s;
+}
+.btn-main{background:var(--blue);color:#fff}
+.btn-main:hover{background:#264d87;transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--sub);border:1px solid var(--line)}
+.btn-ghost:hover{background:#f4f6fa;color:var(--ink)}
+.tb-count{font-size:13px;color:var(--sub);margin-left:auto}
+
+/* 完成提示 */
+.done-tip{
+  margin-top:22px;padding:18px 20px;border-radius:12px;
+  background:var(--green-l);border:1px solid #bfe5ce;color:#14603a;
+  font-size:14px;display:none;
+}
+.done-tip.show{display:block}
+.done-tip b{display:block;margin-bottom:6px;font-size:15px}
+
+/* 答案导出弹层 */
+.modal{
+  position:fixed;inset:0;background:rgba(20,28,40,.5);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:#fff;border-radius:14px;max-width:660px;width:100%;
+  max-height:82vh;display:flex;flex-direction:column;overflow:hidden;
+}
+.modal-head{padding:17px 21px;border-bottom:1px solid var(--line);
+  font-weight:620;font-size:15.5px;color:var(--blue)}
+.modal-body{padding:18px 21px;overflow-y:auto;flex:1}
+.modal-body textarea{
+  width:100%;height:340px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.65;border:1px solid var(--line);
+  border-radius:9px;padding:13px;background:#fafbfd;resize:vertical;
+}
+.modal-foot{padding:14px 21px;border-top:1px solid var(--line);
+  display:flex;gap:10px;justify-content:flex-end}
+.modal-tip{font-size:12.5px;color:var(--sub);margin-bottom:11px;line-height:1.65}
+
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  header{padding:26px 0 20px}
+  header h1{font-size:19px}
+  .q{padding:14px 15px}
+  .stem{font-size:14.2px}
+  .tb-count{display:none}
+  .kp{margin-left:0;width:100%}
+}
+@media print{
+  .toolbar,.btn-ans,.progress-sticky{display:none}
+  .ansbox[hidden]{display:block!important}
+  .q{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>考研每日测验 · 10.6 晚卷（素材：🐟背诵计划 Day1 知识库原文版）</h1>
+    <div class="meta">2026-10-06b · 共 20 题 · 今晚 22:30 自动生成</div>
+    <div class="statline">
+      <span class="chip">单选 12</span>
+      <span class="chip">填空 3</span>
+      <span class="chip">问答 4</span>
+      <span class="chip">长难句 1</span>
+    </div>
+  </div>
+</header>
+
+<div class="progress-sticky">
+  <div class="wrap">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <div class="ptext">
+      <span id="ptext">已作答 0 / 20</span>
+      <span>进度自动保存，刷新不丢</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  
+<section class="sec">
+  <h2><span class="dot"></span>一、专业课 · 效果理论与新闻史（8 题）
+    <span class="secmeta">8 题</span></h2>
+  
+<div class="q" data-q="1" data-type="short">
+  <div class="qhead">
+    <span class="qno">1</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">沉默的螺旋·名解要点</span>
+  </div>
+  <div class="stem">【本题为错题回滚 · 换问法】名词解释：沉默的螺旋。
+
+要求按「提出者＋年份＋著作」「理论内涵」「网络化嬗变」三层作答。注意：你在 9.18 卷同类题上漏答了年份，这次请把三个时间/文献要素一次写全。</div>
+  <textarea class="shortin" data-q="1" rows="7" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="1">查看解析</button>
+    <span class="saved" data-saved="1"></span>
+  </div>
+  <div class="ansbox" data-ans="1" hidden><div class="ansline"><b>参考答案</b>① 提出者与文献：德国社会学家伊丽莎白·诺尔-诺依曼（Elisabeth Noelle-Neumann）。1974 年在《传播学刊》发表论文首次提出该概念；1980 年出版《沉默的螺旋：舆论——我们的社会皮肤》，对理论作了全面概括。（两个时间点、两本刊物都要写出）
+② 理论内涵：与媒介中主流观点持相反或不同意见的人，由于害怕被排斥和孤立而趋于保持沉默。人们害怕被社会孤立——当发现自己的意见与优势意见相符时，倾向于大声表达；当自己的意见与优势意见背离时，倾向于保持沉默或放弃原有观点。劣势意见的沉默导致优势意见的增势，如此循环，便出现了「沉默的螺旋」。
+③ 网络化嬗变：互联网的平等性、匿名性和不受地域限制，使对其施加群体压力变得困难，核心假说受到合法性挑战。但在互联网中，舆论压迫的对象变成了 ID，ID 本身成为人的主体性的载体——虽然可以更换 ID，但对同一个 ID，其他 ID 对它的孤立效果仍然存在。网络空间中「孤立恐惧动机」「公开表达」等心理机制依然存在，加上网络传播与现实传播的相似性，沉默螺旋现象并未消失，只是表现形式有所变化。</div><div class="ansline"><b>得分点</b>提, 出, 者, 「, 诺, 尔, -, 诺, 依, 曼, 」, 1,  , 分, ；, 1, 9, 7, 4,  , 年, 《, 传, 播, 学, 刊, 》, 论, 文,  , 1,  , 分, ；, 1, 9, 8, 0,  , 年, 《, 沉, 默, 的, 螺, 旋, ：, 舆, 论, —, —, 我, 们, 的, 社, 会, 皮, 肤, 》, 1,  , 分, ；, 内, 涵, （, 怕, 被, 孤, 立, →, 优, 势, 意, 见, 敢, 于, 表, 达, ／, 劣, 势, 意, 见, 沉, 默, →, 螺, 旋, 增, 势, ）, 2,  , 分, ；, 网, 络, 化, 嬗, 变, （, 『, I, D, 』, 替, 代, 『, 人, 』, 成, 为, 舆, 论, 压, 迫, 对, 象, 、, 孤, 立, 恐, 惧, 机, 制, 仍, 在, ）, 2,  , 分, 。, 共,  , 7,  , 分, 。</div><div class="ansline"><b>解析</b>这道题你上次的失分点非常具体：**只答了提出者，没答年份**。1998 年诺依曼曾提出「舆论是我们的社会皮肤」这一说法，但书的出版是 1980 年——两个年份不要混。另外你上次把「对孤立的恐惧」写了两遍（「背离群体的孤独恐惧」与「个人对孤独的恐惧」），实际这是**同一个假设**，五个假定里只占第二个，不要凑字数。
+
+记忆抓手（三锚点）：**人（诺依曼）— 74 论文 / 80 成书 — ID 替代人**。第三锚点是网络化的关键句：互联网里被围攻的是 ID 不是人，所以螺旋还在。</div></div>
+</div>
+<div class="q" data-q="2" data-type="fill">
+  <div class="qhead">
+    <span class="qno">2</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">沉默的螺旋·五个假定</span>
+  </div>
+  <div class="stem">沉默的螺旋理论包含五个假定，请补全（每空填一个短语）：
+
+①社会使背离社会的个人产生 ____；②个人经常恐惧孤独；③对孤独的恐惧使得个人不断地 ____；④估计的结果影响个人在公开场合的行为，特别是公开表达观点还是隐藏自己的观点；⑤上述四个假定 ____、巩固和改变公众观念。
+
+另请回答第（5）空之后的一个追问：这一理论的主要局限之一是「忽视了少数派特别是 ____（英文 hard core）的作用」。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="2" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="2" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="2" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="2" data-b="3" placeholder="第 4 空" autocomplete="off"><input class="fillin" type="text" data-q="2" data-b="4" placeholder="第 5 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="2">查看解析</button>
+    <span class="saved" data-saved="2"></span>
+  </div>
+  <div class="ansbox" data-ans="2" hidden><div class="ansline"><b>参考答案</b>①孤独感　②估计社会接受的观点是什么　③（在第⑤空）形成　④中坚分子</div><div class="ansline"><b>得分点</b>①, 孤, 独, 感,  , 1,  , 分, ；, ②, 估, 计, 社, 会, 接, 受, 的, 观, 点, 是, 什, 么,  , 1,  , 分, ；, ③, 形, 成,  , 1,  , 分, ；, ④, 中, 坚, 分, 子,  , 1,  , 分, 。, 共,  , 4,  , 分, 。</div><div class="ansline"><b>解析</b>五假定是一条**串联链**，不是并列清单——①社会制造孤独感 → ②个人怕孤独 → ③于是不停估测主流意见 → ④估测影响公开表达行为 → ⑤前四条共同形成／巩固／改变公众观念。背的时候按「被动感受→主动估测→行为外化→观念变化」四步走。
+
+「中坚分子（hard core）」是局限部分的第二个要点，与心理学家 **S. 莫斯考维西的小群体趋同行为实验**绑在一起记；第三个局限「忽视意见本身的说服效果强弱」对应 **霍夫兰的休眠效果**。三条局限＝三个理论家的人名：莫斯考维西、霍夫兰，加一条「从众心理被当作恒定常量」。</div></div>
+</div>
+<div class="q" data-q="3" data-type="short">
+  <div class="qhead">
+    <span class="qno">3</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">维新派办报·四大贡献</span>
+  </div>
+  <div class="stem">维新派对近代中国新闻事业的贡献，通常概括为四个方面。请分点简述，并在每一点里点出关键报刊人物或文体名称。</div>
+  <textarea class="shortin" data-q="3" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="3">查看解析</button>
+    <span class="saved" data-saved="3"></span>
+  </div>
+  <div class="ansbox" data-ans="3" hidden><div class="ansline"><b>参考答案</b>① 向读者进行了资产阶级思想的启蒙教育，以及民族主义、爱国主义的教育，有力推动了维新运动的发展、促进变法的实现。
+② 冲破封建言禁：戊戌变法期间，维新派在全国各地公开创办大量报刊、大胆议政，为报刊出版赢得了实际上的合法地位。封建统治者虽仍有种种限制，却不得不承认民间办报的合法性——这是维新派对新闻事业发展的巨大贡献。
+③ 开中国报业史上「政治家办报」的先河：康有为、梁启超、严复等学识渊博的维新志士领导报业潮流，一扫落拓文人办报的陈腐气息，报刊开始攀登大雅之堂，极大提高了报业和报人的社会地位。「政治家办报」就此成为我国近现代报业的一个显著特点。
+④ 重视政论，创造了新型的报刊政论文体「时务文体」：维新派报刊普遍以政论为核心内容，涌现了一批报刊政论家（如康梁），政论文章名噪一时、风格独特、形式新颖。「时务文体」风靡一时，对辛亥革命乃至五四运动以后的报刊文章都有很大影响。</div><div class="ansline"><b>得分点</b>①, 启, 蒙, 教, 育, 与, 爱, 国, 主, 义, 教, 育,  , 1,  , 分, ；, ②, 冲, 破, 封, 建, 言, 禁, （, 赢, 得, 实, 际, 合, 法, 地, 位, ）, 2,  , 分, ；, ③, 政, 治, 家, 办, 报, （, 须, 点, 出, 康, 、, 梁, 、, 严, 复, ）, 2,  , 分, ；, ④, 时, 务, 文, 体, （, 须, 点, 出, 『, 政, 论, 为, 核, 心, 』, ）, 2,  , 分, 。, 共,  , 7,  , 分, 。</div><div class="ansline"><b>解析</b>四大贡献有固定口诀：**启蒙 / 言禁 / 政治家办报 / 时务文体**。讲义的自测提示就是这个顺序，说明这四字串是老师认定要按顺序复述的骨架。
+
+再叠加一层：维新派的**新闻思想**三条要一起记——①报刊具有强烈政治性，是宣传政治主张的有力工具（先首开报刊、轰开局面、大造舆论，然后建立政治团体）；②对报刊功能有比较系统认识（主要功能在传递信息，在于「**去塞求通**」；重视宣传鼓动；提供知识、教育读者、开启民智、培养人才）；③评价（反映新兴资产阶级利益愿望，属资产阶级思想范畴，但仍带有浓厚封建色彩，没有挣破「**尊王攘夷**」「**宣德达情**」的藩篱）。
+
+考场用法：维新派办报是**马新观 / 政治家办报**论述题的历史素材，写论述时把④的时务文体与「政治家办报」拆开用，不要混成一件事。</div></div>
+</div>
+<div class="q" data-q="4" data-type="fill">
+  <div class="qhead">
+    <span class="qno">4</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">AIGC·四影响框架</span>
+  </div>
+  <div class="stem">AIGC 对新闻业的影响，讲义概括为「四影响框架」（每空填一个双字或四字短语）：
+
+①____：自动化写作、智能剪辑、数据新闻生成提升效率；
+②____：虚拟主播、AI 合成主播、互动新闻产品涌现；
+③____：虚假新闻、深度伪造冲击真实性，版权归属成难题；
+④____：记者角色向 AI 协作者转型，催生提示工程师等新岗位。
+
+（这一框架同时对应拽上岸「专题三·人工智能与新闻传播」。）</div>
+  <div class="fills"><input class="fillin" type="text" data-q="4" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="4" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="4" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="4" data-b="3" placeholder="第 4 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="4">查看解析</button>
+    <span class="saved" data-saved="4"></span>
+  </div>
+  <div class="ansbox" data-ans="4" hidden><div class="ansline"><b>参考答案</b>①生产变革　②形态创新　③伦理挑战　④职业重构</div><div class="ansline"><b>得分点</b>每, 空,  , 1,  , 分, ，, 共,  , 4,  , 分, 。, 表, 述, 须, 为, 讲, 义, 原, 词, （, 『, 生, 产, 变, 革, ／, 形, 态, 创, 新, ／, 伦, 理, 挑, 战, ／, 职, 业, 重, 构, 』, ）, ，, 近, 义, 词, 酌, 情, 给, 分, 。</div><div class="ansline"><b>解析</b>四影响是**并列四点**，考场上一句一句往外推：
+
+- 生产力层面 → **生产**（降本增效）
+- 产品层面 → **形态**（新物种涌现）
+- 社会层面 → **伦理**（真假与版权）
+- 人层面 → **职业**（记者转型）
+
+口诀：**产—形—伦—职**（顺着「做事的人，从工具到人」推）。
+
+补一句：这四影响和你今天背的 AIGC 名解是**同一套材料的两个切面**——名解答「是什么」，四影响答「带来什么」。</div></div>
+</div>
+<div class="q" data-q="5" data-type="choice">
+  <div class="qhead">
+    <span class="qno">5</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">新闻线索·名解细则</span>
+  </div>
+  <div class="stem">关于「新闻线索」，下列说法与实务理论笔记**不符**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q5" value="A"><span class="letter">A</span><span class="otext">新闻线索是新近发生的事实的简明信息或信号，它以某种客观事实为基础，但表现形式为不完整的、零碎的，可信度小、变动性大，需要记者深入挖掘和了解。</span></label><label class="opt"><input type="radio" name="q5" value="B"><span class="letter">B</span><span class="otext">新闻线索不等于完整的新闻事实，不能现成地拿来构成新闻报道；它比较简略，没有细节，没有事物的全貌和全部过程，常常只是一个片断或概况。</span></label><label class="opt"><input type="radio" name="q5" value="C"><span class="letter">C</span><span class="otext">新闻线索在采访活动中的位置，处于「明确报道思想」与「进行采访准备」之间，它给记者指明到哪里采访、采访什么的大致方向和范围。</span></label><label class="opt"><input type="radio" name="q5" value="D"><span class="letter">D</span><span class="otext">新闻线索的作用有三条：一是触发记者的新闻敏感，二是指明采访的去向，三是线索的价值决定报道的质量；因此在运用时应当「顺藤摸瓜」，沿着线索一路追查到底。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="5">查看解析</button>
+    <span class="saved" data-saved="5"></span>
+  </div>
+  <div class="ansbox" data-ans="5" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>D 项前三个分句都对，**错在最后的「顺藤摸瓜」**。讲义给的运用注意事项是四条「不应」：①注意验证，**不应**顺藤摸瓜；②尊重规律，**不应**拔苗助长；③讲究时宜，不大材小用；④合理安排，不齐头并进。
+
+「顺藤摸瓜」听起来像经验之谈，实际是讲义明确否定的做法——因为线索本身可信度小、变动性大，顺着线索直接追下去容易先入为主、把假设当事实。正确动作是**先验证线索，再决定是否投入采访资源**。
+
+A、B 项分别是【特点】与【定义】原文；C 项是【位置】原文，均无误。
+
+记忆抓手：新闻线索四注意 ＝ **验—规—时—排**（验证／规律／时宜／安排），全部配「不」字——不应顺藤摸瓜、不应拔苗助长、不大材小用、不齐头并进。四句都是「不」开头，一看到「顺藤摸瓜」就该条件反射地判错。</div></div>
+</div>
+<div class="q" data-q="6" data-type="choice">
+  <div class="qhead">
+    <span class="qno">6</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">新闻敏感·核心</span>
+  </div>
+  <div class="stem">以下关于「新闻敏感」的表述，与笔记原文**一致**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q6" value="A"><span class="letter">A</span><span class="otext">新闻敏感又称新闻鼻或新闻嗅觉，是指新闻工作者及时识别事实所包含的新闻价值的能力，其核心是政治敏感。</span></label><label class="opt"><input type="radio" name="q6" value="B"><span class="letter">B</span><span class="otext">新闻敏感的首要内容是迅速判断某一新闻事实能否吸引较多的受众，其核心是受众意识。</span></label><label class="opt"><input type="radio" name="q6" value="C"><span class="letter">C</span><span class="otext">新闻敏感是一种与生俱来的天赋，无法通过训练获得，因此被视为记者的先天素质。</span></label><label class="opt"><input type="radio" name="q6" value="D"><span class="letter">D</span><span class="otext">新闻敏感的三大作用分别是：发现新闻线索、发现具有新闻价值的事实、以及核实新闻线索的真伪。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="6">查看解析</button>
+    <span class="saved" data-saved="6"></span>
+  </div>
+  <div class="ansbox" data-ans="6" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>A 是讲义【定义】＋【补充】的原文合并表述，**「核心是政治敏感」是本条最容易被忽略的一句**，也是高频设错点。
+
+B 错在两处：①「迅速判断某一新闻事实能否吸引较多受众」只是**五条主要内容中的第二条**，不是首要内容；②核心被偷换成「受众意识」。
+C 错：新闻敏感是新闻素养，靠训练与实践养成的，讲义从未称其为先天天赋。
+D 错：三大作用原文是①发现新闻线索的需要；②发现具有新闻价值的事实的需要；③**预测新闻事件发生**的需要——第三项被换成了「核实真伪」。核实真伪属于采访环节，不是新闻敏感的作用。
+
+新闻敏感五条主要内容（顺口溜）：**重大意义 / 受众兴趣 / 挖掘隐藏 / 鉴别最有价值 / 预见未来**。三大作用对应链条：**找线索 → 判价值 → 预测事件**。</div></div>
+</div>
+<div class="q" data-q="7" data-type="short">
+  <div class="qhead">
+    <span class="qno">7</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">AIGC·名解（定义与内涵）</span>
+  </div>
+  <div class="stem">名词解释：生成式人工智能（Generative AI）。
+
+要求写出：①定义与关键时间节点；②技术内涵（至少写出两个核心技术/机制）；③它与「分析式 AI」的关系。</div>
+  <textarea class="shortin" data-q="7" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="7">查看解析</button>
+    <span class="saved" data-saved="7"></span>
+  </div>
+  <div class="ansbox" data-ans="7" hidden><div class="ansline"><b>参考答案</b>① 定义：生成式人工智能指基于深度学习算法，通过大规模数据训练自主生成文本、图像、音视频等全新内容的智能技术。2022 年 ChatGPT 发布后引发全球浪潮；2023 年《生成式人工智能服务管理暂行办法》将其定义为「具有文本、图片、音频、视频等内容生成能力的模型及相关技术」。
+② 技术内涵：核心技术包括大语言模型（LLM）、diffusion 模型等，具备涌现能力、上下文学习和创造性生成特征。其运作依赖海量数据训练、强大算力支持与人类反馈强化学习（RLHF）。
+③ 与分析式 AI 的关系：它实现了从「分析式 AI」到「生成式 AI」的范式跃迁——前者重在识别、分类、预测，后者重在自主生成全新内容。
+
+（如再补一句评价更完整：生成式 AI 是媒体深度融合的颠覆性变量，既为新闻业降本增效提供技术支撑，也加剧信息失序风险；需建立人机协同新范式，强化算法治理与伦理审查，确保技术服务于新闻真实性、公共性核心价值。）</div><div class="ansline"><b>得分点</b>定, 义, 含, 「, 深, 度, 学, 习,  , +,  , 大, 规, 模, 数, 据,  , +,  , 自, 主, 生, 成, 文, 本, /, 图, 像, /, 音, 视, 频, 」, 2,  , 分, ；, 2, 0, 2, 2,  , C, h, a, t, G, P, T,  , 或,  , 2, 0, 2, 3, 《, 暂, 行, 办, 法, 》, 任, 一,  , 1,  , 分, ；, 核, 心, 技, 术, 点, 出,  , L, L, M,  , 或,  , d, i, f, f, u, s, i, o, n,  , 1,  , 分, ；, R, L, H, F,  , 或, 「, 涌, 现, 能, 力, /, 上, 下, 文, 学, 习, /, 创, 造, 性, 生, 成, 」, 1,  , 分, ；, ③, 范, 式, 跃, 迁, （, 分, 析, 式, →, 生, 成, 式, ）, 1,  , 分, 。, 共,  , 6,  , 分, 。</div><div class="ansline"><b>解析</b>这道名解的采分骨架是四段：**定义—内涵—四影响—评价**，讲义自测问的就是这个框架。你今晚只背到第 2 段也没关系，但考场上四段框架必须能默出来。
+
+三个容易漏的专业词：「**涌现能力**」「**上下文学习**」「**RLHF（人类反馈强化学习）**」。这三个词是拉开档次的地方，写出来就是「读过原文献」的信号。
+
+延伸记忆（讲义给的，顺带记住）：**DeepSeek** 是以「低成本＋高性能＋全开源」颠覆 AI 行业的中国大模型，通过算法创新而非算力堆砌实现媲美 GPT-4o 的推理能力，被誉为「东方神秘力量」。</div></div>
+</div>
+<div class="q" data-q="8" data-type="choice">
+  <div class="qhead">
+    <span class="qno">8</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">维新派·新闻思想评价</span>
+  </div>
+  <div class="stem">关于维新派的新闻思想及其评价，下列说法**错误**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q8" value="A"><span class="letter">A</span><span class="otext">维新派认为报刊具有强烈政治性，是宣传政治主张的有力工具；他们在维新运动中往往先首开报刊、轰开局面、大造舆论，然后建立政治团体。</span></label><label class="opt"><input type="radio" name="q8" value="B"><span class="letter">B</span><span class="otext">维新派对报刊的功能与作用有比较系统的认识：报刊的主要功能在于传递信息、在于「去塞求通」，并重视报刊的宣传鼓动作用。</span></label><label class="opt"><input type="radio" name="q8" value="C"><span class="letter">C</span><span class="otext">维新派的报刊均为政治报刊，其办报的主要目的是宣传政治主张、建立政治团体、推动维新变法运动的发展。</span></label><label class="opt"><input type="radio" name="q8" value="D"><span class="letter">D</span><span class="otext">维新派的新闻思想完全挣脱了传统观念的束缚，已经突破了「尊王攘夷」「宣德达情」的藩篱，属于纯粹的新兴资产阶级思想。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="8">查看解析</button>
+    <span class="saved" data-saved="8"></span>
+  </div>
+  <div class="ansbox" data-ans="8" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>D 项把讲义的评价**说反了**。原文是：「这些新闻思想反映了新兴资产阶级的利益和愿望，属于资产阶级思想范畴。这些思想也**不可避免地带有浓厚的封建色彩，仍然没有挣破『尊王攘夷』『宣德达情』的藩篱**。」
+
+关键词是「**仍然没有挣破**」——维新派办报在形式上冲破了封建言禁，在**思想上**却仍受传统观念束缚。这个「形式突破 / 思想未突破」的对照，正是维新派最容易被考的评价点，写论述时可以作为「进步的局限」来用。
+
+A、B、C 均为讲义原文：A 对应新闻思想第 1 条，B 对应第 2 条（含「去塞求通」），C 对应第 3 条评价开头。
+
+记忆抓手：维新派是「**半截子革命**」——言禁破了，思想没破；报刊进大雅之堂了，脑子里还装着尊王攘夷。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>二、政治 · 时政与法治（9 题 · 全部单选）
+    <span class="secmeta">9 题</span></h2>
+  
+<div class="q" data-q="9" data-type="choice">
+  <div class="qhead">
+    <span class="qno">9</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">（回滚）教育强国·六个以</span>
+  </div>
+  <div class="stem">【回滚题 · 第 4 次出现，换为「判断哪一项描述错误」】建设教育强国的「六个以」是指：以立德树人为根本任务，以为党育人、为国育才为根本目标，以服务中华民族伟大复兴为重要使命，以支撑引领中国式现代化为核心功能，以坚持党对教育事业的全面领导为根本保证，以人民满意为根本尺度。
+
+下列关于「六个以」的表述，**错误**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q9" value="A"><span class="letter">A</span><span class="otext">「以坚持党对教育事业的全面领导为根本保证」——党的领导是教育强国建设的根本保证。</span></label><label class="opt"><input type="radio" name="q9" value="B"><span class="letter">B</span><span class="otext">「以为党育人、为国育才为根本目标」——这是教育的根本目标。</span></label><label class="opt"><input type="radio" name="q9" value="C"><span class="letter">C</span><span class="otext">「以支撑引领中国式现代化为重要使命」——支撑引领中国式现代化被定位为重要使命。</span></label><label class="opt"><input type="radio" name="q9" value="D"><span class="letter">D</span><span class="otext">「以人民满意为根本尺度」——人民满意被定位为根本尺度，而办学治校的基本路径是「走中国特色社会主义教育发展道路」。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="9">查看解析</button>
+    <span class="saved" data-saved="9"></span>
+  </div>
+  <div class="ansbox" data-ans="9" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>C 错在**张冠李戴**：「支撑引领中国式现代化」的定位是「**核心功能**」，不是「重要使命」。「重要使命」对应的是「**服务中华民族伟大复兴**」。
+
+六个「以」的完整对应关系（务必背全）：
+
+| 定位 | 内容 |
+|---|---|
+| 根本保证 | 坚持党对教育事业的全面领导 |
+| 根本任务 | 立德树人 |
+| 根本目标 | 为党育人、为国育才 |
+| 重要使命 | 服务中华民族伟大复兴 |
+| 核心功能 | 支撑引领中国式现代化 |
+| 根本尺度 | 人民满意 |
+
+A、B、D 三项对应均正确。特别提醒 D 项：**「人民满意」是根本尺度，不是根本目标**——这对词（尺度／目标）是高频设错点，你已经在这里折过。
+
+记忆抓手：**保（证）—党；任（务）—立德树人；目（标）—育人育才；使（命）—复兴；功（能）—现代化；尺（度）—人民满意**。两个「根本」在前（保证、任务），再排目标、使命、功能，最后收在尺度上。</div></div>
+</div>
+<div class="q" data-q="10" data-type="choice">
+  <div class="qhead">
+    <span class="qno">10</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">（回滚）统战·三个定位</span>
+  </div>
+  <div class="stem">【回滚题 · 第 4 次出现，换为「填空式判断」】关于新时代爱国统一战线的定位，下列表述**正确**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q10" value="A"><span class="letter">A</span><span class="otext">统一战线的本质要求是「大团结大联合」，它解决的是人心和力量问题；坚持求同存异是统战工作的关键；党的领导是统一战线最鲜明的特征。</span></label><label class="opt"><input type="radio" name="q10" value="B"><span class="letter">B</span><span class="otext">统一战线的本质要求是「大团结」，它解决的是差异问题；坚持党的领导是统战工作的关键；求同存异是统一战线最鲜明的特征。</span></label><label class="opt"><input type="radio" name="q10" value="C"><span class="letter">C</span><span class="otext">统一战线的本质要求是「大联合」，它解决的是思想问题；坚持求同存异是统战工作的关键；党的领导是统一战线的根本任务。</span></label><label class="opt"><input type="radio" name="q10" value="D"><span class="letter">D</span><span class="otext">统一战线的本质要求是「大团结大联合」，它解决的是思想路线问题；党的领导和求同存异并列为统战工作的两大关键。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="10">查看解析</button>
+    <span class="saved" data-saved="10"></span>
+  </div>
+  <div class="ansbox" data-ans="10" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>A 是完整且准确的原文表述。
+
+你上次（9.18 卷）在这条上的错法是「把『大团结大联合』记成『大』，把『人心和力量』记成『差异』」——**记住了有个「大」字，却丢了词**。这是「只记特征不记完整表述」的典型，答案必须是文件原话，不能靠语感截取。
+
+B、C 两项复刻了你上次的错误写法（把「大团结大联合」砍成「大团结」或「大联合」，再配上一个错的对象）。D 项的第三句「并列为两大关键」是编造的。
+
+记忆抓手（四级递进链，不能跳）：
+**联合（本质要求＝大团结大联合）→ 人心（解决对象＝人心和力量问题）→ 存异（方法关键＝求同存异）→ 党旗（最鲜明特征＝党的领导）**。
+
+四步走：先说要联合谁（大团结大联合），再说解决什么（人心和力量），再说怎么联合（求同存异），最后说谁领着联合（党的领导）。</div></div>
+</div>
+<div class="q" data-q="11" data-type="choice">
+  <div class="qhead">
+    <span class="qno">11</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">（回滚·第 4 次）党的显著标志</span>
+  </div>
+  <div class="stem">【回滚题 · 第 4 次出现，选项继续复刻你反馈原文里的错误写法，请仔细分辨】关于中国共产党的优良作风与「显著标志」，下列表述**正确**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q11" value="A"><span class="letter">A</span><span class="otext">理论联系实际、密切联系群众、批评和自我批评，连同人民至上与勇于自我革命，共同构成中国共产党区别于其他政党的显著标志。</span></label><label class="opt"><input type="radio" name="q11" value="B"><span class="letter">B</span><span class="otext">理论联系实际、密切联系群众、批评和自我批评是党的三大优良作风；勇于自我革命是中国共产党区别于其他政党的显著标志。</span></label><label class="opt"><input type="radio" name="q11" value="C"><span class="letter">C</span><span class="otext">三大优良作风加上「人民至上」，是党的七大确立的党的显著标志。</span></label><label class="opt"><input type="radio" name="q11" value="D"><span class="letter">D</span><span class="otext">勇于自我革命是党的七大确立的三大优良作风之一，也是中国共产党区别于其他政党的显著标志。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="11">查看解析</button>
+    <span class="saved" data-saved="11"></span>
+  </div>
+  <div class="ansbox" data-ans="11" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>B 正确：**两条独立来源各背各的**。
+
+- 党的**七大（1945 年）**：理论联系实际、密切联系群众、批评和自我批评 —— 是**三大优良作风**（不是「三个」，也**不含「人民至上」**）。
+- 党的**十九届六中全会《决议》**：**勇于自我革命**是中国共产党区别于其他政党的显著标志。
+
+A 是你原文里的错误写法（把三段作风、人民至上、勇于自我革命**并列成一句**），9.17 反馈里 AI 已明确提醒要拆开，你没改；C、D 都是把两条来源混搭。
+
+**这是本卷最需要警惕的一题。** 这道题将第 4 次出现在你的卷子上，前三次都错，且你选的都是自己原文里的错误写法——这说明问题**不在记忆，在笔记**。你的反馈文档里那句话本身就是错的，每看一遍就强化一次。
+
+**行动要求：今晚批改后回去把 9.17 反馈（优化版）里这条改掉**：把「三大优良作风＋人民至上＋勇于自我革命」这一句拆成两条——第一条只写三大优良作风，第二条另起写「勇于自我革命是区别于其他政党的显著标志」。笔记里的错误会原样迁移到考场，这比这道题的分值重要得多。
+
+记忆抓手：**七大管作风，六中全会管标志**——时间轴一拉就分开，永远不会串。</div></div>
+</div>
+<div class="q" data-q="12" data-type="choice">
+  <div class="qhead">
+    <span class="qno">12</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">（回滚）法治体系·五大体系</span>
+  </div>
+  <div class="stem">【回滚题 · 第 4 次出现，改问「五体系在法治体系中的层级」】中国特色社会主义法治体系由五个子体系构成。下列关于这五大体系的表述，**错误**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q12" value="A"><span class="letter">A</span><span class="otext">完备的法律规范体系、高效的法治实施体系、严密的法治监督体系、有力的法治保障体系、完善的党内法规体系，共同构成中国特色社会主义法治体系。</span></label><label class="opt"><input type="radio" name="q12" value="B"><span class="letter">B</span><span class="otext">五大体系可以概括为「规—实—监—保—党」五个字，即以法律规范体系打头，以党内法规体系收尾。</span></label><label class="opt"><input type="radio" name="q12" value="C"><span class="letter">C</span><span class="otext">法治实施体系是五大体系中的「中间环节」，其地位是把纸面上的法律规范落到实际运行中。</span></label><label class="opt"><input type="radio" name="q12" value="D"><span class="letter">D</span><span class="otext">五大体系中，「党内法规体系」属于国家法律体系的组成部分，与国家法律规范体系是同一层级的规范。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="12">查看解析</button>
+    <span class="saved" data-saved="12"></span>
+  </div>
+  <div class="ansbox" data-ans="12" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>D 错：**党内法规体系与国家法律体系是两个不同的规范体系**，前者管党，后者管国家，二者不是「同一层级的一种」关系。中国特色社会主义法治体系把党内法规体系纳入其中，体现的是「依法治国与依规治党相统一」，而非把党内法规等同于国家法律。
+
+A 是五大体系的完整名称，五个定语一个不能少——**完备的**法律规范体系、**高效的**法治实施体系、**严密的**法治监督体系、**有力的**法治保障体系、**完善的**党内法规体系。
+
+记忆抓手（五字链）：**规 → 实 → 监 → 保 → 党**。
+法律**规**范 → 法治**实**施 → 法治**监**督 → 法治**保**障 → **党**内法规。
+
+注意讲义给你的诊断仍然成立：你上次「五空全空」，却答对了「宪法／党章／民主集中制」三个精细辨析空。这说明**背诵顺序反了**——应当先把骨架背成顺口溜（规实监保党），再往里填细节。今晚请先闭眼背出这五个词，再去看细节。</div></div>
+</div>
+<div class="q" data-q="13" data-type="choice">
+  <div class="qhead">
+    <span class="qno">13</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">（回滚）全过程人民民主·四个相统一</span>
+  </div>
+  <div class="stem">【回滚题 · 第 4 次出现，改问「结构规律」】「全过程人民民主」的「四个相统一」在结构上有规律可循。下列说法**正确**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q13" value="A"><span class="letter">A</span><span class="otext">四个相统一中，过程民主与成果民主、程序民主与实质民主、直接民主与间接民主这三对，都属于「同一民主的两个侧面」，第四对是人民民主与国家意志相统一。</span></label><label class="opt"><input type="radio" name="q13" value="B"><span class="letter">B</span><span class="otext">四个相统一中，选举民主与协商民主相统一是其中一对，其余三对分别是过程与成果、程序与实质、直接与间接。</span></label><label class="opt"><input type="radio" name="q13" value="C"><span class="letter">C</span><span class="otext">四个相统一全部是「同一民主的两个侧面」，人民民主与国家意志相统一也包括在内，四对结构完全对称。</span></label><label class="opt"><input type="radio" name="q13" value="D"><span class="letter">D</span><span class="otext">四个相统一中的第四对是「人民民主与协商民主相统一」，选举民主与间接民主则是另一对。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="13">查看解析</button>
+    <span class="saved" data-saved="13"></span>
+  </div>
+  <div class="ansbox" data-ans="13" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>A 正确，这也是这道题交给你的**结构规律**：四对里有**三对是「同一民主的两个侧面」**（过程／成果、程序／实质、直接／间接），**最后一对是「人民民主／国家意志」**——第四对换了比较对象，不再是民主内部的两个侧面。
+
+B 错：**「选举民主与协商民主相统一」不属于四个相统一**。这是你 9.18 卷上第一次错的地方（把包含项当成了不包含项）。选举民主与协商民主是**两种实现形式**，不是「一组统一」——二者并列存在，不构成「相统一」的关系。
+C 错：第四对与前三对结构并不对称，说「完全对称」是把规律记反了。
+D 错：第四对是「人民民主与国家意志」，被篡改成「人民民主与协商民主」。
+
+记忆抓手：**三对同源 + 一对跨域**。同源的三对都是「民主自己的两面」（过程/成果、程序/实质、直接/间接）；跨域的那一对把「人民」与「国家意志」拉在一起。看到「选举民主／协商民主」出现在选项里，直接判错——它们是**形式**，不是**统一**。</div></div>
+</div>
+<div class="q" data-q="14" data-type="choice">
+  <div class="qhead">
+    <span class="qno">14</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">（回滚）「最根本」三条线</span>
+  </div>
+  <div class="stem">【回滚题 · 第 4 次出现，改问「后缀归属」】下列三处关于「最根本」的表述，**全部正确**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q14" value="A"><span class="letter">A</span><span class="otext">①取得一切成就最根本的原因是有中国共产党的坚强领导；②统一战线是中国共产党夺取革命、建设、改革事业胜利的最根本的保证；③人心向背、力量对比是决定党和人民事业成败的最核心最根本的问题。</span></label><label class="opt"><input type="radio" name="q14" value="B"><span class="letter">B</span><span class="otext">①取得一切成就最根本的原因在于中国人民的爱国情怀和坚持奋斗；②统一战线是最核心最根本的问题；③人心向背是夺取革命、建设、改革事业胜利最根本的保证。</span></label><label class="opt"><input type="radio" name="q14" value="C"><span class="letter">C</span><span class="otext">①取得一切成就最根本的保证是有中国共产党的坚强领导；②统一战线最根本的问题是人心和力量；③人心向背是决定事业成败的最根本的保证。</span></label><label class="opt"><input type="radio" name="q14" value="D"><span class="letter">D</span><span class="otext">①取得一切成就最核心最根本的问题是有中国共产党的坚强领导；②统一战线最根本的保证是人心和力量；③人心向背是最根本的原因。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="14">查看解析</button>
+    <span class="saved" data-saved="14"></span>
+  </div>
+  <div class="ansbox" data-ans="14" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>A 正确，三处后缀一一对应。
+
+你的错法（9.18 卷）是**用主观感受替换客观表述**——第 1 空答了「中国人民的爱国情怀和坚持奋斗」。政治选择题最常见的失分模式就是这一种：答案必须是文件原话，不是自己的理解。
+
+B、C、D 三项全部是把三个后缀**打乱互换**（把「坚强领导」的落点换成「爱国情怀」，把「最根本的保证」与「最核心最根本的问题」对调）。这类题的破解方法不是死记句子，而是记住「**问什么就配什么**」的对应表：
+
+| 问法 | 落点 |
+|---|---|
+| 取得一切成就最根本的**原因** | 中国共产党的坚强领导 |
+| 夺取事业胜利最根本的**保证** | 统一战线 |
+| 决定事业成败最**核心最根本的问题** | 人心向背、力量对比 |
+
+记忆抓手：见「**最根本**」→ 先问**问题指向什么**。问原因（过去的成就）落党；问保证（事业的胜利）落统战；问问题（成败的关键）落人心。**三个后缀三把钥匙，一一对应，不许串门。**</div></div>
+</div>
+<div class="q" data-q="15" data-type="choice">
+  <div class="qhead">
+    <span class="qno">15</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">（回滚）老年数字鸿沟·两个细分术语</span>
+  </div>
+  <div class="stem">【回滚题 · 第 4 次出现，改问「术语顺序与内涵匹配」】老年群体在传统「接入沟」之外，还常被进一步细分为两个术语。下列关于这两个术语及其内涵的对应，**正确**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q15" value="A"><span class="letter">A</span><span class="otext">「动机沟」指从「技术不可及」转向「主观不接入」；「风险与收益沟」指接入增加—风险暴露增加—实际收益有限。</span></label><label class="opt"><input type="radio" name="q15" value="B"><span class="letter">B</span><span class="otext">「动机沟」指接入增加—风险暴露增加—实际收益有限；「风险与收益沟」指从「技术不可及」转向「主观不接入」。</span></label><label class="opt"><input type="radio" name="q15" value="C"><span class="letter">C</span><span class="otext">「使用沟」指从「技术不可及」转向「主观不接入」；「素养沟」指接入增加—风险暴露增加—实际收益有限。</span></label><label class="opt"><input type="radio" name="q15" value="D"><span class="letter">D</span><span class="otext">「动机沟」指老年人完全无法获得智能设备；「风险与收益沟」指老年人不愿学习使用智能设备。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="15">查看解析</button>
+    <span class="saved" data-saved="15"></span>
+  </div>
+  <div class="ansbox" data-ans="15" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>A 正确，两个术语的指向不能互换。
+
+你上次（9.18 卷）这两空**全空**，说明是「从没背过」而非「记混」，所以这道题的顺序辨析就是来验证你有没有真的建立起词与内涵的绑定。
+
+B 是术语与内涵互换；C 用了「使用沟／素养沟」——那是**数字鸿沟谱系**里的中间环节，与老年群体的两个细分术语**不是同一组概念**，属于跨题污染；D 把两个术语都简化成了「完全无法获得设备」「不愿学习」，丢掉了「风险与收益」的核算维度。
+
+记忆抓手：老年数字鸿沟不是「不会用」一个词能概括的，分成**三层**：
+**没条件（接入沟）→ 不愿用（动机沟：技术不可及 → 主观不接入）→ 用了不划算（风险与收益沟：接入↑ → 风险暴露↑ → 实际收益有限）**。
+
+一句话串起来：「给得起，但不想要；要了，但不划算。」</div></div>
+</div>
+<div class="q" data-q="16" data-type="choice">
+  <div class="qhead">
+    <span class="qno">16</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">（回滚）三个「法」的分工</span>
+  </div>
+  <div class="stem">【回滚题 · 第 4 次出现，改问「哪一套方法专门回答『怎么做』」】按讲义给出的三套方法，「社会环境法」「社会要素法」「社会思维法」各有其适用的问题类型。若一道题目要求你给出「**怎么办**」的对策性思路，应当选用哪一套？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q16" value="A"><span class="letter">A</span><span class="otext">社会思维法——它专门答「怎么做」，按政治／经济／文化／技术／国际五个维度给出思维词。</span></label><label class="opt"><input type="radio" name="q16" value="B"><span class="letter">B</span><span class="otext">社会环境法——它列六类环境，专门答「外因与大背景」。</span></label><label class="opt"><input type="radio" name="q16" value="C"><span class="letter">C</span><span class="otext">社会要素法——它列政策、法律、资本、市场、技术、公民、舆论七要素，专门拆构成要件。</span></label><label class="opt"><input type="radio" name="q16" value="D"><span class="letter">D</span><span class="otext">三套方法都必须同时使用，缺一不可，因为「怎么办」是三种方法的综合产物。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="16">查看解析</button>
+    <span class="saved" data-saved="16"></span>
+  </div>
+  <div class="ansbox" data-ans="16" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>A 正确。三套方法的适用边界是这道题的全部考点。
+
+- 问「**为什么**这样」（外因与大背景）→ **社会环境法**（六类环境；学理支撑：克罗兹四大元过程 + 史安斌、盛阳「四化」）
+- 问「**是什么**构成」（构成要件）→ **社会要素法**（政策、法律、资本、市场、技术、公民、舆论七要素；学理支撑：十九届四中全会社会治理体系）
+- 问「**怎么办**」（对策思路）→ **社会思维法**（按政治／经济／文化／技术／国际五维给思维词）
+
+B、C 两项本身描述无误，只是**答错了题**——它们是另两套方法的正确说明，不适用于「怎么办」。D 项是典型的糊弄式选项，「必须同时使用」在讲义里没有依据。
+
+你上次（9.19 卷）的错法是**方向性错误**：把这三套方法当成「就是『社会框架 PETCSI』的不同说法」。PETCSI 是**分析维度**，三套「法」是**三套不同的操作路径**，二者不是一回事。
+
+记忆抓手（按问法选方法，一句话）：
+**问「为什么」用环境法，问「是什么构成」用要素法，问「怎么办」用思维法。**
+三句话配三个动词：**环境→解释；要素→拆解；思维→献策**。</div></div>
+</div>
+<div class="q" data-q="17" data-type="choice">
+  <div class="qhead">
+    <span class="qno">17</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">时政·AI 内容标识办法</span>
+  </div>
+  <div class="stem">为规范 AI 生成内容、保障用户知情权与责任溯源，我国于 2025 年出台《人工智能生成合成内容标识办法》。关于这一制度，下列说法**正确**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q17" value="A"><span class="letter">A</span><span class="otext">该办法要求服务提供者对生成合成内容添加标识，标识分为「显式标识」与「隐式标识」两类，用户可通过显式标识直观感知内容系 AI 生成。</span></label><label class="opt"><input type="radio" name="q17" value="B"><span class="letter">B</span><span class="otext">该办法规定所有 AI 生成内容必须一律加注大声明的口播提示，且禁止使用隐式标识。</span></label><label class="opt"><input type="radio" name="q17" value="C"><span class="letter">C</span><span class="otext">该办法仅适用于面向公众的内容平台，不约束模型服务提供者，属于事后追责机制。</span></label><label class="opt"><input type="radio" name="q17" value="D"><span class="letter">D</span><span class="otext">该办法要求平台对 AI 内容一律作删除处理，以从源头消除虚假信息。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="17">查看解析</button>
+    <span class="saved" data-saved="17"></span>
+  </div>
+  <div class="ansbox" data-ans="17" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>A 正确。**显式标识 / 隐式标识二分**是这套制度的核心设计：
+
+- **显式标识**：以文字、声音、图形等用户可直接感知的方式呈现（如角标、声明、语音提示），目的是让用户一眼知道这是 AI 生成。
+- **隐式标识**：在文件元数据中嵌入生成合成信息，用于**溯源与责任认定**，用户不直接感知。
+
+B、C、D 都是编造的极端化表述——「一律口播」「只约束平台」「一律删除」都不符合制度设计。这套办法的思路是用**标识＋溯源**实现「可识别、可追溯」，而不是简单删除。
+
+这一题与你今晚背的 **AIGC 名解**、以及卷上第 4 题的四影响框架（「伦理挑战」那一层）是同一知识群。复习时把三处连起来：AIGC 是什么（名解）→ 带来什么（四影响）→ 怎么治理（标识办法）。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>三、英语二 · 词汇与翻译（3 题）
+    <span class="secmeta">3 题</span></h2>
+  
+<div class="q" data-q="18" data-type="fill">
+  <div class="qhead">
+    <span class="qno">18</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">（回滚）高频动词短语与词汇</span>
+  </div>
+  <div class="stem">【回滚题 · 第 4 次出现，换语境重考】根据中文提示，用英语补全句子（每空写一个单词或词组，注意时态与搭配）：
+
+（1）新规现已生效，监管机构将严厉**打击**任何未经授权使用用户数据的行为。
+　　The new rules are now in force, and regulators will ______ any unauthorized use of user data.
+
+（2）火车窗外，**大草原**一直延伸到地平线。
+　　Outside the train window, the ______ stretched all the way to the horizon.
+
+（3）摆在决策者面前的问题比去年**棘手得多**。
+　　The problems facing policymakers are far ______ than they were last year.</div>
+  <div class="fills"><input class="fillin" type="text" data-q="18" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="18">查看解析</button>
+    <span class="saved" data-saved="18"></span>
+  </div>
+  <div class="ansbox" data-ans="18" hidden><div class="ansline"><b>参考答案</b>（1）crack down on　（2）prairie　（3）thornier</div><div class="ansline"><b>得分点</b>每, 空,  , 1,  , 分, ，, 共,  , 3,  , 分, 。, （, 1, ）, 须, 含,  , c, r, a, c, k,  , d, o, w, n, ，, 介, 词,  , o, n,  , 可, 用, 可, 省, ，, 时, 态, 正, 确, ；, （, 2, ）, 拼, 写, 完, 整, 正, 确, ；, （, 3, ）, 须, 为, 比, 较, 级, 形, 式,  , t, h, o, r, n, i, e, r, 。</div><div class="ansline"><b>解析</b>这三条是错题本里反复出现的硬伤，逐条钉住：
+
+**（1）crack down on** — 你写成了「崩塌」。**「崩塌」是 collapse**。crack down 是动作朝向外的「打压」，联想画面：警方扫荡。判断技巧：crack down 后面**接对象**（on sth），而 collapse 后面不接对象——「崩塌」是自己塌，「打击」是打别人。
+
+**（2）prairie** — 你写的是「？」。三个形近词一起记：`prairie` 大草原 / `plain` 平原 / `plateau` 高原。口诀：**prairie 有「rain」，草原多雨**。
+
+**（3）thornier** — 你译成了「更尖锐」。接近但不准，正确是「**更棘手的**」。搭配固定为「问题更棘手」：`a thorny issue` = 棘手的问题（字面「多刺的」，刺手＝棘手）。程度副词 `far` 修饰比较级，翻译时「**得多**」不能丢。
+
+这三条已在你的卷子上出现过三次，这是第 4 次。**如果这次还错，说明词汇表没有真正过筛，需要把这三条单独抄进生词本**，不要指望靠做卷子记住它们。</div></div>
+</div>
+<div class="q" data-q="19" data-type="translate">
+  <div class="qhead">
+    <span class="qno">19</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">（回滚）长难句·比较级与程度副词</span>
+  </div>
+  <div class="stem">【回滚题 · 第 4 次出现，换句子】翻译下面这句话，并完成两个附加任务。
+
+&gt; Those who believe that artificial intelligence will replace human judgment are far more likely to overlook the subtle ethical questions that journalists routinely confront.
+
+附加任务：
+（1）指出全句**主干**；
+（2）说明 `far more likely` 在译文中必须如何处理，为什么不能省略。</div>
+  <textarea class="transin" data-q="19" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="19">查看解析</button>
+    <span class="saved" data-saved="19"></span>
+  </div>
+  <div class="ansbox" data-ans="19" hidden><div class="ansline"><b>参考答案</b>【参考译文】
+那些认为人工智能将取代人类判断的人，**远远更有可能**忽视记者们日常面对的、那些微妙的伦理问题。
+
+【主干】Those ... are far more likely to overlook the subtle ethical questions.
+主语：Those（who 引导定语从句修饰）
+谓语：are
+表语／补足语结构：far more likely to overlook ...
+宾语：the subtle ethical questions（后接 that 引导的定语从句修饰）
+
+（1）主干如上：`Those ... are far more likely to overlook the ethical questions.` 两个定语从句（who... 修饰 Those；that... 修饰 questions）都是外挂成分，剥离后主干极短。
+
+（2）`far more likely` 中的 **far 是程度副词，修饰比较级 more likely**，必须译出「**远远、得多**」这一层程度；**比较级本身也不能省**，必须译成「更有可能」而不是「有可能」。省掉 far 就丢掉了原文对程度的强调，是英二翻译的固定扣分点。此外 `those` 应译出「**那些……的人**」，不能只译「人」。</div><div class="ansline"><b>得分点</b>句, 子, 主, 干, 正, 确, （, T, h, o, s, e,  , a, r, e,  , f, a, r,  , m, o, r, e,  , l, i, k, e, l, y,  , t, o,  , o, v, e, r, l, o, o, k,  , t, h, e,  , q, u, e, s, t, i, o, n, s, ）, 2,  , 分, ；, 两, 个, 定, 语, 从, 句, 的, 位, 置, 与, 修, 饰, 对, 象, 说, 清,  , 1,  , 分, ；, `, f, a, r,  , m, o, r, e,  , l, i, k, e, l, y, `,  , 译, 为, 「, 远, 远, 更, 有, 可, 能, ／, 可, 能, 性, 大, 得, 多, 」, 2,  , 分, ；, `, t, h, o, s, e, `,  , 译, 出, 「, 那, 些, …, …, 的, 人, 」, 1,  , 分, ；, 译, 文, 通, 顺, 无, 语, 病,  , 1,  , 分, 。, 共,  , 7,  , 分, 。</div><div class="ansline"><b>解析</b>你上次（9.18 卷）在同类句上漏译了 `are far more likely to feel threatened`，只译成「感到受到威胁」——**比较级和程度副词整体丢失**。这是你在这类句子上第 4 次接受检验。
+
+英二翻译比较级的三条铁律：
+1. **比较级必须译出「更」**，不能降级成原级；
+2. **程度副词（far / much / a lot / even / still）必须译出「得多／远远／甚至」**，它们是独立采分点；
+3. **`those who / those ...` 结构必须补出「……的人」**，中文不能光秃秃地留一个「那些」。
+
+记忆抓手：**「更」字不能丢，「得多」不能吞，「的人」不能少。**翻译时先在草稿上圈出这三个成分，再落笔。</div></div>
+</div>
+<div class="q" data-q="20" data-type="short">
+  <div class="qhead">
+    <span class="qno">20</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">英语方法反思</span>
+  </div>
+  <div class="stem">英语方法反思。
+
+你在 9.18 卷与后续三张卷子上，反复在**同一批词汇**和**同一类句式**上失分。请结合下面两个现象，写一段不超过 200 字的方法反思：
+
+现象一：`crack down on` 你连续答成「崩塌」，`thornier` 答成「更尖锐」，`prairie` 留空。
+现象二：`are far more likely to...` 你只译出「感到受到威胁」，程度副词与比较级整体丢失。
+
+要求说明：①这两类失分各自属于什么性质的问题；②你打算用什么具体动作在两周内解决它们。</div>
+  <textarea class="shortin" data-q="20" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="20">查看解析</button>
+    <span class="saved" data-saved="20"></span>
+  </div>
+  <div class="ansbox" data-ans="20" hidden><div class="ansline"><b>参考答案</b>【参考思路，不唯一】
+
+① 两类失分性质不同：
+- 现象一属**词汇层面的「只记大意、方向记反」**。crack down on 与 collapse 的方向恰好相反（对外的打压 / 自身的崩塌），说明记单词时只记了一个模糊的中文印象，没有绑定「动作方向」和「搭配对象」。thornier 的「尖锐／棘手」是近义范围，说明记的是近义词而非精确义项。prairie 留空则是**词表根本没覆盖**。
+- 现象二属**句法层面的「成分识别失败」**。比较级 far more likely 是独立成分，你的注意力全放在实义动词上，导致修饰成分被整块跳过。这不是词汇问题，是**长难句切分的方法没建立**。
+
+② 可执行动作（示例）：
+- 词汇：建一张「陷阱词表」，每条强制写三项——**确切中文义、搭配介词、一个反向对照词**（如 crack down on ↔ collapse；prairie ↔ plain/plateau）。每天早读前过一遍，只看中文说英文，说不出的打星，每周清一次星。
+- 句式：翻译前先做「**圈三样**」动作——先圈出**比较级、程度副词、those 结构**再落笔，把这三样当作固定检查项。每次翻译后回看这三样是否全部落地，漏一个就重译一遍。
+- 时间安排：两周内完成 40 条陷阱词 + 30 句「圈三样」练习，每天 20 分钟。</div><div class="ansline"><b>得分点</b>①, 区, 分, 两, 类, 性, 质, —, —, 词, 汇, 层, 「, 方, 向, /, 义, 项, 不, 精, 确, 」, 与, 句, 法, 层, 「, 成, 分, 识, 别, 失, 败, 」, ，, 各,  , 2,  , 分, （, 共,  , 4,  , 分, ）, ；, ②, 给, 出, 具, 体, 可, 执, 行, 动, 作, ，, 须, 落, 到, 「, 做, 什, 么, 动, 作, 、, 多, 少, 量, 、, 多, 久, 」, ，, 空, 洞, 的, 「, 多, 背, 单, 词, 」, 「, 多, 练, 习, 」, 不, 得, 分, （, 3,  , 分, ）, ；, ③, 反, 思, 中, 提, 及, 「, 搭, 配, 对, 象, 」, 「, 比, 较, 级, /, 程, 度, 副, 词, 作, 为, 固, 定, 检, 查, 项, 」, 等, 具, 体, 抓, 手, 加, 分, （, 1,  , 分, ）, 。, 共,  , 8,  , 分, 。</div><div class="ansline"><b>解析</b>这道题没有标准答案，但评分的硬标准是：**你能不能把「记不牢」和「不会切分」区分开**。
+
+你的词汇失分不是「见过的词记不住」，而是「记的是一个模糊的中文印象」——crack down on 记成「崩塌」，错在**动作方向**；thornier 记成「更尖锐」，错在**义项精度**；prairie 留空，是**覆盖缺口**。三种不同，对应三种不同的补法：方向错→记搭配对象；义项错→记精确对应；覆盖缺口→补词表。
+
+句式失分是另一条线。比较级与程度副词在英语里是**独立采分点**，但如果你的翻译习惯是「看懂大意就落笔」，这些成分永远会被跳过。所以解法不是「更仔细」，而是**建立一个自动化的检查动作**——「圈三样」。把注意力从「我懂没懂」转到「这三个成分我圈了没」。
+
+这两条你已经在四张卷子上重复出现了。**重复失分说明的不是能力问题，是动作没建立。**今晚把「陷阱词表」和「圈三样」两个动作写进明天的计划表，比再做一张卷子有用。</div></div>
+</div>
+</section>
+
+  <div class="done-tip" id="doneTip">
+    <b>🎉 全部作答完毕</b>
+    点右下角「导出我的答案」，把导出的文件发给我，我会逐题批改并给出评分与改进建议。
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="tb-inner">
+    <button class="btn btn-main" id="btnExport">导出我的答案</button>
+    <button class="btn btn-ghost" id="btnRevealAll">展开全部解析</button>
+    <button class="btn btn-ghost" id="btnReset">清空重做</button>
+    <span class="tb-count" id="tbCount">0 / 20</span>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">你的答案（复制后发给我批改）</div>
+    <div class="modal-body">
+      <div class="modal-tip">
+        全选复制下面的内容，粘贴到对话里发给我即可。也可以点「下载 .md」保存成文件再上传。
+      </div>
+      <textarea id="exportArea" readonly></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="btnCloseModal">关闭</button>
+      <button class="btn btn-main" id="btnDownload">下载 .md</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ = {"title": "考研每日测验 · 10.6 晚卷（素材：🐟背诵计划 Day1 知识库原文版）", "date": "2026-10-06b", "sections": [{"name": "一、专业课 · 效果理论与新闻史（8 题）", "questions": [{"id": 1, "type": "short", "rows": 7, "kp": "沉默的螺旋·名解要点", "stem": "【本题为错题回滚 · 换问法】名词解释：沉默的螺旋。\n\n要求按「提出者＋年份＋著作」「理论内涵」「网络化嬗变」三层作答。注意：你在 9.18 卷同类题上漏答了年份，这次请把三个时间/文献要素一次写全。", "answer": "① 提出者与文献：德国社会学家伊丽莎白·诺尔-诺依曼（Elisabeth Noelle-Neumann）。1974 年在《传播学刊》发表论文首次提出该概念；1980 年出版《沉默的螺旋：舆论——我们的社会皮肤》，对理论作了全面概括。（两个时间点、两本刊物都要写出）\n② 理论内涵：与媒介中主流观点持相反或不同意见的人，由于害怕被排斥和孤立而趋于保持沉默。人们害怕被社会孤立——当发现自己的意见与优势意见相符时，倾向于大声表达；当自己的意见与优势意见背离时，倾向于保持沉默或放弃原有观点。劣势意见的沉默导致优势意见的增势，如此循环，便出现了「沉默的螺旋」。\n③ 网络化嬗变：互联网的平等性、匿名性和不受地域限制，使对其施加群体压力变得困难，核心假说受到合法性挑战。但在互联网中，舆论压迫的对象变成了 ID，ID 本身成为人的主体性的载体——虽然可以更换 ID，但对同一个 ID，其他 ID 对它的孤立效果仍然存在。网络空间中「孤立恐惧动机」「公开表达」等心理机制依然存在，加上网络传播与现实传播的相似性，沉默螺旋现象并未消失，只是表现形式有所变化。", "keys": "提出者「诺尔-诺依曼」1 分；1974 年《传播学刊》论文 1 分；1980 年《沉默的螺旋：舆论——我们的社会皮肤》1 分；内涵（怕被孤立→优势意见敢于表达／劣势意见沉默→螺旋增势）2 分；网络化嬗变（『ID』替代『人』成为舆论压迫对象、孤立恐惧机制仍在）2 分。共 7 分。", "explain": "这道题你上次的失分点非常具体：**只答了提出者，没答年份**。1998 年诺依曼曾提出「舆论是我们的社会皮肤」这一说法，但书的出版是 1980 年——两个年份不要混。另外你上次把「对孤立的恐惧」写了两遍（「背离群体的孤独恐惧」与「个人对孤独的恐惧」），实际这是**同一个假设**，五个假定里只占第二个，不要凑字数。\n\n记忆抓手（三锚点）：**人（诺依曼）— 74 论文 / 80 成书 — ID 替代人**。第三锚点是网络化的关键句：互联网里被围攻的是 ID 不是人，所以螺旋还在。", "_id": 1}, {"id": 2, "type": "fill", "blanks": 5, "kp": "沉默的螺旋·五个假定", "stem": "沉默的螺旋理论包含五个假定，请补全（每空填一个短语）：\n\n①社会使背离社会的个人产生 ____；②个人经常恐惧孤独；③对孤独的恐惧使得个人不断地 ____；④估计的结果影响个人在公开场合的行为，特别是公开表达观点还是隐藏自己的观点；⑤上述四个假定 ____、巩固和改变公众观念。\n\n另请回答第（5）空之后的一个追问：这一理论的主要局限之一是「忽视了少数派特别是 ____（英文 hard core）的作用」。", "answer": "①孤独感　②估计社会接受的观点是什么　③（在第⑤空）形成　④中坚分子", "keys": "①孤独感 1 分；②估计社会接受的观点是什么 1 分；③形成 1 分；④中坚分子 1 分。共 4 分。", "explain": "五假定是一条**串联链**，不是并列清单——①社会制造孤独感 → ②个人怕孤独 → ③于是不停估测主流意见 → ④估测影响公开表达行为 → ⑤前四条共同形成／巩固／改变公众观念。背的时候按「被动感受→主动估测→行为外化→观念变化」四步走。\n\n「中坚分子（hard core）」是局限部分的第二个要点，与心理学家 **S. 莫斯考维西的小群体趋同行为实验**绑在一起记；第三个局限「忽视意见本身的说服效果强弱」对应 **霍夫兰的休眠效果**。三条局限＝三个理论家的人名：莫斯考维西、霍夫兰，加一条「从众心理被当作恒定常量」。", "_id": 2}, {"id": 3, "type": "short", "rows": 6, "kp": "维新派办报·四大贡献", "stem": "维新派对近代中国新闻事业的贡献，通常概括为四个方面。请分点简述，并在每一点里点出关键报刊人物或文体名称。", "answer": "① 向读者进行了资产阶级思想的启蒙教育，以及民族主义、爱国主义的教育，有力推动了维新运动的发展、促进变法的实现。\n② 冲破封建言禁：戊戌变法期间，维新派在全国各地公开创办大量报刊、大胆议政，为报刊出版赢得了实际上的合法地位。封建统治者虽仍有种种限制，却不得不承认民间办报的合法性——这是维新派对新闻事业发展的巨大贡献。\n③ 开中国报业史上「政治家办报」的先河：康有为、梁启超、严复等学识渊博的维新志士领导报业潮流，一扫落拓文人办报的陈腐气息，报刊开始攀登大雅之堂，极大提高了报业和报人的社会地位。「政治家办报」就此成为我国近现代报业的一个显著特点。\n④ 重视政论，创造了新型的报刊政论文体「时务文体」：维新派报刊普遍以政论为核心内容，涌现了一批报刊政论家（如康梁），政论文章名噪一时、风格独特、形式新颖。「时务文体」风靡一时，对辛亥革命乃至五四运动以后的报刊文章都有很大影响。", "keys": "①启蒙教育与爱国主义教育 1 分；②冲破封建言禁（赢得实际合法地位）2 分；③政治家办报（须点出康、梁、严复）2 分；④时务文体（须点出『政论为核心』）2 分。共 7 分。", "explain": "四大贡献有固定口诀：**启蒙 / 言禁 / 政治家办报 / 时务文体**。讲义的自测提示就是这个顺序，说明这四字串是老师认定要按顺序复述的骨架。\n\n再叠加一层：维新派的**新闻思想**三条要一起记——①报刊具有强烈政治性，是宣传政治主张的有力工具（先首开报刊、轰开局面、大造舆论，然后建立政治团体）；②对报刊功能有比较系统认识（主要功能在传递信息，在于「**去塞求通**」；重视宣传鼓动；提供知识、教育读者、开启民智、培养人才）；③评价（反映新兴资产阶级利益愿望，属资产阶级思想范畴，但仍带有浓厚封建色彩，没有挣破「**尊王攘夷**」「**宣德达情**」的藩篱）。\n\n考场用法：维新派办报是**马新观 / 政治家办报**论述题的历史素材，写论述时把④的时务文体与「政治家办报」拆开用，不要混成一件事。", "_id": 3}, {"id": 4, "type": "fill", "blanks": 4, "kp": "AIGC·四影响框架", "stem": "AIGC 对新闻业的影响，讲义概括为「四影响框架」（每空填一个双字或四字短语）：\n\n①____：自动化写作、智能剪辑、数据新闻生成提升效率；\n②____：虚拟主播、AI 合成主播、互动新闻产品涌现；\n③____：虚假新闻、深度伪造冲击真实性，版权归属成难题；\n④____：记者角色向 AI 协作者转型，催生提示工程师等新岗位。\n\n（这一框架同时对应拽上岸「专题三·人工智能与新闻传播」。）", "answer": "①生产变革　②形态创新　③伦理挑战　④职业重构", "keys": "每空 1 分，共 4 分。表述须为讲义原词（『生产变革／形态创新／伦理挑战／职业重构』），近义词酌情给分。", "explain": "四影响是**并列四点**，考场上一句一句往外推：\n\n- 生产力层面 → **生产**（降本增效）\n- 产品层面 → **形态**（新物种涌现）\n- 社会层面 → **伦理**（真假与版权）\n- 人层面 → **职业**（记者转型）\n\n口诀：**产—形—伦—职**（顺着「做事的人，从工具到人」推）。\n\n补一句：这四影响和你今天背的 AIGC 名解是**同一套材料的两个切面**——名解答「是什么」，四影响答「带来什么」。", "_id": 4}, {"id": 5, "type": "choice", "kp": "新闻线索·名解细则", "stem": "关于「新闻线索」，下列说法与实务理论笔记**不符**的一项是：", "options": ["新闻线索是新近发生的事实的简明信息或信号，它以某种客观事实为基础，但表现形式为不完整的、零碎的，可信度小、变动性大，需要记者深入挖掘和了解。", "新闻线索不等于完整的新闻事实，不能现成地拿来构成新闻报道；它比较简略，没有细节，没有事物的全貌和全部过程，常常只是一个片断或概况。", "新闻线索在采访活动中的位置，处于「明确报道思想」与「进行采访准备」之间，它给记者指明到哪里采访、采访什么的大致方向和范围。", "新闻线索的作用有三条：一是触发记者的新闻敏感，二是指明采访的去向，三是线索的价值决定报道的质量；因此在运用时应当「顺藤摸瓜」，沿着线索一路追查到底。"], "answer": "D", "explain": "D 项前三个分句都对，**错在最后的「顺藤摸瓜」**。讲义给的运用注意事项是四条「不应」：①注意验证，**不应**顺藤摸瓜；②尊重规律，**不应**拔苗助长；③讲究时宜，不大材小用；④合理安排，不齐头并进。\n\n「顺藤摸瓜」听起来像经验之谈，实际是讲义明确否定的做法——因为线索本身可信度小、变动性大，顺着线索直接追下去容易先入为主、把假设当事实。正确动作是**先验证线索，再决定是否投入采访资源**。\n\nA、B 项分别是【特点】与【定义】原文；C 项是【位置】原文，均无误。\n\n记忆抓手：新闻线索四注意 ＝ **验—规—时—排**（验证／规律／时宜／安排），全部配「不」字——不应顺藤摸瓜、不应拔苗助长、不大材小用、不齐头并进。四句都是「不」开头，一看到「顺藤摸瓜」就该条件反射地判错。", "_id": 5}, {"id": 6, "type": "choice", "kp": "新闻敏感·核心", "stem": "以下关于「新闻敏感」的表述，与笔记原文**一致**的一项是：", "options": ["新闻敏感又称新闻鼻或新闻嗅觉，是指新闻工作者及时识别事实所包含的新闻价值的能力，其核心是政治敏感。", "新闻敏感的首要内容是迅速判断某一新闻事实能否吸引较多的受众，其核心是受众意识。", "新闻敏感是一种与生俱来的天赋，无法通过训练获得，因此被视为记者的先天素质。", "新闻敏感的三大作用分别是：发现新闻线索、发现具有新闻价值的事实、以及核实新闻线索的真伪。"], "answer": "A", "explain": "A 是讲义【定义】＋【补充】的原文合并表述，**「核心是政治敏感」是本条最容易被忽略的一句**，也是高频设错点。\n\nB 错在两处：①「迅速判断某一新闻事实能否吸引较多受众」只是**五条主要内容中的第二条**，不是首要内容；②核心被偷换成「受众意识」。\nC 错：新闻敏感是新闻素养，靠训练与实践养成的，讲义从未称其为先天天赋。\nD 错：三大作用原文是①发现新闻线索的需要；②发现具有新闻价值的事实的需要；③**预测新闻事件发生**的需要——第三项被换成了「核实真伪」。核实真伪属于采访环节，不是新闻敏感的作用。\n\n新闻敏感五条主要内容（顺口溜）：**重大意义 / 受众兴趣 / 挖掘隐藏 / 鉴别最有价值 / 预见未来**。三大作用对应链条：**找线索 → 判价值 → 预测事件**。", "_id": 6}, {"id": 7, "type": "short", "rows": 5, "kp": "AIGC·名解（定义与内涵）", "stem": "名词解释：生成式人工智能（Generative AI）。\n\n要求写出：①定义与关键时间节点；②技术内涵（至少写出两个核心技术/机制）；③它与「分析式 AI」的关系。", "answer": "① 定义：生成式人工智能指基于深度学习算法，通过大规模数据训练自主生成文本、图像、音视频等全新内容的智能技术。2022 年 ChatGPT 发布后引发全球浪潮；2023 年《生成式人工智能服务管理暂行办法》将其定义为「具有文本、图片、音频、视频等内容生成能力的模型及相关技术」。\n② 技术内涵：核心技术包括大语言模型（LLM）、diffusion 模型等，具备涌现能力、上下文学习和创造性生成特征。其运作依赖海量数据训练、强大算力支持与人类反馈强化学习（RLHF）。\n③ 与分析式 AI 的关系：它实现了从「分析式 AI」到「生成式 AI」的范式跃迁——前者重在识别、分类、预测，后者重在自主生成全新内容。\n\n（如再补一句评价更完整：生成式 AI 是媒体深度融合的颠覆性变量，既为新闻业降本增效提供技术支撑，也加剧信息失序风险；需建立人机协同新范式，强化算法治理与伦理审查，确保技术服务于新闻真实性、公共性核心价值。）", "keys": "定义含「深度学习 + 大规模数据 + 自主生成文本/图像/音视频」2 分；2022 ChatGPT 或 2023《暂行办法》任一 1 分；核心技术点出 LLM 或 diffusion 1 分；RLHF 或「涌现能力/上下文学习/创造性生成」1 分；③范式跃迁（分析式→生成式）1 分。共 6 分。", "explain": "这道名解的采分骨架是四段：**定义—内涵—四影响—评价**，讲义自测问的就是这个框架。你今晚只背到第 2 段也没关系，但考场上四段框架必须能默出来。\n\n三个容易漏的专业词：「**涌现能力**」「**上下文学习**」「**RLHF（人类反馈强化学习）**」。这三个词是拉开档次的地方，写出来就是「读过原文献」的信号。\n\n延伸记忆（讲义给的，顺带记住）：**DeepSeek** 是以「低成本＋高性能＋全开源」颠覆 AI 行业的中国大模型，通过算法创新而非算力堆砌实现媲美 GPT-4o 的推理能力，被誉为「东方神秘力量」。", "_id": 7}, {"id": 8, "type": "choice", "kp": "维新派·新闻思想评价", "stem": "关于维新派的新闻思想及其评价，下列说法**错误**的一项是：", "options": ["维新派认为报刊具有强烈政治性，是宣传政治主张的有力工具；他们在维新运动中往往先首开报刊、轰开局面、大造舆论，然后建立政治团体。", "维新派对报刊的功能与作用有比较系统的认识：报刊的主要功能在于传递信息、在于「去塞求通」，并重视报刊的宣传鼓动作用。", "维新派的报刊均为政治报刊，其办报的主要目的是宣传政治主张、建立政治团体、推动维新变法运动的发展。", "维新派的新闻思想完全挣脱了传统观念的束缚，已经突破了「尊王攘夷」「宣德达情」的藩篱，属于纯粹的新兴资产阶级思想。"], "answer": "D", "explain": "D 项把讲义的评价**说反了**。原文是：「这些新闻思想反映了新兴资产阶级的利益和愿望，属于资产阶级思想范畴。这些思想也**不可避免地带有浓厚的封建色彩，仍然没有挣破『尊王攘夷』『宣德达情』的藩篱**。」\n\n关键词是「**仍然没有挣破**」——维新派办报在形式上冲破了封建言禁，在**思想上**却仍受传统观念束缚。这个「形式突破 / 思想未突破」的对照，正是维新派最容易被考的评价点，写论述时可以作为「进步的局限」来用。\n\nA、B、C 均为讲义原文：A 对应新闻思想第 1 条，B 对应第 2 条（含「去塞求通」），C 对应第 3 条评价开头。\n\n记忆抓手：维新派是「**半截子革命**」——言禁破了，思想没破；报刊进大雅之堂了，脑子里还装着尊王攘夷。", "_id": 8}]}, {"name": "二、政治 · 时政与法治（9 题 · 全部单选）", "questions": [{"id": 9, "type": "choice", "kp": "（回滚）教育强国·六个以", "stem": "【回滚题 · 第 4 次出现，换为「判断哪一项描述错误」】建设教育强国的「六个以」是指：以立德树人为根本任务，以为党育人、为国育才为根本目标，以服务中华民族伟大复兴为重要使命，以支撑引领中国式现代化为核心功能，以坚持党对教育事业的全面领导为根本保证，以人民满意为根本尺度。\n\n下列关于「六个以」的表述，**错误**的一项是：", "options": ["「以坚持党对教育事业的全面领导为根本保证」——党的领导是教育强国建设的根本保证。", "「以为党育人、为国育才为根本目标」——这是教育的根本目标。", "「以支撑引领中国式现代化为重要使命」——支撑引领中国式现代化被定位为重要使命。", "「以人民满意为根本尺度」——人民满意被定位为根本尺度，而办学治校的基本路径是「走中国特色社会主义教育发展道路」。"], "answer": "C", "explain": "C 错在**张冠李戴**：「支撑引领中国式现代化」的定位是「**核心功能**」，不是「重要使命」。「重要使命」对应的是「**服务中华民族伟大复兴**」。\n\n六个「以」的完整对应关系（务必背全）：\n\n| 定位 | 内容 |\n|---|---|\n| 根本保证 | 坚持党对教育事业的全面领导 |\n| 根本任务 | 立德树人 |\n| 根本目标 | 为党育人、为国育才 |\n| 重要使命 | 服务中华民族伟大复兴 |\n| 核心功能 | 支撑引领中国式现代化 |\n| 根本尺度 | 人民满意 |\n\nA、B、D 三项对应均正确。特别提醒 D 项：**「人民满意」是根本尺度，不是根本目标**——这对词（尺度／目标）是高频设错点，你已经在这里折过。\n\n记忆抓手：**保（证）—党；任（务）—立德树人；目（标）—育人育才；使（命）—复兴；功（能）—现代化；尺（度）—人民满意**。两个「根本」在前（保证、任务），再排目标、使命、功能，最后收在尺度上。", "_id": 9}, {"id": 10, "type": "choice", "kp": "（回滚）统战·三个定位", "stem": "【回滚题 · 第 4 次出现，换为「填空式判断」】关于新时代爱国统一战线的定位，下列表述**正确**的一项是：", "options": ["统一战线的本质要求是「大团结大联合」，它解决的是人心和力量问题；坚持求同存异是统战工作的关键；党的领导是统一战线最鲜明的特征。", "统一战线的本质要求是「大团结」，它解决的是差异问题；坚持党的领导是统战工作的关键；求同存异是统一战线最鲜明的特征。", "统一战线的本质要求是「大联合」，它解决的是思想问题；坚持求同存异是统战工作的关键；党的领导是统一战线的根本任务。", "统一战线的本质要求是「大团结大联合」，它解决的是思想路线问题；党的领导和求同存异并列为统战工作的两大关键。"], "answer": "A", "explain": "A 是完整且准确的原文表述。\n\n你上次（9.18 卷）在这条上的错法是「把『大团结大联合』记成『大』，把『人心和力量』记成『差异』」——**记住了有个「大」字，却丢了词**。这是「只记特征不记完整表述」的典型，答案必须是文件原话，不能靠语感截取。\n\nB、C 两项复刻了你上次的错误写法（把「大团结大联合」砍成「大团结」或「大联合」，再配上一个错的对象）。D 项的第三句「并列为两大关键」是编造的。\n\n记忆抓手（四级递进链，不能跳）：\n**联合（本质要求＝大团结大联合）→ 人心（解决对象＝人心和力量问题）→ 存异（方法关键＝求同存异）→ 党旗（最鲜明特征＝党的领导）**。\n\n四步走：先说要联合谁（大团结大联合），再说解决什么（人心和力量），再说怎么联合（求同存异），最后说谁领着联合（党的领导）。", "_id": 10}, {"id": 11, "type": "choice", "kp": "（回滚·第 4 次）党的显著标志", "stem": "【回滚题 · 第 4 次出现，选项继续复刻你反馈原文里的错误写法，请仔细分辨】关于中国共产党的优良作风与「显著标志」，下列表述**正确**的一项是：", "options": ["理论联系实际、密切联系群众、批评和自我批评，连同人民至上与勇于自我革命，共同构成中国共产党区别于其他政党的显著标志。", "理论联系实际、密切联系群众、批评和自我批评是党的三大优良作风；勇于自我革命是中国共产党区别于其他政党的显著标志。", "三大优良作风加上「人民至上」，是党的七大确立的党的显著标志。", "勇于自我革命是党的七大确立的三大优良作风之一，也是中国共产党区别于其他政党的显著标志。"], "answer": "B", "explain": "B 正确：**两条独立来源各背各的**。\n\n- 党的**七大（1945 年）**：理论联系实际、密切联系群众、批评和自我批评 —— 是**三大优良作风**（不是「三个」，也**不含「人民至上」**）。\n- 党的**十九届六中全会《决议》**：**勇于自我革命**是中国共产党区别于其他政党的显著标志。\n\nA 是你原文里的错误写法（把三段作风、人民至上、勇于自我革命**并列成一句**），9.17 反馈里 AI 已明确提醒要拆开，你没改；C、D 都是把两条来源混搭。\n\n**这是本卷最需要警惕的一题。** 这道题将第 4 次出现在你的卷子上，前三次都错，且你选的都是自己原文里的错误写法——这说明问题**不在记忆，在笔记**。你的反馈文档里那句话本身就是错的，每看一遍就强化一次。\n\n**行动要求：今晚批改后回去把 9.17 反馈（优化版）里这条改掉**：把「三大优良作风＋人民至上＋勇于自我革命」这一句拆成两条——第一条只写三大优良作风，第二条另起写「勇于自我革命是区别于其他政党的显著标志」。笔记里的错误会原样迁移到考场，这比这道题的分值重要得多。\n\n记忆抓手：**七大管作风，六中全会管标志**——时间轴一拉就分开，永远不会串。", "_id": 11}, {"id": 12, "type": "choice", "kp": "（回滚）法治体系·五大体系", "stem": "【回滚题 · 第 4 次出现，改问「五体系在法治体系中的层级」】中国特色社会主义法治体系由五个子体系构成。下列关于这五大体系的表述，**错误**的一项是：", "options": ["完备的法律规范体系、高效的法治实施体系、严密的法治监督体系、有力的法治保障体系、完善的党内法规体系，共同构成中国特色社会主义法治体系。", "五大体系可以概括为「规—实—监—保—党」五个字，即以法律规范体系打头，以党内法规体系收尾。", "法治实施体系是五大体系中的「中间环节」，其地位是把纸面上的法律规范落到实际运行中。", "五大体系中，「党内法规体系」属于国家法律体系的组成部分，与国家法律规范体系是同一层级的规范。"], "answer": "D", "explain": "D 错：**党内法规体系与国家法律体系是两个不同的规范体系**，前者管党，后者管国家，二者不是「同一层级的一种」关系。中国特色社会主义法治体系把党内法规体系纳入其中，体现的是「依法治国与依规治党相统一」，而非把党内法规等同于国家法律。\n\nA 是五大体系的完整名称，五个定语一个不能少——**完备的**法律规范体系、**高效的**法治实施体系、**严密的**法治监督体系、**有力的**法治保障体系、**完善的**党内法规体系。\n\n记忆抓手（五字链）：**规 → 实 → 监 → 保 → 党**。\n法律**规**范 → 法治**实**施 → 法治**监**督 → 法治**保**障 → **党**内法规。\n\n注意讲义给你的诊断仍然成立：你上次「五空全空」，却答对了「宪法／党章／民主集中制」三个精细辨析空。这说明**背诵顺序反了**——应当先把骨架背成顺口溜（规实监保党），再往里填细节。今晚请先闭眼背出这五个词，再去看细节。", "_id": 12}, {"id": 13, "type": "choice", "kp": "（回滚）全过程人民民主·四个相统一", "stem": "【回滚题 · 第 4 次出现，改问「结构规律」】「全过程人民民主」的「四个相统一」在结构上有规律可循。下列说法**正确**的一项是：", "options": ["四个相统一中，过程民主与成果民主、程序民主与实质民主、直接民主与间接民主这三对，都属于「同一民主的两个侧面」，第四对是人民民主与国家意志相统一。", "四个相统一中，选举民主与协商民主相统一是其中一对，其余三对分别是过程与成果、程序与实质、直接与间接。", "四个相统一全部是「同一民主的两个侧面」，人民民主与国家意志相统一也包括在内，四对结构完全对称。", "四个相统一中的第四对是「人民民主与协商民主相统一」，选举民主与间接民主则是另一对。"], "answer": "A", "explain": "A 正确，这也是这道题交给你的**结构规律**：四对里有**三对是「同一民主的两个侧面」**（过程／成果、程序／实质、直接／间接），**最后一对是「人民民主／国家意志」**——第四对换了比较对象，不再是民主内部的两个侧面。\n\nB 错：**「选举民主与协商民主相统一」不属于四个相统一**。这是你 9.18 卷上第一次错的地方（把包含项当成了不包含项）。选举民主与协商民主是**两种实现形式**，不是「一组统一」——二者并列存在，不构成「相统一」的关系。\nC 错：第四对与前三对结构并不对称，说「完全对称」是把规律记反了。\nD 错：第四对是「人民民主与国家意志」，被篡改成「人民民主与协商民主」。\n\n记忆抓手：**三对同源 + 一对跨域**。同源的三对都是「民主自己的两面」（过程/成果、程序/实质、直接/间接）；跨域的那一对把「人民」与「国家意志」拉在一起。看到「选举民主／协商民主」出现在选项里，直接判错——它们是**形式**，不是**统一**。", "_id": 13}, {"id": 14, "type": "choice", "kp": "（回滚）「最根本」三条线", "stem": "【回滚题 · 第 4 次出现，改问「后缀归属」】下列三处关于「最根本」的表述，**全部正确**的一项是：", "options": ["①取得一切成就最根本的原因是有中国共产党的坚强领导；②统一战线是中国共产党夺取革命、建设、改革事业胜利的最根本的保证；③人心向背、力量对比是决定党和人民事业成败的最核心最根本的问题。", "①取得一切成就最根本的原因在于中国人民的爱国情怀和坚持奋斗；②统一战线是最核心最根本的问题；③人心向背是夺取革命、建设、改革事业胜利最根本的保证。", "①取得一切成就最根本的保证是有中国共产党的坚强领导；②统一战线最根本的问题是人心和力量；③人心向背是决定事业成败的最根本的保证。", "①取得一切成就最核心最根本的问题是有中国共产党的坚强领导；②统一战线最根本的保证是人心和力量；③人心向背是最根本的原因。"], "answer": "A", "explain": "A 正确，三处后缀一一对应。\n\n你的错法（9.18 卷）是**用主观感受替换客观表述**——第 1 空答了「中国人民的爱国情怀和坚持奋斗」。政治选择题最常见的失分模式就是这一种：答案必须是文件原话，不是自己的理解。\n\nB、C、D 三项全部是把三个后缀**打乱互换**（把「坚强领导」的落点换成「爱国情怀」，把「最根本的保证」与「最核心最根本的问题」对调）。这类题的破解方法不是死记句子，而是记住「**问什么就配什么**」的对应表：\n\n| 问法 | 落点 |\n|---|---|\n| 取得一切成就最根本的**原因** | 中国共产党的坚强领导 |\n| 夺取事业胜利最根本的**保证** | 统一战线 |\n| 决定事业成败最**核心最根本的问题** | 人心向背、力量对比 |\n\n记忆抓手：见「**最根本**」→ 先问**问题指向什么**。问原因（过去的成就）落党；问保证（事业的胜利）落统战；问问题（成败的关键）落人心。**三个后缀三把钥匙，一一对应，不许串门。**", "_id": 14}, {"id": 15, "type": "choice", "kp": "（回滚）老年数字鸿沟·两个细分术语", "stem": "【回滚题 · 第 4 次出现，改问「术语顺序与内涵匹配」】老年群体在传统「接入沟」之外，还常被进一步细分为两个术语。下列关于这两个术语及其内涵的对应，**正确**的一项是：", "options": ["「动机沟」指从「技术不可及」转向「主观不接入」；「风险与收益沟」指接入增加—风险暴露增加—实际收益有限。", "「动机沟」指接入增加—风险暴露增加—实际收益有限；「风险与收益沟」指从「技术不可及」转向「主观不接入」。", "「使用沟」指从「技术不可及」转向「主观不接入」；「素养沟」指接入增加—风险暴露增加—实际收益有限。", "「动机沟」指老年人完全无法获得智能设备；「风险与收益沟」指老年人不愿学习使用智能设备。"], "answer": "A", "explain": "A 正确，两个术语的指向不能互换。\n\n你上次（9.18 卷）这两空**全空**，说明是「从没背过」而非「记混」，所以这道题的顺序辨析就是来验证你有没有真的建立起词与内涵的绑定。\n\nB 是术语与内涵互换；C 用了「使用沟／素养沟」——那是**数字鸿沟谱系**里的中间环节，与老年群体的两个细分术语**不是同一组概念**，属于跨题污染；D 把两个术语都简化成了「完全无法获得设备」「不愿学习」，丢掉了「风险与收益」的核算维度。\n\n记忆抓手：老年数字鸿沟不是「不会用」一个词能概括的，分成**三层**：\n**没条件（接入沟）→ 不愿用（动机沟：技术不可及 → 主观不接入）→ 用了不划算（风险与收益沟：接入↑ → 风险暴露↑ → 实际收益有限）**。\n\n一句话串起来：「给得起，但不想要；要了，但不划算。」", "_id": 15}, {"id": 16, "type": "choice", "kp": "（回滚）三个「法」的分工", "stem": "【回滚题 · 第 4 次出现，改问「哪一套方法专门回答『怎么做』」】按讲义给出的三套方法，「社会环境法」「社会要素法」「社会思维法」各有其适用的问题类型。若一道题目要求你给出「**怎么办**」的对策性思路，应当选用哪一套？", "options": ["社会思维法——它专门答「怎么做」，按政治／经济／文化／技术／国际五个维度给出思维词。", "社会环境法——它列六类环境，专门答「外因与大背景」。", "社会要素法——它列政策、法律、资本、市场、技术、公民、舆论七要素，专门拆构成要件。", "三套方法都必须同时使用，缺一不可，因为「怎么办」是三种方法的综合产物。"], "answer": "A", "explain": "A 正确。三套方法的适用边界是这道题的全部考点。\n\n- 问「**为什么**这样」（外因与大背景）→ **社会环境法**（六类环境；学理支撑：克罗兹四大元过程 + 史安斌、盛阳「四化」）\n- 问「**是什么**构成」（构成要件）→ **社会要素法**（政策、法律、资本、市场、技术、公民、舆论七要素；学理支撑：十九届四中全会社会治理体系）\n- 问「**怎么办**」（对策思路）→ **社会思维法**（按政治／经济／文化／技术／国际五维给思维词）\n\nB、C 两项本身描述无误，只是**答错了题**——它们是另两套方法的正确说明，不适用于「怎么办」。D 项是典型的糊弄式选项，「必须同时使用」在讲义里没有依据。\n\n你上次（9.19 卷）的错法是**方向性错误**：把这三套方法当成「就是『社会框架 PETCSI』的不同说法」。PETCSI 是**分析维度**，三套「法」是**三套不同的操作路径**，二者不是一回事。\n\n记忆抓手（按问法选方法，一句话）：\n**问「为什么」用环境法，问「是什么构成」用要素法，问「怎么办」用思维法。**\n三句话配三个动词：**环境→解释；要素→拆解；思维→献策**。", "_id": 16}, {"id": 17, "type": "choice", "kp": "时政·AI 内容标识办法", "stem": "为规范 AI 生成内容、保障用户知情权与责任溯源，我国于 2025 年出台《人工智能生成合成内容标识办法》。关于这一制度，下列说法**正确**的一项是：", "options": ["该办法要求服务提供者对生成合成内容添加标识，标识分为「显式标识」与「隐式标识」两类，用户可通过显式标识直观感知内容系 AI 生成。", "该办法规定所有 AI 生成内容必须一律加注大声明的口播提示，且禁止使用隐式标识。", "该办法仅适用于面向公众的内容平台，不约束模型服务提供者，属于事后追责机制。", "该办法要求平台对 AI 内容一律作删除处理，以从源头消除虚假信息。"], "answer": "A", "explain": "A 正确。**显式标识 / 隐式标识二分**是这套制度的核心设计：\n\n- **显式标识**：以文字、声音、图形等用户可直接感知的方式呈现（如角标、声明、语音提示），目的是让用户一眼知道这是 AI 生成。\n- **隐式标识**：在文件元数据中嵌入生成合成信息，用于**溯源与责任认定**，用户不直接感知。\n\nB、C、D 都是编造的极端化表述——「一律口播」「只约束平台」「一律删除」都不符合制度设计。这套办法的思路是用**标识＋溯源**实现「可识别、可追溯」，而不是简单删除。\n\n这一题与你今晚背的 **AIGC 名解**、以及卷上第 4 题的四影响框架（「伦理挑战」那一层）是同一知识群。复习时把三处连起来：AIGC 是什么（名解）→ 带来什么（四影响）→ 怎么治理（标识办法）。", "_id": 17}]}, {"name": "三、英语二 · 词汇与翻译（3 题）", "questions": [{"id": 18, "type": "fill", "blanks": 3, "kp": "（回滚）高频动词短语与词汇", "stem": "【回滚题 · 第 4 次出现，换语境重考】根据中文提示，用英语补全句子（每空写一个单词或词组，注意时态与搭配）：\n\n（1）新规现已生效，监管机构将严厉**打击**任何未经授权使用用户数据的行为。\n　　The new rules are now in force, and regulators will ______ any unauthorized use of user data.\n\n（2）火车窗外，**大草原**一直延伸到地平线。\n　　Outside the train window, the ______ stretched all the way to the horizon.\n\n（3）摆在决策者面前的问题比去年**棘手得多**。\n　　The problems facing policymakers are far ______ than they were last year.", "answer": "（1）crack down on　（2）prairie　（3）thornier", "keys": "每空 1 分，共 3 分。（1）须含 crack down，介词 on 可用可省，时态正确；（2）拼写完整正确；（3）须为比较级形式 thornier。", "explain": "这三条是错题本里反复出现的硬伤，逐条钉住：\n\n**（1）crack down on** — 你写成了「崩塌」。**「崩塌」是 collapse**。crack down 是动作朝向外的「打压」，联想画面：警方扫荡。判断技巧：crack down 后面**接对象**（on sth），而 collapse 后面不接对象——「崩塌」是自己塌，「打击」是打别人。\n\n**（2）prairie** — 你写的是「？」。三个形近词一起记：`prairie` 大草原 / `plain` 平原 / `plateau` 高原。口诀：**prairie 有「rain」，草原多雨**。\n\n**（3）thornier** — 你译成了「更尖锐」。接近但不准，正确是「**更棘手的**」。搭配固定为「问题更棘手」：`a thorny issue` = 棘手的问题（字面「多刺的」，刺手＝棘手）。程度副词 `far` 修饰比较级，翻译时「**得多**」不能丢。\n\n这三条已在你的卷子上出现过三次，这是第 4 次。**如果这次还错，说明词汇表没有真正过筛，需要把这三条单独抄进生词本**，不要指望靠做卷子记住它们。", "_id": 18}, {"id": 19, "type": "translate", "kp": "（回滚）长难句·比较级与程度副词", "stem": "【回滚题 · 第 4 次出现，换句子】翻译下面这句话，并完成两个附加任务。\n\n> Those who believe that artificial intelligence will replace human judgment are far more likely to overlook the subtle ethical questions that journalists routinely confront.\n\n附加任务：\n（1）指出全句**主干**；\n（2）说明 `far more likely` 在译文中必须如何处理，为什么不能省略。", "answer": "【参考译文】\n那些认为人工智能将取代人类判断的人，**远远更有可能**忽视记者们日常面对的、那些微妙的伦理问题。\n\n【主干】Those ... are far more likely to overlook the subtle ethical questions.\n主语：Those（who 引导定语从句修饰）\n谓语：are\n表语／补足语结构：far more likely to overlook ...\n宾语：the subtle ethical questions（后接 that 引导的定语从句修饰）\n\n（1）主干如上：`Those ... are far more likely to overlook the ethical questions.` 两个定语从句（who... 修饰 Those；that... 修饰 questions）都是外挂成分，剥离后主干极短。\n\n（2）`far more likely` 中的 **far 是程度副词，修饰比较级 more likely**，必须译出「**远远、得多**」这一层程度；**比较级本身也不能省**，必须译成「更有可能」而不是「有可能」。省掉 far 就丢掉了原文对程度的强调，是英二翻译的固定扣分点。此外 `those` 应译出「**那些……的人**」，不能只译「人」。", "keys": "句子主干正确（Those are far more likely to overlook the questions）2 分；两个定语从句的位置与修饰对象说清 1 分；`far more likely` 译为「远远更有可能／可能性大得多」2 分；`those` 译出「那些……的人」1 分；译文通顺无语病 1 分。共 7 分。", "explain": "你上次（9.18 卷）在同类句上漏译了 `are far more likely to feel threatened`，只译成「感到受到威胁」——**比较级和程度副词整体丢失**。这是你在这类句子上第 4 次接受检验。\n\n英二翻译比较级的三条铁律：\n1. **比较级必须译出「更」**，不能降级成原级；\n2. **程度副词（far / much / a lot / even / still）必须译出「得多／远远／甚至」**，它们是独立采分点；\n3. **`those who / those ...` 结构必须补出「……的人」**，中文不能光秃秃地留一个「那些」。\n\n记忆抓手：**「更」字不能丢，「得多」不能吞，「的人」不能少。**翻译时先在草稿上圈出这三个成分，再落笔。", "_id": 19}, {"id": 20, "type": "short", "rows": 6, "kp": "英语方法反思", "stem": "英语方法反思。\n\n你在 9.18 卷与后续三张卷子上，反复在**同一批词汇**和**同一类句式**上失分。请结合下面两个现象，写一段不超过 200 字的方法反思：\n\n现象一：`crack down on` 你连续答成「崩塌」，`thornier` 答成「更尖锐」，`prairie` 留空。\n现象二：`are far more likely to...` 你只译出「感到受到威胁」，程度副词与比较级整体丢失。\n\n要求说明：①这两类失分各自属于什么性质的问题；②你打算用什么具体动作在两周内解决它们。", "answer": "【参考思路，不唯一】\n\n① 两类失分性质不同：\n- 现象一属**词汇层面的「只记大意、方向记反」**。crack down on 与 collapse 的方向恰好相反（对外的打压 / 自身的崩塌），说明记单词时只记了一个模糊的中文印象，没有绑定「动作方向」和「搭配对象」。thornier 的「尖锐／棘手」是近义范围，说明记的是近义词而非精确义项。prairie 留空则是**词表根本没覆盖**。\n- 现象二属**句法层面的「成分识别失败」**。比较级 far more likely 是独立成分，你的注意力全放在实义动词上，导致修饰成分被整块跳过。这不是词汇问题，是**长难句切分的方法没建立**。\n\n② 可执行动作（示例）：\n- 词汇：建一张「陷阱词表」，每条强制写三项——**确切中文义、搭配介词、一个反向对照词**（如 crack down on ↔ collapse；prairie ↔ plain/plateau）。每天早读前过一遍，只看中文说英文，说不出的打星，每周清一次星。\n- 句式：翻译前先做「**圈三样**」动作——先圈出**比较级、程度副词、those 结构**再落笔，把这三样当作固定检查项。每次翻译后回看这三样是否全部落地，漏一个就重译一遍。\n- 时间安排：两周内完成 40 条陷阱词 + 30 句「圈三样」练习，每天 20 分钟。", "keys": "①区分两类性质——词汇层「方向/义项不精确」与句法层「成分识别失败」，各 2 分（共 4 分）；②给出具体可执行动作，须落到「做什么动作、多少量、多久」，空洞的「多背单词」「多练习」不得分（3 分）；③反思中提及「搭配对象」「比较级/程度副词作为固定检查项」等具体抓手加分（1 分）。共 8 分。", "explain": "这道题没有标准答案，但评分的硬标准是：**你能不能把「记不牢」和「不会切分」区分开**。\n\n你的词汇失分不是「见过的词记不住」，而是「记的是一个模糊的中文印象」——crack down on 记成「崩塌」，错在**动作方向**；thornier 记成「更尖锐」，错在**义项精度**；prairie 留空，是**覆盖缺口**。三种不同，对应三种不同的补法：方向错→记搭配对象；义项错→记精确对应；覆盖缺口→补词表。\n\n句式失分是另一条线。比较级与程度副词在英语里是**独立采分点**，但如果你的翻译习惯是「看懂大意就落笔」，这些成分永远会被跳过。所以解法不是「更仔细」，而是**建立一个自动化的检查动作**——「圈三样」。把注意力从「我懂没懂」转到「这三个成分我圈了没」。\n\n这两条你已经在四张卷子上重复出现了。**重复失分说明的不是能力问题，是动作没建立。**今晚把「陷阱词表」和「圈三样」两个动作写进明天的计划表，比再做一张卷子有用。", "_id": 20}]}]};
+const QUIZID = "2026-10-06b";
+const KEY = "quiz_" + QUIZID;
+const TOTAL = 20;
+
+// ---- 状态存取 ----
+let state = JSON.parse(localStorage.getItem(KEY) || "{}");
+
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+function answeredCount(){
+  let n = 0;
+  QUIZ.sections.forEach(s => s.questions.forEach((q, i) => {
+    const id = q._id;
+    const v = state[id];
+    if (q.type === "choice") { if (v) n++; }
+    else if (q.type === "fill") {
+      if (v && Object.values(v).some(x => (x||"").trim())) n++;
+    }
+    else { if (v && v.trim()) n++; }
+  }));
+  return n;
+}
+
+function updateProgress(){
+  const n = answeredCount();
+  const pct = Math.round(n / TOTAL * 100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("ptext").textContent = `已作答 ${n} / ${TOTAL}`;
+  document.getElementById("tbCount").textContent = `${n} / ${TOTAL}`;
+  document.getElementById("doneTip").classList.toggle("show", n >= TOTAL);
+}
+
+function flashSaved(n){
+  const el = document.querySelector(`.saved[data-saved="${n}"]`);
+  if (!el) return;
+  el.textContent = "已保存";
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 1200);
+}
+
+// ---- 绑定交互 ----
+document.querySelectorAll(".opt input").forEach(inp => {
+  inp.addEventListener("change", e => {
+    const n = +e.target.name.replace("q", "");
+    state[n] = e.target.value;
+    save(); updateProgress(); flashSaved(n);
+  });
+});
+
+document.querySelectorAll(".fillin").forEach(inp => {
+  inp.addEventListener("input", e => {
+    const n = e.target.dataset.q, b = e.target.dataset.b;
+    state[n] = state[n] || {};
+    state[n][b] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+document.querySelectorAll(".shortin,.transin").forEach(ta => {
+  ta.addEventListener("input", e => {
+    const n = e.target.dataset.q;
+    state[n] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+// 查看解析
+document.querySelectorAll(".btn-ans").forEach(b => {
+  b.addEventListener("click", () => {
+    const n = b.dataset.q;
+    const box = document.querySelector(`.ansbox[data-ans="${n}"]`);
+    const open = !box.hidden;
+    box.hidden = open;
+    b.textContent = open ? "查看解析" : "收起解析";
+  });
+});
+
+document.getElementById("btnRevealAll").addEventListener("click", function(){
+  const anyHidden = [...document.querySelectorAll(".ansbox")].some(b => b.hidden);
+  document.querySelectorAll(".ansbox").forEach(b => b.hidden = !anyHidden);
+  document.querySelectorAll(".btn-ans").forEach(b => {
+    b.textContent = anyHidden ? "收起解析" : "查看解析";
+  });
+  this.textContent = anyHidden ? "收起全部解析" : "展开全部解析";
+});
+
+// 清空
+document.getElementById("btnReset").addEventListener("click", () => {
+  if (!confirm("确定清空全部作答？此操作不可撤销。")) return;
+  state = {}; save();
+  document.querySelectorAll(".opt input").forEach(i => i.checked = false);
+  document.querySelectorAll(".fillin,.shortin,.transin").forEach(i => i.value = "");
+  updateProgress();
+});
+
+// ---- 导出答案 ----
+function buildExport(){
+  const L = [];
+  L.push(`# ${QUIZ.title} — 我的作答`);
+  L.push("");
+  L.push(`日期：${QUIZ.date}`);
+  L.push(`完成：${answeredCount()} / ${TOTAL} 题`);
+  L.push("");
+  const tname = {choice:"单选", fill:"填空", short:"问答", translate:"长难句翻译"};
+  QUIZ.sections.forEach(s => {
+    L.push(`## ${s.name}`);
+    L.push("");
+    s.questions.forEach(q => {
+      const v = state[q._id];
+      L.push(`### ${q._id}. [${tname[q.type]}]`);
+      L.push(q.stem);
+      L.push("");
+      if (q.type === "choice") {
+        L.push(`**我的答案：** ${v ? v : "（未作答）"}`);
+      } else if (q.type === "fill") {
+        const arr = [];
+        for (let i = 0; i < (q.blanks || 1); i++) {
+          const k = String(i);
+          arr.push(`第${i+1}空：${(v && v[k]) ? v[k] : "（空）"}`);
+        }
+        L.push(`**我的答案：** ${arr.join("　")}`);
+      } else {
+        L.push(`**我的答案：**`);
+        L.push("");
+        L.push(v && v.trim() ? v : "（未作答）");
+      }
+      L.push("");
+    });
+  });
+  return L.join("\n");
+}
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  document.getElementById("exportArea").value = buildExport();
+  document.getElementById("modal").classList.add("show");
+});
+document.getElementById("btnCloseModal").addEventListener("click", () => {
+  document.getElementById("modal").classList.remove("show");
+});
+document.getElementById("btnDownload").addEventListener("click", () => {
+  const blob = new Blob([buildExport()], {type:"text/markdown;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${QUIZID}-我的作答.md`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") e.target.classList.remove("show");
+});
+
+// ---- 恢复状态 ----
+(function restore(){
+  document.querySelectorAll(".opt input").forEach(inp => {
+    const n = +inp.name.replace("q", "");
+    if (state[n] === inp.value) inp.checked = true;
+  });
+  document.querySelectorAll(".fillin").forEach(inp => {
+    const n = inp.dataset.q, b = inp.dataset.b;
+    if (state[n] && state[n][b] != null) inp.value = state[n][b];
+  });
+  document.querySelectorAll(".shortin,.transin").forEach(ta => {
+    const n = ta.dataset.q;
+    if (state[n] != null) ta.value = state[n];
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
