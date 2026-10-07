@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考研每日测验 · 10.7 综合卷（素材：实务大明白·消息改写第一/二讲）</title>
+<style>
+:root{
+  --bg:#f7f8fb; --card:#fff; --ink:#1c2430; --sub:#60708a;
+  --line:#e3e8f0; --blue:#2F5B9E; --blue-l:#e8eef8;
+  --green:#1f8a52; --green-l:#e6f5ec;
+  --amber:#b4740a; --amber-l:#fdf3e0;
+  --red:#c0392b; --red-l:#fdeceb;
+  --violet:#6b4ea8; --violet-l:#f0ebfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+    "Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.7;
+  padding:0 0 120px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+/* 顶部 */
+header{
+  background:linear-gradient(135deg,#2F5B9E 0%,#40699f 60%,#5b7fb5 100%);
+  color:#fff;padding:34px 0 26px;margin-bottom:24px;
+  box-shadow:0 2px 14px rgba(47,91,158,.18);
+}
+header h1{font-size:23px;font-weight:650;letter-spacing:.3px;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.85}
+.statline{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chip{
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);
+  border-radius:999px;padding:4px 13px;font-size:12.5px;backdrop-filter:blur(4px)
+}
+
+/* 进度条 */
+.progress-sticky{
+  position:sticky;top:0;z-index:50;background:rgba(247,248,251,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  padding:10px 0;margin-bottom:8px;
+}
+.pbar{height:7px;background:#e6eaf2;border-radius:99px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,#2F5B9E,#5b8fd4);
+  border-radius:99px;transition:width .35s ease}
+.ptext{font-size:12.5px;color:var(--sub);margin-top:6px;display:flex;
+  justify-content:space-between}
+
+/* 分区 */
+.sec{margin:30px 0 0}
+.sec h2{
+  font-size:16.5px;font-weight:640;color:var(--blue);
+  display:flex;align-items:center;gap:9px;padding-bottom:9px;
+  border-bottom:2px solid var(--blue-l);margin-bottom:16px;
+}
+.dot{width:9px;height:9px;border-radius:3px;background:var(--blue);
+  display:inline-block;flex:0 0 auto}
+.secmeta{margin-left:auto;font-size:12px;color:var(--sub);font-weight:400}
+
+/* 题目卡片 */
+.q{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:17px 19px;margin-bottom:13px;transition:border-color .2s,box-shadow .2s;
+}
+.q:focus-within{border-color:#b9cdea;box-shadow:0 3px 14px rgba(47,91,158,.09)}
+.qhead{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.qno{
+  width:26px;height:26px;border-radius:8px;background:var(--blue);
+  color:#fff;font-size:13px;font-weight:600;display:flex;
+  align-items:center;justify-content:center;flex:0 0 auto;
+}
+.qtag{font-size:11.5px;padding:2px 9px;border-radius:6px;font-weight:500}
+.t-choice{background:var(--blue-l);color:var(--blue)}
+.t-fill{background:var(--green-l);color:var(--green)}
+.t-short{background:var(--violet-l);color:var(--violet)}
+.t-translate{background:var(--amber-l);color:var(--amber)}
+.kp{font-size:11.5px;color:var(--sub);margin-left:auto}
+.stem{font-size:14.8px;margin-bottom:12px;white-space:pre-wrap}
+
+/* 单选 */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 13px;
+  border:1px solid var(--line);border-radius:9px;cursor:pointer;
+  transition:all .16s;font-size:14.2px;
+}
+.opt:hover{background:#f4f7fc;border-color:#c3d5ee}
+.opt input{display:none}
+.opt .letter{
+  width:21px;height:21px;border-radius:6px;background:#eef1f6;color:var(--sub);
+  font-size:12px;font-weight:600;display:flex;align-items:center;
+  justify-content:center;flex:0 0 auto;margin-top:2px;transition:all .16s;
+}
+.opt input:checked~.letter{background:var(--blue);color:#fff}
+.opt:has(input:checked){background:var(--blue-l);border-color:#9dbde6}
+.otext{flex:1}
+
+/* 填空 */
+.fills{display:flex;flex-direction:column;gap:8px}
+.fillin{
+  font-family:inherit;font-size:14.2px;padding:9px 13px;
+  border:1px solid var(--line);border-radius:8px;background:#fcfdff;
+  transition:all .16s;width:100%;
+}
+.fillin:focus{outline:none;border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 文本域 */
+.shortin,.transin{
+  font-family:inherit;font-size:14.2px;line-height:1.75;padding:11px 14px;
+  border:1px solid var(--line);border-radius:9px;background:#fcfdff;
+  width:100%;resize:vertical;transition:all .16s;
+}
+.shortin:focus,.transin:focus{outline:none;border-color:var(--blue);
+  background:#fff;box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 按钮与解析 */
+.qfoot{display:flex;align-items:center;gap:11px;margin-top:11px}
+.btn-ans{
+  font-family:inherit;font-size:12.5px;padding:5px 13px;border-radius:7px;
+  border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;
+  transition:all .16s;
+}
+.btn-ans:hover{background:var(--blue-l);border-color:#a8c4e8;color:var(--blue)}
+.saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
+.saved.show{opacity:1}
+.ansbox{
+  margin-top:12px;padding:13px 15px;background:#fafbfd;
+  border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-size:13.8px;
+}
+.ansline{margin-bottom:8px;display:flex;gap:9px;line-height:1.7}
+.ansline:last-child{margin-bottom:0}
+.ansline b{
+  flex:0 0 auto;color:var(--blue);font-size:12px;font-weight:640;
+  background:var(--blue-l);padding:2px 8px;border-radius:5px;height:fit-content;
+  margin-top:3px;
+}
+.ansline .got{color:var(--green);font-weight:600}
+
+/* 底部操作栏 */
+.toolbar{
+  position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);padding:12px 20px;z-index:60;
+  backdrop-filter:blur(10px);box-shadow:0 -2px 16px rgba(28,36,48,.07);
+}
+.tb-inner{max-width:820px;margin:0 auto;display:flex;
+  align-items:center;gap:11px;flex-wrap:wrap}
+.btn{
+  font-family:inherit;font-size:13.5px;padding:9px 19px;border-radius:9px;
+  border:none;cursor:pointer;font-weight:530;transition:all .16s;
+}
+.btn-main{background:var(--blue);color:#fff}
+.btn-main:hover{background:#264d87;transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--sub);border:1px solid var(--line)}
+.btn-ghost:hover{background:#f4f6fa;color:var(--ink)}
+.tb-count{font-size:13px;color:var(--sub);margin-left:auto}
+
+/* 完成提示 */
+.done-tip{
+  margin-top:22px;padding:18px 20px;border-radius:12px;
+  background:var(--green-l);border:1px solid #bfe5ce;color:#14603a;
+  font-size:14px;display:none;
+}
+.done-tip.show{display:block}
+.done-tip b{display:block;margin-bottom:6px;font-size:15px}
+
+/* 答案导出弹层 */
+.modal{
+  position:fixed;inset:0;background:rgba(20,28,40,.5);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:#fff;border-radius:14px;max-width:660px;width:100%;
+  max-height:82vh;display:flex;flex-direction:column;overflow:hidden;
+}
+.modal-head{padding:17px 21px;border-bottom:1px solid var(--line);
+  font-weight:620;font-size:15.5px;color:var(--blue)}
+.modal-body{padding:18px 21px;overflow-y:auto;flex:1}
+.modal-body textarea{
+  width:100%;height:340px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.65;border:1px solid var(--line);
+  border-radius:9px;padding:13px;background:#fafbfd;resize:vertical;
+}
+.modal-foot{padding:14px 21px;border-top:1px solid var(--line);
+  display:flex;gap:10px;justify-content:flex-end}
+.modal-tip{font-size:12.5px;color:var(--sub);margin-bottom:11px;line-height:1.65}
+
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  header{padding:26px 0 20px}
+  header h1{font-size:19px}
+  .q{padding:14px 15px}
+  .stem{font-size:14.2px}
+  .tb-count{display:none}
+  .kp{margin-left:0;width:100%}
+}
+@media print{
+  .toolbar,.btn-ans,.progress-sticky{display:none}
+  .ansbox[hidden]{display:block!important}
+  .q{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>考研每日测验 · 10.7 综合卷（素材：实务大明白·消息改写第一/二讲）</h1>
+    <div class="meta">2026-10-07 · 共 20 题 · 今晚 22:30 自动生成</div>
+    <div class="statline">
+      <span class="chip">单选 11</span>
+      <span class="chip">填空 2</span>
+      <span class="chip">问答 5</span>
+      <span class="chip">长难句 2</span>
+    </div>
+  </div>
+</header>
+
+<div class="progress-sticky">
+  <div class="wrap">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <div class="ptext">
+      <span id="ptext">已作答 0 / 20</span>
+      <span>进度自动保存，刷新不丢</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  
+<section class="sec">
+  <h2><span class="dot"></span>一、专业课 · 消息改写（实务为主动作）
+    <span class="secmeta">8 题</span></h2>
+  
+<div class="q" data-q="1" data-type="choice">
+  <div class="qhead">
+    <span class="qno">1</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">消息结构·五种范式</span>
+  </div>
+  <div class="stem">关于消息的五种常见结构，下列表述**错误**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q1" value="A"><span class="letter">A</span><span class="otext">倒金字塔式结构按重要性递减的顺序安排材料，也称倒三角结构；它打破叙事常规，依据事实的重要程度而非时间顺序排列段落，呈「头重脚轻」之势。</span></label><label class="opt"><input type="radio" name="q1" value="B"><span class="letter">B</span><span class="otext">时间顺序结构又称编年体式结构、金字塔式结构；因其开头段落对受众吸引力较弱，题材的重大往往成为选用的主要因素。</span></label><label class="opt"><input type="radio" name="q1" value="C"><span class="letter">C</span><span class="otext">沙漏式结构是倒金字塔式与金字塔式的混合体：导语先呈现最重要最新鲜的事实，主体再按事实重要性递减组织若干段落，随后按时间顺序排列材料。</span></label><label class="opt"><input type="radio" name="q1" value="D"><span class="letter">D</span><span class="otext">华尔街日报体以一个与主题相关的故事开篇，过渡到核心段后综合背景材料展开报道，最后回到开头的故事形成闭环；它要求结尾必须回到开篇的故事，否则不成立。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="1">查看解析</button>
+    <span class="saved" data-saved="1"></span>
+  </div>
+  <div class="ansbox" data-ans="1" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>**D 错在最后一句。「结尾必须回到开篇的故事」是把华体公式化了**——讲义明确说「这种模式化的总结在某种程度上简化了『华体』的写作特点，窄化了它的应用范围」。布隆代尔在《〈华尔街日报〉是如何讲故事的》中也指出根本不存在机械的华体模式。我国新闻界实际使用时常常改造：有的开头加注编者按，或由总括句引领再嵌小故事；**有的小故事与主题毫无关联只为强化基调；有的结尾干脆不再回到开篇的小故事**——讲义称之为「类华尔街日报体」，同样是合法写法。
+
+A 是倒金字塔的定义与两大特点（打破叙事常规＋头重脚轻）；B 是时间顺序结构的定义与适用场景，一字不差；C 是沙漏式的定义，注意它的段落顺序是**先递减再时间**，这个次序容易记反。
+
+记忆抓手：五种结构 ＝ **倒 / 时 / 沙 / 并 / 华**。判别口诀——「重要性递减」倒金字塔；「事情怎么发生就怎么写」时间顺序；「先倒后顺」沙漏；「两三条并列服务同一主题」并蒂；「小故事开篇又收尾」华体（收不收得回来**不作强制**）。</div></div>
+</div>
+<div class="q" data-q="2" data-type="short">
+  <div class="qhead">
+    <span class="qno">2</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">消息头·电与讯的区别</span>
+  </div>
+  <div class="stem">消息头是消息体裁的标志，也是考场上最容易「一错就丢分」的格式分。请回答：
+
+（1）「讯」与「电」在使用上有什么区别？各自的规范写法是什么？
+（2）消息头在文中的位置与空格有何要求？
+（3）如果材料里给出了记者姓名，改写时应当怎么处理？材料没给又该怎么处理？
+（4）有同学写成「（本报讯，记者张丹华）」，问题出在哪？</div>
+  <textarea class="shortin" data-q="2" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="2">查看解析</button>
+    <span class="saved" data-saved="2"></span>
+  </div>
+  <div class="ansbox" data-ans="2" hidden><div class="ansline"><b>参考答案</b>（1）「讯」一般不加时间和地点，写作「本报讯（记者xxx）」；「电」一般要加上时间和地点，但时间通常不加年份，写作「本报西安6月4日电（记者xxx）」。错误写法是「本报6月4日讯（记者xxx）」或「本报电（记者xxx）」——「讯」不能带时间地点，「电」不能缺时间地点。
+（2）消息头之前必须空两格。消息头与记者姓名之间空不空格没有统一规范，两种都行。
+（3）材料提供了记者姓名就照写，不要一律写「xxx」（如「本报讯（记者张丹华）」）；材料没提供才写「xxx」。绝不可以把记者写成自己的名字——改写消息属于编辑工作，与记者是两个工种，不能窃取记者的采编成果。
+（4）括号位置与标点错：破折号应为「（记者张丹华）」，不能用逗号分隔。正确是「本报讯（记者张丹华）」，「（本报讯，记者张丹华）」的逗号在括号内且置于单位与记者之间，格式不规范。</div><div class="ansline"><b>得分点</b>（, 1, ）, 讯, 无, 时, 间, 地, 点, ／, 电, 有, 时, 间, 地, 点, 且, 时, 间, 不, 加, 年, 份, ，, 两, 种, 规, 范, 写, 法, 各,  , 1,  , 分, ，, 共,  , 2,  , 分, ；, （, 2, ）, 消, 息, 头, 前, 空, 两, 格,  , 1,  , 分, ；, （, 3, ）, 照, 写, 材, 料, 所, 给, 记, 者, 名, 、, 绝, 不, 写, 自, 己, 名, 字, ，, 2,  , 分, ；, （, 4, ）, 指, 出, 逗, 号, 分, 隔, 与, 括, 号, 位, 置, 问, 题,  , 1,  , 分, 。, 共,  , 6,  , 分, 。</div><div class="ansline"><b>解析</b>这是**纯格式分**，评分标准里最容易「对就是对、错就是错」，也是最容易在考场上白丢的分。
+
+板书式记住三行：
+- **讯**：无时无地 → 「本报讯（记者xxx）」
+- **电**：有时有地、**时不带年** → 「本报西安6月4日电（记者xxx）」
+- **位置**：消息头前**空两格**；姓名与单位之间空不空随意
+
+两个高频错法：「本报6月4日讯」——给「讯」硬塞了时间；「本报电」——给「电」漏了时间地点。这两个错法讲义点名批评过，考场上出现即为硬伤。
+
+关于署名：改写消息是**编辑工种**，不要写成自己的名字。这一点讲义专门解释了「试卷上不能出现人名」的误传——不能出现的是你**自己**的名字，材料给的记者名必须照抄。</div></div>
+</div>
+<div class="q" data-q="3" data-type="choice">
+  <div class="qhead">
+    <span class="qno">3</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">标题·虚实关系与制作原则</span>
+  </div>
+  <div class="stem">根据标题制作的原理，下列说法**不符合**讲义要求的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q3" value="A"><span class="letter">A</span><span class="otext">「实题」指标题中叙述事实的部分，「虚题」指发表议论、表明意见的部分；虚实关系指在标题中把实题与虚题结合运用，既叙述新闻事实又揭示新闻意义。</span></label><label class="opt"><input type="radio" name="q3" value="B"><span class="letter">B</span><span class="otext">标题制作的第一条原则是「具体实在」，通常单行题必须是实题，复合式标题中必须有一个是实题。</span></label><label class="opt"><input type="radio" name="q3" value="C"><span class="letter">C</span><span class="otext">引题的主要功能是基于事实进行发挥、交代背景或阐发议论以引出主题，因此在复合式标题中引题应当是虚题；副题负责补充次要事实信息，应当是实题。</span></label><label class="opt"><input type="radio" name="q3" value="D"><span class="letter">D</span><span class="otext">标题一般控制在 20 字以内、写在纸上一行以内；数字尽量使用小数字、整数，如「34578 人」宜写成「3 万多人」。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="3">查看解析</button>
+    <span class="saved" data-saved="3"></span>
+  </div>
+  <div class="ansbox" data-ans="3" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>**B 项混淆了两个不同的表述。**「具体实在」确实是讲义列出的标题制作原则之首，但它的完整表述是「**叙述事实，指向明确**」；而「**单行题必须是实题，复合式标题中必须有一个是实题**」这句处理要求，讲义是放在「标题制作的原则」下与「题文相符」「简洁生动」并列讲的——它本身不错，B 的错在于把这一条说成是「第一条原则」的**同义表述**，实际三者是并列关系，不是包含关系。
+
+更准确的对照是：标题三原则 ＝ **具体实在 / 题文相符 / 简洁生动**；虚实要求 ＝ 单行题必为实题、复合式至少含一实题。
+
+A 是虚实关系的完整定义，无误。C 三行题的分工是讲义反复强调的结论：**引题（虚，基于事实发挥）＋ 主题（实，核心事实）＋ 副题（实，次要事实）**——常见错误是把引题写成实题、把副题写成虚题，记的时候按「**引虚、主实、副实**」口诀。D 是标题写作技巧的字数与数字规范，无误。</div></div>
+</div>
+<div class="q" data-q="4" data-type="fill">
+  <div class="qhead">
+    <span class="qno">4</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">导语·表意与叙述型细分</span>
+  </div>
+  <div class="stem">导语写作是本讲重点。请补全（每空填一个短语）：
+
+导语写作的三条主要要求是：①____（下笔直接扎在事实里，态度朴实不浮）；②____（以几十个字概述主要事实，切忌主次不分）；③____（用生动、具体、形象的简洁文字概述新闻主要事实）。
+
+另外，使用率最高、最「求稳」的叙述型导语又分为两种：直叙式与____。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="4" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="4" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="4" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="4" data-b="3" placeholder="第 4 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="4">查看解析</button>
+    <span class="saved" data-saved="4"></span>
+  </div>
+  <div class="ansbox" data-ans="4" hidden><div class="ansline"><b>参考答案</b>①实　②简　③活　④概括式</div><div class="ansline"><b>得分点</b>①, 实,  , 1,  , 分, ；, ②, 简,  , 1,  , 分, ；, ③, 活,  , 1,  , 分, ；, ④, 概, 括, 式,  , 1,  , 分, 。, 共,  , 4,  , 分, 。</div><div class="ansline"><b>解析</b>导语三要求就是**实—简—活**三个字，最容易记也最容易混。逐字钉死：
+- **实**：一面指事实（下笔直接扎在事实里、不拖泥带水），一面指态度（朴实扎实、不要浮）。
+- **简**：是对「实」的补充**和制约**——接触到事实但绝不允许洋洋洒洒写两三百字，要把最重要事实压缩成一句话（尽可能含主谓宾）。
+- **活**：生动、具体、形象。
+
+叙述型导语二分为 **直叙式**（开门见山，直截了当推出最有新闻价值的事实，讲究明白无讳）与**概括式**（大笔勾勒成「压缩饼干」，事件复杂曲折的报道宜用）。注意区分：**直叙＝点状直击，概括＝面状勾勒**。
+
+再补一层考点：叙述型导语是**使用率最高**的（因与客观叙述事实的文体特征最相适应）；评述型导语适用于政治性、政策性较强和重大事件题材，分**引语式 / 提问式 / 评论式**三小类。</div></div>
+</div>
+<div class="q" data-q="5" data-type="short">
+  <div class="qhead">
+    <span class="qno">5</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">标题·内部关系辨析</span>
+  </div>
+  <div class="stem">标题的双行题内部存在多种逻辑关系。请分别写出一句话实例（或用讲义原例）并说明关系名称，覆盖以下四种关系：
+
+①先总提后分述；②依照事实发生顺序表述；③反映行为与该行为的目的；④后句意思转到相反方面。</div>
+  <textarea class="shortin" data-q="5" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="5">查看解析</button>
+    <span class="saved" data-saved="5"></span>
+  </div>
+  <div class="ansbox" data-ans="5" hidden><div class="ansline"><b>参考答案</b>①**总分关系**。例：「动画建模、电影着色、视频渲染／百余名残疾人五年制成原创动画电影」——先分说三个环节，后总括核心事实。
+②**承接关系**。例：「百余名残疾人，改百余遍剧本／历时五年制成原创动画电影」——依照新闻事实发生的顺序或事理先后依次表述。
+③**目的关系**。例：「培训百余名残疾人制作动画电影／助力残障人士找回自信」——上句为载体与行为，下句为该行为指向的目的。
+④**转折关系**。例：「残疾人也能成为电影人／西安百余名残障人士制成动画电影」——后句不顺着前句往下说，而是转到相反方面（通常前句为悬念或反差铺垫）。</div><div class="ansline"><b>得分点</b>每, 点, 关, 系, 名, 称,  , 0, ., 5,  , 分,  , +,  , 实, 例, 或, 说, 明,  , 0, ., 5,  , 分, ，, 每, 点,  , 1,  , 分, ，, 共,  , 4,  , 分, 。, 名, 称, 须, 为, 「, 总, 分, ／, 承, 接, ／, 目, 的, ／, 转, 折, 」, 。</div><div class="ansline"><b>解析</b>标题内部关系讲义共列九种，背成一条串：**虚实 → 主次 → 并列 → 总分 → 承接 → 目的 → 转折 → 递进 → 条件**。
+
+四个待判别的特征词很好对号：
+- 「先总提后分述」→ **总分**
+- 「按事实发生顺序」→ **承接**
+- 「行为＋目的」→ **目的**
+- 「转到相反方面」→ **转折**
+
+再对照其余三种，避免串位：**并列**是几个事实并列（常用对偶排比），**递进**是后者比前者范围更大／情况更甚（「不仅…还…」），**条件**是某个假设条件与在该条件下产生的结果。转折与递进最容易混——**递进是同向升级，转折是反向掉头**，这是分界线。</div></div>
+</div>
+<div class="q" data-q="6" data-type="choice">
+  <div class="qhead">
+    <span class="qno">6</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">消息改写真题规律</span>
+  </div>
+  <div class="stem">综合讲义对 2020—2026 年各校消息改写真题的梳理，下列判断**错误**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q6" value="A"><span class="letter">A</span><span class="otext">消息改写的考查集中在三处：标题、导语、结构；考场上不要忘记消息头，它是常被漏掉的格式要素。</span></label><label class="opt"><input type="radio" name="q6" value="B"><span class="letter">B</span><span class="otext">标题类真题常要求区分单一式标题与复合式标题，复合式又细分为双行题（引题＋主题 / 主题＋副题 / 主题＋主题）与三行题。</span></label><label class="opt"><input type="radio" name="q6" value="C"><span class="letter">C</span><span class="otext">结构类真题中，倒金字塔结构被考查的频率最高；此外沙漏式、华尔街日报体也多次出现在材料改写题的要求里。</span></label><label class="opt"><input type="radio" name="q6" value="D"><span class="letter">D</span><span class="otext">导语类真题要求单一，各校基本都只考叙述型导语，描写型与评述型导语从未在真题中作为独立要求出现。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="6">查看解析</button>
+    <span class="saved" data-saved="6"></span>
+  </div>
+  <div class="ansbox" data-ans="6" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>**D 与讲义梳理的事实相反。** 讲义列出的导语真题里，明确要求描写型、评述型（议论型）的题目不止一处：陕西师范大学 2021 年要求写「叙述型、描写型、议论型三种」导语；陕西师范大学 2024 年要求「描写型导语和复合标题」；暨南大学 2026 年要求写「评论式导语」。**三种导语都考过，而且描写型与评述型的出现频率并不低**——因为它们是区分考生层次的题型。
+
+A、B、C 均与讲义梳理吻合：标题（单行／双行／三行、虚实结合）、导语（三种类型）、结构（倒金字塔／沙漏／华尔街日报体）是三大考查点，而消息头是「真题的秘密」里点名的易漏项。
+
+记忆抓手：消息改写真题的铁律一句话——**标题、导语、结构，不要忘记消息头**。备考时按这个顺序练，四块都不能空。</div></div>
+</div>
+<div class="q" data-q="7" data-type="short">
+  <div class="qhead">
+    <span class="qno">7</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">华尔街日报体·结构范式</span>
+  </div>
+  <div class="stem">讲座以「作家马伯庸用鸿门宴改写倒金字塔与华尔街日报体」为例，非常形象。请据此简述：
+
+（1）华尔街日报体的四段式结构模式是什么？（按「开头—过渡—主体—结尾」逐段说明）
+（2）它的核心本质可以用哪四个字概括？
+（3）这一体例的主要缺点是什么？</div>
+  <textarea class="shortin" data-q="7" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="7">查看解析</button>
+    <span class="saved" data-saved="7"></span>
+  </div>
+  <div class="ansbox" data-ans="7" hidden><div class="ansline"><b>参考答案</b>（1）四段式模式：
+① **开头**——描写某个具体故事（小人物、小场景、小细节），以此为由头，设置悬念、吸引读者。
+② **过渡**——从描述性的情节自然转到报道主题。
+③ **主体**——对主题进行详细阐述与解释，综合大量背景材料，大多采用倒金字塔式组织材料。
+④ **结尾**——呼应开头，或给出总结性的趣闻，形成闭环。
+（2）核心本质可用「**新闻故事化**」概括——从客观事实出发，让新闻更加生动、鲜活、富有场景感。
+（3）主要缺点：报道容易冗长，逻辑把握难度大；开篇的小故事往往很难寻觅，结尾也很难完全再次呼应开篇的小故事。</div><div class="ansline"><b>得分点</b>（, 1, ）, 四, 段, 各,  , 1,  , 分, 共,  , 4,  , 分, （, 须, 体, 现, 「, 小, 故, 事, 开, 头, ／, 过, 渡, 到, 主, 题, ／, 主, 体, 含, 背, 景, 多, 采, 用, 倒, 金, 字, 塔, ／, 结, 尾, 呼, 应, 」, ）, ；, （, 2, ）, 「, 新, 闻, 故, 事, 化, 」, 2,  , 分, ；, （, 3, ）, 冗, 长, 与, 逻, 辑, 难, 度, 、, 故, 事, 难, 寻, 且, 结, 尾, 难, 呼, 应, ，, 2,  , 分, 。, 共,  , 8,  , 分, 。</div><div class="ansline"><b>解析</b>四段式是讲义的原话：「开头（描写某个故事）——过渡（从描述性情节转到报道主题）——主体（对主题进行详细阐述解释，大多采用倒金字塔式）——结尾（呼应开头或总结性的趣闻）」。**注意主体部分讲义明确说「大多采用倒金字塔式」**，这是一个常被忽略的细节——华体不是反倒金字塔，而是把倒金字塔包在故事外壳里。
+
+「新闻故事化」是讲义给的定性判断句，本质上是把**特稿与非虚构写作**都纳入华体的延续脉络。
+
+马伯庸鸿门宴的例子是最好记的对照：**倒金字塔版**开篇即「刘邦在鸿门宴上险遭刺杀」——结果先出；**华体版**开篇是「樊哙闯进宴会时双手紧握短剑盾牌、头发直竖」——小人物的细节先出，然后才过渡到天下大局。同一材料，两种开篇各表一态。</div></div>
+</div>
+<div class="q" data-q="8" data-type="short">
+  <div class="qhead">
+    <span class="qno">8</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">消息改写·完整格式实操</span>
+  </div>
+  <div class="stem">【综合应用】假定材料为：某市 150 余名残疾人历时 5 年制作原创动画电影《花千谷之花魂之路》，近日在视频平台上线。团队负责人王磊（本人亦为残疾人）在西安成立影视公司与职业技能培训学校，带领团队完成影片；学校已培训 300 余名残疾人学员，就业率达 70%。记者姓名为张丹华，发稿地为西安，日期为 6 月 4 日。
+
+请按要求作答：
+（1）为这条消息拟一个**复合式标题**（引题＋主题），并分别注明引题、主题；
+（2）写一条**叙述型导语**（不超过 120 字），并配上规范的**消息头**；
+（3）说明你为整篇消息选择的**结构**，并简述理由（一句话）。</div>
+  <textarea class="shortin" data-q="8" rows="8" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="8">查看解析</button>
+    <span class="saved" data-saved="8"></span>
+  </div>
+  <div class="ansbox" data-ans="8" hidden><div class="ansline"><b>参考答案</b>（1）复合式标题（示例，符合规范即可）：
+【引题】（虚题，基于事实发挥）五年汗水，百余梦想
+【主题】（实题，概括核心事实）西安百余名残疾人制成原创动画电影
+——引题以「五年汗水」点出历时与付出，属基于事实的发挥；主题抓「百余名残疾人／原创动画电影」两个核心事实词，为实题，符合「引题虚、主题实」的分工。
+
+（2）叙述型导语（示例）：
+　　本报西安6月4日电（记者张丹华）150 余名残疾人历时 5 年，前后改了 100 多遍剧本的原创动画电影《花千谷之花魂之路》近日在视频平台上线。他们从中收获爱与鼓励，重新找回自信，逐步融入社会。
+——消息头规范：有地点（西安）有时间（6 月 4 日）、时间不加年份、记者姓名照写、消息头前空两格。
+
+（3）选择**倒金字塔结构**。理由：题目无特殊结构要求，且这条消息的核心事实（百余名残疾人制成动画电影并融入社会）本身具有重要性落差，用「遇事不决倒金字塔」最稳；导语已呈现最重要事实，主体按重要性递减补充团队构成、王磊创办动因、学校培训成效等材料。</div><div class="ansline"><b>得分点</b>（, 1, ）, 标, 题,  , 3,  , 分, ：, 结, 构, 为, 引, 题, ＋, 主, 题, 且, 标, 注, 正, 确,  , 1,  , 分, ；, 引, 题, 为, 虚, 题, （, 基, 于, 事, 实, 发, 挥, ）, 1,  , 分, ；, 主, 题, 为, 实, 题, 且, 抓, 准, 「, 百, 余, 名, 残, 疾, 人, ＋, 原, 创, 动, 画, 电, 影, 」, 核, 心, 事, 实,  , 1,  , 分, 。, （, 2, ）, 导, 语,  , 4,  , 分, ：, 消, 息, 头, 规, 范, （, 时, 地, 齐, 全, 、, 时, 间, 不, 带, 年, 、, 记, 者, 名, 正, 确, 、, 位, 置, 格, 式, 正, 确, ）, 2,  , 分, ；, 导, 语, 为, 叙, 述, 型, （, 直, 接, 陈, 述, 核, 心, 事, 实, 、, 无, 议, 论, 描, 写, 成, 分, ）, 1,  , 分, ；, 不, 超, 过,  , 1, 2, 0,  , 字, 且, 要, 素, 完, 整,  , 1,  , 分, 。, （, 3, ）, 结, 构,  , 2,  , 分, ：, 选, 倒, 金, 字, 塔,  , 1,  , 分, ；, 理, 由, 说, 明, 「, 无, 特, 殊, 要, 求, 时, 优, 先, 倒, 金, 字, 塔, 」, 或, 「, 答, 案, 无, 要, 求, 时, 最, 稳, 」, 1,  , 分, 。, 共,  , 9,  , 分, 。</div><div class="ansline"><b>解析</b>这是本卷唯一一道**完整格式实操题**，考的正是讲义总结的那条线：**分析材料 → 选择角度 → 确定结构 → 拟写标题 → 加消息头 → 设计导语 → 编排正文 → 检查修改**（「天龙八步」，可简记为「**析角度看结构、标题头语正文查**」）。
+
+三个评分锚点务必钉死：
+
+**① 标题虚实。** 引题写「五年汗水，百余梦想」这类发挥性表达是虚题；主题「西安百余名残疾人制成原创动画电影」是实题。**引题写成实题（直接陈述事实）或主题写成虚题（只抒情不落事实）都要扣分。** 这与课本「人民日报袁隆平标题」的范例一致：肩题「杂交水稻之父袁隆平院士」概括成就，主题「一稻济世 万家粮足」提炼意义。
+
+**② 消息头。** 本题给全了地点与时间，所以必须用「电」而非「讯」：**本报西安6月4日电（记者张丹华）**。三个易错点：写成「讯」、时间写上年份、记者写成自己名字。
+
+**③ 结构选择。** 这道题没有任何特殊结构要求，所以「遇事不决倒金字塔」是标准答案。讲义的结构选用口诀：**遇事不决倒金字塔／时间清晰选沙漏式／结构清晰选并列式**。若题目要求「用华尔街日报体」才改用华体（那时需先写小故事开头）。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>二、政治 · 选择题（8 题）
+    <span class="secmeta">8 题</span></h2>
+  
+<div class="q" data-q="9" data-type="choice">
+  <div class="qhead">
+    <span class="qno">9</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">【错题回滚】教育强国·六个「以」</span>
+  </div>
+  <div class="stem">【本题为错题回滚 · 换问法 · 改配对型】关于建设教育强国，下列「定位—表述」对应**完全正确**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q9" value="A"><span class="letter">A</span><span class="otext">根本保证——坚持党对教育事业的全面领导</span></label><label class="opt"><input type="radio" name="q9" value="B"><span class="letter">B</span><span class="otext">根本任务——坚持把服务中华民族伟大复兴作为教育的重要使命</span></label><label class="opt"><input type="radio" name="q9" value="C"><span class="letter">C</span><span class="otext">根本目标——坚持把立德树人作为教育的根本任务</span></label><label class="opt"><input type="radio" name="q9" value="D"><span class="letter">D</span><span class="otext">根本尺度——坚持以人民为中心发展教育，办好人民满意的教育</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="9">查看解析</button>
+    <span class="saved" data-saved="9"></span>
+  </div>
+  <div class="ansbox" data-ans="9" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>**这是你 9.18 试卷上唯一考出 0 分完整填空的政治题，六个「以」当时六个空全错**，且你填的「根本方向／基本目标／最终目的／最终标准」四个词**全是你自己造的**。这次改为配对型，逐个钉死正确对应：
+
+- 根本保证 → **坚持党对教育事业的全面领导**
+- 根本任务 → **坚持把立德树人作为根本任务**
+- 根本目标 → **坚持为党育人、为国育才**
+- 重要使命 → **坚持把服务中华民族伟大复兴作为重要使命**
+- 基本路径 → **坚持教育现代化建设**
+- 核心功能 → **坚持支撑引领中国式现代化**
+（另：**人民满意**是**根本尺度**，不是目标——这是最高频的设错点。）
+
+逐项排错：**B** 把「重要使命」的内容（服务中华民族伟大复兴）错挂到了「根本任务」上——**根本任务的内容是立德树人**。**C** 把「根本任务」的内容（立德树人）错挂到「根本目标」上——**根本目标是育人育才**。**D** 表述本身与「根本尺度」相符（人民满意确为根本尺度），但「根本尺度」并不在六个「以」的名单内，题目问的是六个以的定位—表述对应，D 项作为干扰项**是把「根本尺度」混进了六个「以」**。
+
+记忆抓手（语感反着来就对了）：**保一党、任一德、目一育、使一复兴、路一现代化、能一支撑**。特别提醒：「根本任务」一定跟**立德树人**，「根本目标」一定跟**育人育才**——这两个最容易互换。</div></div>
+</div>
+<div class="q" data-q="10" data-type="choice">
+  <div class="qhead">
+    <span class="qno">10</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">【错题回滚】统战·三个「最」</span>
+  </div>
+  <div class="stem">【本题为错题回滚 · 换问法 · 三组定位辨析】关于统一战线的相关表述，下列选项中**错误**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q10" value="A"><span class="letter">A</span><span class="otext">统一战线工作的本质要求是大团结大联合，解决的就是人心和力量问题。</span></label><label class="opt"><input type="radio" name="q10" value="B"><span class="letter">B</span><span class="otext">坚持求同存异，是统一战线工作中的关键所在。</span></label><label class="opt"><input type="radio" name="q10" value="C"><span class="letter">C</span><span class="otext">坚持党的领导，是统一战线最鲜明的特征。</span></label><label class="opt"><input type="radio" name="q10" value="D"><span class="letter">D</span><span class="otext">统一战线的对象范围以党外知识分子为主体，其工作的核心是知识分子的团结引导。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="10">查看解析</button>
+    <span class="saved" data-saved="10"></span>
+  </div>
+  <div class="ansbox" data-ans="10" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>**这题是你 9.18 卷「统战三个最」的换问法回滚**。你上次四个空填成「大／差异／空/空」——把「大团结大联合」记成了「大」，把「人心和力量」记成了「差异」，本质是**只记住了有个『大』字，把完整表述丢了**。
+
+正确三组定位（务必成链记）：
+- **本质要求**＝**大团结大联合**，解决的是**人心和力量**问题
+- **关键**＝坚持**求同存异**
+- **最鲜明的特征**＝**坚持党的领导**
+
+逐项：A、B、C 分别对应本质要求、关键、最鲜明特征，全部正确。**D 是编造项**——统一战线是**最广泛的爱国统一战线**，对象范围涵盖各民主党派、无党派人士、党外知识分子、民族宗教界人士、非公有制经济人士、新的社会阶层人士、港澳台同胞和海外侨胞等，**以党外知识分子为主体**的说法不成立，其工作核心也不只是知识分子工作。
+
+记忆抓手（四级递进链）：**联合（本质）→ 人心与力量（对象）→ 存异（方法）→ 党旗（特征）**。四步一环扣一环，跳一步就丢分。看到「最鲜明特征」，答案只有一个词：**党的领导**。</div></div>
+</div>
+<div class="q" data-q="11" data-type="choice">
+  <div class="qhead">
+    <span class="qno">11</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">【错题回滚】法治体系·五大体系</span>
+  </div>
+  <div class="stem">【本题为错题回滚 · 换问法 · 组成要件型】中国特色社会主义法治体系由若干子体系构成。下列选项中，**不属于**中国特色社会主义法治体系组成部分的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q11" value="A"><span class="letter">A</span><span class="otext">完备的法律规范体系</span></label><label class="opt"><input type="radio" name="q11" value="B"><span class="letter">B</span><span class="otext">高效的法治实施体系</span></label><label class="opt"><input type="radio" name="q11" value="C"><span class="letter">C</span><span class="otext">严密的法治监督体系</span></label><label class="opt"><input type="radio" name="q11" value="D"><span class="letter">D</span><span class="otext">科学的立法协商体系</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="11">查看解析</button>
+    <span class="saved" data-saved="11"></span>
+  </div>
+  <div class="ansbox" data-ans="11" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>**这是你 9.18 卷「法治体系五大体系」的回滚（当时五个体系名称你全空）**。你上次的失分很有意思：**「两个以…为核心」这种精细辨析你记住了，五个体系的名字一个都没写出来**——说明背诵顺序反了。
+
+五大体系（背成五字链）：**法律规范体系 → 法治实施体系 → 法治监督体系 → 法治保障体系 → 党内法规体系**。
+
+逐项核对：A、B、C 分别是第一个（完备的法律规范体系）、第二个（高效的法治实施体系）、第三个（严密的法治监督体系），均正确无误。**D「科学的立法协商体系」是编造项**——五大体系中没有这一项，且「立法协商」属于立法程序环节的表述，不是法治体系的一个子体系；第四项应为「**有力的法治保障体系**」，第五项为「**完善的党内法规体系**」。
+
+记忆抓手（五字顺口链）：**规 → 实 → 监 → 保 → 党**。法律**规**范 → 法治**实**施 → 法治**监**督 → 法治**保**障 → **党**内法规。定语也一并记：**完备／高效／严密／有力／完善**——选择题常拿定语调换来设错。
+
+操作建议：先把五个名字背成顺口溜，**再**回头补「两个以…为核心」这类细节。骨架没立起来，细节记得再准也拿不到分。</div></div>
+</div>
+<div class="q" data-q="12" data-type="choice">
+  <div class="qhead">
+    <span class="qno">12</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">【错题回滚】「最根本」·三条线辨析</span>
+  </div>
+  <div class="stem">【本题为错题回滚 · 换问法 · 三线横向对比】下列关于「最根本」的表述，属于**统一战线**语境的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q12" value="A"><span class="letter">A</span><span class="otext">有中国共产党的坚强领导，是我们取得一切成就的最根本保证。</span></label><label class="opt"><input type="radio" name="q12" value="B"><span class="letter">B</span><span class="otext">人心向背、力量对比是决定党和人民事业成败的关键，是最大的政治。</span></label><label class="opt"><input type="radio" name="q12" value="C"><span class="letter">C</span><span class="otext">最根本的是要坚持中国共产党的领导，这是最核心最根本的问题。</span></label><label class="opt"><input type="radio" name="q12" value="D"><span class="letter">D</span><span class="otext">全面依法治国最根本的保证是坚持党的领导。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="12">查看解析</button>
+    <span class="saved" data-saved="12"></span>
+  </div>
+  <div class="ansbox" data-ans="12" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>**这是你 9.18 卷「最根本三条线」的回滚**——你当时答成「中国人民的爱国情怀和坚持奋斗」，属于**用主观感受替换客观表述**，这是政治选择题最常见的失分模式：**答案必须是文件原话，不是自己的理解**。
+
+「最根本」在讲义里对应**三条不同的线**，必须分清语境：
+- **成就来源线**：有中国共产党的坚强领导，是我们取得一切成就的**最根本保证** → 对应 A
+- **统战线**：**最根本的是要坚持中国共产党的领导，这是最核心最根本的问题**（人心向背、力量对比是最大的政治）→ 对应 C
+- **法治线**：全面依法治国**最根本的保证**是坚持党的领导 → 对应 D
+
+本题问「属于统一战线语境」的一项是 C——讲义原文就是「最根本的是要坚持中国共产党的领导，这是最核心最根本的问题」，紧接「人心向背」一句，属统战语境。
+
+B 项本身是正确的时政表述（人心向背、力量对比是最大的政治），但**它讲的是「最大的政治」而不是「最根本」**，且它是对 C 项的补充句，单独作为答案不符合题干「最根本」的要求。A、D 分别属成就来源线与法治线，语境不符。
+
+记忆抓手：**见「最根本」→ 落点必然是『党的领导』**，只有三个后缀——**坚强领导**（成就来源）／**最核心最根本的问题**（统战）／**最根本的保证**（法治）。三个后缀对三条线，一一绑定，不要跨线。</div></div>
+</div>
+<div class="q" data-q="13" data-type="choice">
+  <div class="qhead">
+    <span class="qno">13</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">【错题回滚】党的显著标志</span>
+  </div>
+  <div class="stem">【本题为错题回滚 · 第 5 次出现 · 换问法】关于「三大优良作风」与「党的显著标志」，下列表述**完全正确**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q13" value="A"><span class="letter">A</span><span class="otext">理论联系实际、密切联系群众、批评和自我批评，是中国共产党区别于其他政党的显著标志。</span></label><label class="opt"><input type="radio" name="q13" value="B"><span class="letter">B</span><span class="otext">三大优良作风是理论联系实际、密切联系群众、批评和自我批评，是党在长期实践中形成的优良传统。</span></label><label class="opt"><input type="radio" name="q13" value="C"><span class="letter">C</span><span class="otext">人民至上、理论联系实际、密切联系群众，是党区别于其他政党的显著标志。</span></label><label class="opt"><input type="radio" name="q13" value="D"><span class="letter">D</span><span class="otext">勇于自我革命、人民至上、批评和自我批评，是中国共产党区别于其他政党的显著标志。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="13">查看解析</button>
+    <span class="saved" data-saved="13"></span>
+  </div>
+  <div class="ansbox" data-ans="13" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>**这道题你已经连续三次答错，而且每次你都选的正是你自己 9.17 反馈原文里的那个错误写法。** 这是本卷最需要盯的一题——错因已经**不是记不牢，而是笔记本身错了**。
+
+两个必须拆开的独立来源：
+
+**① 党的七大（1945）——三大优良作风**：**理论联系实际**、**密切联系群众**、**批评和自我批评**。注意是「三**大**」优良作风（不是「三个」），且**不含「人民至上」**。
+
+**② 党的十九届六中全会《决议》——勇于自我革命**：**勇于自我革命**是中国共产党**区别于其他政党的显著标志**。这是对「显著标志」这一提法唯一的权威来源。
+
+逐项：**A 是把两者混同的典型错法**——把三大作风直接说成「区别于其他政党的显著标志」，这就是你 9.17 原文的错误。**B 正确**：只称三大作风是「优良传统」，不说成「显著标志」，完全符合文档表述。**C 内部自相矛盾**——把「人民至上」塞进三大作风。**D** 更为混乱，把「勇于自我革命」与「人民至上」并列后再挂上「显著标志」。
+
+记忆抓手（把并列句拆成两条独立来源）：
+- **七大（1945）**：理论联系实际 → 密切联系群众 → 批评和自我批评。三个词，**动作式**表述，记成「联系、依靠、检视」。
+- **十九届六中全会《决议》**：**勇于自我革命**。一个词，**状态式**表述。
+
+考场识别信号：「显著标志」出现时，标准答案只指向**勇于自我革命**；一旦选项里出现「人民至上」与另外两个作风并列去当显著标志，必为错误项。
+
+**行动项（必须做）**：这道题的错源在你的**笔记文档**本身。请回去打开 `9.17 学习反馈（优化版）.docx`，把「三大优良作风＋人民至上＋勇于自我革命并列」那一句**拆成两条独立来源**，各写各的。不主动清除笔记里的错误，考场上会原样复现——这不是危言耸听，是这道题已经验证过三次的事实。</div></div>
+</div>
+<div class="q" data-q="14" data-type="choice">
+  <div class="qhead">
+    <span class="qno">14</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">【错题回滚】全过程人民民主·四个相统一</span>
+  </div>
+  <div class="stem">【本题为错题回滚 · 换问法 · 正向选「属于」】「全过程人民民主」的四个相统一，指下列选项中的哪四项组合？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q14" value="A"><span class="letter">A</span><span class="otext">过程民主和成果民主相统一、程序民主和实质民主相统一、直接民主和间接民主相统一、人民民主和国家意志相统一</span></label><label class="opt"><input type="radio" name="q14" value="B"><span class="letter">B</span><span class="otext">选举民主和协商民主相统一、过程民主和成果民主相统一、程序民主和实质民主相统一、直接民主和间接民主相统一</span></label><label class="opt"><input type="radio" name="q14" value="C"><span class="letter">C</span><span class="otext">选举民主和协商民主相统一、程序民主和实质民主相统一、直接民主和间接民主相统一、人民民主和国家意志相统一</span></label><label class="opt"><input type="radio" name="q14" value="D"><span class="letter">D</span><span class="otext">过程民主和成果民主相统一、选举民主和协商民主相统一、直接民主和间接民主相统一、人民民主和国家意志相统一</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="14">查看解析</button>
+    <span class="saved" data-saved="14"></span>
+  </div>
+  <div class="ansbox" data-ans="14" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>**这题的换问法与你 9.18 卷那次正好相反**：上次给你「包含/不包含」让你选错项，你把包含项当成了不包含项；这次**正向选「属于」**，考的仍是同一个知识点。
+
+四个相统一的正确组合：**过程民主和成果民主**、**程序民主和实质民主**、**直接民主和间接民主**、**人民民主和国家意志**。
+
+逐项：**B、C、D 全都塞进了「选举民主和协商民主相统一」**——这正是最高频的干扰项。**「选举民主」与「协商民主」是两种民主形式（我国社会主义民主的两种重要形式），属于并列关系，不是一组「相统一」。** 凡是把「选举民主和协商民主」写进「四个相统一」的选项，直接判错。
+
+记忆抓手（三同一异）：四个「相统一」里有**三对是「同一民主的两个侧面」**——过程/成果、程序/实质、直接/间接；**最后一对是企业与国家的「人民民主/国家意志」**。所以真正要背的只有两个信号：**只要出现「选举/协商」，就是错的**；**「人民民主」必须配「国家意志」**。</div></div>
+</div>
+<div class="q" data-q="15" data-type="choice">
+  <div class="qhead">
+    <span class="qno">15</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">政治论述·新时代党的建设总体布局</span>
+  </div>
+  <div class="stem">新时代党的建设总要求以「党的建设总布局」为核心。关于「党的建设总布局」的「5+2」框架，下列表述**错误**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q15" value="A"><span class="letter">A</span><span class="otext">5 指全面推进党的政治建设、思想建设、组织建设、作风建设、纪律建设这五大建设。</span></label><label class="opt"><input type="radio" name="q15" value="B"><span class="letter">B</span><span class="otext">2 指把制度建设贯穿其中，并深入推进反腐败斗争。</span></label><label class="opt"><input type="radio" name="q15" value="C"><span class="letter">C</span><span class="otext">在党的建设总布局中，政治建设是根本性建设，决定党的建设方向和效果，因此居于首要地位。</span></label><label class="opt"><input type="radio" name="q15" value="D"><span class="letter">D</span><span class="otext">在党的建设总布局中，纪律建设被列为五大建设的首要任务，因为纪律严明是党的光荣传统和独特优势。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="15">查看解析</button>
+    <span class="saved" data-saved="15"></span>
+  </div>
+  <div class="ansbox" data-ans="15" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>**这是你 9.17 反馈里写过「党的六大建设」的那条笔记的延伸题**（你当时把政治建设、思想建设、组织建设、作风建设、纪律建设称为五大建设，正文里又混入了制度建设、反腐败斗争）。请把框架彻底理清：
+
+**党的建设总布局＝「5＋2」**：
+- **5**：**政治建设、思想建设、组织建设、作风建设、纪律建设**
+- **2**：**制度建设贯穿其中** + **深入推进反腐败斗争**
+
+**A、B 都是标准表述，无误。**
+
+**C 正确**：**政治建设是党的根本性建设**，决定党的建设方向和效果，在五大建设中居于**首要地位**——这是高频考点，「首位／首要／根本性建设」三个定位词都要记牢。
+
+**D 错误**：**五大建设的首要任务不是纪律建设**。政治建设才居于首位、是根本性建设；纪律建设是「五大建设」之一，但它不是「首要任务」，「纪律严明是党的光荣传统和独特优势」这句对，但把它当作「五大建设中的首要任务」就错了。
+
+记忆抓手（顺序＋定位）：**政 → 思 → 组 → 作 → 纪**（政治打头、纪律收尾）。定位词链：**政治建设＝根本性／首位；思想建设＝基础性；制度建设＝贯穿其中；反腐败斗争＝常抓不懈**。看到「首要」不加限定地往纪律建设上套，即可判错。</div></div>
+</div>
+<div class="q" data-q="16" data-type="choice">
+  <div class="qhead">
+    <span class="qno">16</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">政治论述·现代公共文化服务体系</span>
+  </div>
+  <div class="stem">健全现代公共文化服务体系，是文化强国建设的重要任务。关于这一体系，下列表述**错误**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q16" value="A"><span class="letter">A</span><span class="otext">现代公共文化服务体系以政府为主导，以公共财政为支撑，以保障人民群众基本文化权益为主要目标。</span></label><label class="opt"><input type="radio" name="q16" value="B"><span class="letter">B</span><span class="otext">公共文化服务「标准化、均等化、数字化、社会化」是现代公共文化服务体系建设的四个主要方向。</span></label><label class="opt"><input type="radio" name="q16" value="C"><span class="letter">C</span><span class="otext">公共文化服务与文化产业的关系是：公共文化服务提供基本性、普惠性的文化产品与服务，文化产业则面向市场满足多样化、个性化需求。</span></label><label class="opt"><input type="radio" name="q16" value="D"><span class="letter">D</span><span class="otext">现代公共文化服务体系以市场为唯一定价机制，服务项目一律按市场化方式收费运营，以此提高供给效率。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="16">查看解析</button>
+    <span class="saved" data-saved="16"></span>
+  </div>
+  <div class="ansbox" data-ans="16" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>**这是你 9.17 反馈里「健全现代公共文化服务体系」那条笔记的机理题。** 你的原文笔记记了「标准化、均等化」等要点，这道题考的是它背后的运行机理。
+
+**A 正确**：现代公共文化服务体系的三个定位——**政府主导、公共财政支撑、保障人民群众基本文化权益**。这是「基本权益」而非「全部文化需求」，一字之差是设错点。
+
+**B 正确**：标准化、均等化、数字化、社会化是四个主要建设方向；其中「均等化」强调城乡、区域、人群之间的均衡供给。
+
+**C 正确**：公共文化服务与文化产业的分界——前者**基本性、普惠性**（政府保障），后者**面向市场、多样化个性化**（市场调节）。这正是文化领域的「事业与产业双轮驱动」。
+
+**D 错误**：**公共文化服务绝不以市场为唯一定价机制、更不「一律市场化收费」。** 公共文化服务的核心属性是**公益性**——基本服务应免费或低收费提供，财政予以保障。若一律市场化收费运营，恰恰背离了「保障人民群众基本文化权益」这一主要目标，与 A 项自相矛盾。
+
+记忆抓手（一句话分家）：**公共文化服务＝政府出钱、群众受益、讲公平；文化产业＝市场配置、群众消费、讲效益。**公共文化服务讲「均等」，文化产业讲「多样」。含「一律市场化」的表述必然是错的。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>三、英语 · 长难句与词汇（4 题）
+    <span class="secmeta">4 题</span></h2>
+  
+<div class="q" data-q="17" data-type="translate">
+  <div class="qhead">
+    <span class="qno">17</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">【错题回滚】长难句·比较级与程度副词</span>
+  </div>
+  <div class="stem">【本题为错题回滚 · 换句子】翻译下面这句英文，先写主干，再写整体译文。特别注意**比较级与程度副词不能省略**，以及 those 的指代。
+
+Those who are exposed to social media algorithms on a daily basis are far more likely to feel threatened by views that differ from their own than those who rely mainly on traditional newspapers.</div>
+  <textarea class="transin" data-q="17" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="17">查看解析</button>
+    <span class="saved" data-saved="17"></span>
+  </div>
+  <div class="ansbox" data-ans="17" hidden><div class="ansline"><b>参考答案</b>【主干】
+Those ... are far more likely to feel threatened ... ——主语 Those（那些人）＋系动词 are ＋表语形容词短语 far more likely to feel threatened。
+
+【整体译文】
+与主要依赖传统报纸的人相比，那些每天接触社交媒体算法的人，感受到自身观点受到威胁的可能性要大得多。
+
+【关键处理】
+① those who ... 译为「那些……的人」，两处 those 都要译出，不能省略；
+② far more likely to 译为「远远更有可能／可能性要大得多」，**far 这一程度副词与比较级 more 都不能省**；
+③ exposed to 在被动语态中译为「接触／暴露于」，此处「日常接触社交媒体算法」更自然；
+④ 比较对象是两组人（社交媒体使用者 vs 传统报纸依赖者），译文中需把两组对照关系交代清楚。</div><div class="ansline"><b>得分点</b>主, 干, 识, 别, （, 主, 语,  , T, h, o, s, e, ＋, 系, 动, 词, ＋, 表, 语, ）, 1,  , 分, ；, 两, 处,  , t, h, o, s, e,  , 均, 译, 出, 「, 那, 些, …, …, 的, 人, 」, 1,  , 分, ；, f, a, r,  , m, o, r, e,  , l, i, k, e, l, y,  , 译, 出, 「, 远, 远, 更, 有, 可, 能, ／, 可, 能, 性, 大, 得, 多, 」, ，, 比, 较, 级, 与, 程, 度, 副, 词, 均, 不, 丢,  , 2,  , 分, ；, t, h, a, n,  , 引, 导, 的, 比, 较, 对, 象, （, 传, 统, 报, 纸, 依, 赖, 者, ）, 译, 出, 且, 对, 照, 清, 晰,  , 1,  , 分, ；, 整, 体, 译, 文, 通, 顺, 、, 无, 漏, 译,  , 1,  , 分, 。, 共,  , 6,  , 分, 。</div><div class="ansline"><b>解析</b>**这是错题本 P2-11 的回滚**。你上次原句 `are far more likely to feel threatened` 只译出「感到受到威胁」，**把 far more likely（远远更有可能）整个漏掉了**，同时 `those` 没译成「那些……的人」。英二翻译里，**比较级与程度副词是明确的采分点，漏译直接扣分**。
+
+这次换句子但保留同一考点，并且**把比较结构拉长**：`那些（每天接触社交媒体算法的人）` vs `those（主要依赖传统报纸的人）`，两处 those 都需译出，比较对象必须完整——这是比上次更难的版本。
+
+记忆抓手：英文比较句的中译有个固定动作顺序：**先译比较对象 → 再译比较结果 → 最后译程度副词**。「far more likely」这类结构一律译成「**远远更有可能 / 可能性要大得多**」，看到 far／much／even + 比较级，就条件反射补上程度词，绝不省略。</div></div>
+</div>
+<div class="q" data-q="18" data-type="fill">
+  <div class="qhead">
+    <span class="qno">18</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">【错题回滚】考研核心词汇</span>
+  </div>
+  <div class="stem">【本题为错题回滚 · 换问法】根据括号中的中文提示，填入恰当的英文单词或短语（每空一个词/短语，注意时态与搭配）：
+
+① The government has pledged to ____ （严厉打击、镇压）illegal data trading platforms.
+② Wild horses still roam freely across the ____ （大草原）of Inner Mongolia.
+③ How to balance privacy protection and data utilization is a far ____ （更棘手的）problem than it appears.
+④ 考法反思：以上三词中，哪一个你曾在反馈里把「严厉打击」误记成了「崩塌」的义项？请写出该词的英文原形。____</div>
+  <div class="fills"><input class="fillin" type="text" data-q="18" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="3" placeholder="第 4 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="18">查看解析</button>
+    <span class="saved" data-saved="18"></span>
+  </div>
+  <div class="ansbox" data-ans="18" hidden><div class="ansline"><b>参考答案</b>① crack down on　② prairie　③ thornier　④ crack down on</div><div class="ansline"><b>得分点</b>①,  , c, r, a, c, k,  , d, o, w, n,  , o, n,  , 1,  , 分, ；, ②,  , p, r, a, i, r, i, e,  , 1,  , 分, ；, ③,  , t, h, o, r, n, i, e, r,  , 1,  , 分, ；, ④,  , c, r, a, c, k,  , d, o, w, n,  , o, n,  , 1,  , 分, 。, 共,  , 4,  , 分, 。, 拼, 写, 错, 误, 不, 得, 分, 。</div><div class="ansline"><b>解析</b>**这是错题本 P1-10 的回滚**。你上次三处硬伤逐一复盘：
+
+① **crack down on**：你写成「崩塌」——**「崩塌」是 collapse**。crack down on 是**「严厉打击、镇压（不法行为）」**，动作朝向外部，联想「警方扫荡、查封平台」的画面。它是**短语动词**，on 不能丢。
+② **prairie**：你写的是「？」（没答出来）。**prairie＝大草原**，与 plain（平原）、plateau（高原）三个词一起记：**prairie 有草、plateau 有高度**。
+③ **thornier**：你译成「更尖锐」——接近但不是标准义。**thornier 是「更棘手的」**，原义「多刺的」，引申为「问题棘手」。固定搭配就是「**问题更棘手**」，不是「更尖锐」（尖锐多用 sharp／acute）。
+
+记忆抓手（三词打包）：**crack down on → 打压（对外动作）；prairie → 草原（与 plain/plateau 组家族）；thorny → 棘手（长刺的问题扎手）**。第 ④ 空是元认知检查——**你要能自己说出错在哪，下次才不会重复**。</div></div>
+</div>
+<div class="q" data-q="19" data-type="translate">
+  <div class="qhead">
+    <span class="qno">19</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">长难句·插入语与倒装</span>
+  </div>
+  <div class="stem">翻译下面这句英文，标出主干并说明语序调整。注意**否定词提前引起的部分倒装**，以及插入成分的处理。
+
+Not until newsrooms began to measure audience engagement in real time did many editors realize that the traditional boundary between the editorial and the commercial side, once taken for granted, had already been eroded.</div>
+  <textarea class="transin" data-q="19" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="19">查看解析</button>
+    <span class="saved" data-saved="19"></span>
+  </div>
+  <div class="ansbox" data-ans="19" hidden><div class="ansline"><b>参考答案</b>【主干】
+... did many editors realize that ... ——主句为部分倒装结构：Not until ... 置于句首，助动词 did 提前，主语 many editors，谓语 realize，宾语为 that 引导的宾语从句。
+
+【整体译文】
+直到新闻编辑室开始实时测量受众参与度，许多编辑才意识到，编辑部门与商业部门之间那道曾被视为理所当然的传统界线，其实早已被侵蚀。
+
+【关键处理】
+① Not until ... did ... 为**否定词提前引起的部分倒装**，中译按正常语序处理为「直到……才……」；
+② 插入语 once taken for granted 修饰 the traditional boundary，译为「（那道）曾被视为理所当然的（界线）」，前置到被修饰词之前；
+③ the editorial and the commercial side 译为「编辑（部门）与商业（部门）」；
+④ 主句时态 had already been eroded 为过去完成时的被动，译为「早已被侵蚀」。</div><div class="ansline"><b>得分点</b>倒, 装, 结, 构, 识, 别, （, N, o, t,  , u, n, t, i, l,  , 提, 前, ＋, d, i, d,  , 提, 前, ）, 2,  , 分, ；, 「, 直, 到, …, …, 才, …, …, 」, 句, 式, 译, 出,  , 1,  , 分, ；, 插, 入, 语,  , o, n, c, e,  , t, a, k, e, n,  , f, o, r,  , g, r, a, n, t, e, d,  , 正, 确, 归, 位, （, 修, 饰,  , b, o, u, n, d, a, r, y, ，, 译, 为, 「, 曾, 被, 视, 为, 理, 所, 当, 然, 的, 」, ）, 1,  , 分, ；, t, h, e,  , e, d, i, t, o, r, i, a, l,  , a, n, d,  , t, h, e,  , c, o, m, m, e, r, c, i, a, l,  , s, i, d, e,  , 译, 出, 「, 编, 辑, 与, 商, 业, （, 部, 门, ）, 」, 1,  , 分, ；, h, a, d,  , a, l, r, e, a, d, y,  , b, e, e, n,  , e, r, o, d, e, d,  , 过, 去, 完, 成, 被, 动, 译, 出, 「, 早, 已, 被, 侵, 蚀, 」, 1,  , 分, 。, 共,  , 6,  , 分, 。</div><div class="ansline"><b>解析</b>这道题考两个**英二高频结构**，都是「看得懂词但会译错语序」的类型。
+
+**① 否定词提前的部分倒装。** Not until / Never / Hardly ... when / No sooner ... than 等否定词或否定短语置于句首时，主句要用部分倒装（助动词提前）。中译时不保留倒装，直接还原为「**直到……才……**」——这是最标准的对应句式。注意：**从句不倒装，只有主句倒装**，别把 began to measure 也当成倒装处理。
+
+**② 插入语的处理。** once taken for granted 是过去分词短语作插入成分，修饰前面的 the traditional boundary。英译中时**插入语一般前置**到被修饰词之前，用「曾被视为理所当然的」一带而过，不要原样放在逗号后面导致中文读起来断裂。
+
+记忆抓手（英二长难句三步走）：**先切从句 → 再找主干 → 后摆插入语**。看到句首的 Not until / Never / Only 就立刻在草稿上标「主句倒装」，译时还原因果顺序。</div></div>
+</div>
+<div class="q" data-q="20" data-type="short">
+  <div class="qhead">
+    <span class="qno">20</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">英语·方法反思</span>
+  </div>
+  <div class="stem">【方法反思】结合你近期的英语反馈（外刊精读、词汇清理、长难句翻译），回答：
+
+（1）你上次在长难句翻译上丢掉的分，主要集中在哪一类成分？（用一个词概括）
+（2）针对这一类失分，请写出一条你**明天就能执行**的具体动作（须含时间、材料、动作三要素）。</div>
+  <textarea class="shortin" data-q="20" rows="4" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="20">查看解析</button>
+    <span class="saved" data-saved="20"></span>
+  </div>
+  <div class="ansbox" data-ans="20" hidden><div class="ansline"><b>参考答案</b>（1）集中在**修饰成分**的漏译——尤其是**比较级与程度副词**（far more likely）、**指代词**（those 未译作「那些……的人」）。这类失分的共同点是：主干译对了，修饰成分整块丢掉，属于「看懂却漏译」型失分。
+
+（2）动作示例（须含三要素）：
+- **时间**：明天上午 8:00—8:30；
+- **材料**：今日两道长难句（社交媒体算法句、Not until 倒装句）＋ 9.18 错题原句 `are far more likely to feel threatened`；
+- **动作**：每句按「**切从句—找主干—补修饰**」三步手写翻译，译完后**用红笔单独圈出所有比较级、程度副词、指代词**，逐项核对是否译出；连续 3 句无漏译即过关。
+
+（补充建议）把「far more likely 必译『远远更有可能』」写成一张便签贴在手边，翻译时逐句扫一遍——这是投入产出比最高的一处改动。</div><div class="ansline"><b>得分点</b>（, 1, ）, 答, 出, 「, 修, 饰, 成, 分, 漏, 译, 」, 或, 明, 确, 指, 向, 「, 比, 较, 级, ／, 程, 度, 副, 词, 」, （, 也, 可, 含, 指, 代, 词, ）, 2,  , 分, ；, （, 2, ）, 动, 作, 须, 含, 时, 间, 、, 材, 料, 、, 动, 作, 三, 要, 素, ，, 每, 缺, 一, 项, 扣,  , 1,  , 分, ，, 最, 高,  , 4,  , 分, ；, 动, 作, 具, 体, 、, 可, 执, 行, ，, 不, 写, 「, 多, 练, 长, 难, 句, 」, 这, 类, 空, 话, 。, 共,  , 6,  , 分, 。</div><div class="ansline"><b>解析</b>这道题不考知识，考**元认知**。你上次的失分模式很清晰：**主干能译，修饰整块丢**——这不是能力问题，是习惯问题（翻译时注意力全在主干上，忘了复查修饰）。
+
+所以「明天做什么」必须具体到能立刻执行的程度。参照上题给的示例，把自己那条写成**可打勾的清单**。
+
+记忆抓手：长难句翻译的复查动作固定为「**三扫**」——**一扫比较级与程度副词（far／much／even＋比较级）；二扫指代词（those／that／it 是否落到实处）；三扫插入语（是否前置归位）**。「三扫」做完再交卷，这类失分能砍掉大半。</div></div>
+</div>
+</section>
+
+  <div class="done-tip" id="doneTip">
+    <b>🎉 全部作答完毕</b>
+    点右下角「导出我的答案」，把导出的文件发给我，我会逐题批改并给出评分与改进建议。
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="tb-inner">
+    <button class="btn btn-main" id="btnExport">导出我的答案</button>
+    <button class="btn btn-ghost" id="btnRevealAll">展开全部解析</button>
+    <button class="btn btn-ghost" id="btnReset">清空重做</button>
+    <span class="tb-count" id="tbCount">0 / 20</span>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">你的答案（复制后发给我批改）</div>
+    <div class="modal-body">
+      <div class="modal-tip">
+        全选复制下面的内容，粘贴到对话里发给我即可。也可以点「下载 .md」保存成文件再上传。
+      </div>
+      <textarea id="exportArea" readonly></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="btnCloseModal">关闭</button>
+      <button class="btn btn-main" id="btnDownload">下载 .md</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ = {"title": "考研每日测验 · 10.7 综合卷（素材：实务大明白·消息改写第一/二讲）", "date": "2026-10-07", "sections": [{"name": "一、专业课 · 消息改写（实务为主动作）", "questions": [{"id": 1, "type": "choice", "kp": "消息结构·五种范式", "stem": "关于消息的五种常见结构，下列表述**错误**的一项是：", "options": ["倒金字塔式结构按重要性递减的顺序安排材料，也称倒三角结构；它打破叙事常规，依据事实的重要程度而非时间顺序排列段落，呈「头重脚轻」之势。", "时间顺序结构又称编年体式结构、金字塔式结构；因其开头段落对受众吸引力较弱，题材的重大往往成为选用的主要因素。", "沙漏式结构是倒金字塔式与金字塔式的混合体：导语先呈现最重要最新鲜的事实，主体再按事实重要性递减组织若干段落，随后按时间顺序排列材料。", "华尔街日报体以一个与主题相关的故事开篇，过渡到核心段后综合背景材料展开报道，最后回到开头的故事形成闭环；它要求结尾必须回到开篇的故事，否则不成立。"], "answer": "D", "explain": "**D 错在最后一句。「结尾必须回到开篇的故事」是把华体公式化了**——讲义明确说「这种模式化的总结在某种程度上简化了『华体』的写作特点，窄化了它的应用范围」。布隆代尔在《〈华尔街日报〉是如何讲故事的》中也指出根本不存在机械的华体模式。我国新闻界实际使用时常常改造：有的开头加注编者按，或由总括句引领再嵌小故事；**有的小故事与主题毫无关联只为强化基调；有的结尾干脆不再回到开篇的小故事**——讲义称之为「类华尔街日报体」，同样是合法写法。\n\nA 是倒金字塔的定义与两大特点（打破叙事常规＋头重脚轻）；B 是时间顺序结构的定义与适用场景，一字不差；C 是沙漏式的定义，注意它的段落顺序是**先递减再时间**，这个次序容易记反。\n\n记忆抓手：五种结构 ＝ **倒 / 时 / 沙 / 并 / 华**。判别口诀——「重要性递减」倒金字塔；「事情怎么发生就怎么写」时间顺序；「先倒后顺」沙漏；「两三条并列服务同一主题」并蒂；「小故事开篇又收尾」华体（收不收得回来**不作强制**）。", "_id": 1}, {"id": 2, "type": "short", "rows": 6, "kp": "消息头·电与讯的区别", "stem": "消息头是消息体裁的标志，也是考场上最容易「一错就丢分」的格式分。请回答：\n\n（1）「讯」与「电」在使用上有什么区别？各自的规范写法是什么？\n（2）消息头在文中的位置与空格有何要求？\n（3）如果材料里给出了记者姓名，改写时应当怎么处理？材料没给又该怎么处理？\n（4）有同学写成「（本报讯，记者张丹华）」，问题出在哪？", "answer": "（1）「讯」一般不加时间和地点，写作「本报讯（记者xxx）」；「电」一般要加上时间和地点，但时间通常不加年份，写作「本报西安6月4日电（记者xxx）」。错误写法是「本报6月4日讯（记者xxx）」或「本报电（记者xxx）」——「讯」不能带时间地点，「电」不能缺时间地点。\n（2）消息头之前必须空两格。消息头与记者姓名之间空不空格没有统一规范，两种都行。\n（3）材料提供了记者姓名就照写，不要一律写「xxx」（如「本报讯（记者张丹华）」）；材料没提供才写「xxx」。绝不可以把记者写成自己的名字——改写消息属于编辑工作，与记者是两个工种，不能窃取记者的采编成果。\n（4）括号位置与标点错：破折号应为「（记者张丹华）」，不能用逗号分隔。正确是「本报讯（记者张丹华）」，「（本报讯，记者张丹华）」的逗号在括号内且置于单位与记者之间，格式不规范。", "keys": "（1）讯无时间地点／电有时间地点且时间不加年份，两种规范写法各 1 分，共 2 分；（2）消息头前空两格 1 分；（3）照写材料所给记者名、绝不写自己名字，2 分；（4）指出逗号分隔与括号位置问题 1 分。共 6 分。", "explain": "这是**纯格式分**，评分标准里最容易「对就是对、错就是错」，也是最容易在考场上白丢的分。\n\n板书式记住三行：\n- **讯**：无时无地 → 「本报讯（记者xxx）」\n- **电**：有时有地、**时不带年** → 「本报西安6月4日电（记者xxx）」\n- **位置**：消息头前**空两格**；姓名与单位之间空不空随意\n\n两个高频错法：「本报6月4日讯」——给「讯」硬塞了时间；「本报电」——给「电」漏了时间地点。这两个错法讲义点名批评过，考场上出现即为硬伤。\n\n关于署名：改写消息是**编辑工种**，不要写成自己的名字。这一点讲义专门解释了「试卷上不能出现人名」的误传——不能出现的是你**自己**的名字，材料给的记者名必须照抄。", "_id": 2}, {"id": 3, "type": "choice", "kp": "标题·虚实关系与制作原则", "stem": "根据标题制作的原理，下列说法**不符合**讲义要求的一项是：", "options": ["「实题」指标题中叙述事实的部分，「虚题」指发表议论、表明意见的部分；虚实关系指在标题中把实题与虚题结合运用，既叙述新闻事实又揭示新闻意义。", "标题制作的第一条原则是「具体实在」，通常单行题必须是实题，复合式标题中必须有一个是实题。", "引题的主要功能是基于事实进行发挥、交代背景或阐发议论以引出主题，因此在复合式标题中引题应当是虚题；副题负责补充次要事实信息，应当是实题。", "标题一般控制在 20 字以内、写在纸上一行以内；数字尽量使用小数字、整数，如「34578 人」宜写成「3 万多人」。"], "answer": "B", "explain": "**B 项混淆了两个不同的表述。**「具体实在」确实是讲义列出的标题制作原则之首，但它的完整表述是「**叙述事实，指向明确**」；而「**单行题必须是实题，复合式标题中必须有一个是实题**」这句处理要求，讲义是放在「标题制作的原则」下与「题文相符」「简洁生动」并列讲的——它本身不错，B 的错在于把这一条说成是「第一条原则」的**同义表述**，实际三者是并列关系，不是包含关系。\n\n更准确的对照是：标题三原则 ＝ **具体实在 / 题文相符 / 简洁生动**；虚实要求 ＝ 单行题必为实题、复合式至少含一实题。\n\nA 是虚实关系的完整定义，无误。C 三行题的分工是讲义反复强调的结论：**引题（虚，基于事实发挥）＋ 主题（实，核心事实）＋ 副题（实，次要事实）**——常见错误是把引题写成实题、把副题写成虚题，记的时候按「**引虚、主实、副实**」口诀。D 是标题写作技巧的字数与数字规范，无误。", "_id": 3}, {"id": 4, "type": "fill", "blanks": 4, "kp": "导语·表意与叙述型细分", "stem": "导语写作是本讲重点。请补全（每空填一个短语）：\n\n导语写作的三条主要要求是：①____（下笔直接扎在事实里，态度朴实不浮）；②____（以几十个字概述主要事实，切忌主次不分）；③____（用生动、具体、形象的简洁文字概述新闻主要事实）。\n\n另外，使用率最高、最「求稳」的叙述型导语又分为两种：直叙式与____。", "answer": "①实　②简　③活　④概括式", "keys": "①实 1 分；②简 1 分；③活 1 分；④概括式 1 分。共 4 分。", "explain": "导语三要求就是**实—简—活**三个字，最容易记也最容易混。逐字钉死：\n- **实**：一面指事实（下笔直接扎在事实里、不拖泥带水），一面指态度（朴实扎实、不要浮）。\n- **简**：是对「实」的补充**和制约**——接触到事实但绝不允许洋洋洒洒写两三百字，要把最重要事实压缩成一句话（尽可能含主谓宾）。\n- **活**：生动、具体、形象。\n\n叙述型导语二分为 **直叙式**（开门见山，直截了当推出最有新闻价值的事实，讲究明白无讳）与**概括式**（大笔勾勒成「压缩饼干」，事件复杂曲折的报道宜用）。注意区分：**直叙＝点状直击，概括＝面状勾勒**。\n\n再补一层考点：叙述型导语是**使用率最高**的（因与客观叙述事实的文体特征最相适应）；评述型导语适用于政治性、政策性较强和重大事件题材，分**引语式 / 提问式 / 评论式**三小类。", "_id": 4}, {"id": 5, "type": "short", "rows": 5, "kp": "标题·内部关系辨析", "stem": "标题的双行题内部存在多种逻辑关系。请分别写出一句话实例（或用讲义原例）并说明关系名称，覆盖以下四种关系：\n\n①先总提后分述；②依照事实发生顺序表述；③反映行为与该行为的目的；④后句意思转到相反方面。", "answer": "①**总分关系**。例：「动画建模、电影着色、视频渲染／百余名残疾人五年制成原创动画电影」——先分说三个环节，后总括核心事实。\n②**承接关系**。例：「百余名残疾人，改百余遍剧本／历时五年制成原创动画电影」——依照新闻事实发生的顺序或事理先后依次表述。\n③**目的关系**。例：「培训百余名残疾人制作动画电影／助力残障人士找回自信」——上句为载体与行为，下句为该行为指向的目的。\n④**转折关系**。例：「残疾人也能成为电影人／西安百余名残障人士制成动画电影」——后句不顺着前句往下说，而是转到相反方面（通常前句为悬念或反差铺垫）。", "keys": "每点关系名称 0.5 分 + 实例或说明 0.5 分，每点 1 分，共 4 分。名称须为「总分／承接／目的／转折」。", "explain": "标题内部关系讲义共列九种，背成一条串：**虚实 → 主次 → 并列 → 总分 → 承接 → 目的 → 转折 → 递进 → 条件**。\n\n四个待判别的特征词很好对号：\n- 「先总提后分述」→ **总分**\n- 「按事实发生顺序」→ **承接**\n- 「行为＋目的」→ **目的**\n- 「转到相反方面」→ **转折**\n\n再对照其余三种，避免串位：**并列**是几个事实并列（常用对偶排比），**递进**是后者比前者范围更大／情况更甚（「不仅…还…」），**条件**是某个假设条件与在该条件下产生的结果。转折与递进最容易混——**递进是同向升级，转折是反向掉头**，这是分界线。", "_id": 5}, {"id": 6, "type": "choice", "kp": "消息改写真题规律", "stem": "综合讲义对 2020—2026 年各校消息改写真题的梳理，下列判断**错误**的一项是：", "options": ["消息改写的考查集中在三处：标题、导语、结构；考场上不要忘记消息头，它是常被漏掉的格式要素。", "标题类真题常要求区分单一式标题与复合式标题，复合式又细分为双行题（引题＋主题 / 主题＋副题 / 主题＋主题）与三行题。", "结构类真题中，倒金字塔结构被考查的频率最高；此外沙漏式、华尔街日报体也多次出现在材料改写题的要求里。", "导语类真题要求单一，各校基本都只考叙述型导语，描写型与评述型导语从未在真题中作为独立要求出现。"], "answer": "D", "explain": "**D 与讲义梳理的事实相反。** 讲义列出的导语真题里，明确要求描写型、评述型（议论型）的题目不止一处：陕西师范大学 2021 年要求写「叙述型、描写型、议论型三种」导语；陕西师范大学 2024 年要求「描写型导语和复合标题」；暨南大学 2026 年要求写「评论式导语」。**三种导语都考过，而且描写型与评述型的出现频率并不低**——因为它们是区分考生层次的题型。\n\nA、B、C 均与讲义梳理吻合：标题（单行／双行／三行、虚实结合）、导语（三种类型）、结构（倒金字塔／沙漏／华尔街日报体）是三大考查点，而消息头是「真题的秘密」里点名的易漏项。\n\n记忆抓手：消息改写真题的铁律一句话——**标题、导语、结构，不要忘记消息头**。备考时按这个顺序练，四块都不能空。", "_id": 6}, {"id": 7, "type": "short", "rows": 6, "kp": "华尔街日报体·结构范式", "stem": "讲座以「作家马伯庸用鸿门宴改写倒金字塔与华尔街日报体」为例，非常形象。请据此简述：\n\n（1）华尔街日报体的四段式结构模式是什么？（按「开头—过渡—主体—结尾」逐段说明）\n（2）它的核心本质可以用哪四个字概括？\n（3）这一体例的主要缺点是什么？", "answer": "（1）四段式模式：\n① **开头**——描写某个具体故事（小人物、小场景、小细节），以此为由头，设置悬念、吸引读者。\n② **过渡**——从描述性的情节自然转到报道主题。\n③ **主体**——对主题进行详细阐述与解释，综合大量背景材料，大多采用倒金字塔式组织材料。\n④ **结尾**——呼应开头，或给出总结性的趣闻，形成闭环。\n（2）核心本质可用「**新闻故事化**」概括——从客观事实出发，让新闻更加生动、鲜活、富有场景感。\n（3）主要缺点：报道容易冗长，逻辑把握难度大；开篇的小故事往往很难寻觅，结尾也很难完全再次呼应开篇的小故事。", "keys": "（1）四段各 1 分共 4 分（须体现「小故事开头／过渡到主题／主体含背景多采用倒金字塔／结尾呼应」）；（2）「新闻故事化」2 分；（3）冗长与逻辑难度、故事难寻且结尾难呼应，2 分。共 8 分。", "explain": "四段式是讲义的原话：「开头（描写某个故事）——过渡（从描述性情节转到报道主题）——主体（对主题进行详细阐述解释，大多采用倒金字塔式）——结尾（呼应开头或总结性的趣闻）」。**注意主体部分讲义明确说「大多采用倒金字塔式」**，这是一个常被忽略的细节——华体不是反倒金字塔，而是把倒金字塔包在故事外壳里。\n\n「新闻故事化」是讲义给的定性判断句，本质上是把**特稿与非虚构写作**都纳入华体的延续脉络。\n\n马伯庸鸿门宴的例子是最好记的对照：**倒金字塔版**开篇即「刘邦在鸿门宴上险遭刺杀」——结果先出；**华体版**开篇是「樊哙闯进宴会时双手紧握短剑盾牌、头发直竖」——小人物的细节先出，然后才过渡到天下大局。同一材料，两种开篇各表一态。", "_id": 7}, {"id": 8, "type": "short", "rows": 8, "kp": "消息改写·完整格式实操", "stem": "【综合应用】假定材料为：某市 150 余名残疾人历时 5 年制作原创动画电影《花千谷之花魂之路》，近日在视频平台上线。团队负责人王磊（本人亦为残疾人）在西安成立影视公司与职业技能培训学校，带领团队完成影片；学校已培训 300 余名残疾人学员，就业率达 70%。记者姓名为张丹华，发稿地为西安，日期为 6 月 4 日。\n\n请按要求作答：\n（1）为这条消息拟一个**复合式标题**（引题＋主题），并分别注明引题、主题；\n（2）写一条**叙述型导语**（不超过 120 字），并配上规范的**消息头**；\n（3）说明你为整篇消息选择的**结构**，并简述理由（一句话）。", "answer": "（1）复合式标题（示例，符合规范即可）：\n【引题】（虚题，基于事实发挥）五年汗水，百余梦想\n【主题】（实题，概括核心事实）西安百余名残疾人制成原创动画电影\n——引题以「五年汗水」点出历时与付出，属基于事实的发挥；主题抓「百余名残疾人／原创动画电影」两个核心事实词，为实题，符合「引题虚、主题实」的分工。\n\n（2）叙述型导语（示例）：\n　　本报西安6月4日电（记者张丹华）150 余名残疾人历时 5 年，前后改了 100 多遍剧本的原创动画电影《花千谷之花魂之路》近日在视频平台上线。他们从中收获爱与鼓励，重新找回自信，逐步融入社会。\n——消息头规范：有地点（西安）有时间（6 月 4 日）、时间不加年份、记者姓名照写、消息头前空两格。\n\n（3）选择**倒金字塔结构**。理由：题目无特殊结构要求，且这条消息的核心事实（百余名残疾人制成动画电影并融入社会）本身具有重要性落差，用「遇事不决倒金字塔」最稳；导语已呈现最重要事实，主体按重要性递减补充团队构成、王磊创办动因、学校培训成效等材料。", "keys": "（1）标题 3 分：结构为引题＋主题且标注正确 1 分；引题为虚题（基于事实发挥）1 分；主题为实题且抓准「百余名残疾人＋原创动画电影」核心事实 1 分。（2）导语 4 分：消息头规范（时地齐全、时间不带年、记者名正确、位置格式正确）2 分；导语为叙述型（直接陈述核心事实、无议论描写成分）1 分；不超过 120 字且要素完整 1 分。（3）结构 2 分：选倒金字塔 1 分；理由说明「无特殊要求时优先倒金字塔」或「答案无要求时最稳」1 分。共 9 分。", "explain": "这是本卷唯一一道**完整格式实操题**，考的正是讲义总结的那条线：**分析材料 → 选择角度 → 确定结构 → 拟写标题 → 加消息头 → 设计导语 → 编排正文 → 检查修改**（「天龙八步」，可简记为「**析角度看结构、标题头语正文查**」）。\n\n三个评分锚点务必钉死：\n\n**① 标题虚实。** 引题写「五年汗水，百余梦想」这类发挥性表达是虚题；主题「西安百余名残疾人制成原创动画电影」是实题。**引题写成实题（直接陈述事实）或主题写成虚题（只抒情不落事实）都要扣分。** 这与课本「人民日报袁隆平标题」的范例一致：肩题「杂交水稻之父袁隆平院士」概括成就，主题「一稻济世 万家粮足」提炼意义。\n\n**② 消息头。** 本题给全了地点与时间，所以必须用「电」而非「讯」：**本报西安6月4日电（记者张丹华）**。三个易错点：写成「讯」、时间写上年份、记者写成自己名字。\n\n**③ 结构选择。** 这道题没有任何特殊结构要求，所以「遇事不决倒金字塔」是标准答案。讲义的结构选用口诀：**遇事不决倒金字塔／时间清晰选沙漏式／结构清晰选并列式**。若题目要求「用华尔街日报体」才改用华体（那时需先写小故事开头）。", "_id": 8}]}, {"name": "二、政治 · 选择题（8 题）", "questions": [{"id": 9, "type": "choice", "kp": "【错题回滚】教育强国·六个「以」", "stem": "【本题为错题回滚 · 换问法 · 改配对型】关于建设教育强国，下列「定位—表述」对应**完全正确**的一项是：", "options": ["根本保证——坚持党对教育事业的全面领导", "根本任务——坚持把服务中华民族伟大复兴作为教育的重要使命", "根本目标——坚持把立德树人作为教育的根本任务", "根本尺度——坚持以人民为中心发展教育，办好人民满意的教育"], "answer": "A", "explain": "**这是你 9.18 试卷上唯一考出 0 分完整填空的政治题，六个「以」当时六个空全错**，且你填的「根本方向／基本目标／最终目的／最终标准」四个词**全是你自己造的**。这次改为配对型，逐个钉死正确对应：\n\n- 根本保证 → **坚持党对教育事业的全面领导**\n- 根本任务 → **坚持把立德树人作为根本任务**\n- 根本目标 → **坚持为党育人、为国育才**\n- 重要使命 → **坚持把服务中华民族伟大复兴作为重要使命**\n- 基本路径 → **坚持教育现代化建设**\n- 核心功能 → **坚持支撑引领中国式现代化**\n（另：**人民满意**是**根本尺度**，不是目标——这是最高频的设错点。）\n\n逐项排错：**B** 把「重要使命」的内容（服务中华民族伟大复兴）错挂到了「根本任务」上——**根本任务的内容是立德树人**。**C** 把「根本任务」的内容（立德树人）错挂到「根本目标」上——**根本目标是育人育才**。**D** 表述本身与「根本尺度」相符（人民满意确为根本尺度），但「根本尺度」并不在六个「以」的名单内，题目问的是六个以的定位—表述对应，D 项作为干扰项**是把「根本尺度」混进了六个「以」**。\n\n记忆抓手（语感反着来就对了）：**保一党、任一德、目一育、使一复兴、路一现代化、能一支撑**。特别提醒：「根本任务」一定跟**立德树人**，「根本目标」一定跟**育人育才**——这两个最容易互换。", "_id": 9}, {"id": 10, "type": "choice", "kp": "【错题回滚】统战·三个「最」", "stem": "【本题为错题回滚 · 换问法 · 三组定位辨析】关于统一战线的相关表述，下列选项中**错误**的一项是：", "options": ["统一战线工作的本质要求是大团结大联合，解决的就是人心和力量问题。", "坚持求同存异，是统一战线工作中的关键所在。", "坚持党的领导，是统一战线最鲜明的特征。", "统一战线的对象范围以党外知识分子为主体，其工作的核心是知识分子的团结引导。"], "answer": "D", "explain": "**这题是你 9.18 卷「统战三个最」的换问法回滚**。你上次四个空填成「大／差异／空/空」——把「大团结大联合」记成了「大」，把「人心和力量」记成了「差异」，本质是**只记住了有个『大』字，把完整表述丢了**。\n\n正确三组定位（务必成链记）：\n- **本质要求**＝**大团结大联合**，解决的是**人心和力量**问题\n- **关键**＝坚持**求同存异**\n- **最鲜明的特征**＝**坚持党的领导**\n\n逐项：A、B、C 分别对应本质要求、关键、最鲜明特征，全部正确。**D 是编造项**——统一战线是**最广泛的爱国统一战线**，对象范围涵盖各民主党派、无党派人士、党外知识分子、民族宗教界人士、非公有制经济人士、新的社会阶层人士、港澳台同胞和海外侨胞等，**以党外知识分子为主体**的说法不成立，其工作核心也不只是知识分子工作。\n\n记忆抓手（四级递进链）：**联合（本质）→ 人心与力量（对象）→ 存异（方法）→ 党旗（特征）**。四步一环扣一环，跳一步就丢分。看到「最鲜明特征」，答案只有一个词：**党的领导**。", "_id": 10}, {"id": 11, "type": "choice", "kp": "【错题回滚】法治体系·五大体系", "stem": "【本题为错题回滚 · 换问法 · 组成要件型】中国特色社会主义法治体系由若干子体系构成。下列选项中，**不属于**中国特色社会主义法治体系组成部分的是：", "options": ["完备的法律规范体系", "高效的法治实施体系", "严密的法治监督体系", "科学的立法协商体系"], "answer": "D", "explain": "**这是你 9.18 卷「法治体系五大体系」的回滚（当时五个体系名称你全空）**。你上次的失分很有意思：**「两个以…为核心」这种精细辨析你记住了，五个体系的名字一个都没写出来**——说明背诵顺序反了。\n\n五大体系（背成五字链）：**法律规范体系 → 法治实施体系 → 法治监督体系 → 法治保障体系 → 党内法规体系**。\n\n逐项核对：A、B、C 分别是第一个（完备的法律规范体系）、第二个（高效的法治实施体系）、第三个（严密的法治监督体系），均正确无误。**D「科学的立法协商体系」是编造项**——五大体系中没有这一项，且「立法协商」属于立法程序环节的表述，不是法治体系的一个子体系；第四项应为「**有力的法治保障体系**」，第五项为「**完善的党内法规体系**」。\n\n记忆抓手（五字顺口链）：**规 → 实 → 监 → 保 → 党**。法律**规**范 → 法治**实**施 → 法治**监**督 → 法治**保**障 → **党**内法规。定语也一并记：**完备／高效／严密／有力／完善**——选择题常拿定语调换来设错。\n\n操作建议：先把五个名字背成顺口溜，**再**回头补「两个以…为核心」这类细节。骨架没立起来，细节记得再准也拿不到分。", "_id": 11}, {"id": 12, "type": "choice", "kp": "【错题回滚】「最根本」·三条线辨析", "stem": "【本题为错题回滚 · 换问法 · 三线横向对比】下列关于「最根本」的表述，属于**统一战线**语境的一项是：", "options": ["有中国共产党的坚强领导，是我们取得一切成就的最根本保证。", "人心向背、力量对比是决定党和人民事业成败的关键，是最大的政治。", "最根本的是要坚持中国共产党的领导，这是最核心最根本的问题。", "全面依法治国最根本的保证是坚持党的领导。"], "answer": "C", "explain": "**这是你 9.18 卷「最根本三条线」的回滚**——你当时答成「中国人民的爱国情怀和坚持奋斗」，属于**用主观感受替换客观表述**，这是政治选择题最常见的失分模式：**答案必须是文件原话，不是自己的理解**。\n\n「最根本」在讲义里对应**三条不同的线**，必须分清语境：\n- **成就来源线**：有中国共产党的坚强领导，是我们取得一切成就的**最根本保证** → 对应 A\n- **统战线**：**最根本的是要坚持中国共产党的领导，这是最核心最根本的问题**（人心向背、力量对比是最大的政治）→ 对应 C\n- **法治线**：全面依法治国**最根本的保证**是坚持党的领导 → 对应 D\n\n本题问「属于统一战线语境」的一项是 C——讲义原文就是「最根本的是要坚持中国共产党的领导，这是最核心最根本的问题」，紧接「人心向背」一句，属统战语境。\n\nB 项本身是正确的时政表述（人心向背、力量对比是最大的政治），但**它讲的是「最大的政治」而不是「最根本」**，且它是对 C 项的补充句，单独作为答案不符合题干「最根本」的要求。A、D 分别属成就来源线与法治线，语境不符。\n\n记忆抓手：**见「最根本」→ 落点必然是『党的领导』**，只有三个后缀——**坚强领导**（成就来源）／**最核心最根本的问题**（统战）／**最根本的保证**（法治）。三个后缀对三条线，一一绑定，不要跨线。", "_id": 12}, {"id": 13, "type": "choice", "kp": "【错题回滚】党的显著标志", "stem": "【本题为错题回滚 · 第 5 次出现 · 换问法】关于「三大优良作风」与「党的显著标志」，下列表述**完全正确**的一项是：", "options": ["理论联系实际、密切联系群众、批评和自我批评，是中国共产党区别于其他政党的显著标志。", "三大优良作风是理论联系实际、密切联系群众、批评和自我批评，是党在长期实践中形成的优良传统。", "人民至上、理论联系实际、密切联系群众，是党区别于其他政党的显著标志。", "勇于自我革命、人民至上、批评和自我批评，是中国共产党区别于其他政党的显著标志。"], "answer": "B", "explain": "**这道题你已经连续三次答错，而且每次你都选的正是你自己 9.17 反馈原文里的那个错误写法。** 这是本卷最需要盯的一题——错因已经**不是记不牢，而是笔记本身错了**。\n\n两个必须拆开的独立来源：\n\n**① 党的七大（1945）——三大优良作风**：**理论联系实际**、**密切联系群众**、**批评和自我批评**。注意是「三**大**」优良作风（不是「三个」），且**不含「人民至上」**。\n\n**② 党的十九届六中全会《决议》——勇于自我革命**：**勇于自我革命**是中国共产党**区别于其他政党的显著标志**。这是对「显著标志」这一提法唯一的权威来源。\n\n逐项：**A 是把两者混同的典型错法**——把三大作风直接说成「区别于其他政党的显著标志」，这就是你 9.17 原文的错误。**B 正确**：只称三大作风是「优良传统」，不说成「显著标志」，完全符合文档表述。**C 内部自相矛盾**——把「人民至上」塞进三大作风。**D** 更为混乱，把「勇于自我革命」与「人民至上」并列后再挂上「显著标志」。\n\n记忆抓手（把并列句拆成两条独立来源）：\n- **七大（1945）**：理论联系实际 → 密切联系群众 → 批评和自我批评。三个词，**动作式**表述，记成「联系、依靠、检视」。\n- **十九届六中全会《决议》**：**勇于自我革命**。一个词，**状态式**表述。\n\n考场识别信号：「显著标志」出现时，标准答案只指向**勇于自我革命**；一旦选项里出现「人民至上」与另外两个作风并列去当显著标志，必为错误项。\n\n**行动项（必须做）**：这道题的错源在你的**笔记文档**本身。请回去打开 `9.17 学习反馈（优化版）.docx`，把「三大优良作风＋人民至上＋勇于自我革命并列」那一句**拆成两条独立来源**，各写各的。不主动清除笔记里的错误，考场上会原样复现——这不是危言耸听，是这道题已经验证过三次的事实。", "_id": 13}, {"id": 14, "type": "choice", "kp": "【错题回滚】全过程人民民主·四个相统一", "stem": "【本题为错题回滚 · 换问法 · 正向选「属于」】「全过程人民民主」的四个相统一，指下列选项中的哪四项组合？", "options": ["过程民主和成果民主相统一、程序民主和实质民主相统一、直接民主和间接民主相统一、人民民主和国家意志相统一", "选举民主和协商民主相统一、过程民主和成果民主相统一、程序民主和实质民主相统一、直接民主和间接民主相统一", "选举民主和协商民主相统一、程序民主和实质民主相统一、直接民主和间接民主相统一、人民民主和国家意志相统一", "过程民主和成果民主相统一、选举民主和协商民主相统一、直接民主和间接民主相统一、人民民主和国家意志相统一"], "answer": "A", "explain": "**这题的换问法与你 9.18 卷那次正好相反**：上次给你「包含/不包含」让你选错项，你把包含项当成了不包含项；这次**正向选「属于」**，考的仍是同一个知识点。\n\n四个相统一的正确组合：**过程民主和成果民主**、**程序民主和实质民主**、**直接民主和间接民主**、**人民民主和国家意志**。\n\n逐项：**B、C、D 全都塞进了「选举民主和协商民主相统一」**——这正是最高频的干扰项。**「选举民主」与「协商民主」是两种民主形式（我国社会主义民主的两种重要形式），属于并列关系，不是一组「相统一」。** 凡是把「选举民主和协商民主」写进「四个相统一」的选项，直接判错。\n\n记忆抓手（三同一异）：四个「相统一」里有**三对是「同一民主的两个侧面」**——过程/成果、程序/实质、直接/间接；**最后一对是企业与国家的「人民民主/国家意志」**。所以真正要背的只有两个信号：**只要出现「选举/协商」，就是错的**；**「人民民主」必须配「国家意志」**。", "_id": 14}, {"id": 15, "type": "choice", "kp": "政治论述·新时代党的建设总体布局", "stem": "新时代党的建设总要求以「党的建设总布局」为核心。关于「党的建设总布局」的「5+2」框架，下列表述**错误**的一项是：", "options": ["5 指全面推进党的政治建设、思想建设、组织建设、作风建设、纪律建设这五大建设。", "2 指把制度建设贯穿其中，并深入推进反腐败斗争。", "在党的建设总布局中，政治建设是根本性建设，决定党的建设方向和效果，因此居于首要地位。", "在党的建设总布局中，纪律建设被列为五大建设的首要任务，因为纪律严明是党的光荣传统和独特优势。"], "answer": "D", "explain": "**这是你 9.17 反馈里写过「党的六大建设」的那条笔记的延伸题**（你当时把政治建设、思想建设、组织建设、作风建设、纪律建设称为五大建设，正文里又混入了制度建设、反腐败斗争）。请把框架彻底理清：\n\n**党的建设总布局＝「5＋2」**：\n- **5**：**政治建设、思想建设、组织建设、作风建设、纪律建设**\n- **2**：**制度建设贯穿其中** + **深入推进反腐败斗争**\n\n**A、B 都是标准表述，无误。**\n\n**C 正确**：**政治建设是党的根本性建设**，决定党的建设方向和效果，在五大建设中居于**首要地位**——这是高频考点，「首位／首要／根本性建设」三个定位词都要记牢。\n\n**D 错误**：**五大建设的首要任务不是纪律建设**。政治建设才居于首位、是根本性建设；纪律建设是「五大建设」之一，但它不是「首要任务」，「纪律严明是党的光荣传统和独特优势」这句对，但把它当作「五大建设中的首要任务」就错了。\n\n记忆抓手（顺序＋定位）：**政 → 思 → 组 → 作 → 纪**（政治打头、纪律收尾）。定位词链：**政治建设＝根本性／首位；思想建设＝基础性；制度建设＝贯穿其中；反腐败斗争＝常抓不懈**。看到「首要」不加限定地往纪律建设上套，即可判错。", "_id": 15}, {"id": 16, "type": "choice", "kp": "政治论述·现代公共文化服务体系", "stem": "健全现代公共文化服务体系，是文化强国建设的重要任务。关于这一体系，下列表述**错误**的一项是：", "options": ["现代公共文化服务体系以政府为主导，以公共财政为支撑，以保障人民群众基本文化权益为主要目标。", "公共文化服务「标准化、均等化、数字化、社会化」是现代公共文化服务体系建设的四个主要方向。", "公共文化服务与文化产业的关系是：公共文化服务提供基本性、普惠性的文化产品与服务，文化产业则面向市场满足多样化、个性化需求。", "现代公共文化服务体系以市场为唯一定价机制，服务项目一律按市场化方式收费运营，以此提高供给效率。"], "answer": "D", "explain": "**这是你 9.17 反馈里「健全现代公共文化服务体系」那条笔记的机理题。** 你的原文笔记记了「标准化、均等化」等要点，这道题考的是它背后的运行机理。\n\n**A 正确**：现代公共文化服务体系的三个定位——**政府主导、公共财政支撑、保障人民群众基本文化权益**。这是「基本权益」而非「全部文化需求」，一字之差是设错点。\n\n**B 正确**：标准化、均等化、数字化、社会化是四个主要建设方向；其中「均等化」强调城乡、区域、人群之间的均衡供给。\n\n**C 正确**：公共文化服务与文化产业的分界——前者**基本性、普惠性**（政府保障），后者**面向市场、多样化个性化**（市场调节）。这正是文化领域的「事业与产业双轮驱动」。\n\n**D 错误**：**公共文化服务绝不以市场为唯一定价机制、更不「一律市场化收费」。** 公共文化服务的核心属性是**公益性**——基本服务应免费或低收费提供，财政予以保障。若一律市场化收费运营，恰恰背离了「保障人民群众基本文化权益」这一主要目标，与 A 项自相矛盾。\n\n记忆抓手（一句话分家）：**公共文化服务＝政府出钱、群众受益、讲公平；文化产业＝市场配置、群众消费、讲效益。**公共文化服务讲「均等」，文化产业讲「多样」。含「一律市场化」的表述必然是错的。", "_id": 16}]}, {"name": "三、英语 · 长难句与词汇（4 题）", "questions": [{"id": 17, "type": "translate", "kp": "【错题回滚】长难句·比较级与程度副词", "stem": "【本题为错题回滚 · 换句子】翻译下面这句英文，先写主干，再写整体译文。特别注意**比较级与程度副词不能省略**，以及 those 的指代。\n\nThose who are exposed to social media algorithms on a daily basis are far more likely to feel threatened by views that differ from their own than those who rely mainly on traditional newspapers.", "answer": "【主干】\nThose ... are far more likely to feel threatened ... ——主语 Those（那些人）＋系动词 are ＋表语形容词短语 far more likely to feel threatened。\n\n【整体译文】\n与主要依赖传统报纸的人相比，那些每天接触社交媒体算法的人，感受到自身观点受到威胁的可能性要大得多。\n\n【关键处理】\n① those who ... 译为「那些……的人」，两处 those 都要译出，不能省略；\n② far more likely to 译为「远远更有可能／可能性要大得多」，**far 这一程度副词与比较级 more 都不能省**；\n③ exposed to 在被动语态中译为「接触／暴露于」，此处「日常接触社交媒体算法」更自然；\n④ 比较对象是两组人（社交媒体使用者 vs 传统报纸依赖者），译文中需把两组对照关系交代清楚。", "keys": "主干识别（主语 Those＋系动词＋表语）1 分；两处 those 均译出「那些……的人」1 分；far more likely 译出「远远更有可能／可能性大得多」，比较级与程度副词均不丢 2 分；than 引导的比较对象（传统报纸依赖者）译出且对照清晰 1 分；整体译文通顺、无漏译 1 分。共 6 分。", "explain": "**这是错题本 P2-11 的回滚**。你上次原句 `are far more likely to feel threatened` 只译出「感到受到威胁」，**把 far more likely（远远更有可能）整个漏掉了**，同时 `those` 没译成「那些……的人」。英二翻译里，**比较级与程度副词是明确的采分点，漏译直接扣分**。\n\n这次换句子但保留同一考点，并且**把比较结构拉长**：`那些（每天接触社交媒体算法的人）` vs `those（主要依赖传统报纸的人）`，两处 those 都需译出，比较对象必须完整——这是比上次更难的版本。\n\n记忆抓手：英文比较句的中译有个固定动作顺序：**先译比较对象 → 再译比较结果 → 最后译程度副词**。「far more likely」这类结构一律译成「**远远更有可能 / 可能性要大得多**」，看到 far／much／even + 比较级，就条件反射补上程度词，绝不省略。", "_id": 17}, {"id": 18, "type": "fill", "blanks": 4, "kp": "【错题回滚】考研核心词汇", "stem": "【本题为错题回滚 · 换问法】根据括号中的中文提示，填入恰当的英文单词或短语（每空一个词/短语，注意时态与搭配）：\n\n① The government has pledged to ____ （严厉打击、镇压）illegal data trading platforms.\n② Wild horses still roam freely across the ____ （大草原）of Inner Mongolia.\n③ How to balance privacy protection and data utilization is a far ____ （更棘手的）problem than it appears.\n④ 考法反思：以上三词中，哪一个你曾在反馈里把「严厉打击」误记成了「崩塌」的义项？请写出该词的英文原形。____", "answer": "① crack down on　② prairie　③ thornier　④ crack down on", "keys": "① crack down on 1 分；② prairie 1 分；③ thornier 1 分；④ crack down on 1 分。共 4 分。拼写错误不得分。", "explain": "**这是错题本 P1-10 的回滚**。你上次三处硬伤逐一复盘：\n\n① **crack down on**：你写成「崩塌」——**「崩塌」是 collapse**。crack down on 是**「严厉打击、镇压（不法行为）」**，动作朝向外部，联想「警方扫荡、查封平台」的画面。它是**短语动词**，on 不能丢。\n② **prairie**：你写的是「？」（没答出来）。**prairie＝大草原**，与 plain（平原）、plateau（高原）三个词一起记：**prairie 有草、plateau 有高度**。\n③ **thornier**：你译成「更尖锐」——接近但不是标准义。**thornier 是「更棘手的」**，原义「多刺的」，引申为「问题棘手」。固定搭配就是「**问题更棘手**」，不是「更尖锐」（尖锐多用 sharp／acute）。\n\n记忆抓手（三词打包）：**crack down on → 打压（对外动作）；prairie → 草原（与 plain/plateau 组家族）；thorny → 棘手（长刺的问题扎手）**。第 ④ 空是元认知检查——**你要能自己说出错在哪，下次才不会重复**。", "_id": 18}, {"id": 19, "type": "translate", "kp": "长难句·插入语与倒装", "stem": "翻译下面这句英文，标出主干并说明语序调整。注意**否定词提前引起的部分倒装**，以及插入成分的处理。\n\nNot until newsrooms began to measure audience engagement in real time did many editors realize that the traditional boundary between the editorial and the commercial side, once taken for granted, had already been eroded.", "answer": "【主干】\n... did many editors realize that ... ——主句为部分倒装结构：Not until ... 置于句首，助动词 did 提前，主语 many editors，谓语 realize，宾语为 that 引导的宾语从句。\n\n【整体译文】\n直到新闻编辑室开始实时测量受众参与度，许多编辑才意识到，编辑部门与商业部门之间那道曾被视为理所当然的传统界线，其实早已被侵蚀。\n\n【关键处理】\n① Not until ... did ... 为**否定词提前引起的部分倒装**，中译按正常语序处理为「直到……才……」；\n② 插入语 once taken for granted 修饰 the traditional boundary，译为「（那道）曾被视为理所当然的（界线）」，前置到被修饰词之前；\n③ the editorial and the commercial side 译为「编辑（部门）与商业（部门）」；\n④ 主句时态 had already been eroded 为过去完成时的被动，译为「早已被侵蚀」。", "keys": "倒装结构识别（Not until 提前＋did 提前）2 分；「直到……才……」句式译出 1 分；插入语 once taken for granted 正确归位（修饰 boundary，译为「曾被视为理所当然的」）1 分；the editorial and the commercial side 译出「编辑与商业（部门）」1 分；had already been eroded 过去完成被动译出「早已被侵蚀」1 分。共 6 分。", "explain": "这道题考两个**英二高频结构**，都是「看得懂词但会译错语序」的类型。\n\n**① 否定词提前的部分倒装。** Not until / Never / Hardly ... when / No sooner ... than 等否定词或否定短语置于句首时，主句要用部分倒装（助动词提前）。中译时不保留倒装，直接还原为「**直到……才……**」——这是最标准的对应句式。注意：**从句不倒装，只有主句倒装**，别把 began to measure 也当成倒装处理。\n\n**② 插入语的处理。** once taken for granted 是过去分词短语作插入成分，修饰前面的 the traditional boundary。英译中时**插入语一般前置**到被修饰词之前，用「曾被视为理所当然的」一带而过，不要原样放在逗号后面导致中文读起来断裂。\n\n记忆抓手（英二长难句三步走）：**先切从句 → 再找主干 → 后摆插入语**。看到句首的 Not until / Never / Only 就立刻在草稿上标「主句倒装」，译时还原因果顺序。", "_id": 19}, {"id": 20, "type": "short", "rows": 4, "kp": "英语·方法反思", "stem": "【方法反思】结合你近期的英语反馈（外刊精读、词汇清理、长难句翻译），回答：\n\n（1）你上次在长难句翻译上丢掉的分，主要集中在哪一类成分？（用一个词概括）\n（2）针对这一类失分，请写出一条你**明天就能执行**的具体动作（须含时间、材料、动作三要素）。", "answer": "（1）集中在**修饰成分**的漏译——尤其是**比较级与程度副词**（far more likely）、**指代词**（those 未译作「那些……的人」）。这类失分的共同点是：主干译对了，修饰成分整块丢掉，属于「看懂却漏译」型失分。\n\n（2）动作示例（须含三要素）：\n- **时间**：明天上午 8:00—8:30；\n- **材料**：今日两道长难句（社交媒体算法句、Not until 倒装句）＋ 9.18 错题原句 `are far more likely to feel threatened`；\n- **动作**：每句按「**切从句—找主干—补修饰**」三步手写翻译，译完后**用红笔单独圈出所有比较级、程度副词、指代词**，逐项核对是否译出；连续 3 句无漏译即过关。\n\n（补充建议）把「far more likely 必译『远远更有可能』」写成一张便签贴在手边，翻译时逐句扫一遍——这是投入产出比最高的一处改动。", "keys": "（1）答出「修饰成分漏译」或明确指向「比较级／程度副词」（也可含指代词）2 分；（2）动作须含时间、材料、动作三要素，每缺一项扣 1 分，最高 4 分；动作具体、可执行，不写「多练长难句」这类空话。共 6 分。", "explain": "这道题不考知识，考**元认知**。你上次的失分模式很清晰：**主干能译，修饰整块丢**——这不是能力问题，是习惯问题（翻译时注意力全在主干上，忘了复查修饰）。\n\n所以「明天做什么」必须具体到能立刻执行的程度。参照上题给的示例，把自己那条写成**可打勾的清单**。\n\n记忆抓手：长难句翻译的复查动作固定为「**三扫**」——**一扫比较级与程度副词（far／much／even＋比较级）；二扫指代词（those／that／it 是否落到实处）；三扫插入语（是否前置归位）**。「三扫」做完再交卷，这类失分能砍掉大半。", "_id": 20}]}]};
+const QUIZID = "2026-10-07";
+const KEY = "quiz_" + QUIZID;
+const TOTAL = 20;
+
+// ---- 状态存取 ----
+let state = JSON.parse(localStorage.getItem(KEY) || "{}");
+
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+function answeredCount(){
+  let n = 0;
+  QUIZ.sections.forEach(s => s.questions.forEach((q, i) => {
+    const id = q._id;
+    const v = state[id];
+    if (q.type === "choice") { if (v) n++; }
+    else if (q.type === "fill") {
+      if (v && Object.values(v).some(x => (x||"").trim())) n++;
+    }
+    else { if (v && v.trim()) n++; }
+  }));
+  return n;
+}
+
+function updateProgress(){
+  const n = answeredCount();
+  const pct = Math.round(n / TOTAL * 100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("ptext").textContent = `已作答 ${n} / ${TOTAL}`;
+  document.getElementById("tbCount").textContent = `${n} / ${TOTAL}`;
+  document.getElementById("doneTip").classList.toggle("show", n >= TOTAL);
+}
+
+function flashSaved(n){
+  const el = document.querySelector(`.saved[data-saved="${n}"]`);
+  if (!el) return;
+  el.textContent = "已保存";
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 1200);
+}
+
+// ---- 绑定交互 ----
+document.querySelectorAll(".opt input").forEach(inp => {
+  inp.addEventListener("change", e => {
+    const n = +e.target.name.replace("q", "");
+    state[n] = e.target.value;
+    save(); updateProgress(); flashSaved(n);
+  });
+});
+
+document.querySelectorAll(".fillin").forEach(inp => {
+  inp.addEventListener("input", e => {
+    const n = e.target.dataset.q, b = e.target.dataset.b;
+    state[n] = state[n] || {};
+    state[n][b] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+document.querySelectorAll(".shortin,.transin").forEach(ta => {
+  ta.addEventListener("input", e => {
+    const n = e.target.dataset.q;
+    state[n] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+// 查看解析
+document.querySelectorAll(".btn-ans").forEach(b => {
+  b.addEventListener("click", () => {
+    const n = b.dataset.q;
+    const box = document.querySelector(`.ansbox[data-ans="${n}"]`);
+    const open = !box.hidden;
+    box.hidden = open;
+    b.textContent = open ? "查看解析" : "收起解析";
+  });
+});
+
+document.getElementById("btnRevealAll").addEventListener("click", function(){
+  const anyHidden = [...document.querySelectorAll(".ansbox")].some(b => b.hidden);
+  document.querySelectorAll(".ansbox").forEach(b => b.hidden = !anyHidden);
+  document.querySelectorAll(".btn-ans").forEach(b => {
+    b.textContent = anyHidden ? "收起解析" : "查看解析";
+  });
+  this.textContent = anyHidden ? "收起全部解析" : "展开全部解析";
+});
+
+// 清空
+document.getElementById("btnReset").addEventListener("click", () => {
+  if (!confirm("确定清空全部作答？此操作不可撤销。")) return;
+  state = {}; save();
+  document.querySelectorAll(".opt input").forEach(i => i.checked = false);
+  document.querySelectorAll(".fillin,.shortin,.transin").forEach(i => i.value = "");
+  updateProgress();
+});
+
+// ---- 导出答案 ----
+function buildExport(){
+  const L = [];
+  L.push(`# ${QUIZ.title} — 我的作答`);
+  L.push("");
+  L.push(`日期：${QUIZ.date}`);
+  L.push(`完成：${answeredCount()} / ${TOTAL} 题`);
+  L.push("");
+  const tname = {choice:"单选", fill:"填空", short:"问答", translate:"长难句翻译"};
+  QUIZ.sections.forEach(s => {
+    L.push(`## ${s.name}`);
+    L.push("");
+    s.questions.forEach(q => {
+      const v = state[q._id];
+      L.push(`### ${q._id}. [${tname[q.type]}]`);
+      L.push(q.stem);
+      L.push("");
+      if (q.type === "choice") {
+        L.push(`**我的答案：** ${v ? v : "（未作答）"}`);
+      } else if (q.type === "fill") {
+        const arr = [];
+        for (let i = 0; i < (q.blanks || 1); i++) {
+          const k = String(i);
+          arr.push(`第${i+1}空：${(v && v[k]) ? v[k] : "（空）"}`);
+        }
+        L.push(`**我的答案：** ${arr.join("　")}`);
+      } else {
+        L.push(`**我的答案：**`);
+        L.push("");
+        L.push(v && v.trim() ? v : "（未作答）");
+      }
+      L.push("");
+    });
+  });
+  return L.join("\n");
+}
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  document.getElementById("exportArea").value = buildExport();
+  document.getElementById("modal").classList.add("show");
+});
+document.getElementById("btnCloseModal").addEventListener("click", () => {
+  document.getElementById("modal").classList.remove("show");
+});
+document.getElementById("btnDownload").addEventListener("click", () => {
+  const blob = new Blob([buildExport()], {type:"text/markdown;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${QUIZID}-我的作答.md`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") e.target.classList.remove("show");
+});
+
+// ---- 恢复状态 ----
+(function restore(){
+  document.querySelectorAll(".opt input").forEach(inp => {
+    const n = +inp.name.replace("q", "");
+    if (state[n] === inp.value) inp.checked = true;
+  });
+  document.querySelectorAll(".fillin").forEach(inp => {
+    const n = inp.dataset.q, b = inp.dataset.b;
+    if (state[n] && state[n][b] != null) inp.value = state[n][b];
+  });
+  document.querySelectorAll(".shortin,.transin").forEach(ta => {
+    const n = ta.dataset.q;
+    if (state[n] != null) ta.value = state[n];
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
