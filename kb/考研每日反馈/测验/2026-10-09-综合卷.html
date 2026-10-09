@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考研每日测验 · 网络舆论与舆情＋论述结尾与小标题（含错题回滚）</title>
+<style>
+:root{
+  --bg:#f7f8fb; --card:#fff; --ink:#1c2430; --sub:#60708a;
+  --line:#e3e8f0; --blue:#2F5B9E; --blue-l:#e8eef8;
+  --green:#1f8a52; --green-l:#e6f5ec;
+  --amber:#b4740a; --amber-l:#fdf3e0;
+  --red:#c0392b; --red-l:#fdeceb;
+  --violet:#6b4ea8; --violet-l:#f0ebfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+    "Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.7;
+  padding:0 0 120px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+/* 顶部 */
+header{
+  background:linear-gradient(135deg,#2F5B9E 0%,#40699f 60%,#5b7fb5 100%);
+  color:#fff;padding:34px 0 26px;margin-bottom:24px;
+  box-shadow:0 2px 14px rgba(47,91,158,.18);
+}
+header h1{font-size:23px;font-weight:650;letter-spacing:.3px;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.85}
+.statline{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chip{
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);
+  border-radius:999px;padding:4px 13px;font-size:12.5px;backdrop-filter:blur(4px)
+}
+
+/* 进度条 */
+.progress-sticky{
+  position:sticky;top:0;z-index:50;background:rgba(247,248,251,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  padding:10px 0;margin-bottom:8px;
+}
+.pbar{height:7px;background:#e6eaf2;border-radius:99px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,#2F5B9E,#5b8fd4);
+  border-radius:99px;transition:width .35s ease}
+.ptext{font-size:12.5px;color:var(--sub);margin-top:6px;display:flex;
+  justify-content:space-between}
+
+/* 分区 */
+.sec{margin:30px 0 0}
+.sec h2{
+  font-size:16.5px;font-weight:640;color:var(--blue);
+  display:flex;align-items:center;gap:9px;padding-bottom:9px;
+  border-bottom:2px solid var(--blue-l);margin-bottom:16px;
+}
+.dot{width:9px;height:9px;border-radius:3px;background:var(--blue);
+  display:inline-block;flex:0 0 auto}
+.secmeta{margin-left:auto;font-size:12px;color:var(--sub);font-weight:400}
+
+/* 题目卡片 */
+.q{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:17px 19px;margin-bottom:13px;transition:border-color .2s,box-shadow .2s;
+}
+.q:focus-within{border-color:#b9cdea;box-shadow:0 3px 14px rgba(47,91,158,.09)}
+.qhead{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.qno{
+  width:26px;height:26px;border-radius:8px;background:var(--blue);
+  color:#fff;font-size:13px;font-weight:600;display:flex;
+  align-items:center;justify-content:center;flex:0 0 auto;
+}
+.qtag{font-size:11.5px;padding:2px 9px;border-radius:6px;font-weight:500}
+.t-choice{background:var(--blue-l);color:var(--blue)}
+.t-fill{background:var(--green-l);color:var(--green)}
+.t-short{background:var(--violet-l);color:var(--violet)}
+.t-translate{background:var(--amber-l);color:var(--amber)}
+.kp{font-size:11.5px;color:var(--sub);margin-left:auto}
+.stem{font-size:14.8px;margin-bottom:12px;white-space:pre-wrap}
+
+/* 单选 */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 13px;
+  border:1px solid var(--line);border-radius:9px;cursor:pointer;
+  transition:all .16s;font-size:14.2px;
+}
+.opt:hover{background:#f4f7fc;border-color:#c3d5ee}
+.opt input{display:none}
+.opt .letter{
+  width:21px;height:21px;border-radius:6px;background:#eef1f6;color:var(--sub);
+  font-size:12px;font-weight:600;display:flex;align-items:center;
+  justify-content:center;flex:0 0 auto;margin-top:2px;transition:all .16s;
+}
+.opt input:checked~.letter{background:var(--blue);color:#fff}
+.opt:has(input:checked){background:var(--blue-l);border-color:#9dbde6}
+.otext{flex:1}
+
+/* 填空 */
+.fills{display:flex;flex-direction:column;gap:8px}
+.fillin{
+  font-family:inherit;font-size:14.2px;padding:9px 13px;
+  border:1px solid var(--line);border-radius:8px;background:#fcfdff;
+  transition:all .16s;width:100%;
+}
+.fillin:focus{outline:none;border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 文本域 */
+.shortin,.transin{
+  font-family:inherit;font-size:14.2px;line-height:1.75;padding:11px 14px;
+  border:1px solid var(--line);border-radius:9px;background:#fcfdff;
+  width:100%;resize:vertical;transition:all .16s;
+}
+.shortin:focus,.transin:focus{outline:none;border-color:var(--blue);
+  background:#fff;box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 按钮与解析 */
+.qfoot{display:flex;align-items:center;gap:11px;margin-top:11px}
+.btn-ans{
+  font-family:inherit;font-size:12.5px;padding:5px 13px;border-radius:7px;
+  border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;
+  transition:all .16s;
+}
+.btn-ans:hover{background:var(--blue-l);border-color:#a8c4e8;color:var(--blue)}
+.saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
+.saved.show{opacity:1}
+.ansbox{
+  margin-top:12px;padding:13px 15px;background:#fafbfd;
+  border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-size:13.8px;
+}
+.ansline{margin-bottom:8px;display:flex;gap:9px;line-height:1.7}
+.ansline:last-child{margin-bottom:0}
+.ansline b{
+  flex:0 0 auto;color:var(--blue);font-size:12px;font-weight:640;
+  background:var(--blue-l);padding:2px 8px;border-radius:5px;height:fit-content;
+  margin-top:3px;
+}
+.ansline .got{color:var(--green);font-weight:600}
+
+/* 底部操作栏 */
+.toolbar{
+  position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);padding:12px 20px;z-index:60;
+  backdrop-filter:blur(10px);box-shadow:0 -2px 16px rgba(28,36,48,.07);
+}
+.tb-inner{max-width:820px;margin:0 auto;display:flex;
+  align-items:center;gap:11px;flex-wrap:wrap}
+.btn{
+  font-family:inherit;font-size:13.5px;padding:9px 19px;border-radius:9px;
+  border:none;cursor:pointer;font-weight:530;transition:all .16s;
+}
+.btn-main{background:var(--blue);color:#fff}
+.btn-main:hover{background:#264d87;transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--sub);border:1px solid var(--line)}
+.btn-ghost:hover{background:#f4f6fa;color:var(--ink)}
+.tb-count{font-size:13px;color:var(--sub);margin-left:auto}
+
+/* 完成提示 */
+.done-tip{
+  margin-top:22px;padding:18px 20px;border-radius:12px;
+  background:var(--green-l);border:1px solid #bfe5ce;color:#14603a;
+  font-size:14px;display:none;
+}
+.done-tip.show{display:block}
+.done-tip b{display:block;margin-bottom:6px;font-size:15px}
+
+/* 答案导出弹层 */
+.modal{
+  position:fixed;inset:0;background:rgba(20,28,40,.5);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:#fff;border-radius:14px;max-width:660px;width:100%;
+  max-height:82vh;display:flex;flex-direction:column;overflow:hidden;
+}
+.modal-head{padding:17px 21px;border-bottom:1px solid var(--line);
+  font-weight:620;font-size:15.5px;color:var(--blue)}
+.modal-body{padding:18px 21px;overflow-y:auto;flex:1}
+.modal-body textarea{
+  width:100%;height:340px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.65;border:1px solid var(--line);
+  border-radius:9px;padding:13px;background:#fafbfd;resize:vertical;
+}
+.modal-foot{padding:14px 21px;border-top:1px solid var(--line);
+  display:flex;gap:10px;justify-content:flex-end}
+.modal-tip{font-size:12.5px;color:var(--sub);margin-bottom:11px;line-height:1.65}
+
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  header{padding:26px 0 20px}
+  header h1{font-size:19px}
+  .q{padding:14px 15px}
+  .stem{font-size:14.2px}
+  .tb-count{display:none}
+  .kp{margin-left:0;width:100%}
+}
+@media print{
+  .toolbar,.btn-ans,.progress-sticky{display:none}
+  .ansbox[hidden]{display:block!important}
+  .q{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>考研每日测验 · 网络舆论与舆情＋论述结尾与小标题（含错题回滚）</h1>
+    <div class="meta">2026-10-09 · 共 20 题 · 今晚 22:30 自动生成</div>
+    <div class="statline">
+      <span class="chip">单选 11</span>
+      <span class="chip">填空 3</span>
+      <span class="chip">问答 5</span>
+      <span class="chip">长难句 1</span>
+    </div>
+  </div>
+</header>
+
+<div class="progress-sticky">
+  <div class="wrap">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <div class="ptext">
+      <span id="ptext">已作答 0 / 20</span>
+      <span>进度自动保存，刷新不丢</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  
+<section class="sec">
+  <h2><span class="dot"></span>一、专业课 · 网络舆论与舆情（8 题）
+    <span class="secmeta">8 题</span></h2>
+  
+<div class="q" data-q="1" data-type="choice">
+  <div class="qhead">
+    <span class="qno">1</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">舆论与舆情·概念辨析</span>
+  </div>
+  <div class="stem">舆论与舆情是一组容易混淆的概念。下列对二者关系的表述，**不符合**讲义原意的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q1" value="A"><span class="letter">A</span><span class="otext">舆情涵盖舆论：舆论是舆情的一个重要组成部分，也是舆情在某一方面的集中体现；舆情不仅包含公开的舆论，也包含隐含的公众态度与情绪。</span></label><label class="opt"><input type="radio" name="q1" value="B"><span class="letter">B</span><span class="otext">舆情催生舆论：舆论总是在一定的舆情背景下产生，但反过来舆情并不一定通过舆论表现出来。</span></label><label class="opt"><input type="radio" name="q1" value="C"><span class="letter">C</span><span class="otext">舆情具有常态性表现，在日积月累中体现为一种民意倾向；同时也具有爆发性表现，通过某些特定事件集中体现为一种舆论。</span></label><label class="opt"><input type="radio" name="q1" value="D"><span class="letter">D</span><span class="otext">舆论比舆情的外延更宽：凡是公众公开表达出来的意见均属舆论，而舆情仅指那些已在媒体上呈现、可被观测到的那部分舆论。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="1">查看解析</button>
+    <span class="saved" data-saved="1"></span>
+  </div>
+  <div class="ansbox" data-ans="1" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>**D 把两者的外延完全说反了。** 讲义原话是「舆情涵盖舆论」——舆情是大圈，舆论是小圈且是舆情在某一方面的集中体现。D 说的「舆论外延更宽、舆情仅指已呈现的部分」正好颠倒。
+
+A 是讲义「（1）舆情涵盖舆论」的原表述；B 是「（2）舆情催生舆论」；C 是「（3）舆情常态性，舆论具体化」。
+
+记忆抓手：**舆情是水库，舆论是开闸那一股。** 水库长期蓄着（常态性），开闸才见水（爆发性）；库里还有没开闸的水——就是那些未公开表达的隐含态度与情绪。</div></div>
+</div>
+<div class="q" data-q="2" data-type="fill">
+  <div class="qhead">
+    <span class="qno">2</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">网络舆论的形成机制</span>
+  </div>
+  <div class="stem">网络舆论的产生与发展遵循一条三段式规律。请补全每一段的名称及其核心动作（每空填一个短语）：
+
+①起点：____ 引起关注；
+②中间环节：____ 的扩散；
+③最终达成：____ 的整合。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="2" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="2" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="2" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="2">查看解析</button>
+    <span class="saved" data-saved="2"></span>
+  </div>
+  <div class="ansbox" data-ans="2" hidden><div class="ansline"><b>参考答案</b>导火索性事件；讨论；意见</div><div class="ansline"><b>得分点</b>每, 空,  , 1,  , 分, ，, 共,  , 3,  , 分</div><div class="ansline"><b>解析</b>讲义给的三段链条是：**导火索性事件引起关注 → 讨论的扩散 → 意见的整合**。
+
+三个细节别丢：
+① 起点处，**专业媒体机构的报道是引发网络舆论的直接动因**；信息经社会化媒体渠道发布引起舆论热潮也越来越常见。
+② 中间环节，讨论扩散是**事实与意见的共同传播过程**——事实会保真、衰减或变形；意见的交锋结果是优势意见继续扩散、劣势意见逐渐退出主流渠道。
+③ 最终达成，标志是**消除个人意见差异、反映社会知觉和集合意识的多数人共同意见的产生**；整合机制包括沉默的螺旋、意见领袖的作用、专业传播机构的传播与控制策略。
+
+记忆抓手：**火种（事件）→ 风（讨论）→ 火形（意见）。**</div></div>
+</div>
+<div class="q" data-q="3" data-type="choice">
+  <div class="qhead">
+    <span class="qno">3</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">舆论·要素与特点</span>
+  </div>
+  <div class="stem">舆论的核心要素有八个。关于这八个要素，下列说法**错误**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q3" value="A"><span class="letter">A</span><span class="otext">舆论的主体历经「从公众到多元主体互动」的演变：传统核心主体是公众，新媒体时代则是政府、公众、社会团体、大众媒介和意见领袖等多元主体互动的产物。</span></label><label class="opt"><input type="radio" name="q3" value="B"><span class="letter">B</span><span class="otext">舆论的本体包括意见、情绪和行为，与之对应可区分潜舆论、显舆论、行为舆论三种形态；陈力丹指出新媒体环境下这三种形态分别发生显化、复杂化与虚拟化的变化。</span></label><label class="opt"><input type="radio" name="q3" value="C"><span class="letter">C</span><span class="otext">八个要素中前七个是构成舆论的必要要素，缺一不可；而「舆论的质量」不是必要要素——即使舆论的质量很低，依然是一种舆论。</span></label><label class="opt"><input type="radio" name="q3" value="D"><span class="letter">D</span><span class="otext">舆论的持续性又称「舆论的韧性」；研究显示近年来舆论存活周期不断延长，已从原来的一周延长到两周以上，这与后真相时代的社交茧房有关。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="3">查看解析</button>
+    <span class="saved" data-saved="3"></span>
+  </div>
+  <div class="ansbox" data-ans="3" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>**D 把存活周期的变化方向说反了。** 讲义原话：近年来舆论存活周期不断变短，**从原来的两周缩短到一周以内**，一方面与舆情事件频发有关，也与后真相时代的「社交茧房」有一定关系。
+
+A 是舆论主体要素；B 是本体要素，三个「变化」一一对应（潜舆论**显化**、显舆论**复杂化**、行为舆论**虚拟化**）；C 是讲义小结——前七个是必要要素，最后一个（质量）不是。
+
+记忆抓手：**「两周→一周」是缩短。** 顺手记一句顺口溜——**主体、客体、本体、数量、强度、持续、功能**（七个必要）＋**质量**（唯一非必要）。</div></div>
+</div>
+<div class="q" data-q="4" data-type="short">
+  <div class="qhead">
+    <span class="qno">4</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">新闻舆论「四力」</span>
+  </div>
+  <div class="stem">新闻舆论「四力」是高频考点。请依次写出「四力」的完整名称，并用一句话说明每一「力」在「四力」中的定位（如「×××是新闻舆论发展的××」），最后指出哪一力是「地基中的基石」，为什么。</div>
+  <textarea class="shortin" data-q="4" rows="7" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="4">查看解析</button>
+    <span class="saved" data-saved="4"></span>
+  </div>
+  <div class="ansbox" data-ans="4" hidden><div class="ansline"><b>参考答案</b>四力＝传播力、引导力、影响力、公信力。定位：①传播力是新闻舆论发展的前提——它是新闻生产力的具体体现和外化，是最基本的依托，居于「四力」之首，起决定性作用，其强弱直接影响其余三力的大小；②引导力是新闻舆论发展的先驱——新闻作品发布后按预期方向对人们思想与行为形成正向驱动作用的能力；③影响力是新闻舆论发展的效能——反映和监测舆论传播与舆论引导行为发生后取得的实际效果；④公信力是新闻舆论发展的保障——受众对媒体在长期新闻传播实践中累积起来的信任程度，通俗说就是媒体的群众基础。其中**公信力是「地基中的基石」**：它的打造和形成需要久久为功，但消减和摧毁却是一刹那的事；一旦失去作为基石的公信力，「四力」构建起来的理论大厦就会崩塌。</div><div class="ansline"><b>得分点</b>四, 力, 名, 称, 全, 对,  , 2,  , 分, （, 错, 一, 个, 扣,  , 0, ., 5, ）, ；, 四, 个, 定, 位, 各,  , 0, ., 5,  , 分, 共,  , 2,  , 分, ；, 指, 出, 公, 信, 力, 是, 地, 基, 基, 石,  , 1,  , 分, ；, 说, 明, 「, 久, 久, 为, 功,  , v, s,  , 一, 刹, 那, 」, 的, 对, 比,  , 1,  , 分, 。, 共,  , 6,  , 分, 。</div><div class="ansline"><b>解析</b>讲义给的四组定位词是固定搭配，**「前提—先驱—效能—保障」四个词不能互换**：
+
+- 传播力＝**前提**（居「四力」之首，起决定性作用）
+- 引导力＝**先驱**
+- 影响力＝**效能**（与前两者不同，它侧重「效果」而非「能力」）
+- 公信力＝**保障**（地基中的基石）
+
+提出场合要记牢：**2016 年 2 月 19 日**，习近平在党的新闻舆论工作座谈会上提出「切实提高党的新闻舆论传播力、引导力、影响力、公信力」。
+
+容易混的两个概念：新闻舆论「四力」（传播力/引导力/影响力/公信力，对应**媒体产品**）与新闻工作者「四力」（脚力/眼力/脑力/笔力，对应**个人素养**，2018 年 8 月全国宣传思想工作会议提出）。
+
+记忆抓手：**前（提）—先（驱）—效（能）—保（障）**，四字链。公信力特殊：**「久久为功地建，一刹那地毁」**。</div></div>
+</div>
+<div class="q" data-q="5" data-type="choice">
+  <div class="qhead">
+    <span class="qno">5</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">舆论引导·困境</span>
+  </div>
+  <div class="stem">新媒体环境下舆论引导面临四重困境。关于这四重困境，下列说法**错误**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q5" value="A"><span class="letter">A</span><span class="otext">传播迅捷难掌控：突发事件引爆时间短、传播速度快，官方权威信息暂时缺失给谣言留出空间，谣言「先入为主」使引导更加困难。</span></label><label class="opt"><input type="radio" name="q5" value="B"><span class="letter">B</span><span class="otext">意见分散难平衡：移动互联网传播主体多元、信息海量，受众选择性、自主性和互动性高，网民众声喧哗导致官方声音隐没其中。</span></label><label class="opt"><input type="radio" name="q5" value="C"><span class="letter">C</span><span class="otext">圈层传播难渗透：差异化定制信息在媒体与受众之间搭起「私密通道」形成监管盲区，基于熟人社交与兴趣连接的「圈子效应」使圈子之外的意见很难渗透。</span></label><label class="opt"><input type="radio" name="q5" value="D"><span class="letter">D</span><span class="otext">情绪共鸣难疏导：四个困境中，只有它是纯粹由技术缺陷造成的，与前三个困境不同，它可以通过升级算法与平台规则在短期内完全解决。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="5">查看解析</button>
+    <span class="saved" data-saved="5"></span>
+  </div>
+  <div class="ansbox" data-ans="5" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>**D 是自造命题。** 讲义对「情绪共鸣难疏导」的解释是从**社会心理**层面出发的：各种社会热点难点问题相互叠加加剧民众思想困惑；同一社交圈子内多数人的见识、视野大体一致，更易形成情感共鸣，加剧非理性信息扩散；网民逆反心理较重，与同圈层人形成「共识」后，对主流声音和官方言论常表现出怀疑、反感、抵触乃至否定、排斥。**全程没有「纯技术缺陷」「可短期完全解决」这类说法。** 遇到这种「把社会心理问题说成技术问题＋给出绝对化结论」的选项，基本可以直接判错。
+
+四个困境是固定四字排比：**传播迅捷难掌控 · 意见分散难平衡 · 圈层传播难渗透 · 情绪共鸣难疏导**（讲义 @嵩老思 提示：从网络和舆论的特性出发进行分析）。
+
+记忆抓手：**快 → 散 → 圈 → 情**，四个字一路下来。答题时若问「怎么破解」，就一一对应主流媒体的「四全媒体」：全程媒体动态追踪、全息媒体重构公共领域、全员媒体破除圈层壁垒、全效媒体强化情感共鸣（讲义案例 1 的框架）。</div></div>
+</div>
+<div class="q" data-q="6" data-type="short">
+  <div class="qhead">
+    <span class="qno">6</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">舆论引导的策略·三导向</span>
+  </div>
+  <div class="stem">讲义把舆论引导的策略归纳为三种「导向」。请写出这三种导向的名称，各用一句话概括其核心动作，并指出课本给出的「缓解情绪—注意方法—回应诉求」三个提示词分别对应哪一种导向。</div>
+  <textarea class="shortin" data-q="6" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="6">查看解析</button>
+    <span class="saved" data-saved="6"></span>
+  </div>
+  <div class="ansbox" data-ans="6" hidden><div class="ansline"><b>参考答案</b>三种导向：①权威性导向——发挥舆论引导主体（政府、媒体、意见领袖）的能动性，以理性话语调节情绪化表达；②合理性导向——重视舆论引导的方法论，以科学性提高效用性（基于数据挖掘与计算机技术了解公众真实诉求，并把握舆论发展演化规律、建立长效机制）；③公共性导向——尊重舆论引导对象，积极回应民众诉求（基于表达自由建构宽容的话语策略，基于社会主流价值通过扩大对话来凝聚共识）。对应关系：**缓解情绪→权威性导向；注意方法→合理性导向；回应诉求→公共性导向。**</div><div class="ansline"><b>得分点</b>三, 个, 导, 向, 名, 称, 各,  , 1,  , 分, （, 共,  , 3,  , 分, ）, ；, 每, 个, 导, 向, 的, 核, 心, 动, 作, 各,  , 1,  , 分, （, 共,  , 3,  , 分, ）, ；, 三, 项, 对, 应, 关, 系, 全, 对,  , 2,  , 分, 。, 共,  , 8,  , 分, 。</div><div class="ansline"><b>解析</b>这是讲义里 @嵩老思 给出的极简记忆链，务必背下来：**「缓解情绪——注意方法——回应诉求」**，与三个导向一一对应、顺序也一致。
+
+补充三个抓手，可在论述题里充当具体做法：
+- 权威性导向：一是**逐步提高公众的理性认知能力**（8·19 讲话：「必须增强主动性、掌握主动权、打好主动仗」）；二是**积极疏导公众的极端情绪**（建立情绪应对的「话语包」）。
+- 合理性导向：一是基于数据挖掘与计算机技术摸清真实诉求；二是把握舆论发展演化规律、建立长效机制（事件发生前信息透明、健全新闻发布机制；发生初期公开信息、及时讲真话）。
+- 公共性导向：一是基于表达自由建构**宽容的话语策略**；二是基于社会主流价值通过**扩大对话凝聚共识**。
+
+记忆抓手：**情绪对权威、方法对合理、诉求对公共**——把「对象」和「导向名」锁在一起，就不会串。</div></div>
+</div>
+<div class="q" data-q="7" data-type="choice">
+  <div class="qhead">
+    <span class="qno">7</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">舆论监督·原则与「时度效」</span>
+  </div>
+  <div class="stem">关于舆论监督的基本原则及其「时度效」方法策略，下列说法**错误**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q7" value="A"><span class="letter">A</span><span class="otext">舆论监督的四条基本原则是：依法监督、准确监督、科学监督、建设性监督。</span></label><label class="opt"><input type="radio" name="q7" value="B"><span class="letter">B</span><span class="otext">舆论监督的「度」可分为新闻事实、社会公序、法纪纲常三部分，分别对应「把稳新闻事实之度」「把稳社会稳定和谐之度」「把稳法律规章之度」。</span></label><label class="opt"><input type="radio" name="q7" value="C"><span class="letter">C</span><span class="otext">舆论监督与正面宣传的辩证统一，体现在统一于真实准确的报道、统一于正向的客观效果、统一于正确的舆论引导这三个层面。</span></label><label class="opt"><input type="radio" name="q7" value="D"><span class="letter">D</span><span class="otext">讲义明确指出：舆论监督具有行政与法律上的强制力，一旦公开批评，被监督对象必须依规整改，这也是它震慑力强的原因。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="7">查看解析</button>
+    <span class="saved" data-saved="7"></span>
+  </div>
+  <div class="ansbox" data-ans="7" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>**D 是方向性错误。** 讲义原话：「舆论监督**不具有行政或法律强制力**，但凭借事实的广泛传播形成舆论压力，产生强大的社会震慑与约束效果。」这个「不具有强制力」是常考设错点——它的力量来自**舆论压力**，而非法定权力。
+
+A 是《新闻学概论（第二版）》马工程教材给出的四条基本原则（依法、准确、科学、建设性）；B 是「度」的三分法——**事实／公序／法纪**；C 是舆论监督与正面宣传的「三个统一」。
+
+加强记忆：舆论监督的特点是**权威性、典型性、紧迫性、重视社会效果**四条；开展舆论监督的出发点是**保证中央政令畅通，维护国家、人民的利益**，且大多数是解决**人民内部矛盾**，目的是「从团结的愿望出发，经过批评和自我批评，达到新的团结」。
+
+记忆抓手：**「依法、准确、科学、建设性」四原则 + 「无强制力」是一根弦。** 答题时只要写「凭借事实传播形成舆论压力」，就不会掉进「强制力」的坑。</div></div>
+</div>
+<div class="q" data-q="8" data-type="short">
+  <div class="qhead">
+    <span class="qno">8</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">答题案例·主流媒体舆论引导</span>
+  </div>
+  <div class="stem">【综合应用】真题：**分析主流媒体在舆论引导中发挥的作用**（云南财经大学 2025）。
+讲义给了两条思路。请任选一条，写出完整的答题框架：先写清楚你选的是哪条思路，再分点列出小标题（每点后附一句解释即可）。</div>
+  <textarea class="shortin" data-q="8" rows="8" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="8">查看解析</button>
+    <span class="saved" data-saved="8"></span>
+  </div>
+  <div class="ansbox" data-ans="8" hidden><div class="ansline"><b>参考答案</b>思路一（时度效原则）：①把握舆论引导的时机与节奏——第一时间发现舆情、研判敏感问题，按及时、准确、公开、透明原则主动发布权威信息，并按舆论引发、形成、影响扩大、影响消退四阶段持续动态发布；②把握舆论引导的力度与分寸——增强报道力度但不过度造势，把握尺度做到「大事不说小、小事不说大」，同时开掘深度、激活温度；③注重舆论引导的效果与技巧——体现实效性（能否获得受众认同、凝聚社会共识）、权威性（报道令人信服的力量与威望）、艺术性（把重大主题寓于生动表达之中）。
+
+思路二（双框架法）：先摆「舆论引导难题」框架——传播迅捷难掌控／意见分散难平衡／圈层传播难渗透／情绪共鸣难疏导；再摆「主流媒体」框架——全程媒体（时间维度）／全息媒体（空间维度）／全员媒体（主体维度）／全效媒体（效能维度）；二者对应：全程媒体实现动态追踪／全息媒体重构公共领域／全员媒体破除圈层壁垒／全效媒体强化情感共鸣。</div><div class="ansline"><b>得分点</b>写, 明, 所, 选, 思, 路,  , 1,  , 分, ；, 框, 架, 三, 到, 四, 个, 分, 点, ，, 每, 点, 含, 「, 小, 标, 题, ＋, 一, 句, 解, 释, 」, 各,  , 1, ., 5,  , 分, （, 共,  , 6,  , 分, ）, ；, 框, 架, 内, 部, 逻, 辑, 自, 洽, （, 难, 题, 与, 对, 策, 有, 对, 应, 关, 系, ，, 或, 三, 策, 层, 次, 清, 晰, ）, 1,  , 分, 。, 共,  , 8,  , 分, 。</div><div class="ansline"><b>解析</b>这是讲义「本节答题案例」的第一题，两条思路都成立，**关键是选定一条后四平八稳地写满**，不要半途换框架。
+
+思路一的两句「解题思路」提示很值钱，可迁移到任何「×××的作用」类题目：
+- 理解题意一：**作用＝做了什么＝怎么做的**
+- 理解题意二：**作用＝解决了什么问题**
+把这两种理解各自展开，就是上面的两条思路。
+
+「双框架法」的使用前提：你必须对两个框架都足够熟悉，否则拼不进去。这也是讲义反复强调的——**框架只是记忆唤醒机制，替换不了内容**。
+
+记忆抓手：看到「作用/功能/价值」类设问，先用口诀问自己一句——**「是问它做了什么，还是问它解决了什么？」** 前者用干货（时度效），后者用双框架（难题×四全媒体）。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>二、专业课 · 论述结尾与小标题（实务写作，3 题）
+    <span class="secmeta">3 题</span></h2>
+  
+<div class="q" data-q="9" data-type="choice">
+  <div class="qhead">
+    <span class="qno">9</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">论述结尾·三种写法</span>
+  </div>
+  <div class="stem">讲义把论述题的结尾段归纳为三种写法。下列「写法—核心逻辑」的对应，**不正确**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q9" value="A"><span class="letter">A</span><span class="otext">总结式结语——对全文内容进行高度浓缩和概括，清晰呈现主要论点、论据以及论证过程的关键环节。</span></label><label class="opt"><input type="radio" name="q9" value="B"><span class="letter">B</span><span class="otext">展望式结语——基于文章的论据和论点，对该领域相关主题的发展趋势、潜在变化等进行合理推测与畅想。</span></label><label class="opt"><input type="radio" name="q9" value="C"><span class="letter">C</span><span class="otext">反思式结语——对文章内容进行深入反思，从不同角度全面看待问题，促使读者进一步审视主题的复杂性。</span></label><label class="opt"><input type="radio" name="q9" value="D"><span class="letter">D</span><span class="otext">对比式结语——把全文的正反两方观点并列摆出，让读者自行判断孰是孰非，讲义认为这是最稳妥、最推荐的写法。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="9">查看解析</button>
+    <span class="saved" data-saved="9"></span>
+  </div>
+  <div class="ansbox" data-ans="9" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>**讲义只给了三种写法：总结式、展望式、反思式，没有「对比式结语」。** D 是编造的第四种，而且「最稳妥最推荐」这个说法与讲义态度完全相反——讲义开篇就由 @抓马扣叔 明确表态「十分不建议整理这种东西」，理由是不同题目要根据总体内容写结尾，**套模版就是玩火**。
+
+三种写法各自的方法论要点也要能说出来：总结式三步是**回顾主要论点 → 概括论据 → 强调论证过程**；展望式三条是**依据论据推测趋势 → 结合论点拓展思考 → 保持合理与积极**；反思式三条是**针对乐观内容反思风险 → 针对悲观内容挖掘启示 → 客观全面分析**。
+
+记忆抓手：**「总—展—反」三字诀。** 内容乐观就反思风险，内容悲观就挖掘启示；站位不够就用政策话语拔高（媒介融合、舆论引导、国际传播类题目常用「新时代」「两个一百年」），媒介技术类题目则反思伦理与人文理性。</div></div>
+</div>
+<div class="q" data-q="10" data-type="fill">
+  <div class="qhead">
+    <span class="qno">10</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">小标题·三层逻辑</span>
+  </div>
+  <div class="stem">讲义说，从「找到两个框架」到「写出小标题」，中间要走过三层逻辑。请填写这三层逻辑的名称（每空 2–4 字）：
+
+①____逻辑：不但有内容，还要符合汉语语法规范，主谓宾、定状补层次要合理；
+②____逻辑：不但有要点，还要有简单描述或解释来呈现板块内容；
+③____逻辑：不但要准确，还要精彩，可以合理使用修辞或理论。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="10" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="10" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="10" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="10">查看解析</button>
+    <span class="saved" data-saved="10"></span>
+  </div>
+  <div class="ansbox" data-ans="10" hidden><div class="ansline"><b>参考答案</b>组合；解释；升华</div><div class="ansline"><b>得分点</b>每, 空,  , 1,  , 分, ，, 共,  , 3,  , 分</div><div class="ansline"><b>解析</b>三层逻辑层层递进，记住各自的「不但……还要……」句式就不容易混：
+- **组合逻辑**——管**语法**：主谓宾、定状补层次合理
+- **解释逻辑**——管**内容**：要点之外要有描述或解释
+- **升华逻辑**——管**精彩**：可合理使用修辞或理论
+
+记忆抓手：**「合—解—升」三个台阶**：先合得起来（语法通），再解得清楚（内容明），最后升得上去（有文采）。很多同学卡在第二层——有框架词，但没有让小标题自己说明白这个板块要讲什么。</div></div>
+</div>
+<div class="q" data-q="11" data-type="short">
+  <div class="qhead">
+    <span class="qno">11</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">小标题·风格与用典</span>
+  </div>
+  <div class="stem">（1）讲义列出了若干种小标题风格。请写出这几种风格的名称，并指出讲义**明确表示不建议使用**的是哪一种、理由是什么。
+（2）讲义附录给出「新闻传播学文献写作常用引例」，现给出两条线索，请分别填出对应的用典名称：
+① 源自希腊神话，指唯一的、致命的弱点与要害，例：「公共性与主体性侵蚀：算法新闻的＿＿＿＿」；
+② 由福柯在《规训与惩罚》中自造，源自边沁设计的环形建筑，指被监视者因知道自己正被观察而形成有意识的自我监督机制。</div>
+  <textarea class="shortin" data-q="11" rows="7" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="11">查看解析</button>
+    <span class="saved" data-saved="11"></span>
+  </div>
+  <div class="ansbox" data-ans="11" hidden><div class="ansline"><b>参考答案</b>（1）风格有五种：质朴与平铺直叙型、诗意与文学型、申论式对仗说理型、哲理与隐喻型、没标题（讲义目录写作「四种风格」，正文实际列了 5 项）。讲义明确不建议使用的是**诗意与文学型**，理由是「实际上操作起来并不容易，所以不建议，写不好很容易被当作装 13」。（2）①阿喀琉斯之踵；②全景敞视监狱（全景敞视主义）。</div><div class="ansline"><b>得分点</b>（, 1, ）, 五, 种, 风, 格, 名, 称, 写, 全,  , 5,  , 分, （, 缺, 一, 扣,  , 1, ，, 答, 成, 四, 种, 不, 额, 外, 扣, 分, ）, ；, 指, 出, 「, 诗, 意, 与, 文, 学, 型, 」, 2,  , 分, ；, 写, 出, 理, 由,  , 1,  , 分, 。, （, 2, ）, 两, 空, 各,  , 1, ., 5,  , 分, 。, 共,  , 1, 1,  , 分, ，, 本, 卷, 内, 按, 比, 例, 折, 算, 为,  , 8,  , 分, 。</div><div class="ansline"><b>解析</b>**五种风格的正确态度不一样，这是重点：**
+- **质朴与平铺直叙型**——去雕饰、不对仗、不用黑话，**能用就是好标题**；但「准确表达观点其实并不容易」，很多人写得绚丽多彩，基本语法和观点合理性却有问题。
+- **诗意与文学型**——不建议。
+- **申论式对仗说理型**——可以写，适合「红」一点的主题，但**不能盲目对仗而牺牲逻辑和语法、导致言之无物**。
+- **哲理与隐喻型**——合理运用「黑话」，需具体化应用和解释，**切忌盲目堆砌**；也可以大胆自创隐喻。
+- **没标题**——「谁爱卷谁卷，爷躺平了」式写法，很多学者写文章也不用标题。
+
+用典两条的区分：**阿喀琉斯之踵管「弱点」，全景敞视监狱管「监视」**。附录九则引例可整体记成一句话：**弱点是阿喀琉斯之踵，权力失控是利维坦，监视是全景敞视监狱，话语困境是修昔底德陷阱，公信力困境是塔西陀陷阱，时空压缩是地球村，魅力权威是克里斯马，人机协同是阿西莫夫革命，风险隐喻是达摩克利斯之剑。**
+
+——顺带提醒：**「修昔底德陷阱」管国与国（外部），「塔西陀陷阱」管官与民（内部公信力）**，这两个同为人名命名的陷阱最容易串。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>三、政治 · 单选（7 题 · 前 6 题均为错题回滚）
+    <span class="secmeta">6 题</span></h2>
+  
+<div class="q" data-q="12" data-type="choice">
+  <div class="qhead">
+    <span class="qno">12</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">【回滚·教育强国】</span>
+  </div>
+  <div class="stem">【本题为错题回滚 · 第 5 次出现 · 换问法：给定的不是「定位」，而是「功能描述」，请找出定位与功能描述不匹配的一项】
+建设教育强国的「六个以」中，每一个定位都对应一项功能。下列关于「定位—功能」的对应，**不正确**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q12" value="A"><span class="letter">A</span><span class="otext">以立德树人为根本任务——回答「培养什么人、怎样培养人、为谁培养人」这一教育的首要问题。</span></label><label class="opt"><input type="radio" name="q12" value="B"><span class="letter">B</span><span class="otext">以服务中华民族伟大复兴为重要使命——把教育放在民族复兴的战略全局中来定位。</span></label><label class="opt"><input type="radio" name="q12" value="C"><span class="letter">C</span><span class="otext">以支撑引领中国式现代化为核心功能——教育通过人才供给与知识创新为现代化提供支撑。</span></label><label class="opt"><input type="radio" name="q12" value="D"><span class="letter">D</span><span class="otext">以坚持党对教育事业的全面领导为根本尺度——办得怎么样，最终由这一条来衡量。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="12">查看解析</button>
+    <span class="saved" data-saved="12"></span>
+  </div>
+  <div class="ansbox" data-ans="12" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>**D 把两个定位张冠李戴。** 「坚持党对教育事业的全面领导」是**根本保证**；「人民满意」才是**根本尺度**。
+
+六个「以」的完整对应：
+| 定位 | 内容 |
+|---|---|
+| 根本保证 | 坚持党对教育事业的全面领导 |
+| 根本任务 | 立德树人 |
+| 根本目标 | 为党育人、为国育才 |
+| 重要使命 | 服务中华民族伟大复兴 |
+| 基本路径 | 服务支撑中国式现代化（坚持教育、科技、人才一体推进） |
+| 核心功能 | 支撑引领中国式现代化 |
+| **根本尺度** | **人民满意** |
+
+注意：**「人民满意」不属于「六个以」，它是根本尺度**——这一对词是最高频的设错点，你前四次都在这一带失分。
+
+记忆抓手：**保（证）—党；任（务）—德育；目（标）—育才；使（命）—复兴；路（径）—一体推进；功（能）—领现代化；尺（度）—人民满意。** 六个「以」排完，最后单独补一句「人民满意是根本尺度」。</div></div>
+</div>
+<div class="q" data-q="13" data-type="choice">
+  <div class="qhead">
+    <span class="qno">13</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">【回滚·统战三个「最」】</span>
+  </div>
+  <div class="stem">【本题为错题回滚 · 第 5 次出现 · 换问法：由「表述判断」改为「问题—答案」配对，请找出配对错误的一项】
+关于统一战线，下列「问题—对应答案」的配对，**不正确**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q13" value="A"><span class="letter">A</span><span class="otext">统一战线的本质要求是什么？——大团结大联合。</span></label><label class="opt"><input type="radio" name="q13" value="B"><span class="letter">B</span><span class="otext">统一战线的关键是什么？——坚持求同存异。</span></label><label class="opt"><input type="radio" name="q13" value="C"><span class="letter">C</span><span class="otext">统一战线要解决的是什么问题？——人心和力量问题。</span></label><label class="opt"><input type="radio" name="q13" value="D"><span class="letter">D</span><span class="otext">统一战线最鲜明的特征是什么？——中国共产党领导的多党合作和政治协商制度。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="13">查看解析</button>
+    <span class="saved" data-saved="13"></span>
+  </div>
+  <div class="ansbox" data-ans="13" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>**D 是偷换概念。** 「统一战线**最鲜明的特征**」的标准答案是**中国共产党的领导**；「中国共产党领导的多党合作和政治协商制度」是我国的一项**基本政治制度**，本身不是「最鲜明的特征」。
+
+三条正确表述：
+- 本质要求＝**大团结大联合**（解决的是**人心和力量**问题）
+- 关键＝坚持**求同存异**
+- **最鲜明的特征＝中国共产党的领导**
+
+记忆抓手：**联合（本质）→ 人心（对象）→ 存异（方法）→ 党旗（特征）**，四级递进链不能跳。
+
+另外提醒一句：**「大团结大联合」是完整四字词，不是「大」**——你 9.17 反馈里就把它记成了「大」，这是丢分根源。</div></div>
+</div>
+<div class="q" data-q="14" data-type="choice">
+  <div class="qhead">
+    <span class="qno">14</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">【回滚·法治体系五大体系】</span>
+  </div>
+  <div class="stem">【本题为错题回滚 · 第 5 次出现 · 换问法：给出五个子体系的「功能定位」，反推名称，请找出定位与名称不匹配的一项】
+中国特色社会主义法治体系由五个子体系构成。下列关于各子体系「功能定位—名称」的对应，**不正确**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q14" value="A"><span class="letter">A</span><span class="otext">解决「有法可依」、为整个法治体系提供规范依据的子体系——法律规范体系。</span></label><label class="opt"><input type="radio" name="q14" value="B"><span class="letter">B</span><span class="otext">解决「有法必依、执法必严」、保障法律落到实处的子体系——法治实施体系。</span></label><label class="opt"><input type="radio" name="q14" value="C"><span class="letter">C</span><span class="otext">解决「违法必究」、对权力运行进行制约的子体系——法治监督体系。</span></label><label class="opt"><input type="radio" name="q14" value="D"><span class="letter">D</span><span class="otext">解决「党内法规与国家法律衔接」、为执法司法提供组织经费人事支撑的子体系——党内法规体系。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="14">查看解析</button>
+    <span class="saved" data-saved="14"></span>
+  </div>
+  <div class="ansbox" data-ans="14" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>**D 把「法治保障体系」的功能安到了「党内法规体系」头上。** 「为法治建设提供组织、经费、人事、技术等支撑」是**法治保障体系**的功能；**党内法规体系**的定位是形成**完备的党内法规体系**、实现**党内法规与国家法律的衔接和协调**。
+
+五大体系一览（讲义/教材原文）：
+1. **法律规范体系** 2. **法治实施体系** 3. **法治监督体系** 4. **法治保障体系** 5. **党内法规体系**
+
+记忆抓手：**规 → 实 → 监 → 保 → 党**（五字链）：法律**规**范 → 法治**实**施 → 法治**监**督 → 法治**保**障 → **党**内法规。你连续几次的失分都是「能辨析细节、写不出骨架」——**先把这个五字链背成顺口溜，再补细节**。</div></div>
+</div>
+<div class="q" data-q="15" data-type="choice">
+  <div class="qhead">
+    <span class="qno">15</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">【回滚·「最根本」三线】</span>
+  </div>
+  <div class="stem">【本题为错题回滚 · 第 5 次出现 · 换问法：给定语境，选填正确的「最根本」表述】
+下列三处语境与「最根本」表述的对应，**完全正确**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q15" value="A"><span class="letter">A</span><span class="otext">论述我国发展成就的根本来源：中国共产党的坚强领导是最根本的保证。</span></label><label class="opt"><input type="radio" name="q15" value="B"><span class="letter">B</span><span class="otext">论述统一战线的性质：人心和力量是最核心最根本的问题。</span></label><label class="opt"><input type="radio" name="q15" value="C"><span class="letter">C</span><span class="otext">论述中国特色社会主义法治道路：党的领导和社会主义制度是最根本的特征。</span></label><label class="opt"><input type="radio" name="q15" value="D"><span class="letter">D</span><span class="otext">论述人民军队的性质：党对军队的绝对领导是最根本的保证。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="15">查看解析</button>
+    <span class="saved" data-saved="15"></span>
+  </div>
+  <div class="ansbox" data-ans="15" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>**逐项看：**
+
+A 错——**「坚强领导」对应的是「最根本的**保证**」吗？** 不对。讲义/错题本给出的三条线是：①**有中国共产党的坚强领导**——这是**成就的根本来源**（不是「最根本的保证」这个说法；「最根本的保证」对应的是法治道路语境）；②**最核心最根本的问题**——对应**统一战线**（人心和力量问题）；③**最根本的保证**——对应**坚持中国共产党的领导**走中国特色社会主义法治道路。A 把②③的搭配强行挪到了一起。
+
+B 对——「人心和力量问题」正是统一战线的「**最核心最根本**问题」。
+
+C 错——中国特色社会主义法治道路的「最根本的保证」是**坚持党的领导**；「最根本的特征」这一表述与讲义不符。
+
+D 错——人民军队领域的高频表述是「**党对军队的绝对领导是人民军队的建军之本、强军之魂**」，不是「最根本的保证」。
+
+记忆抓手：**见「最根本」先问是哪条线**——
+- **成就来源** → 中国共产党的坚强领导
+- **统一战线** → 人心和力量问题（最核心最根本）
+- **法治道路** → 坚持中国共产党的领导（最根本的保证）
+
+你把「爱国情怀和坚持奋斗」当作答案的那次，就是**用主观感受替换了文件原话**——政治选择题里，答案必须是原文表述。</div></div>
+</div>
+<div class="q" data-q="16" data-type="choice">
+  <div class="qhead">
+    <span class="qno">16</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">【回滚·党的显著标志】</span>
+  </div>
+  <div class="stem">【本题为错题回滚 · 第 6 次出现 · 换问法：改为「归属判断」，请找出归属错误的一项】
+关于「三大优良作风」与「党的显著标志」，下列「表述—归属来源」的对应，**不正确**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q16" value="A"><span class="letter">A</span><span class="otext">理论联系实际、密切联系群众、批评和自我批评——党的七大（1945）概括的三大优良作风。</span></label><label class="opt"><input type="radio" name="q16" value="B"><span class="letter">B</span><span class="otext">勇于自我革命——党区别于其他政党的显著标志。</span></label><label class="opt"><input type="radio" name="q16" value="C"><span class="letter">C</span><span class="otext">「三大优良作风」是党的显著标志的具体表述，与「勇于自我革命」并列构成同一句话、同一来源。</span></label><label class="opt"><input type="radio" name="q16" value="D"><span class="letter">D</span><span class="otext">执政能力建设、先进性建设等是党的建设的重要内容，但与「显著标志」不是同一个命题。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="16">查看解析</button>
+    <span class="saved" data-saved="16"></span>
+  </div>
+  <div class="ansbox" data-ans="16" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>**这已经是你第 6 次遇到这一条。C 正是你 9.17 反馈原文里的错误写法，一字未改地放进了选项。**
+
+正确结论：两者**来源不同、表述不同，不能并列成一句话**——
+- **党的七大（1945）**：理论联系实际、密切联系群众、批评和自我批评，是**三大优良作风**（注意是「三大优良作风」，不含「人民至上」）。
+- **党的十九届六中全会《决议》**：**勇于自我革命**是中国共产党**区别于其他政党的显著标志**。
+
+**行动要求（必须做）**：请在今晚把 9.17 反馈（优化版）里那句「三大优良作风＋人民至上＋勇于自我革命并列」的话**拆成两条独立来源、分别标注出处**，改完为止。
+
+你前面已经连续答错 5 次，且每次都选自己原文的错误写法。问题性质已不是「记不牢」，而是**笔记本身写错了**。笔记不改，考场上会一字不差地复现。
+
+记忆抓手：**「作风」归七大，「标志」归六中全会。** 两条线各背各的，中间不要连词。</div></div>
+</div>
+<div class="q" data-q="17" data-type="choice">
+  <div class="qhead">
+    <span class="qno">17</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">【回滚·全过程人民民主】</span>
+  </div>
+  <div class="stem">【本题为错题回滚 · 第 5 次出现 · 换问法：改成「选出不属于的一项」的反向问法】
+关于「全过程人民民主」的「四个相统一」，下列说法**错误**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q17" value="A"><span class="letter">A</span><span class="otext">过程民主与成果民主相统一。</span></label><label class="opt"><input type="radio" name="q17" value="B"><span class="letter">B</span><span class="otext">程序民主与实质民主相统一。</span></label><label class="opt"><input type="radio" name="q17" value="C"><span class="letter">C</span><span class="otext">直接民主与间接民主相统一。</span></label><label class="opt"><input type="radio" name="q17" value="D"><span class="letter">D</span><span class="otext">选举民主与协商民主相统一。</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="17">查看解析</button>
+    <span class="saved" data-saved="17"></span>
+  </div>
+  <div class="ansbox" data-ans="17" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>**D 不属于「四个相统一」。** 选举民主与协商民主是两种民主**形式**，不是一组「统一」关系。
+
+四个相统一的完整内容：
+1. 过程民主与成果民主相统一
+2. 程序民主与实质民主相统一
+3. 直接民主与间接民主相统一
+4. 人民民主与国家意志相统一
+
+记忆抓手：**前三对都是「同一民主的两个侧面」**（过程／成果、程序／实质、直接／间接），**最后一对换主体**（人民民主／国家意志）。选举民主与协商民主是**形式分类**，插不进来。
+
+你上次失分是「把包含项当成了不包含项」——这次换成反向问法（选不属于的），检验的是同一个点，请对照自己上次的错法。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>四、英语二 · 词汇与翻译（3 题）
+    <span class="secmeta">3 题</span></h2>
+  
+<div class="q" data-q="18" data-type="fill">
+  <div class="qhead">
+    <span class="qno">18</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">【回滚·词汇方向性错误】</span>
+  </div>
+  <div class="stem">【本题为错题回滚 · 第 5 次出现 · 换语境重考】根据中文提示，用英语补全句子（每空写一个单词或短语，注意词义方向与搭配）：
+
+① 当局承诺对网络谣言**严厉打击**：The authorities have pledged to ____ online rumors.
+② 堪萨斯州广袤的**大草原**上，龙卷风并不罕见：Tornadoes are not rare on the vast ____ of Kansas.
+③ 这个**更棘手**的问题在于算法不透明：The ____ problem lies in the opacity of algorithms.
+④ 检方**指控**他收受回扣：The prosecutors ____ him of taking kickbacks.
+⑤ 公司因违反数据保护规定被处以 200 万欧元**罚款**：The company was ____ €2 million for breaching data protection rules.</div>
+  <div class="fills"><input class="fillin" type="text" data-q="18" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="3" placeholder="第 4 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="4" placeholder="第 5 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="18">查看解析</button>
+    <span class="saved" data-saved="18"></span>
+  </div>
+  <div class="ansbox" data-ans="18" hidden><div class="ansline"><b>参考答案</b>crack down on；prairie；thornier；accused（charged 亦可，须注意 accuse sb. of / charge sb. with）；fined</div><div class="ansline"><b>得分点</b>每, 空,  , 1,  , 分, ，, 共,  , 5,  , 分, 。, 拼, 写, 错, 误, 不, 得, 分, 。</div><div class="ansline"><b>解析</b>**核心是「方向」问题**——你在 9.18 卷上把 `crack down on` 译成「崩塌」。
+
+- **crack down on**＝严厉打击、镇压。**动作朝外**，想象「警方扫荡」；「崩塌」是 `collapse`。
+- **prairie**＝大草原。与 `plain`（平原）、`plateau`（高原）连成一组记：草原／平原／高原。
+- **thornier**＝更棘手的。原义「多刺的」→ 引申「难处理的」。搭配是「问题更棘手」，不是「更尖锐」（那是 `sharper`）。
+- **accuse sb. of sth.**（指控、指责）／**charge sb. with sth.**（指控、控告）——介词不同，写错等于丢分。
+- **fine**（动词）＝处以罚款，与 `fine`（形容词：好的）同形不同义，属高频一词多义陷阱。
+
+记忆抓手：**crack down 想「扫荡」，prairie 想「草原三兄弟」，thorny 想「带刺=棘手」。**</div></div>
+</div>
+<div class="q" data-q="19" data-type="translate">
+  <div class="qhead">
+    <span class="qno">19</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">【回滚·比较级漏译】</span>
+  </div>
+  <div class="stem">【本题为错题回滚 · 第 5 次出现 · 换句子】翻译下面这句英文，并完成两个附加任务。
+
+&gt; Journalists who must file on deadline are far more likely to accept a convenient narrative than to question the data behind it.
+
+（1）写出全句主干；
+（2）整体译文（**特别注意比较级与程度副词的完整译出**，以及 `those/they` 类指代词的处理）。</div>
+  <textarea class="transin" data-q="19" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="19">查看解析</button>
+    <span class="saved" data-saved="19"></span>
+  </div>
+  <div class="ansbox" data-ans="19" hidden><div class="ansline"><b>参考答案</b>（1）主干：Journalists … are … more likely to accept … than to question …（主语 journalists，后接 who 定语从句修饰；谓语部分为 be more likely to A than to B 的比较结构）。
+（2）参考译文：那些必须在截稿期限前交稿的记者，**远远更有可能**接受一个方便省事的叙事框架，而**不太可能**去质疑支撑这一叙事的数据。</div><div class="ansline"><b>得分点</b>主, 干, 划, 分, 正, 确,  , 1,  , 分, ；, `, f, a, r,  , m, o, r, e,  , l, i, k, e, l, y, `,  , 的, 「, 程, 度, 副, 词, ＋, 比, 较, 级, 」, 完, 整, 译, 出,  , 2,  , 分, （, 漏, 译, 「, 远, 远, /, 远, 更, 」, 扣,  , 1, ., 5, ，, 只, 译, 「, 更, 有, 可, 能, 」, 扣,  , 1, ）, ；, `, t, h, a, n,  , t, o,  , q, u, e, s, t, i, o, n, `,  , 的, 对, 比, 结, 构, 译, 出,  , 1,  , 分, ；, 定, 语, 从, 句, 处, 理, 自, 然,  , 1,  , 分, ；, 整, 体, 通, 顺,  , 1,  , 分, 。, 共,  , 6,  , 分, ，, 本, 卷, 按, 比, 例, 折, 算, 为,  , 5,  , 分, 。</div><div class="ansline"><b>解析</b>**你上次在同一结构上掉了两次分**（`are far more likely to feel threatened`，漏掉 `far more likely`）。英二翻译里，**比较级与程度副词不能省略**，这是明确的扣分点。
+
+三个动作：
+1. **`far` 必须译出来**——「远远」「远为」。程度副词是采分点。
+2. **`more likely to A than to B` 是「比较结构 + 平行不定式」**——译文要形成「更可能A，而不太可能B」的对举，不能只译半句。
+3. **`those` / `they` 要译成「那些……的人」**，不能直接写作「那些人」了事——中文里悬空的代词会让句子失去主语。
+
+记忆抓手：**「副词不虚译，比较不省略，代词要落地。」** 每次看到 `far / much / even / still` 修比较级，先在草稿上圈出来再动笔。</div></div>
+</div>
+<div class="q" data-q="20" data-type="short">
+  <div class="qhead">
+    <span class="qno">20</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">英语方法反思</span>
+  </div>
+  <div class="stem">【方法反思】你从 9.18 卷起到 10.7 卷，错题本上「英语词汇」这一条已被回滚 5 次，每次都在**同一批词**上失分。请回答：
+
+（1）你反复失分的两个具体原因是什么？（提示：一个与「方向」有关，一个与「程度/比较」有关）
+（2）针对这两个原因，各写出一条**明天就能执行**的具体做法（不要写「多背单词」这类空话）。</div>
+  <textarea class="shortin" data-q="20" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="20">查看解析</button>
+    <span class="saved" data-saved="20"></span>
+  </div>
+  <div class="ansbox" data-ans="20" hidden><div class="ansline"><b>参考答案</b>（1）原因一：**词义方向性错误**——把 `crack down on` 这类「动作朝外」的短语记成了相反方向的词（崩塌/collapse），说明背词时只记了「中文近义词」，没记「动作方向与搭配」。原因二：**程度与比较成分漏译**——`far more likely`、`are far more likely to feel threatened` 之类结构中，程度副词与比较级被省略，属阅读式的「抓大意」习惯迁移到了翻译题上。
+（2）可执行做法（示例，答出要点即可）：
+- 针对方向性错误：把错题本上出现过的每一个短语词条，按「**英文短语 → 动作方向（谁对谁） → 一个搭配例句**」三栏重写一遍，当天只做 10 个，写完合上本子默写例句。
+- 针对程度漏译：做翻译时**先在原文上圈出所有 `far/much/even/still/more/most`**，译完后回读一遍，逐字核对是否译出；每天精练 2 句带比较结构的长难句，只做「圈词—翻译—回读核对」三步。</div><div class="ansline"><b>得分点</b>（, 1, ）, 两, 个, 原, 因, 各,  , 1, ., 5,  , 分, （, 共,  , 3,  , 分, ）, ，, 需, 分, 别, 点, 到, 「, 词, 义, 方, 向, 」, 与, 「, 程, 度, /, 比, 较, 成, 分, 漏, 译, 」, 。, （, 2, ）, 两, 条, 做, 法, 各,  , 1, ., 5,  , 分, （, 共,  , 3,  , 分, ）, ，, 须, 具, 体, 、, 可, 当, 日, 执, 行, ；, 只, 写, 「, 多, 背, 单, 词, /, 多, 练, 翻, 译, 」, 的, ，, 该, 条, 不, 得, 分, 。</div><div class="ansline"><b>解析</b>这道题不是考知识，是考**你能不能把自己的失分模式说清楚**。已经 5 次了，说明不是「没背」，是「背的方法」和「检查的动作」有问题。
+
+两句话总结：
+- **词汇不是记「中文意思」，是记「方向 + 搭配」。** crack down on 的方向是「上对下的打压」，prairie 是「有草的大片地」，thorny 是「带刺→棘手」。
+- **翻译不是「看懂大意」，是「逐项清单核对」。** 比较级、程度副词、指代词、否定范围——四类词必须在草稿上圈出来。
+
+讲义侧的一个补充（可与你的英语方法互参）：@抓马扣叔 在导学课 5 里说过一句同样适用于翻译的话——**「套模版就是玩火」**。英语主观题如果靠套句式而不做逐项核对，分数上不去；反过来，如果你能建立一份「每次都要核对的清单」，它就不是模版，而是流程。</div></div>
+</div>
+</section>
+
+  <div class="done-tip" id="doneTip">
+    <b>🎉 全部作答完毕</b>
+    点右下角「导出我的答案」，把导出的文件发给我，我会逐题批改并给出评分与改进建议。
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="tb-inner">
+    <button class="btn btn-main" id="btnExport">导出我的答案</button>
+    <button class="btn btn-ghost" id="btnRevealAll">展开全部解析</button>
+    <button class="btn btn-ghost" id="btnReset">清空重做</button>
+    <span class="tb-count" id="tbCount">0 / 20</span>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">你的答案（复制后发给我批改）</div>
+    <div class="modal-body">
+      <div class="modal-tip">
+        全选复制下面的内容，粘贴到对话里发给我即可。也可以点「下载 .md」保存成文件再上传。
+      </div>
+      <textarea id="exportArea" readonly></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="btnCloseModal">关闭</button>
+      <button class="btn btn-main" id="btnDownload">下载 .md</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ = {"title": "考研每日测验 · 网络舆论与舆情＋论述结尾与小标题（含错题回滚）", "date": "2026-10-09", "sections": [{"name": "一、专业课 · 网络舆论与舆情（8 题）", "questions": [{"id": 1, "type": "choice", "kp": "舆论与舆情·概念辨析", "stem": "舆论与舆情是一组容易混淆的概念。下列对二者关系的表述，**不符合**讲义原意的一项是：", "options": ["舆情涵盖舆论：舆论是舆情的一个重要组成部分，也是舆情在某一方面的集中体现；舆情不仅包含公开的舆论，也包含隐含的公众态度与情绪。", "舆情催生舆论：舆论总是在一定的舆情背景下产生，但反过来舆情并不一定通过舆论表现出来。", "舆情具有常态性表现，在日积月累中体现为一种民意倾向；同时也具有爆发性表现，通过某些特定事件集中体现为一种舆论。", "舆论比舆情的外延更宽：凡是公众公开表达出来的意见均属舆论，而舆情仅指那些已在媒体上呈现、可被观测到的那部分舆论。"], "answer": "D", "explain": "**D 把两者的外延完全说反了。** 讲义原话是「舆情涵盖舆论」——舆情是大圈，舆论是小圈且是舆情在某一方面的集中体现。D 说的「舆论外延更宽、舆情仅指已呈现的部分」正好颠倒。\n\nA 是讲义「（1）舆情涵盖舆论」的原表述；B 是「（2）舆情催生舆论」；C 是「（3）舆情常态性，舆论具体化」。\n\n记忆抓手：**舆情是水库，舆论是开闸那一股。** 水库长期蓄着（常态性），开闸才见水（爆发性）；库里还有没开闸的水——就是那些未公开表达的隐含态度与情绪。", "_id": 1}, {"id": 2, "type": "fill", "blanks": 3, "kp": "网络舆论的形成机制", "stem": "网络舆论的产生与发展遵循一条三段式规律。请补全每一段的名称及其核心动作（每空填一个短语）：\n\n①起点：____ 引起关注；\n②中间环节：____ 的扩散；\n③最终达成：____ 的整合。", "answer": "导火索性事件；讨论；意见", "keys": "每空 1 分，共 3 分", "explain": "讲义给的三段链条是：**导火索性事件引起关注 → 讨论的扩散 → 意见的整合**。\n\n三个细节别丢：\n① 起点处，**专业媒体机构的报道是引发网络舆论的直接动因**；信息经社会化媒体渠道发布引起舆论热潮也越来越常见。\n② 中间环节，讨论扩散是**事实与意见的共同传播过程**——事实会保真、衰减或变形；意见的交锋结果是优势意见继续扩散、劣势意见逐渐退出主流渠道。\n③ 最终达成，标志是**消除个人意见差异、反映社会知觉和集合意识的多数人共同意见的产生**；整合机制包括沉默的螺旋、意见领袖的作用、专业传播机构的传播与控制策略。\n\n记忆抓手：**火种（事件）→ 风（讨论）→ 火形（意见）。**", "_id": 2}, {"id": 3, "type": "choice", "kp": "舆论·要素与特点", "stem": "舆论的核心要素有八个。关于这八个要素，下列说法**错误**的一项是：", "options": ["舆论的主体历经「从公众到多元主体互动」的演变：传统核心主体是公众，新媒体时代则是政府、公众、社会团体、大众媒介和意见领袖等多元主体互动的产物。", "舆论的本体包括意见、情绪和行为，与之对应可区分潜舆论、显舆论、行为舆论三种形态；陈力丹指出新媒体环境下这三种形态分别发生显化、复杂化与虚拟化的变化。", "八个要素中前七个是构成舆论的必要要素，缺一不可；而「舆论的质量」不是必要要素——即使舆论的质量很低，依然是一种舆论。", "舆论的持续性又称「舆论的韧性」；研究显示近年来舆论存活周期不断延长，已从原来的一周延长到两周以上，这与后真相时代的社交茧房有关。"], "answer": "D", "explain": "**D 把存活周期的变化方向说反了。** 讲义原话：近年来舆论存活周期不断变短，**从原来的两周缩短到一周以内**，一方面与舆情事件频发有关，也与后真相时代的「社交茧房」有一定关系。\n\nA 是舆论主体要素；B 是本体要素，三个「变化」一一对应（潜舆论**显化**、显舆论**复杂化**、行为舆论**虚拟化**）；C 是讲义小结——前七个是必要要素，最后一个（质量）不是。\n\n记忆抓手：**「两周→一周」是缩短。** 顺手记一句顺口溜——**主体、客体、本体、数量、强度、持续、功能**（七个必要）＋**质量**（唯一非必要）。", "_id": 3}, {"id": 4, "type": "short", "rows": 7, "kp": "新闻舆论「四力」", "stem": "新闻舆论「四力」是高频考点。请依次写出「四力」的完整名称，并用一句话说明每一「力」在「四力」中的定位（如「×××是新闻舆论发展的××」），最后指出哪一力是「地基中的基石」，为什么。", "answer": "四力＝传播力、引导力、影响力、公信力。定位：①传播力是新闻舆论发展的前提——它是新闻生产力的具体体现和外化，是最基本的依托，居于「四力」之首，起决定性作用，其强弱直接影响其余三力的大小；②引导力是新闻舆论发展的先驱——新闻作品发布后按预期方向对人们思想与行为形成正向驱动作用的能力；③影响力是新闻舆论发展的效能——反映和监测舆论传播与舆论引导行为发生后取得的实际效果；④公信力是新闻舆论发展的保障——受众对媒体在长期新闻传播实践中累积起来的信任程度，通俗说就是媒体的群众基础。其中**公信力是「地基中的基石」**：它的打造和形成需要久久为功，但消减和摧毁却是一刹那的事；一旦失去作为基石的公信力，「四力」构建起来的理论大厦就会崩塌。", "keys": "四力名称全对 2 分（错一个扣 0.5）；四个定位各 0.5 分共 2 分；指出公信力是地基基石 1 分；说明「久久为功 vs 一刹那」的对比 1 分。共 6 分。", "explain": "讲义给的四组定位词是固定搭配，**「前提—先驱—效能—保障」四个词不能互换**：\n\n- 传播力＝**前提**（居「四力」之首，起决定性作用）\n- 引导力＝**先驱**\n- 影响力＝**效能**（与前两者不同，它侧重「效果」而非「能力」）\n- 公信力＝**保障**（地基中的基石）\n\n提出场合要记牢：**2016 年 2 月 19 日**，习近平在党的新闻舆论工作座谈会上提出「切实提高党的新闻舆论传播力、引导力、影响力、公信力」。\n\n容易混的两个概念：新闻舆论「四力」（传播力/引导力/影响力/公信力，对应**媒体产品**）与新闻工作者「四力」（脚力/眼力/脑力/笔力，对应**个人素养**，2018 年 8 月全国宣传思想工作会议提出）。\n\n记忆抓手：**前（提）—先（驱）—效（能）—保（障）**，四字链。公信力特殊：**「久久为功地建，一刹那地毁」**。", "_id": 4}, {"id": 5, "type": "choice", "kp": "舆论引导·困境", "stem": "新媒体环境下舆论引导面临四重困境。关于这四重困境，下列说法**错误**的一项是：", "options": ["传播迅捷难掌控：突发事件引爆时间短、传播速度快，官方权威信息暂时缺失给谣言留出空间，谣言「先入为主」使引导更加困难。", "意见分散难平衡：移动互联网传播主体多元、信息海量，受众选择性、自主性和互动性高，网民众声喧哗导致官方声音隐没其中。", "圈层传播难渗透：差异化定制信息在媒体与受众之间搭起「私密通道」形成监管盲区，基于熟人社交与兴趣连接的「圈子效应」使圈子之外的意见很难渗透。", "情绪共鸣难疏导：四个困境中，只有它是纯粹由技术缺陷造成的，与前三个困境不同，它可以通过升级算法与平台规则在短期内完全解决。"], "answer": "D", "explain": "**D 是自造命题。** 讲义对「情绪共鸣难疏导」的解释是从**社会心理**层面出发的：各种社会热点难点问题相互叠加加剧民众思想困惑；同一社交圈子内多数人的见识、视野大体一致，更易形成情感共鸣，加剧非理性信息扩散；网民逆反心理较重，与同圈层人形成「共识」后，对主流声音和官方言论常表现出怀疑、反感、抵触乃至否定、排斥。**全程没有「纯技术缺陷」「可短期完全解决」这类说法。** 遇到这种「把社会心理问题说成技术问题＋给出绝对化结论」的选项，基本可以直接判错。\n\n四个困境是固定四字排比：**传播迅捷难掌控 · 意见分散难平衡 · 圈层传播难渗透 · 情绪共鸣难疏导**（讲义 @嵩老思 提示：从网络和舆论的特性出发进行分析）。\n\n记忆抓手：**快 → 散 → 圈 → 情**，四个字一路下来。答题时若问「怎么破解」，就一一对应主流媒体的「四全媒体」：全程媒体动态追踪、全息媒体重构公共领域、全员媒体破除圈层壁垒、全效媒体强化情感共鸣（讲义案例 1 的框架）。", "_id": 5}, {"id": 6, "type": "short", "rows": 6, "kp": "舆论引导的策略·三导向", "stem": "讲义把舆论引导的策略归纳为三种「导向」。请写出这三种导向的名称，各用一句话概括其核心动作，并指出课本给出的「缓解情绪—注意方法—回应诉求」三个提示词分别对应哪一种导向。", "answer": "三种导向：①权威性导向——发挥舆论引导主体（政府、媒体、意见领袖）的能动性，以理性话语调节情绪化表达；②合理性导向——重视舆论引导的方法论，以科学性提高效用性（基于数据挖掘与计算机技术了解公众真实诉求，并把握舆论发展演化规律、建立长效机制）；③公共性导向——尊重舆论引导对象，积极回应民众诉求（基于表达自由建构宽容的话语策略，基于社会主流价值通过扩大对话来凝聚共识）。对应关系：**缓解情绪→权威性导向；注意方法→合理性导向；回应诉求→公共性导向。**", "keys": "三个导向名称各 1 分（共 3 分）；每个导向的核心动作各 1 分（共 3 分）；三项对应关系全对 2 分。共 8 分。", "explain": "这是讲义里 @嵩老思 给出的极简记忆链，务必背下来：**「缓解情绪——注意方法——回应诉求」**，与三个导向一一对应、顺序也一致。\n\n补充三个抓手，可在论述题里充当具体做法：\n- 权威性导向：一是**逐步提高公众的理性认知能力**（8·19 讲话：「必须增强主动性、掌握主动权、打好主动仗」）；二是**积极疏导公众的极端情绪**（建立情绪应对的「话语包」）。\n- 合理性导向：一是基于数据挖掘与计算机技术摸清真实诉求；二是把握舆论发展演化规律、建立长效机制（事件发生前信息透明、健全新闻发布机制；发生初期公开信息、及时讲真话）。\n- 公共性导向：一是基于表达自由建构**宽容的话语策略**；二是基于社会主流价值通过**扩大对话凝聚共识**。\n\n记忆抓手：**情绪对权威、方法对合理、诉求对公共**——把「对象」和「导向名」锁在一起，就不会串。", "_id": 6}, {"id": 7, "type": "choice", "kp": "舆论监督·原则与「时度效」", "stem": "关于舆论监督的基本原则及其「时度效」方法策略，下列说法**错误**的一项是：", "options": ["舆论监督的四条基本原则是：依法监督、准确监督、科学监督、建设性监督。", "舆论监督的「度」可分为新闻事实、社会公序、法纪纲常三部分，分别对应「把稳新闻事实之度」「把稳社会稳定和谐之度」「把稳法律规章之度」。", "舆论监督与正面宣传的辩证统一，体现在统一于真实准确的报道、统一于正向的客观效果、统一于正确的舆论引导这三个层面。", "讲义明确指出：舆论监督具有行政与法律上的强制力，一旦公开批评，被监督对象必须依规整改，这也是它震慑力强的原因。"], "answer": "D", "explain": "**D 是方向性错误。** 讲义原话：「舆论监督**不具有行政或法律强制力**，但凭借事实的广泛传播形成舆论压力，产生强大的社会震慑与约束效果。」这个「不具有强制力」是常考设错点——它的力量来自**舆论压力**，而非法定权力。\n\nA 是《新闻学概论（第二版）》马工程教材给出的四条基本原则（依法、准确、科学、建设性）；B 是「度」的三分法——**事实／公序／法纪**；C 是舆论监督与正面宣传的「三个统一」。\n\n加强记忆：舆论监督的特点是**权威性、典型性、紧迫性、重视社会效果**四条；开展舆论监督的出发点是**保证中央政令畅通，维护国家、人民的利益**，且大多数是解决**人民内部矛盾**，目的是「从团结的愿望出发，经过批评和自我批评，达到新的团结」。\n\n记忆抓手：**「依法、准确、科学、建设性」四原则 + 「无强制力」是一根弦。** 答题时只要写「凭借事实传播形成舆论压力」，就不会掉进「强制力」的坑。", "_id": 7}, {"id": 8, "type": "short", "rows": 8, "kp": "答题案例·主流媒体舆论引导", "stem": "【综合应用】真题：**分析主流媒体在舆论引导中发挥的作用**（云南财经大学 2025）。\n讲义给了两条思路。请任选一条，写出完整的答题框架：先写清楚你选的是哪条思路，再分点列出小标题（每点后附一句解释即可）。", "answer": "思路一（时度效原则）：①把握舆论引导的时机与节奏——第一时间发现舆情、研判敏感问题，按及时、准确、公开、透明原则主动发布权威信息，并按舆论引发、形成、影响扩大、影响消退四阶段持续动态发布；②把握舆论引导的力度与分寸——增强报道力度但不过度造势，把握尺度做到「大事不说小、小事不说大」，同时开掘深度、激活温度；③注重舆论引导的效果与技巧——体现实效性（能否获得受众认同、凝聚社会共识）、权威性（报道令人信服的力量与威望）、艺术性（把重大主题寓于生动表达之中）。\n\n思路二（双框架法）：先摆「舆论引导难题」框架——传播迅捷难掌控／意见分散难平衡／圈层传播难渗透／情绪共鸣难疏导；再摆「主流媒体」框架——全程媒体（时间维度）／全息媒体（空间维度）／全员媒体（主体维度）／全效媒体（效能维度）；二者对应：全程媒体实现动态追踪／全息媒体重构公共领域／全员媒体破除圈层壁垒／全效媒体强化情感共鸣。", "keys": "写明所选思路 1 分；框架三到四个分点，每点含「小标题＋一句解释」各 1.5 分（共 6 分）；框架内部逻辑自洽（难题与对策有对应关系，或三策层次清晰）1 分。共 8 分。", "explain": "这是讲义「本节答题案例」的第一题，两条思路都成立，**关键是选定一条后四平八稳地写满**，不要半途换框架。\n\n思路一的两句「解题思路」提示很值钱，可迁移到任何「×××的作用」类题目：\n- 理解题意一：**作用＝做了什么＝怎么做的**\n- 理解题意二：**作用＝解决了什么问题**\n把这两种理解各自展开，就是上面的两条思路。\n\n「双框架法」的使用前提：你必须对两个框架都足够熟悉，否则拼不进去。这也是讲义反复强调的——**框架只是记忆唤醒机制，替换不了内容**。\n\n记忆抓手：看到「作用/功能/价值」类设问，先用口诀问自己一句——**「是问它做了什么，还是问它解决了什么？」** 前者用干货（时度效），后者用双框架（难题×四全媒体）。", "_id": 8}]}, {"name": "二、专业课 · 论述结尾与小标题（实务写作，3 题）", "questions": [{"id": 9, "type": "choice", "kp": "论述结尾·三种写法", "stem": "讲义把论述题的结尾段归纳为三种写法。下列「写法—核心逻辑」的对应，**不正确**的一项是：", "options": ["总结式结语——对全文内容进行高度浓缩和概括，清晰呈现主要论点、论据以及论证过程的关键环节。", "展望式结语——基于文章的论据和论点，对该领域相关主题的发展趋势、潜在变化等进行合理推测与畅想。", "反思式结语——对文章内容进行深入反思，从不同角度全面看待问题，促使读者进一步审视主题的复杂性。", "对比式结语——把全文的正反两方观点并列摆出，让读者自行判断孰是孰非，讲义认为这是最稳妥、最推荐的写法。"], "answer": "D", "explain": "**讲义只给了三种写法：总结式、展望式、反思式，没有「对比式结语」。** D 是编造的第四种，而且「最稳妥最推荐」这个说法与讲义态度完全相反——讲义开篇就由 @抓马扣叔 明确表态「十分不建议整理这种东西」，理由是不同题目要根据总体内容写结尾，**套模版就是玩火**。\n\n三种写法各自的方法论要点也要能说出来：总结式三步是**回顾主要论点 → 概括论据 → 强调论证过程**；展望式三条是**依据论据推测趋势 → 结合论点拓展思考 → 保持合理与积极**；反思式三条是**针对乐观内容反思风险 → 针对悲观内容挖掘启示 → 客观全面分析**。\n\n记忆抓手：**「总—展—反」三字诀。** 内容乐观就反思风险，内容悲观就挖掘启示；站位不够就用政策话语拔高（媒介融合、舆论引导、国际传播类题目常用「新时代」「两个一百年」），媒介技术类题目则反思伦理与人文理性。", "_id": 9}, {"id": 10, "type": "fill", "blanks": 3, "kp": "小标题·三层逻辑", "stem": "讲义说，从「找到两个框架」到「写出小标题」，中间要走过三层逻辑。请填写这三层逻辑的名称（每空 2–4 字）：\n\n①____逻辑：不但有内容，还要符合汉语语法规范，主谓宾、定状补层次要合理；\n②____逻辑：不但有要点，还要有简单描述或解释来呈现板块内容；\n③____逻辑：不但要准确，还要精彩，可以合理使用修辞或理论。", "answer": "组合；解释；升华", "keys": "每空 1 分，共 3 分", "explain": "三层逻辑层层递进，记住各自的「不但……还要……」句式就不容易混：\n- **组合逻辑**——管**语法**：主谓宾、定状补层次合理\n- **解释逻辑**——管**内容**：要点之外要有描述或解释\n- **升华逻辑**——管**精彩**：可合理使用修辞或理论\n\n记忆抓手：**「合—解—升」三个台阶**：先合得起来（语法通），再解得清楚（内容明），最后升得上去（有文采）。很多同学卡在第二层——有框架词，但没有让小标题自己说明白这个板块要讲什么。", "_id": 10}, {"id": 11, "type": "short", "rows": 7, "kp": "小标题·风格与用典", "stem": "（1）讲义列出了若干种小标题风格。请写出这几种风格的名称，并指出讲义**明确表示不建议使用**的是哪一种、理由是什么。\n（2）讲义附录给出「新闻传播学文献写作常用引例」，现给出两条线索，请分别填出对应的用典名称：\n① 源自希腊神话，指唯一的、致命的弱点与要害，例：「公共性与主体性侵蚀：算法新闻的＿＿＿＿」；\n② 由福柯在《规训与惩罚》中自造，源自边沁设计的环形建筑，指被监视者因知道自己正被观察而形成有意识的自我监督机制。", "answer": "（1）风格有五种：质朴与平铺直叙型、诗意与文学型、申论式对仗说理型、哲理与隐喻型、没标题（讲义目录写作「四种风格」，正文实际列了 5 项）。讲义明确不建议使用的是**诗意与文学型**，理由是「实际上操作起来并不容易，所以不建议，写不好很容易被当作装 13」。（2）①阿喀琉斯之踵；②全景敞视监狱（全景敞视主义）。", "keys": "（1）五种风格名称写全 5 分（缺一扣 1，答成四种不额外扣分）；指出「诗意与文学型」2 分；写出理由 1 分。（2）两空各 1.5 分。共 11 分，本卷内按比例折算为 8 分。", "explain": "**五种风格的正确态度不一样，这是重点：**\n- **质朴与平铺直叙型**——去雕饰、不对仗、不用黑话，**能用就是好标题**；但「准确表达观点其实并不容易」，很多人写得绚丽多彩，基本语法和观点合理性却有问题。\n- **诗意与文学型**——不建议。\n- **申论式对仗说理型**——可以写，适合「红」一点的主题，但**不能盲目对仗而牺牲逻辑和语法、导致言之无物**。\n- **哲理与隐喻型**——合理运用「黑话」，需具体化应用和解释，**切忌盲目堆砌**；也可以大胆自创隐喻。\n- **没标题**——「谁爱卷谁卷，爷躺平了」式写法，很多学者写文章也不用标题。\n\n用典两条的区分：**阿喀琉斯之踵管「弱点」，全景敞视监狱管「监视」**。附录九则引例可整体记成一句话：**弱点是阿喀琉斯之踵，权力失控是利维坦，监视是全景敞视监狱，话语困境是修昔底德陷阱，公信力困境是塔西陀陷阱，时空压缩是地球村，魅力权威是克里斯马，人机协同是阿西莫夫革命，风险隐喻是达摩克利斯之剑。**\n\n——顺带提醒：**「修昔底德陷阱」管国与国（外部），「塔西陀陷阱」管官与民（内部公信力）**，这两个同为人名命名的陷阱最容易串。", "_id": 11}]}, {"name": "三、政治 · 单选（7 题 · 前 6 题均为错题回滚）", "questions": [{"id": 12, "type": "choice", "kp": "【回滚·教育强国】", "stem": "【本题为错题回滚 · 第 5 次出现 · 换问法：给定的不是「定位」，而是「功能描述」，请找出定位与功能描述不匹配的一项】\n建设教育强国的「六个以」中，每一个定位都对应一项功能。下列关于「定位—功能」的对应，**不正确**的一项是：", "options": ["以立德树人为根本任务——回答「培养什么人、怎样培养人、为谁培养人」这一教育的首要问题。", "以服务中华民族伟大复兴为重要使命——把教育放在民族复兴的战略全局中来定位。", "以支撑引领中国式现代化为核心功能——教育通过人才供给与知识创新为现代化提供支撑。", "以坚持党对教育事业的全面领导为根本尺度——办得怎么样，最终由这一条来衡量。"], "answer": "D", "explain": "**D 把两个定位张冠李戴。** 「坚持党对教育事业的全面领导」是**根本保证**；「人民满意」才是**根本尺度**。\n\n六个「以」的完整对应：\n| 定位 | 内容 |\n|---|---|\n| 根本保证 | 坚持党对教育事业的全面领导 |\n| 根本任务 | 立德树人 |\n| 根本目标 | 为党育人、为国育才 |\n| 重要使命 | 服务中华民族伟大复兴 |\n| 基本路径 | 服务支撑中国式现代化（坚持教育、科技、人才一体推进） |\n| 核心功能 | 支撑引领中国式现代化 |\n| **根本尺度** | **人民满意** |\n\n注意：**「人民满意」不属于「六个以」，它是根本尺度**——这一对词是最高频的设错点，你前四次都在这一带失分。\n\n记忆抓手：**保（证）—党；任（务）—德育；目（标）—育才；使（命）—复兴；路（径）—一体推进；功（能）—领现代化；尺（度）—人民满意。** 六个「以」排完，最后单独补一句「人民满意是根本尺度」。", "_id": 12}, {"id": 13, "type": "choice", "kp": "【回滚·统战三个「最」】", "stem": "【本题为错题回滚 · 第 5 次出现 · 换问法：由「表述判断」改为「问题—答案」配对，请找出配对错误的一项】\n关于统一战线，下列「问题—对应答案」的配对，**不正确**的一项是：", "options": ["统一战线的本质要求是什么？——大团结大联合。", "统一战线的关键是什么？——坚持求同存异。", "统一战线要解决的是什么问题？——人心和力量问题。", "统一战线最鲜明的特征是什么？——中国共产党领导的多党合作和政治协商制度。"], "answer": "D", "explain": "**D 是偷换概念。** 「统一战线**最鲜明的特征**」的标准答案是**中国共产党的领导**；「中国共产党领导的多党合作和政治协商制度」是我国的一项**基本政治制度**，本身不是「最鲜明的特征」。\n\n三条正确表述：\n- 本质要求＝**大团结大联合**（解决的是**人心和力量**问题）\n- 关键＝坚持**求同存异**\n- **最鲜明的特征＝中国共产党的领导**\n\n记忆抓手：**联合（本质）→ 人心（对象）→ 存异（方法）→ 党旗（特征）**，四级递进链不能跳。\n\n另外提醒一句：**「大团结大联合」是完整四字词，不是「大」**——你 9.17 反馈里就把它记成了「大」，这是丢分根源。", "_id": 13}, {"id": 14, "type": "choice", "kp": "【回滚·法治体系五大体系】", "stem": "【本题为错题回滚 · 第 5 次出现 · 换问法：给出五个子体系的「功能定位」，反推名称，请找出定位与名称不匹配的一项】\n中国特色社会主义法治体系由五个子体系构成。下列关于各子体系「功能定位—名称」的对应，**不正确**的一项是：", "options": ["解决「有法可依」、为整个法治体系提供规范依据的子体系——法律规范体系。", "解决「有法必依、执法必严」、保障法律落到实处的子体系——法治实施体系。", "解决「违法必究」、对权力运行进行制约的子体系——法治监督体系。", "解决「党内法规与国家法律衔接」、为执法司法提供组织经费人事支撑的子体系——党内法规体系。"], "answer": "D", "explain": "**D 把「法治保障体系」的功能安到了「党内法规体系」头上。** 「为法治建设提供组织、经费、人事、技术等支撑」是**法治保障体系**的功能；**党内法规体系**的定位是形成**完备的党内法规体系**、实现**党内法规与国家法律的衔接和协调**。\n\n五大体系一览（讲义/教材原文）：\n1. **法律规范体系** 2. **法治实施体系** 3. **法治监督体系** 4. **法治保障体系** 5. **党内法规体系**\n\n记忆抓手：**规 → 实 → 监 → 保 → 党**（五字链）：法律**规**范 → 法治**实**施 → 法治**监**督 → 法治**保**障 → **党**内法规。你连续几次的失分都是「能辨析细节、写不出骨架」——**先把这个五字链背成顺口溜，再补细节**。", "_id": 14}, {"id": 15, "type": "choice", "kp": "【回滚·「最根本」三线】", "stem": "【本题为错题回滚 · 第 5 次出现 · 换问法：给定语境，选填正确的「最根本」表述】\n下列三处语境与「最根本」表述的对应，**完全正确**的一项是：", "options": ["论述我国发展成就的根本来源：中国共产党的坚强领导是最根本的保证。", "论述统一战线的性质：人心和力量是最核心最根本的问题。", "论述中国特色社会主义法治道路：党的领导和社会主义制度是最根本的特征。", "论述人民军队的性质：党对军队的绝对领导是最根本的保证。"], "answer": "B", "explain": "**逐项看：**\n\nA 错——**「坚强领导」对应的是「最根本的**保证**」吗？** 不对。讲义/错题本给出的三条线是：①**有中国共产党的坚强领导**——这是**成就的根本来源**（不是「最根本的保证」这个说法；「最根本的保证」对应的是法治道路语境）；②**最核心最根本的问题**——对应**统一战线**（人心和力量问题）；③**最根本的保证**——对应**坚持中国共产党的领导**走中国特色社会主义法治道路。A 把②③的搭配强行挪到了一起。\n\nB 对——「人心和力量问题」正是统一战线的「**最核心最根本**问题」。\n\nC 错——中国特色社会主义法治道路的「最根本的保证」是**坚持党的领导**；「最根本的特征」这一表述与讲义不符。\n\nD 错——人民军队领域的高频表述是「**党对军队的绝对领导是人民军队的建军之本、强军之魂**」，不是「最根本的保证」。\n\n记忆抓手：**见「最根本」先问是哪条线**——\n- **成就来源** → 中国共产党的坚强领导\n- **统一战线** → 人心和力量问题（最核心最根本）\n- **法治道路** → 坚持中国共产党的领导（最根本的保证）\n\n你把「爱国情怀和坚持奋斗」当作答案的那次，就是**用主观感受替换了文件原话**——政治选择题里，答案必须是原文表述。", "_id": 15}, {"id": 16, "type": "choice", "kp": "【回滚·党的显著标志】", "stem": "【本题为错题回滚 · 第 6 次出现 · 换问法：改为「归属判断」，请找出归属错误的一项】\n关于「三大优良作风」与「党的显著标志」，下列「表述—归属来源」的对应，**不正确**的一项是：", "options": ["理论联系实际、密切联系群众、批评和自我批评——党的七大（1945）概括的三大优良作风。", "勇于自我革命——党区别于其他政党的显著标志。", "「三大优良作风」是党的显著标志的具体表述，与「勇于自我革命」并列构成同一句话、同一来源。", "执政能力建设、先进性建设等是党的建设的重要内容，但与「显著标志」不是同一个命题。"], "answer": "C", "explain": "**这已经是你第 6 次遇到这一条。C 正是你 9.17 反馈原文里的错误写法，一字未改地放进了选项。**\n\n正确结论：两者**来源不同、表述不同，不能并列成一句话**——\n- **党的七大（1945）**：理论联系实际、密切联系群众、批评和自我批评，是**三大优良作风**（注意是「三大优良作风」，不含「人民至上」）。\n- **党的十九届六中全会《决议》**：**勇于自我革命**是中国共产党**区别于其他政党的显著标志**。\n\n**行动要求（必须做）**：请在今晚把 9.17 反馈（优化版）里那句「三大优良作风＋人民至上＋勇于自我革命并列」的话**拆成两条独立来源、分别标注出处**，改完为止。\n\n你前面已经连续答错 5 次，且每次都选自己原文的错误写法。问题性质已不是「记不牢」，而是**笔记本身写错了**。笔记不改，考场上会一字不差地复现。\n\n记忆抓手：**「作风」归七大，「标志」归六中全会。** 两条线各背各的，中间不要连词。", "_id": 16}, {"id": 17, "type": "choice", "kp": "【回滚·全过程人民民主】", "stem": "【本题为错题回滚 · 第 5 次出现 · 换问法：改成「选出不属于的一项」的反向问法】\n关于「全过程人民民主」的「四个相统一」，下列说法**错误**的一项是：", "options": ["过程民主与成果民主相统一。", "程序民主与实质民主相统一。", "直接民主与间接民主相统一。", "选举民主与协商民主相统一。"], "answer": "D", "explain": "**D 不属于「四个相统一」。** 选举民主与协商民主是两种民主**形式**，不是一组「统一」关系。\n\n四个相统一的完整内容：\n1. 过程民主与成果民主相统一\n2. 程序民主与实质民主相统一\n3. 直接民主与间接民主相统一\n4. 人民民主与国家意志相统一\n\n记忆抓手：**前三对都是「同一民主的两个侧面」**（过程／成果、程序／实质、直接／间接），**最后一对换主体**（人民民主／国家意志）。选举民主与协商民主是**形式分类**，插不进来。\n\n你上次失分是「把包含项当成了不包含项」——这次换成反向问法（选不属于的），检验的是同一个点，请对照自己上次的错法。", "_id": 17}]}, {"name": "四、英语二 · 词汇与翻译（3 题）", "questions": [{"id": 18, "type": "fill", "blanks": 5, "kp": "【回滚·词汇方向性错误】", "stem": "【本题为错题回滚 · 第 5 次出现 · 换语境重考】根据中文提示，用英语补全句子（每空写一个单词或短语，注意词义方向与搭配）：\n\n① 当局承诺对网络谣言**严厉打击**：The authorities have pledged to ____ online rumors.\n② 堪萨斯州广袤的**大草原**上，龙卷风并不罕见：Tornadoes are not rare on the vast ____ of Kansas.\n③ 这个**更棘手**的问题在于算法不透明：The ____ problem lies in the opacity of algorithms.\n④ 检方**指控**他收受回扣：The prosecutors ____ him of taking kickbacks.\n⑤ 公司因违反数据保护规定被处以 200 万欧元**罚款**：The company was ____ €2 million for breaching data protection rules.", "answer": "crack down on；prairie；thornier；accused（charged 亦可，须注意 accuse sb. of / charge sb. with）；fined", "keys": "每空 1 分，共 5 分。拼写错误不得分。", "explain": "**核心是「方向」问题**——你在 9.18 卷上把 `crack down on` 译成「崩塌」。\n\n- **crack down on**＝严厉打击、镇压。**动作朝外**，想象「警方扫荡」；「崩塌」是 `collapse`。\n- **prairie**＝大草原。与 `plain`（平原）、`plateau`（高原）连成一组记：草原／平原／高原。\n- **thornier**＝更棘手的。原义「多刺的」→ 引申「难处理的」。搭配是「问题更棘手」，不是「更尖锐」（那是 `sharper`）。\n- **accuse sb. of sth.**（指控、指责）／**charge sb. with sth.**（指控、控告）——介词不同，写错等于丢分。\n- **fine**（动词）＝处以罚款，与 `fine`（形容词：好的）同形不同义，属高频一词多义陷阱。\n\n记忆抓手：**crack down 想「扫荡」，prairie 想「草原三兄弟」，thorny 想「带刺=棘手」。**", "_id": 18}, {"id": 19, "type": "translate", "kp": "【回滚·比较级漏译】", "stem": "【本题为错题回滚 · 第 5 次出现 · 换句子】翻译下面这句英文，并完成两个附加任务。\n\n> Journalists who must file on deadline are far more likely to accept a convenient narrative than to question the data behind it.\n\n（1）写出全句主干；\n（2）整体译文（**特别注意比较级与程度副词的完整译出**，以及 `those/they` 类指代词的处理）。", "answer": "（1）主干：Journalists … are … more likely to accept … than to question …（主语 journalists，后接 who 定语从句修饰；谓语部分为 be more likely to A than to B 的比较结构）。\n（2）参考译文：那些必须在截稿期限前交稿的记者，**远远更有可能**接受一个方便省事的叙事框架，而**不太可能**去质疑支撑这一叙事的数据。", "keys": "主干划分正确 1 分；`far more likely` 的「程度副词＋比较级」完整译出 2 分（漏译「远远/远更」扣 1.5，只译「更有可能」扣 1）；`than to question` 的对比结构译出 1 分；定语从句处理自然 1 分；整体通顺 1 分。共 6 分，本卷按比例折算为 5 分。", "explain": "**你上次在同一结构上掉了两次分**（`are far more likely to feel threatened`，漏掉 `far more likely`）。英二翻译里，**比较级与程度副词不能省略**，这是明确的扣分点。\n\n三个动作：\n1. **`far` 必须译出来**——「远远」「远为」。程度副词是采分点。\n2. **`more likely to A than to B` 是「比较结构 + 平行不定式」**——译文要形成「更可能A，而不太可能B」的对举，不能只译半句。\n3. **`those` / `they` 要译成「那些……的人」**，不能直接写作「那些人」了事——中文里悬空的代词会让句子失去主语。\n\n记忆抓手：**「副词不虚译，比较不省略，代词要落地。」** 每次看到 `far / much / even / still` 修比较级，先在草稿上圈出来再动笔。", "_id": 19}, {"id": 20, "type": "short", "rows": 6, "kp": "英语方法反思", "stem": "【方法反思】你从 9.18 卷起到 10.7 卷，错题本上「英语词汇」这一条已被回滚 5 次，每次都在**同一批词**上失分。请回答：\n\n（1）你反复失分的两个具体原因是什么？（提示：一个与「方向」有关，一个与「程度/比较」有关）\n（2）针对这两个原因，各写出一条**明天就能执行**的具体做法（不要写「多背单词」这类空话）。", "answer": "（1）原因一：**词义方向性错误**——把 `crack down on` 这类「动作朝外」的短语记成了相反方向的词（崩塌/collapse），说明背词时只记了「中文近义词」，没记「动作方向与搭配」。原因二：**程度与比较成分漏译**——`far more likely`、`are far more likely to feel threatened` 之类结构中，程度副词与比较级被省略，属阅读式的「抓大意」习惯迁移到了翻译题上。\n（2）可执行做法（示例，答出要点即可）：\n- 针对方向性错误：把错题本上出现过的每一个短语词条，按「**英文短语 → 动作方向（谁对谁） → 一个搭配例句**」三栏重写一遍，当天只做 10 个，写完合上本子默写例句。\n- 针对程度漏译：做翻译时**先在原文上圈出所有 `far/much/even/still/more/most`**，译完后回读一遍，逐字核对是否译出；每天精练 2 句带比较结构的长难句，只做「圈词—翻译—回读核对」三步。", "keys": "（1）两个原因各 1.5 分（共 3 分），需分别点到「词义方向」与「程度/比较成分漏译」。（2）两条做法各 1.5 分（共 3 分），须具体、可当日执行；只写「多背单词/多练翻译」的，该条不得分。", "explain": "这道题不是考知识，是考**你能不能把自己的失分模式说清楚**。已经 5 次了，说明不是「没背」，是「背的方法」和「检查的动作」有问题。\n\n两句话总结：\n- **词汇不是记「中文意思」，是记「方向 + 搭配」。** crack down on 的方向是「上对下的打压」，prairie 是「有草的大片地」，thorny 是「带刺→棘手」。\n- **翻译不是「看懂大意」，是「逐项清单核对」。** 比较级、程度副词、指代词、否定范围——四类词必须在草稿上圈出来。\n\n讲义侧的一个补充（可与你的英语方法互参）：@抓马扣叔 在导学课 5 里说过一句同样适用于翻译的话——**「套模版就是玩火」**。英语主观题如果靠套句式而不做逐项核对，分数上不去；反过来，如果你能建立一份「每次都要核对的清单」，它就不是模版，而是流程。", "_id": 20}]}]};
+const QUIZID = "2026-10-09";
+const KEY = "quiz_" + QUIZID;
+const TOTAL = 20;
+
+// ---- 状态存取 ----
+let state = JSON.parse(localStorage.getItem(KEY) || "{}");
+
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+function answeredCount(){
+  let n = 0;
+  QUIZ.sections.forEach(s => s.questions.forEach((q, i) => {
+    const id = q._id;
+    const v = state[id];
+    if (q.type === "choice") { if (v) n++; }
+    else if (q.type === "fill") {
+      if (v && Object.values(v).some(x => (x||"").trim())) n++;
+    }
+    else { if (v && v.trim()) n++; }
+  }));
+  return n;
+}
+
+function updateProgress(){
+  const n = answeredCount();
+  const pct = Math.round(n / TOTAL * 100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("ptext").textContent = `已作答 ${n} / ${TOTAL}`;
+  document.getElementById("tbCount").textContent = `${n} / ${TOTAL}`;
+  document.getElementById("doneTip").classList.toggle("show", n >= TOTAL);
+}
+
+function flashSaved(n){
+  const el = document.querySelector(`.saved[data-saved="${n}"]`);
+  if (!el) return;
+  el.textContent = "已保存";
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 1200);
+}
+
+// ---- 绑定交互 ----
+document.querySelectorAll(".opt input").forEach(inp => {
+  inp.addEventListener("change", e => {
+    const n = +e.target.name.replace("q", "");
+    state[n] = e.target.value;
+    save(); updateProgress(); flashSaved(n);
+  });
+});
+
+document.querySelectorAll(".fillin").forEach(inp => {
+  inp.addEventListener("input", e => {
+    const n = e.target.dataset.q, b = e.target.dataset.b;
+    state[n] = state[n] || {};
+    state[n][b] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+document.querySelectorAll(".shortin,.transin").forEach(ta => {
+  ta.addEventListener("input", e => {
+    const n = e.target.dataset.q;
+    state[n] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+// 查看解析
+document.querySelectorAll(".btn-ans").forEach(b => {
+  b.addEventListener("click", () => {
+    const n = b.dataset.q;
+    const box = document.querySelector(`.ansbox[data-ans="${n}"]`);
+    const open = !box.hidden;
+    box.hidden = open;
+    b.textContent = open ? "查看解析" : "收起解析";
+  });
+});
+
+document.getElementById("btnRevealAll").addEventListener("click", function(){
+  const anyHidden = [...document.querySelectorAll(".ansbox")].some(b => b.hidden);
+  document.querySelectorAll(".ansbox").forEach(b => b.hidden = !anyHidden);
+  document.querySelectorAll(".btn-ans").forEach(b => {
+    b.textContent = anyHidden ? "收起解析" : "查看解析";
+  });
+  this.textContent = anyHidden ? "收起全部解析" : "展开全部解析";
+});
+
+// 清空
+document.getElementById("btnReset").addEventListener("click", () => {
+  if (!confirm("确定清空全部作答？此操作不可撤销。")) return;
+  state = {}; save();
+  document.querySelectorAll(".opt input").forEach(i => i.checked = false);
+  document.querySelectorAll(".fillin,.shortin,.transin").forEach(i => i.value = "");
+  updateProgress();
+});
+
+// ---- 导出答案 ----
+function buildExport(){
+  const L = [];
+  L.push(`# ${QUIZ.title} — 我的作答`);
+  L.push("");
+  L.push(`日期：${QUIZ.date}`);
+  L.push(`完成：${answeredCount()} / ${TOTAL} 题`);
+  L.push("");
+  const tname = {choice:"单选", fill:"填空", short:"问答", translate:"长难句翻译"};
+  QUIZ.sections.forEach(s => {
+    L.push(`## ${s.name}`);
+    L.push("");
+    s.questions.forEach(q => {
+      const v = state[q._id];
+      L.push(`### ${q._id}. [${tname[q.type]}]`);
+      L.push(q.stem);
+      L.push("");
+      if (q.type === "choice") {
+        L.push(`**我的答案：** ${v ? v : "（未作答）"}`);
+      } else if (q.type === "fill") {
+        const arr = [];
+        for (let i = 0; i < (q.blanks || 1); i++) {
+          const k = String(i);
+          arr.push(`第${i+1}空：${(v && v[k]) ? v[k] : "（空）"}`);
+        }
+        L.push(`**我的答案：** ${arr.join("　")}`);
+      } else {
+        L.push(`**我的答案：**`);
+        L.push("");
+        L.push(v && v.trim() ? v : "（未作答）");
+      }
+      L.push("");
+    });
+  });
+  return L.join("\n");
+}
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  document.getElementById("exportArea").value = buildExport();
+  document.getElementById("modal").classList.add("show");
+});
+document.getElementById("btnCloseModal").addEventListener("click", () => {
+  document.getElementById("modal").classList.remove("show");
+});
+document.getElementById("btnDownload").addEventListener("click", () => {
+  const blob = new Blob([buildExport()], {type:"text/markdown;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${QUIZID}-我的作答.md`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") e.target.classList.remove("show");
+});
+
+// ---- 恢复状态 ----
+(function restore(){
+  document.querySelectorAll(".opt input").forEach(inp => {
+    const n = +inp.name.replace("q", "");
+    if (state[n] === inp.value) inp.checked = true;
+  });
+  document.querySelectorAll(".fillin").forEach(inp => {
+    const n = inp.dataset.q, b = inp.dataset.b;
+    if (state[n] && state[n][b] != null) inp.value = state[n][b];
+  });
+  document.querySelectorAll(".shortin,.transin").forEach(ta => {
+    const n = ta.dataset.q;
+    if (state[n] != null) ta.value = state[n];
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
