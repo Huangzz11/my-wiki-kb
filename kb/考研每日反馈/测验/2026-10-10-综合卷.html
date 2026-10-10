@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考研每日测验 · 10.10 综合卷（素材：实务大明白·新闻评论第四/五讲）</title>
+<style>
+:root{
+  --bg:#f7f8fb; --card:#fff; --ink:#1c2430; --sub:#60708a;
+  --line:#e3e8f0; --blue:#2F5B9E; --blue-l:#e8eef8;
+  --green:#1f8a52; --green-l:#e6f5ec;
+  --amber:#b4740a; --amber-l:#fdf3e0;
+  --red:#c0392b; --red-l:#fdeceb;
+  --violet:#6b4ea8; --violet-l:#f0ebfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+    "Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.7;
+  padding:0 0 120px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+/* 顶部 */
+header{
+  background:linear-gradient(135deg,#2F5B9E 0%,#40699f 60%,#5b7fb5 100%);
+  color:#fff;padding:34px 0 26px;margin-bottom:24px;
+  box-shadow:0 2px 14px rgba(47,91,158,.18);
+}
+header h1{font-size:23px;font-weight:650;letter-spacing:.3px;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.85}
+.statline{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chip{
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);
+  border-radius:999px;padding:4px 13px;font-size:12.5px;backdrop-filter:blur(4px)
+}
+
+/* 进度条 */
+.progress-sticky{
+  position:sticky;top:0;z-index:50;background:rgba(247,248,251,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  padding:10px 0;margin-bottom:8px;
+}
+.pbar{height:7px;background:#e6eaf2;border-radius:99px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,#2F5B9E,#5b8fd4);
+  border-radius:99px;transition:width .35s ease}
+.ptext{font-size:12.5px;color:var(--sub);margin-top:6px;display:flex;
+  justify-content:space-between}
+
+/* 分区 */
+.sec{margin:30px 0 0}
+.sec h2{
+  font-size:16.5px;font-weight:640;color:var(--blue);
+  display:flex;align-items:center;gap:9px;padding-bottom:9px;
+  border-bottom:2px solid var(--blue-l);margin-bottom:16px;
+}
+.dot{width:9px;height:9px;border-radius:3px;background:var(--blue);
+  display:inline-block;flex:0 0 auto}
+.secmeta{margin-left:auto;font-size:12px;color:var(--sub);font-weight:400}
+
+/* 题目卡片 */
+.q{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:17px 19px;margin-bottom:13px;transition:border-color .2s,box-shadow .2s;
+}
+.q:focus-within{border-color:#b9cdea;box-shadow:0 3px 14px rgba(47,91,158,.09)}
+.qhead{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.qno{
+  width:26px;height:26px;border-radius:8px;background:var(--blue);
+  color:#fff;font-size:13px;font-weight:600;display:flex;
+  align-items:center;justify-content:center;flex:0 0 auto;
+}
+.qtag{font-size:11.5px;padding:2px 9px;border-radius:6px;font-weight:500}
+.t-choice{background:var(--blue-l);color:var(--blue)}
+.t-fill{background:var(--green-l);color:var(--green)}
+.t-short{background:var(--violet-l);color:var(--violet)}
+.t-translate{background:var(--amber-l);color:var(--amber)}
+.kp{font-size:11.5px;color:var(--sub);margin-left:auto}
+.stem{font-size:14.8px;margin-bottom:12px;white-space:pre-wrap}
+
+/* 单选 */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 13px;
+  border:1px solid var(--line);border-radius:9px;cursor:pointer;
+  transition:all .16s;font-size:14.2px;
+}
+.opt:hover{background:#f4f7fc;border-color:#c3d5ee}
+.opt input{display:none}
+.opt .letter{
+  width:21px;height:21px;border-radius:6px;background:#eef1f6;color:var(--sub);
+  font-size:12px;font-weight:600;display:flex;align-items:center;
+  justify-content:center;flex:0 0 auto;margin-top:2px;transition:all .16s;
+}
+.opt input:checked~.letter{background:var(--blue);color:#fff}
+.opt:has(input:checked){background:var(--blue-l);border-color:#9dbde6}
+.otext{flex:1}
+
+/* 填空 */
+.fills{display:flex;flex-direction:column;gap:8px}
+.fillin{
+  font-family:inherit;font-size:14.2px;padding:9px 13px;
+  border:1px solid var(--line);border-radius:8px;background:#fcfdff;
+  transition:all .16s;width:100%;
+}
+.fillin:focus{outline:none;border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 文本域 */
+.shortin,.transin{
+  font-family:inherit;font-size:14.2px;line-height:1.75;padding:11px 14px;
+  border:1px solid var(--line);border-radius:9px;background:#fcfdff;
+  width:100%;resize:vertical;transition:all .16s;
+}
+.shortin:focus,.transin:focus{outline:none;border-color:var(--blue);
+  background:#fff;box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 按钮与解析 */
+.qfoot{display:flex;align-items:center;gap:11px;margin-top:11px}
+.btn-ans{
+  font-family:inherit;font-size:12.5px;padding:5px 13px;border-radius:7px;
+  border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;
+  transition:all .16s;
+}
+.btn-ans:hover{background:var(--blue-l);border-color:#a8c4e8;color:var(--blue)}
+.saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
+.saved.show{opacity:1}
+.ansbox{
+  margin-top:12px;padding:13px 15px;background:#fafbfd;
+  border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-size:13.8px;
+}
+.ansline{margin-bottom:8px;display:flex;gap:9px;line-height:1.7}
+.ansline:last-child{margin-bottom:0}
+.ansline b{
+  flex:0 0 auto;color:var(--blue);font-size:12px;font-weight:640;
+  background:var(--blue-l);padding:2px 8px;border-radius:5px;height:fit-content;
+  margin-top:3px;
+}
+.ansline .got{color:var(--green);font-weight:600}
+
+/* 底部操作栏 */
+.toolbar{
+  position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);padding:12px 20px;z-index:60;
+  backdrop-filter:blur(10px);box-shadow:0 -2px 16px rgba(28,36,48,.07);
+}
+.tb-inner{max-width:820px;margin:0 auto;display:flex;
+  align-items:center;gap:11px;flex-wrap:wrap}
+.btn{
+  font-family:inherit;font-size:13.5px;padding:9px 19px;border-radius:9px;
+  border:none;cursor:pointer;font-weight:530;transition:all .16s;
+}
+.btn-main{background:var(--blue);color:#fff}
+.btn-main:hover{background:#264d87;transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--sub);border:1px solid var(--line)}
+.btn-ghost:hover{background:#f4f6fa;color:var(--ink)}
+.tb-count{font-size:13px;color:var(--sub);margin-left:auto}
+
+/* 完成提示 */
+.done-tip{
+  margin-top:22px;padding:18px 20px;border-radius:12px;
+  background:var(--green-l);border:1px solid #bfe5ce;color:#14603a;
+  font-size:14px;display:none;
+}
+.done-tip.show{display:block}
+.done-tip b{display:block;margin-bottom:6px;font-size:15px}
+
+/* 答案导出弹层 */
+.modal{
+  position:fixed;inset:0;background:rgba(20,28,40,.5);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:#fff;border-radius:14px;max-width:660px;width:100%;
+  max-height:82vh;display:flex;flex-direction:column;overflow:hidden;
+}
+.modal-head{padding:17px 21px;border-bottom:1px solid var(--line);
+  font-weight:620;font-size:15.5px;color:var(--blue)}
+.modal-body{padding:18px 21px;overflow-y:auto;flex:1}
+.modal-body textarea{
+  width:100%;height:340px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.65;border:1px solid var(--line);
+  border-radius:9px;padding:13px;background:#fafbfd;resize:vertical;
+}
+.modal-foot{padding:14px 21px;border-top:1px solid var(--line);
+  display:flex;gap:10px;justify-content:flex-end}
+.modal-tip{font-size:12.5px;color:var(--sub);margin-bottom:11px;line-height:1.65}
+
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  header{padding:26px 0 20px}
+  header h1{font-size:19px}
+  .q{padding:14px 15px}
+  .stem{font-size:14.2px}
+  .tb-count{display:none}
+  .kp{margin-left:0;width:100%}
+}
+@media print{
+  .toolbar,.btn-ans,.progress-sticky{display:none}
+  .ansbox[hidden]{display:block!important}
+  .q{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>考研每日测验 · 10.10 综合卷（素材：实务大明白·新闻评论第四/五讲）</h1>
+    <div class="meta">2026-10-10 · 共 24 题 · 今晚 22:30 自动生成</div>
+    <div class="statline">
+      <span class="chip">单选 14</span>
+      <span class="chip">填空 4</span>
+      <span class="chip">问答 5</span>
+      <span class="chip">长难句 1</span>
+    </div>
+  </div>
+</header>
+
+<div class="progress-sticky">
+  <div class="wrap">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <div class="ptext">
+      <span id="ptext">已作答 0 / 24</span>
+      <span>进度自动保存，刷新不丢</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  
+<section class="sec">
+  <h2><span class="dot"></span>一、专业课 · 实务（新闻评论）
+    <span class="secmeta">8 题</span></h2>
+  
+<div class="q" data-q="1" data-type="short">
+  <div class="qhead">
+    <span class="qno">1</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">评论要素关系</span>
+  </div>
+  <div class="stem">新闻评论的三大要素是论点、论据、论证。请分别说明三者的定位（各对应一个「言之……」），并用讲义里的「羊肉串」比喻说明三者关系。</div>
+  <textarea class="shortin" data-q="1" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="1">查看解析</button>
+    <span class="saved" data-saved="1"></span>
+  </div>
+  <div class="ansbox" data-ans="1" hidden><div class="ansline"><b>参考答案</b>① 论点——证明什么——言之有理；② 论据——用什么来证明——言之有据；③ 论证——如何来证明——言之有序。羊肉串比喻：论点是灵魂（孜然／辣椒面／五香粉，决定整体口味），论据是血肉（羊肉，决定品质是否过硬），论证是骨骼（签子，是连接论点与论据的桥梁和纽带）。补充：并非每篇评论都齐备三要素，某些小言论提出论点后只作解释、内容简单，就没有论证的过程。</div><div class="ansline"><b>得分点</b>论, 点, =, 言, 之, 有, 理, （, 灵, 魂, ）, 1, 分, ；, 论, 据, =, 言, 之, 有, 据, （, 血, 肉, ）, 1, 分, ；, 论, 证, =, 言, 之, 有, 序, （, 骨, 骼, ／, 桥, 梁, 纽, 带, ）, 1, 分, ；, 能, 点, 出, 「, 小, 言, 论, 可, 能, 无, 论, 证, 过, 程, 」, 加, 1, 分, ；, 比, 喻, 对, 应, 正, 确, 1, 分, 。, 共, 5, 分</div><div class="ansline"><b>解析</b>三大要素的「言之……」，是高频填空题：理（论点）、据（论据）、序（论证）。记住「有理有据有序」三个词，顺序即论点—论据—论证。羊肉串比喻是@嵩老思原话，直接用它记「灵魂／血肉／骨骼」的定位。</div></div>
+</div>
+<div class="q" data-q="2" data-type="fill">
+  <div class="qhead">
+    <span class="qno">2</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">论证的推理类型</span>
+  </div>
+  <div class="stem">论证是给出自己所持观点的理由，逻辑推理是实现论证的方法和过程。请填写三种推理的方向：
+演绎推理——由一般到____；归纳推理——由个别到____；类比推理——由个别到____。
+其中「例证法」（事例论证）对应____推理，「引证法」（事理论证）对应____推理。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="2" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="2" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="2" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="2" data-b="3" placeholder="第 4 空" autocomplete="off"><input class="fillin" type="text" data-q="2" data-b="4" placeholder="第 5 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="2">查看解析</button>
+    <span class="saved" data-saved="2"></span>
+  </div>
+  <div class="ansbox" data-ans="2" hidden><div class="ansline"><b>参考答案</b>演绎推理——由一般到个别；归纳推理——由个别到一般；类比推理——由个别到个别；例证法对应归纳推理；引证法对应演绎推理。</div><div class="ansline"><b>得分点</b>「, 个, 别, 」, 「, 一, 般, 」, 「, 个, 别, 」, 各, 1, 分, （, 注, 意, ：, 类, 比, 是, 「, 个, 别, 到, 个, 别, 」, ）, ；, 例, 证, 法, =, 归, 纳, 1, 分, ；, 引, 证, 法, =, 演, 绎, 1, 分, 。, 共, 5, 分</div><div class="ansline"><b>解析</b>三个推理的方向别记反：演绎=由大到小（一般→个别），归纳=由小到大（个别→一般），类比=个体对个体（个别→个别）。例证法是「举例子归纳出结论」→归纳；引证法是「用大道理证明小道理」→演绎。讲义原句：「用已被证明的、公认的道理、原则或理论，来论证未被证明的、个别的、具体的论点」——这就是演绎。</div></div>
+</div>
+<div class="q" data-q="3" data-type="choice">
+  <div class="qhead">
+    <span class="qno">3</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">驳论方法</span>
+  </div>
+  <div class="stem">「先假定对方的论点是对的，然后以其作为前提，引出一个显然是荒谬的结论，从而以此证明对方的论点是错误的。」这描述的是下列哪一种方法？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q3" value="A"><span class="letter">A</span><span class="otext">反证法</span></label><label class="opt"><input type="radio" name="q3" value="B"><span class="letter">B</span><span class="otext">归谬法</span></label><label class="opt"><input type="radio" name="q3" value="C"><span class="letter">C</span><span class="otext">喻证法</span></label><label class="opt"><input type="radio" name="q3" value="D"><span class="letter">D</span><span class="otext">例证法</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="3">查看解析</button>
+    <span class="saved" data-saved="3"></span>
+  </div>
+  <div class="ansbox" data-ans="3" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>归谬法＝「顺着你说下去，把你推到荒谬处」。反证法是「证明与它相对立的论点是正确的（或错误的），从而反推」——它不假定对方正确，而是从对立面入手。两者的关键区分：归谬是「暂认其为真→推至荒谬」；反证是「证对立面之真假→反推本体」。喻证法（比喻论证）和例证法（事例论证）都属于立论方法，不用于反驳。</div></div>
+</div>
+<div class="q" data-q="4" data-type="choice">
+  <div class="qhead">
+    <span class="qno">4</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">论点判断类型</span>
+  </div>
+  <div class="stem">「我们要多关爱扣子」这句话，属于下列哪一类判断？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q4" value="A"><span class="letter">A</span><span class="otext">事实判断</span></label><label class="opt"><input type="radio" name="q4" value="B"><span class="letter">B</span><span class="otext">价值判断之评价判断</span></label><label class="opt"><input type="radio" name="q4" value="C"><span class="letter">C</span><span class="otext">价值判断之规范判断</span></label><label class="opt"><input type="radio" name="q4" value="D"><span class="letter">D</span><span class="otext">呼吁性论点</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="4">查看解析</button>
+    <span class="saved" data-saved="4"></span>
+  </div>
+  <div class="ansbox" data-ans="4" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>讲义给的三个例句要成组记：①「扣子码了很多资料」——事实判断（描述已然／实然）；②「扣子码的资料能帮助大家提高学习效率」——价值判断之评价判断（断定客体对主体的实际意义）；③「我们要多关爱扣子」——价值判断之规范判断（提出「应当」，反映价值标准）。评价判断有真假之分，规范判断无真假之分但有「合理／不合理」之别。D「呼吁性论点」是另一种分类维度（对读者提出建议诉求），本题问的是判断类型，选 C 最贴切。</div></div>
+</div>
+<div class="q" data-q="5" data-type="short">
+  <div class="qhead">
+    <span class="qno">5</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">评论立意</span>
+  </div>
+  <div class="stem">评论写作中「立意」贵在「站得高」，核心是一个「新」字。请写出立意主攻的「三个新」分别是什么，并说明「新」的前提是什么。</div>
+  <textarea class="shortin" data-q="5" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="5">查看解析</button>
+    <span class="saved" data-saved="5"></span>
+  </div>
+  <div class="ansbox" data-ans="5" hidden><div class="ansline"><b>参考答案</b>① 论题要有新思想（「立言」，讲出新道理、新思想、新见解、新观念，做到「言近旨远」，这是新闻评论的灵魂）；② 论理要有新高度（说理要切合客观实际、符合事物发展规律，从局部出发、着眼全局、展示未来，力戒主观性、避免无限拔高）；③ 论述要有新角度（善于寻找新角度，做到平中见奇、旧中出新）。「新」的前提是必须立意正确、无懈可击——即提炼出「正确而有新意」的论点，「正确」是第一位的。</div><div class="ansline"><b>得分点</b>新, 思, 想, （, 灵, 魂, ）, 2, 分, ；, 新, 高, 度, 2, 分, ；, 新, 角, 度, 2, 分, ；, 前, 提, =, 立, 意, 正, 确, ／, 「, 正, 确, 而, 有, 新, 意, 」, 2, 分, 。, 共, 8, 分</div><div class="ansline"><b>解析</b>「三个新」＝思想、高度、角度，对应讲义论题／论理／论述三个层次。@嵩老思的提醒要记牢：论点要「正确而有新意」，「正确」第一位，且「正确而无新意」＝「正确的废话」。案例可记川观新闻《我们需要开那么多会吗？》——标题一语点醒，全网传播超3800万。</div></div>
+</div>
+<div class="q" data-q="6" data-type="choice">
+  <div class="qhead">
+    <span class="qno">6</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">正论论证结构</span>
+  </div>
+  <div class="stem">「先提出总论点，然后排列出几个并列的分论点，从几个方面对总论点加以阐发」——这种正论结构是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q6" value="A"><span class="letter">A</span><span class="otext">归纳论证结构</span></label><label class="opt"><input type="radio" name="q6" value="B"><span class="letter">B</span><span class="otext">证明论证结构</span></label><label class="opt"><input type="radio" name="q6" value="C"><span class="letter">C</span><span class="otext">并列论证结构</span></label><label class="opt"><input type="radio" name="q6" value="D"><span class="letter">D</span><span class="otext">递进论证结构</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="6">查看解析</button>
+    <span class="saved" data-saved="6"></span>
+  </div>
+  <div class="ansbox" data-ans="6" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>五种正论结构要按「分论点之间是什么关系」来区分：归纳（先分后总，由分论点归纳出总论点）、证明（先总后分，用论据直接证明）、并列（总论点下几个并列分论点）、递进（逐层深入，前一个结论作为后一个前提，即「论证链」）、比较（纵向／横向对比阐发）。本题关键词「排列出几个并列的分论点」→并列结构。讲义案例：经济日报《新能源汽车产业要力避乱象》（增量不盈利／营销无底线／盲目上项目，三个并列怪象）。</div></div>
+</div>
+<div class="q" data-q="7" data-type="fill">
+  <div class="qhead">
+    <span class="qno">7</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">选题原则</span>
+  </div>
+  <div class="stem">评论选题的原则，林大椿《新闻评论学》概括为「四宜四不宜」。请补全：宜写____题，不宜____题；宜创____题，不宜袭旧题；宜论____题，不宜钻偏题；宜撰____题，不宜辟远题。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="7" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="3" placeholder="第 4 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="7">查看解析</button>
+    <span class="saved" data-saved="7"></span>
+  </div>
+  <div class="ansbox" data-ans="7" hidden><div class="ansline"><b>参考答案</b>宜写难题，不宜冒险题；宜创新题，不宜袭旧题；宜论大题，不宜钻偏题；宜撰近题，不宜辟远题。</div><div class="ansline"><b>得分点</b>难, ／, 冒, 险, （, 1, 分, ）, ；, 新, （, 1, 分, ）, ；, 大, （, 1, 分, ）, ；, 近, （, 1, 分, ）, 。, 共, 4, 分</div><div class="ansline"><b>解析</b>四组要成对记：「难题—冒险题」「新题—旧题」「大题—偏题」「近题—远题」。每组是「该做的」对「不该做的」。注意「宜写难题」的「难」是「有一定认识难度、值得挑战」，不是「难写」；「不宜冒险题」指「不应为刻意出新而选难以论证的论点」。</div></div>
+</div>
+<div class="q" data-q="8" data-type="short">
+  <div class="qhead">
+    <span class="qno">8</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">标题制作</span>
+  </div>
+  <div class="stem">新闻评论的标题与新闻报道的标题有何区别？请从「依据、形式、句式」三个方面说明。并写出评论标题表现的两种「提升表现力」的手法。</div>
+  <textarea class="shortin" data-q="8" rows="7" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="8">查看解析</button>
+    <span class="saved" data-saved="8"></span>
+  </div>
+  <div class="ansbox" data-ans="8" hidden><div class="ansline"><b>参考答案</b>三方面区别：① 依据不同——新闻标题以事实为根据，内容具体或虚实结合；评论标题以观点、态度为依据，可用具体事实也可用抽象化写法。② 形式不同——新闻一般有主题兼辅题（引题和副题），结构复杂；评论标题简单，一般只有一行主题，特别重大的社论才可加副题。③ 句式不同——新闻标题语法要求严格（主题最好是一个完整句子）；评论标题无严格要求，可以是一句话，也可以是一个词组，灵活不拘一格。
+两种表现力手法：① 以具象信息提升表现力（选具象因素，如形象、动作，如《国旗为谁而降》原标题是《对一个法条的忽略》——「法条」抽象、「国旗」具象，更有感染力）；② 以修辞提升表现力（拟人／对比／比喻／反复等，如《科学家不是「吉祥物」，拒绝「学术站台」》比喻、《真相至上不是流量至上》反复）。</div><div class="ansline"><b>得分点</b>三, 方, 面, 区, 别, 各, 2, 分, （, 依, 据, ／, 形, 式, ／, 句, 式, ）, ；, 具, 象, 1, 分, ；, 修, 辞, 1, 分, （, 举, 例, 更, 好, ）, 。, 共, 8, 分</div><div class="ansline"><b>解析</b>三个区别的核心一句话：新闻标题「以事实为据」、评论标题「以观点为据」。形式上一个含辅题、一个只有主题。句式上一严一宽。表现力两招：具象化（法条→国旗）、修辞化（拟人／对比／比喻／反复）。这份讲义把「标题」作为评论的独立得分点，考频高。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>二、专业课 · 回滚（论述方法 · 舆论监督 · 数字鸿沟）
+    <span class="secmeta">5 题</span></h2>
+  
+<div class="q" data-q="9" data-type="choice">
+  <div class="qhead">
+    <span class="qno">9</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">论述结尾写法</span>
+  </div>
+  <div class="stem">要求「高屋建瓴，或展望前景，或揭示哲理，慷慨陈词，由衷抒怀」的论述结尾，属于哪一种结尾写法？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q9" value="A"><span class="letter">A</span><span class="otext">精辟概括式</span></label><label class="opt"><input type="radio" name="q9" value="B"><span class="letter">B</span><span class="otext">高昂激越式</span></label><label class="opt"><input type="radio" name="q9" value="C"><span class="letter">C</span><span class="otext">余音绕梁式</span></label><label class="opt"><input type="radio" name="q9" value="D"><span class="letter">D</span><span class="otext">首尾呼应式</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="9">查看解析</button>
+    <span class="saved" data-saved="9"></span>
+  </div>
+  <div class="ansbox" data-ans="9" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>导学课5 的论述结尾三写法：① 精辟概括式——总括全文高于全文（最多用、最普遍）；② 高昂激越式——高屋建瓴、展望前景、揭示哲理、慷慨陈词（辽宁日报《解放思想，首先得有思想》）；③ 余音绕梁式——借文学手法与修辞，隽永含蓄、耐人回味（北京日报《忧心年轻人上香，不如关心他们在求什么》结尾引路遥「春天的道路依然充满泥泞」）。题干「展望前景／慷慨陈词」→高昂激越式。</div></div>
+</div>
+<div class="q" data-q="10" data-type="fill">
+  <div class="qhead">
+    <span class="qno">10</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">舆论监督的基本原则</span>
+  </div>
+  <div class="stem">舆论监督的基本原则有四条，除「依法监督」外，还有：____监督、____监督、____监督。舆论监督的性质与特点也有四性，除「准确性」外，还有：权威性、____性、紧迫性。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="10" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="10" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="10" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="10" data-b="3" placeholder="第 4 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="10">查看解析</button>
+    <span class="saved" data-saved="10"></span>
+  </div>
+  <div class="ansbox" data-ans="10" hidden><div class="ansline"><b>参考答案</b>准确监督、科学监督、建设性监督；典型性（舆论监督四特点：准确性、权威性、典型性、紧迫性）。</div><div class="ansline"><b>得分点</b>准, 确, ／, 科, 学, ／, 建, 设, 性, 各, 1, 分, ；, 典, 型, 性, 1, 分, 。, 共, 4, 分</div><div class="ansline"><b>解析</b>两组四字结构别混：① 舆论监督**基本原则**四条＝依法／准确／科学／建设性（这是「怎么监督」的要求）；② 舆论监督**性质与特点**四性＝准确性／权威性／典型性／紧迫性（这是「舆论监督是什么样」的描述）。记忆抓手：原则全是「×监督」动词型，特点全是「××性」名词型。</div></div>
+</div>
+<div class="q" data-q="11" data-type="short">
+  <div class="qhead">
+    <span class="qno">11</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">舆论场新特点</span>
+  </div>
+  <div class="stem">当前中国舆论场的新特点，可以从「话语权力格局、舆论生态结构、舆论主体、舆论环境」四个维度概括。请简要写出每个维度的核心变化。</div>
+  <textarea class="shortin" data-q="11" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="11">查看解析</button>
+    <span class="saved" data-saved="11"></span>
+  </div>
+  <div class="ansbox" data-ans="11" hidden><div class="ansline"><b>参考答案</b>① 话语权力格局：由传统媒体单一主导，转向多元主体共同参与（官方、平台、自媒体、网民多方博弈）；② 舆论生态结构：由单一主流媒体舆论场，转为官方舆论场与民间舆论场并存互动（存在「两个舆论场」的张力）；③ 舆论主体新特征：网民成为舆论生产与传播的重要主体，去中心化、匿名化、情绪化特征明显；④ 舆论环境特征：信息过载、注意力碎片化、议题生命周期缩短、舆论反转频发，国际与国内舆论相互交织。</div><div class="ansline"><b>得分点</b>四, 个, 维, 度, 各, 2, 分, ，, 答, 出, 「, 多, 元, ／, 两, 个, 舆, 论, 场, ／, 网, 民, 主, 体, 化, ／, 反, 转, 与, 碎, 片, 化, 」, 即, 可, 得, 分, 。, 共, 8, 分</div><div class="ansline"><b>解析</b>四个维度是一条递进链：谁在说话（权力格局）→ 在哪说（生态结构）→ 谁是说的人（主体）→ 说什么环境（环境）。答题时按「官方vs民间」「主流vs平台」的对照来展开，避免空泛。</div></div>
+</div>
+<div class="q" data-q="12" data-type="choice">
+  <div class="qhead">
+    <span class="qno">12</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">数字鸿沟谱系</span>
+  </div>
+  <div class="stem">数字鸿沟的谱系演进顺序，正确的是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q12" value="A"><span class="letter">A</span><span class="otext">知识沟 → 数字鸿沟 → 信息沟 → 数智鸿沟</span></label><label class="opt"><input type="radio" name="q12" value="B"><span class="letter">B</span><span class="otext">知识沟 → 信息沟 → 数字鸿沟 → 使用沟 → 数智鸿沟</span></label><label class="opt"><input type="radio" name="q12" value="C"><span class="letter">C</span><span class="otext">信息沟 → 知识沟 → 数字鸿沟 → 数智鸿沟</span></label><label class="opt"><input type="radio" name="q12" value="D"><span class="letter">D</span><span class="otext">知识沟 → 数字鸿沟 → 使用沟 → 数智鸿沟</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="12">查看解析</button>
+    <span class="saved" data-saved="12"></span>
+  </div>
+  <div class="ansbox" data-ans="12" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>这是你 9.18 反馈里漏了两环的考点（P1-9，已第 5 次回滚）。完整谱系五环：知识沟 → 信息沟 → 数字鸿沟（接入沟）→ 使用沟／素养沟 → 数智鸿沟。前两个是「知道与否」，中间两个是「能不能用」，最后是「用得好不好」。A 漏了「信息沟」；C 把前两环顺序颠倒；D 漏「信息沟」又丢了「使用沟」。</div></div>
+</div>
+<div class="q" data-q="13" data-type="choice">
+  <div class="qhead">
+    <span class="qno">13</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">舆论监督与正面宣传</span>
+  </div>
+  <div class="stem">关于舆论监督与正面宣传的关系，下列理解正确的是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q13" value="A"><span class="letter">A</span><span class="otext">舆论监督与正面宣传是相互对立的两种宣传方式，应择其一而行</span></label><label class="opt"><input type="radio" name="q13" value="B"><span class="letter">B</span><span class="otext">舆论监督与正面宣传是辩证统一的，二者都是手段，出发点和落脚点都是维护人民利益</span></label><label class="opt"><input type="radio" name="q13" value="C"><span class="letter">C</span><span class="otext">舆论监督是负面报道，应严格控制数量和比例</span></label><label class="opt"><input type="radio" name="q13" value="D"><span class="letter">D</span><span class="otext">舆论监督只在重大事件中适用，日常报道以正面宣传为主</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="13">查看解析</button>
+    <span class="saved" data-saved="13"></span>
+  </div>
+  <div class="ansbox" data-ans="13" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>「舆论监督与正面宣传的辩证统一」是讲义明确的正面立论：二者**都是手段**，不是二选一，都是为了让舆论生态更健康。三个常见误区：① 把舆论监督等同于「负面报道」（错，监督不是揭黑）；② 把正面宣传等同于「报喜不报忧」（错，正面宣传是主流价值引导）；③ 把二者对立（错）。A、C 正是陷阱选项。讲义还强调三统一，核心是「立场一致、目标一致、手段互补」。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>三、政治（全部单选）
+    <span class="secmeta">8 题</span></h2>
+  
+<div class="q" data-q="14" data-type="choice">
+  <div class="qhead">
+    <span class="qno">14</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">教育强国六个以</span>
+  </div>
+  <div class="stem">关于教育强国建设的「六个以」——根本保证、根本任务、根本目标、重要使命、基本路径、核心功能，下列概括词与定位对应正确的是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q14" value="A"><span class="letter">A</span><span class="otext">「坚持党的全面领导」是根本目标</span></label><label class="opt"><input type="radio" name="q14" value="B"><span class="letter">B</span><span class="otext">「立德树人」是根本任务</span></label><label class="opt"><input type="radio" name="q14" value="C"><span class="letter">C</span><span class="otext">「服务中华民族伟大复兴」是核心功能</span></label><label class="opt"><input type="radio" name="q14" value="D"><span class="letter">D</span><span class="otext">「人民满意」是根本尺度，也是根本目标</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="14">查看解析</button>
+    <span class="saved" data-saved="14"></span>
+  </div>
+  <div class="ansbox" data-ans="14" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>这是你 9.18 反馈的 P0-1（第 7 次回滚）。六个「以」：坚持党的全面领导（根本保证）→ 立德树人（根本任务）→ 为党育人、为国育才（根本目标）→ 服务中华民族伟大复兴（重要使命）→ 走中国特色社会主义教育发展道路（基本路径）→ 支撑引领中国式现代化（核心功能）。A 错（党的领导是根本**保证**，不是根本目标）；C 错（服务民族复兴是**重要使命**，核心功能是「支撑引领中国式现代化」）；D 错（「人民满意」是**根本尺度**，不是根本目标——这正是你原文写错的地方）。记忆抓手：保（证）→党；任（务）→德育；目（标）→育才；使（命）→复兴；路（径）→现代化；功（能）→领现代化。</div></div>
+</div>
+<div class="q" data-q="15" data-type="choice">
+  <div class="qhead">
+    <span class="qno">15</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">统战三个最</span>
+  </div>
+  <div class="stem">关于统一战线的「三个最」，下列表述正确的是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q15" value="A"><span class="letter">A</span><span class="otext">统一战线最鲜明的特征是「大团结大联合」</span></label><label class="opt"><input type="radio" name="q15" value="B"><span class="letter">B</span><span class="otext">统一战线的本质要求是坚持「求同存异」</span></label><label class="opt"><input type="radio" name="q15" value="C"><span class="letter">C</span><span class="otext">统一战线解决的是「人心和力量」问题，其本质要求是大团结大联合</span></label><label class="opt"><input type="radio" name="q15" value="D"><span class="letter">D</span><span class="otext">坚持「党的领导」是统一战线的关键</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="15">查看解析</button>
+    <span class="saved" data-saved="15"></span>
+  </div>
+  <div class="ansbox" data-ans="15" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>这是 P0-2（第 7 次回滚）。三级对应：**本质要求**＝大团结大联合（解决的是**人心和力量**问题）；**关键**＝坚持**求同存异**；**最鲜明的特征**＝**党的领导**（不是大团结大联合）。A 把「最鲜明的特征」错安给「大团结大联合」（应为「党的领导」）；B 把「关键」错安给「求同存异」（求同存异确实是关键，但本题 B 说「本质要求是求同存异」是错位）；D 把「关键」给党的领导（党的领导应是**最鲜明的特征**）。记忆抓手：四级递进链——联合（本质）→ 人心（对象）→ 存异（方法）→ 党旗（特征），四步不能跳。</div></div>
+</div>
+<div class="q" data-q="16" data-type="choice">
+  <div class="qhead">
+    <span class="qno">16</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">党的显著标志</span>
+  </div>
+  <div class="stem">「理论联系实际、密切联系群众、批评和自我批评，是中国共产党区别于其他政党的显著标志」。这一表述的问题在于？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q16" value="A"><span class="letter">A</span><span class="otext">三大优良作风是党在七大（1945）确立的，与「区别于其他政党的显著标志」不是同一来源，此处混淆了两个知识点</span></label><label class="opt"><input type="radio" name="q16" value="B"><span class="letter">B</span><span class="otext">「理论联系实际」应改为「理论联系实践」</span></label><label class="opt"><input type="radio" name="q16" value="C"><span class="letter">C</span><span class="otext">「批评和自我批评」应改为「批评与自我批评」</span></label><label class="opt"><input type="radio" name="q16" value="D"><span class="letter">D</span><span class="otext">「密切联系群众」应改为「紧紧依靠群众」</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="16">查看解析</button>
+    <span class="saved" data-saved="16"></span>
+  </div>
+  <div class="ansbox" data-ans="16" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>P0-5，**第 8 次回滚**，这是你 9.17 反馈原文里一字不差写下的句子。两条史实各背各的：① 党的**七大（1945）**确立的**三大优良作风**＝理论联系实际、密切联系群众、批评和自我批评——这是「三大作风」，本身没问题；② 党的**十九届六中全会《决议》**指出：**勇于自我革命**是中国共产党区别于其他政党的显著标志。所以你笔记里把「三大作风」直接等同于「区别于其他政党的显著标志」，是**把两条独立来源焊死成一句**，这才是错的根源。B、C、D 三处措辞都只是细微换词，不构成表述错误（「批评和自我批评」正是七大标准原文）。
+**行动要求**：请回改 `桌面_考研学习反馈/9.17 学习反馈（优化版）.docx`，把并列三者那句拆成两条独立来源——「七大（1945）三大优良作风」与「十九届六中全会《决议》：勇于自我革命是区别于其他政党的显著标志」，各背各的。笔记里的错误不改，考场上会原样复现。</div></div>
+</div>
+<div class="q" data-q="17" data-type="choice">
+  <div class="qhead">
+    <span class="qno">17</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">党的显著标志（旁支变式）</span>
+  </div>
+  <div class="stem">「勇于自我革命」被赋予了多张「身份证」，下列哪一项不是它的定位？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q17" value="A"><span class="letter">A</span><span class="otext">中国共产党区别于其他政党的显著标志</span></label><label class="opt"><input type="radio" name="q17" value="B"><span class="letter">B</span><span class="otext">党跳出历史周期率的第二个答案</span></label><label class="opt"><input type="radio" name="q17" value="C"><span class="letter">C</span><span class="otext">党最鲜明的品格</span></label><label class="opt"><input type="radio" name="q17" value="D"><span class="letter">D</span><span class="otext">党的根本宗旨</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="17">查看解析</button>
+    <span class="saved" data-saved="17"></span>
+  </div>
+  <div class="ansbox" data-ans="17" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>本题专设旁支变式，检验你是否把史实焊死。勇于自我革命的定位包括：区别于其他政党的**显著标志**（十九届六中全会《决议》）、跳出历史周期率的**第二个答案**（第一个答案是「人民监督」，出自延安「窑洞对」）。「党的根本宗旨」＝**全心全意为人民服务**，与勇于自我革命无关。若本题与第 16 题同时做错，说明你笔记里这几条史实已互相污染，必须回改原文。</div></div>
+</div>
+<div class="q" data-q="18" data-type="choice">
+  <div class="qhead">
+    <span class="qno">18</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">全过程人民民主</span>
+  </div>
+  <div class="stem">全过程人民民主的「四个相统一」，不包括下列哪一项？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q18" value="A"><span class="letter">A</span><span class="otext">过程民主和成果民主相统一</span></label><label class="opt"><input type="radio" name="q18" value="B"><span class="letter">B</span><span class="otext">程序民主和实质民主相统一</span></label><label class="opt"><input type="radio" name="q18" value="C"><span class="letter">C</span><span class="otext">直接民主和间接民主相统一</span></label><label class="opt"><input type="radio" name="q18" value="D"><span class="letter">D</span><span class="otext">选举民主和协商民主相统一</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="18">查看解析</button>
+    <span class="saved" data-saved="18"></span>
+  </div>
+  <div class="ansbox" data-ans="18" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>P0-4（第 7 次回滚）。四个相统一＝过程民主与成果民主、程序民主与实质民主、直接民主与间接民主、人民民主与国家意志。**不包括**「选举民主和协商民主相统一」——选举民主与协商民主是两种**民主形式**，不是一组「统一」。记忆抓手：四对里前三对是「同一民主的两个侧面」（过程／成果、程序／实质、直接／间接），第四对是「人民民主／国家意志」；选举与协商是「两种形式」，混进来就错了。</div></div>
+</div>
+<div class="q" data-q="19" data-type="choice">
+  <div class="qhead">
+    <span class="qno">19</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">法治体系五大体系</span>
+  </div>
+  <div class="stem">中国特色社会主义法治体系的五大体系，其名称正确的是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q19" value="A"><span class="letter">A</span><span class="otext">法律规范体系、法治实施体系、法治监督体系、法治保障体系、党内法规体系</span></label><label class="opt"><input type="radio" name="q19" value="B"><span class="letter">B</span><span class="otext">法律体系、法治执行体系、法治监督体系、法治保障体系、党内法规体系</span></label><label class="opt"><input type="radio" name="q19" value="C"><span class="letter">C</span><span class="otext">法律规范体系、法治实施体系、法治监察体系、法治保障体系、党外法规体系</span></label><label class="opt"><input type="radio" name="q19" value="D"><span class="letter">D</span><span class="otext">法律规范体系、法治运行体系、法治监督体系、法治保障体系、党内法规体系</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="19">查看解析</button>
+    <span class="saved" data-saved="19"></span>
+  </div>
+  <div class="ansbox" data-ans="19" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>P1-7（第 7 次回滚）。五体系＝法律**规范**体系 → 法治**实施**体系 → 法治**监督**体系 → 法治**保障**体系 → **党内法规**体系。B 把「法律规范」写成「法律」、「实施」写成「执行」；C 把「监督」写成「监察」、「党内」写成「党外」；D 把「实施」写成「运行」。记忆抓手：**规 → 实 → 监 → 保 → 党**（五字链）。法律**规**范 → 法治**实**施 → 法治**监**督 → 法治**保**障 → **党**内法规。</div></div>
+</div>
+<div class="q" data-q="20" data-type="choice">
+  <div class="qhead">
+    <span class="qno">20</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">最根本</span>
+  </div>
+  <div class="stem">「____是中国共产党领导中国人民取得一切成就的最根本的保证。」横线处应填？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q20" value="A"><span class="letter">A</span><span class="otext">中国人民的爱国情怀和坚持奋斗</span></label><label class="opt"><input type="radio" name="q20" value="B"><span class="letter">B</span><span class="otext">有中国共产党的坚强领导</span></label><label class="opt"><input type="radio" name="q20" value="C"><span class="letter">C</span><span class="otext">马克思主义的科学指导</span></label><label class="opt"><input type="radio" name="q20" value="D"><span class="letter">D</span><span class="otext">中国特色社会主义道路</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="20">查看解析</button>
+    <span class="saved" data-saved="20"></span>
+  </div>
+  <div class="ansbox" data-ans="20" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>P1-8（第 7 次回滚）。见「最根本」→ 落点必然是**党的领导**。三个后缀记牢：坚强领导（成就来源／最根本的保证）、最核心最根本的问题（统战领域）、最根本的保证（法治领域）。你 9.18 反馈第 1 空答「爱国情怀和坚持奋斗」——这是**主观感受替换客观表述**，政治题答案必须是文件原话，不能用自己的理解。</div></div>
+</div>
+<div class="q" data-q="21" data-type="choice">
+  <div class="qhead">
+    <span class="qno">21</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">三个法的分工</span>
+  </div>
+  <div class="stem">论述题写作中的「社会环境法」「社会要素法」「社会思维法」，三者的核心分工是？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q21" value="A"><span class="letter">A</span><span class="otext">三者是同一种方法的不同叫法，可互换使用</span></label><label class="opt"><input type="radio" name="q21" value="B"><span class="letter">B</span><span class="otext">环境法答「为什么」（外因大背景），要素法答「是什么构成」（拆组成要件），思维法答「怎么办」（给操作路径）</span></label><label class="opt"><input type="radio" name="q21" value="C"><span class="letter">C</span><span class="otext">环境法答「怎么办」，要素法答「为什么」，思维法答「是什么」</span></label><label class="opt"><input type="radio" name="q21" value="D"><span class="letter">D</span><span class="otext">三者都属于「社会框架 PETCSI」，是并列的六个分析维度</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="21">查看解析</button>
+    <span class="saved" data-saved="21"></span>
+  </div>
+  <div class="ansbox" data-ans="21" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>P0-6（第 4 次回滚）。你 9.18 曾把这三种方法答成「就是社会框架 PETCSI 的不同说法」——方向性错误。三套方法各有操作路径：① **社会环境法**：列六类环境，答「外因与大背景」（学理：克罗兹四大元过程＋史安斌盛阳「四化」）；② **社会要素法**：列政策、法律、资本、市场、技术、公民、舆论七要素，拆构成要件（学理：十九届四中全会社会治理体系）；③ **社会思维法**：专门答「怎么做」，按政治／经济／文化／技术／国际五维给思维词。一句话分工：问「为什么」用环境法，问「是什么构成」用要素法，问「怎么办」用思维法。PETCSI 是**分析维度**，不是这三套方法的总名。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>四、英语
+    <span class="secmeta">3 题</span></h2>
+  
+<div class="q" data-q="22" data-type="translate">
+  <div class="qhead">
+    <span class="qno">22</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">长难句</span>
+  </div>
+  <div class="stem">翻译下面这句话，并标出主干：
+
+In societies where social media has become the dominant channel of information, people are far more likely to accept claims that confirm their existing views than to seek out evidence that might challenge them.</div>
+  <textarea class="transin" data-q="22" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="22">查看解析</button>
+    <span class="saved" data-saved="22"></span>
+  </div>
+  <div class="ansbox" data-ans="22" hidden><div class="ansline"><b>参考答案</b>参考译文：在社交媒体已成为信息主导渠道的社会中，人们接受那些证实自己既有观点的说法的可能性，远远大于去寻找可能挑战自己观点的证据的可能性。
+主干：people are far more likely to accept claims ... than to seek out evidence ...（人／更有可能接受……而非寻找……）。
+结构：In societies（地点状语）+ where ... 定语从句修饰 societies；主句主语 people，谓语 are far more likely to ...；比较结构 far more likely to A than to B；claims 后接 that 定语从句（confirm their existing views），evidence 后接 that 定语从句（might challenge them）。</div><div class="ansline"><b>得分点</b>主, 干, （, p, e, o, p, l, e,  , a, r, e,  , f, a, r,  , m, o, r, e,  , l, i, k, e, l, y,  , t, o, ., ., ., t, h, a, n,  , t, o, ., ., ., ）, 2, 分, ；, 比, 较, 结, 构, 「, 远, 远, 更, 有, 可, 能, …, …, 而, 非, …, …, 」, 翻, 译, 到, 位, 2, 分, ；, 两, 个, 定, 语, 从, 句, （, c, o, n, f, i, r, m, ／, c, h, a, l, l, e, n, g, e, ）, 正, 确, 2, 分, ；, 整, 体, 通, 顺, 1, 分, 。, 共, 7, 分</div><div class="ansline"><b>解析</b>**这是你 P2-11 的同型考点（第 7 次回滚，换了句子）**。上次你漏译了 `far more likely`，这次注意：① 比较级和程度副词不能省（far more likely＝远远更有可能）；② 「A rather than B」结构要译出「而非／而不是」；③ 两个 that 都是定语从句，修饰 claims 和 evidence。这是英二翻译的稳定考点：比较结构＋多重定语从句。</div></div>
+</div>
+<div class="q" data-q="23" data-type="fill">
+  <div class="qhead">
+    <span class="qno">23</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">英语词汇</span>
+  </div>
+  <div class="stem">根据语境填写恰当的英文单词或短语：
+1. The new regulation aims to ____ ____ on platforms that spread disinformation.（严厉打击、镇压）
+2. The once-endless ____ has been turned into farmland.（大草原）
+3. As the debate continued, the questions became ____（更棘手的）
+4. The company was ____ ____ stealing users&#x27; data.（被指控）
+5. Regulators decided to ____ the tech giant for antitrust violations.（处以罚款）</div>
+  <div class="fills"><input class="fillin" type="text" data-q="23" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="23" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="23" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="23" data-b="3" placeholder="第 4 空" autocomplete="off"><input class="fillin" type="text" data-q="23" data-b="4" placeholder="第 5 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="23">查看解析</button>
+    <span class="saved" data-saved="23"></span>
+  </div>
+  <div class="ansbox" data-ans="23" hidden><div class="ansline"><b>参考答案</b>1. crack down on；2. prairie；3. thornier；4. accused of（或 charged with）；5. fine</div><div class="ansline"><b>得分点</b>c, r, a, c, k,  , d, o, w, n,  , o, n,  , 1, 分, ；, p, r, a, i, r, i, e,  , 1, 分, ；, t, h, o, r, n, i, e, r,  , 1, 分, ；, a, c, c, u, s, e, d,  , o, f, ／, c, h, a, r, g, e, d,  , w, i, t, h,  , 1, 分, ；, f, i, n, e,  , 1, 分, 。, 共, 5, 分</div><div class="ansline"><b>解析</b>P1-10（第 7 次回滚，换了语境）。逐个抓手：**crack down on** 是「朝外打压」（联想警方扫荡），你曾写「崩塌」（那是 collapse）；**prairie** 大草原，和 plain（平原）、plateau（高原）一起记；**thornier** 更棘手的（thorn 刺→带刺的问题），你曾写「更尖锐」；**accuse sb. of sth.** ／charge sb. with sth.；**fine** 作动词「罚款」（名词「罚款」同形）。</div></div>
+</div>
+<div class="q" data-q="24" data-type="short">
+  <div class="qhead">
+    <span class="qno">24</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">翻译方法反思</span>
+  </div>
+  <div class="stem">你在英语翻译中曾出现「漏译比较级」「漏译程度副词」的问题。请总结：翻译时如何用「三步自检法」避免这类失分？（至少写出三步具体动作）</div>
+  <textarea class="shortin" data-q="24" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="24">查看解析</button>
+    <span class="saved" data-saved="24"></span>
+  </div>
+  <div class="ansbox" data-ans="24" hidden><div class="ansline"><b>参考答案</b>参考要点：① **划结构**——下笔前先划出主干（主谓宾），圈出所有修饰成分（定语从句、状语、插入语），确保不丢成分；② **标比较级与程度词**——专门用笔圈出 more / most / far / much / less / than / rather than 等，逐个确认是否译出（这是最高频的漏译点）；③ **回读补漏**——译完后对照原文逐句回读一遍，检查是否有定语、状语、否定、比较结构被吞掉；④ **代词具体化**——those / them / it 等代词要译出所指对象，不能直接省略。</div><div class="ansline"><b>得分点</b>三, 步, 以, 上, 具, 体, 动, 作, ，, 每, 步,  , 1, –, 2,  , 分, ；, 能, 点, 到, 「, 比, 较, 级, ／, 程, 度, 词, 专, 门, 标, 记, 」, 加,  , 1,  , 分, ；, 提, 到, 「, 代, 词, 具, 体, 化, 」, 加,  , 1,  , 分, 。, 共, 6, 分</div><div class="ansline"><b>解析</b>这是方法反思题，不按字数给分。核心是把「漏译比较级」这个具体错误升级为可执行的检查动作。你的错误模式是「读懂了但没译全」，属于**输出环节的疏漏**，不是理解问题——所以对策是**流程化的自检**，而不是再背单词。</div></div>
+</div>
+</section>
+
+  <div class="done-tip" id="doneTip">
+    <b>🎉 全部作答完毕</b>
+    点右下角「导出我的答案」，把导出的文件发给我，我会逐题批改并给出评分与改进建议。
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="tb-inner">
+    <button class="btn btn-main" id="btnExport">导出我的答案</button>
+    <button class="btn btn-ghost" id="btnRevealAll">展开全部解析</button>
+    <button class="btn btn-ghost" id="btnReset">清空重做</button>
+    <span class="tb-count" id="tbCount">0 / 24</span>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">你的答案（复制后发给我批改）</div>
+    <div class="modal-body">
+      <div class="modal-tip">
+        全选复制下面的内容，粘贴到对话里发给我即可。也可以点「下载 .md」保存成文件再上传。
+      </div>
+      <textarea id="exportArea" readonly></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="btnCloseModal">关闭</button>
+      <button class="btn btn-main" id="btnDownload">下载 .md</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ = {"title": "考研每日测验 · 10.10 综合卷（素材：实务大明白·新闻评论第四/五讲）", "date": "2026-10-10", "sections": [{"name": "一、专业课 · 实务（新闻评论）", "questions": [{"id": 1, "type": "short", "rows": 6, "kp": "评论要素关系", "stem": "新闻评论的三大要素是论点、论据、论证。请分别说明三者的定位（各对应一个「言之……」），并用讲义里的「羊肉串」比喻说明三者关系。", "answer": "① 论点——证明什么——言之有理；② 论据——用什么来证明——言之有据；③ 论证——如何来证明——言之有序。羊肉串比喻：论点是灵魂（孜然／辣椒面／五香粉，决定整体口味），论据是血肉（羊肉，决定品质是否过硬），论证是骨骼（签子，是连接论点与论据的桥梁和纽带）。补充：并非每篇评论都齐备三要素，某些小言论提出论点后只作解释、内容简单，就没有论证的过程。", "keys": "论点=言之有理（灵魂）1分；论据=言之有据（血肉）1分；论证=言之有序（骨骼／桥梁纽带）1分；能点出「小言论可能无论证过程」加1分；比喻对应正确1分。共5分", "explain": "三大要素的「言之……」，是高频填空题：理（论点）、据（论据）、序（论证）。记住「有理有据有序」三个词，顺序即论点—论据—论证。羊肉串比喻是@嵩老思原话，直接用它记「灵魂／血肉／骨骼」的定位。", "_id": 1}, {"id": 2, "type": "fill", "blanks": 5, "kp": "论证的推理类型", "stem": "论证是给出自己所持观点的理由，逻辑推理是实现论证的方法和过程。请填写三种推理的方向：\n演绎推理——由一般到____；归纳推理——由个别到____；类比推理——由个别到____。\n其中「例证法」（事例论证）对应____推理，「引证法」（事理论证）对应____推理。", "answer": "演绎推理——由一般到个别；归纳推理——由个别到一般；类比推理——由个别到个别；例证法对应归纳推理；引证法对应演绎推理。", "keys": "「个别」「一般」「个别」各1分（注意：类比是「个别到个别」）；例证法=归纳1分；引证法=演绎1分。共5分", "explain": "三个推理的方向别记反：演绎=由大到小（一般→个别），归纳=由小到大（个别→一般），类比=个体对个体（个别→个别）。例证法是「举例子归纳出结论」→归纳；引证法是「用大道理证明小道理」→演绎。讲义原句：「用已被证明的、公认的道理、原则或理论，来论证未被证明的、个别的、具体的论点」——这就是演绎。", "_id": 2}, {"id": 3, "type": "choice", "kp": "驳论方法", "stem": "「先假定对方的论点是对的，然后以其作为前提，引出一个显然是荒谬的结论，从而以此证明对方的论点是错误的。」这描述的是下列哪一种方法？", "options": ["反证法", "归谬法", "喻证法", "例证法"], "answer": "B", "explain": "归谬法＝「顺着你说下去，把你推到荒谬处」。反证法是「证明与它相对立的论点是正确的（或错误的），从而反推」——它不假定对方正确，而是从对立面入手。两者的关键区分：归谬是「暂认其为真→推至荒谬」；反证是「证对立面之真假→反推本体」。喻证法（比喻论证）和例证法（事例论证）都属于立论方法，不用于反驳。", "_id": 3}, {"id": 4, "type": "choice", "kp": "论点判断类型", "stem": "「我们要多关爱扣子」这句话，属于下列哪一类判断？", "options": ["事实判断", "价值判断之评价判断", "价值判断之规范判断", "呼吁性论点"], "answer": "C", "explain": "讲义给的三个例句要成组记：①「扣子码了很多资料」——事实判断（描述已然／实然）；②「扣子码的资料能帮助大家提高学习效率」——价值判断之评价判断（断定客体对主体的实际意义）；③「我们要多关爱扣子」——价值判断之规范判断（提出「应当」，反映价值标准）。评价判断有真假之分，规范判断无真假之分但有「合理／不合理」之别。D「呼吁性论点」是另一种分类维度（对读者提出建议诉求），本题问的是判断类型，选 C 最贴切。", "_id": 4}, {"id": 5, "type": "short", "rows": 6, "kp": "评论立意", "stem": "评论写作中「立意」贵在「站得高」，核心是一个「新」字。请写出立意主攻的「三个新」分别是什么，并说明「新」的前提是什么。", "answer": "① 论题要有新思想（「立言」，讲出新道理、新思想、新见解、新观念，做到「言近旨远」，这是新闻评论的灵魂）；② 论理要有新高度（说理要切合客观实际、符合事物发展规律，从局部出发、着眼全局、展示未来，力戒主观性、避免无限拔高）；③ 论述要有新角度（善于寻找新角度，做到平中见奇、旧中出新）。「新」的前提是必须立意正确、无懈可击——即提炼出「正确而有新意」的论点，「正确」是第一位的。", "keys": "新思想（灵魂）2分；新高度2分；新角度2分；前提=立意正确／「正确而有新意」2分。共8分", "explain": "「三个新」＝思想、高度、角度，对应讲义论题／论理／论述三个层次。@嵩老思的提醒要记牢：论点要「正确而有新意」，「正确」第一位，且「正确而无新意」＝「正确的废话」。案例可记川观新闻《我们需要开那么多会吗？》——标题一语点醒，全网传播超3800万。", "_id": 5}, {"id": 6, "type": "choice", "kp": "正论论证结构", "stem": "「先提出总论点，然后排列出几个并列的分论点，从几个方面对总论点加以阐发」——这种正论结构是？", "options": ["归纳论证结构", "证明论证结构", "并列论证结构", "递进论证结构"], "answer": "C", "explain": "五种正论结构要按「分论点之间是什么关系」来区分：归纳（先分后总，由分论点归纳出总论点）、证明（先总后分，用论据直接证明）、并列（总论点下几个并列分论点）、递进（逐层深入，前一个结论作为后一个前提，即「论证链」）、比较（纵向／横向对比阐发）。本题关键词「排列出几个并列的分论点」→并列结构。讲义案例：经济日报《新能源汽车产业要力避乱象》（增量不盈利／营销无底线／盲目上项目，三个并列怪象）。", "_id": 6}, {"id": 7, "type": "fill", "blanks": 4, "kp": "选题原则", "stem": "评论选题的原则，林大椿《新闻评论学》概括为「四宜四不宜」。请补全：宜写____题，不宜____题；宜创____题，不宜袭旧题；宜论____题，不宜钻偏题；宜撰____题，不宜辟远题。", "answer": "宜写难题，不宜冒险题；宜创新题，不宜袭旧题；宜论大题，不宜钻偏题；宜撰近题，不宜辟远题。", "keys": "难／冒险（1分）；新（1分）；大（1分）；近（1分）。共4分", "explain": "四组要成对记：「难题—冒险题」「新题—旧题」「大题—偏题」「近题—远题」。每组是「该做的」对「不该做的」。注意「宜写难题」的「难」是「有一定认识难度、值得挑战」，不是「难写」；「不宜冒险题」指「不应为刻意出新而选难以论证的论点」。", "_id": 7}, {"id": 8, "type": "short", "rows": 7, "kp": "标题制作", "stem": "新闻评论的标题与新闻报道的标题有何区别？请从「依据、形式、句式」三个方面说明。并写出评论标题表现的两种「提升表现力」的手法。", "answer": "三方面区别：① 依据不同——新闻标题以事实为根据，内容具体或虚实结合；评论标题以观点、态度为依据，可用具体事实也可用抽象化写法。② 形式不同——新闻一般有主题兼辅题（引题和副题），结构复杂；评论标题简单，一般只有一行主题，特别重大的社论才可加副题。③ 句式不同——新闻标题语法要求严格（主题最好是一个完整句子）；评论标题无严格要求，可以是一句话，也可以是一个词组，灵活不拘一格。\n两种表现力手法：① 以具象信息提升表现力（选具象因素，如形象、动作，如《国旗为谁而降》原标题是《对一个法条的忽略》——「法条」抽象、「国旗」具象，更有感染力）；② 以修辞提升表现力（拟人／对比／比喻／反复等，如《科学家不是「吉祥物」，拒绝「学术站台」》比喻、《真相至上不是流量至上》反复）。", "keys": "三方面区别各2分（依据／形式／句式）；具象1分；修辞1分（举例更好）。共8分", "explain": "三个区别的核心一句话：新闻标题「以事实为据」、评论标题「以观点为据」。形式上一个含辅题、一个只有主题。句式上一严一宽。表现力两招：具象化（法条→国旗）、修辞化（拟人／对比／比喻／反复）。这份讲义把「标题」作为评论的独立得分点，考频高。", "_id": 8}]}, {"name": "二、专业课 · 回滚（论述方法 · 舆论监督 · 数字鸿沟）", "questions": [{"id": 9, "type": "choice", "kp": "论述结尾写法", "stem": "要求「高屋建瓴，或展望前景，或揭示哲理，慷慨陈词，由衷抒怀」的论述结尾，属于哪一种结尾写法？", "options": ["精辟概括式", "高昂激越式", "余音绕梁式", "首尾呼应式"], "answer": "B", "explain": "导学课5 的论述结尾三写法：① 精辟概括式——总括全文高于全文（最多用、最普遍）；② 高昂激越式——高屋建瓴、展望前景、揭示哲理、慷慨陈词（辽宁日报《解放思想，首先得有思想》）；③ 余音绕梁式——借文学手法与修辞，隽永含蓄、耐人回味（北京日报《忧心年轻人上香，不如关心他们在求什么》结尾引路遥「春天的道路依然充满泥泞」）。题干「展望前景／慷慨陈词」→高昂激越式。", "_id": 9}, {"id": 10, "type": "fill", "blanks": 4, "kp": "舆论监督的基本原则", "stem": "舆论监督的基本原则有四条，除「依法监督」外，还有：____监督、____监督、____监督。舆论监督的性质与特点也有四性，除「准确性」外，还有：权威性、____性、紧迫性。", "answer": "准确监督、科学监督、建设性监督；典型性（舆论监督四特点：准确性、权威性、典型性、紧迫性）。", "keys": "准确／科学／建设性各1分；典型性1分。共4分", "explain": "两组四字结构别混：① 舆论监督**基本原则**四条＝依法／准确／科学／建设性（这是「怎么监督」的要求）；② 舆论监督**性质与特点**四性＝准确性／权威性／典型性／紧迫性（这是「舆论监督是什么样」的描述）。记忆抓手：原则全是「×监督」动词型，特点全是「××性」名词型。", "_id": 10}, {"id": 11, "type": "short", "rows": 6, "kp": "舆论场新特点", "stem": "当前中国舆论场的新特点，可以从「话语权力格局、舆论生态结构、舆论主体、舆论环境」四个维度概括。请简要写出每个维度的核心变化。", "answer": "① 话语权力格局：由传统媒体单一主导，转向多元主体共同参与（官方、平台、自媒体、网民多方博弈）；② 舆论生态结构：由单一主流媒体舆论场，转为官方舆论场与民间舆论场并存互动（存在「两个舆论场」的张力）；③ 舆论主体新特征：网民成为舆论生产与传播的重要主体，去中心化、匿名化、情绪化特征明显；④ 舆论环境特征：信息过载、注意力碎片化、议题生命周期缩短、舆论反转频发，国际与国内舆论相互交织。", "keys": "四个维度各2分，答出「多元／两个舆论场／网民主体化／反转与碎片化」即可得分。共8分", "explain": "四个维度是一条递进链：谁在说话（权力格局）→ 在哪说（生态结构）→ 谁是说的人（主体）→ 说什么环境（环境）。答题时按「官方vs民间」「主流vs平台」的对照来展开，避免空泛。", "_id": 11}, {"id": 12, "type": "choice", "kp": "数字鸿沟谱系", "stem": "数字鸿沟的谱系演进顺序，正确的是？", "options": ["知识沟 → 数字鸿沟 → 信息沟 → 数智鸿沟", "知识沟 → 信息沟 → 数字鸿沟 → 使用沟 → 数智鸿沟", "信息沟 → 知识沟 → 数字鸿沟 → 数智鸿沟", "知识沟 → 数字鸿沟 → 使用沟 → 数智鸿沟"], "answer": "B", "explain": "这是你 9.18 反馈里漏了两环的考点（P1-9，已第 5 次回滚）。完整谱系五环：知识沟 → 信息沟 → 数字鸿沟（接入沟）→ 使用沟／素养沟 → 数智鸿沟。前两个是「知道与否」，中间两个是「能不能用」，最后是「用得好不好」。A 漏了「信息沟」；C 把前两环顺序颠倒；D 漏「信息沟」又丢了「使用沟」。", "_id": 12}, {"id": 13, "type": "choice", "kp": "舆论监督与正面宣传", "stem": "关于舆论监督与正面宣传的关系，下列理解正确的是？", "options": ["舆论监督与正面宣传是相互对立的两种宣传方式，应择其一而行", "舆论监督与正面宣传是辩证统一的，二者都是手段，出发点和落脚点都是维护人民利益", "舆论监督是负面报道，应严格控制数量和比例", "舆论监督只在重大事件中适用，日常报道以正面宣传为主"], "answer": "B", "explain": "「舆论监督与正面宣传的辩证统一」是讲义明确的正面立论：二者**都是手段**，不是二选一，都是为了让舆论生态更健康。三个常见误区：① 把舆论监督等同于「负面报道」（错，监督不是揭黑）；② 把正面宣传等同于「报喜不报忧」（错，正面宣传是主流价值引导）；③ 把二者对立（错）。A、C 正是陷阱选项。讲义还强调三统一，核心是「立场一致、目标一致、手段互补」。", "_id": 13}]}, {"name": "三、政治（全部单选）", "questions": [{"id": 14, "type": "choice", "kp": "教育强国六个以", "stem": "关于教育强国建设的「六个以」——根本保证、根本任务、根本目标、重要使命、基本路径、核心功能，下列概括词与定位对应正确的是？", "options": ["「坚持党的全面领导」是根本目标", "「立德树人」是根本任务", "「服务中华民族伟大复兴」是核心功能", "「人民满意」是根本尺度，也是根本目标"], "answer": "B", "explain": "这是你 9.18 反馈的 P0-1（第 7 次回滚）。六个「以」：坚持党的全面领导（根本保证）→ 立德树人（根本任务）→ 为党育人、为国育才（根本目标）→ 服务中华民族伟大复兴（重要使命）→ 走中国特色社会主义教育发展道路（基本路径）→ 支撑引领中国式现代化（核心功能）。A 错（党的领导是根本**保证**，不是根本目标）；C 错（服务民族复兴是**重要使命**，核心功能是「支撑引领中国式现代化」）；D 错（「人民满意」是**根本尺度**，不是根本目标——这正是你原文写错的地方）。记忆抓手：保（证）→党；任（务）→德育；目（标）→育才；使（命）→复兴；路（径）→现代化；功（能）→领现代化。", "_id": 14}, {"id": 15, "type": "choice", "kp": "统战三个最", "stem": "关于统一战线的「三个最」，下列表述正确的是？", "options": ["统一战线最鲜明的特征是「大团结大联合」", "统一战线的本质要求是坚持「求同存异」", "统一战线解决的是「人心和力量」问题，其本质要求是大团结大联合", "坚持「党的领导」是统一战线的关键"], "answer": "C", "explain": "这是 P0-2（第 7 次回滚）。三级对应：**本质要求**＝大团结大联合（解决的是**人心和力量**问题）；**关键**＝坚持**求同存异**；**最鲜明的特征**＝**党的领导**（不是大团结大联合）。A 把「最鲜明的特征」错安给「大团结大联合」（应为「党的领导」）；B 把「关键」错安给「求同存异」（求同存异确实是关键，但本题 B 说「本质要求是求同存异」是错位）；D 把「关键」给党的领导（党的领导应是**最鲜明的特征**）。记忆抓手：四级递进链——联合（本质）→ 人心（对象）→ 存异（方法）→ 党旗（特征），四步不能跳。", "_id": 15}, {"id": 16, "type": "choice", "kp": "党的显著标志", "stem": "「理论联系实际、密切联系群众、批评和自我批评，是中国共产党区别于其他政党的显著标志」。这一表述的问题在于？", "options": ["三大优良作风是党在七大（1945）确立的，与「区别于其他政党的显著标志」不是同一来源，此处混淆了两个知识点", "「理论联系实际」应改为「理论联系实践」", "「批评和自我批评」应改为「批评与自我批评」", "「密切联系群众」应改为「紧紧依靠群众」"], "answer": "A", "explain": "P0-5，**第 8 次回滚**，这是你 9.17 反馈原文里一字不差写下的句子。两条史实各背各的：① 党的**七大（1945）**确立的**三大优良作风**＝理论联系实际、密切联系群众、批评和自我批评——这是「三大作风」，本身没问题；② 党的**十九届六中全会《决议》**指出：**勇于自我革命**是中国共产党区别于其他政党的显著标志。所以你笔记里把「三大作风」直接等同于「区别于其他政党的显著标志」，是**把两条独立来源焊死成一句**，这才是错的根源。B、C、D 三处措辞都只是细微换词，不构成表述错误（「批评和自我批评」正是七大标准原文）。\n**行动要求**：请回改 `桌面_考研学习反馈/9.17 学习反馈（优化版）.docx`，把并列三者那句拆成两条独立来源——「七大（1945）三大优良作风」与「十九届六中全会《决议》：勇于自我革命是区别于其他政党的显著标志」，各背各的。笔记里的错误不改，考场上会原样复现。", "_id": 16}, {"id": 17, "type": "choice", "kp": "党的显著标志（旁支变式）", "stem": "「勇于自我革命」被赋予了多张「身份证」，下列哪一项不是它的定位？", "options": ["中国共产党区别于其他政党的显著标志", "党跳出历史周期率的第二个答案", "党最鲜明的品格", "党的根本宗旨"], "answer": "D", "explain": "本题专设旁支变式，检验你是否把史实焊死。勇于自我革命的定位包括：区别于其他政党的**显著标志**（十九届六中全会《决议》）、跳出历史周期率的**第二个答案**（第一个答案是「人民监督」，出自延安「窑洞对」）。「党的根本宗旨」＝**全心全意为人民服务**，与勇于自我革命无关。若本题与第 16 题同时做错，说明你笔记里这几条史实已互相污染，必须回改原文。", "_id": 17}, {"id": 18, "type": "choice", "kp": "全过程人民民主", "stem": "全过程人民民主的「四个相统一」，不包括下列哪一项？", "options": ["过程民主和成果民主相统一", "程序民主和实质民主相统一", "直接民主和间接民主相统一", "选举民主和协商民主相统一"], "answer": "D", "explain": "P0-4（第 7 次回滚）。四个相统一＝过程民主与成果民主、程序民主与实质民主、直接民主与间接民主、人民民主与国家意志。**不包括**「选举民主和协商民主相统一」——选举民主与协商民主是两种**民主形式**，不是一组「统一」。记忆抓手：四对里前三对是「同一民主的两个侧面」（过程／成果、程序／实质、直接／间接），第四对是「人民民主／国家意志」；选举与协商是「两种形式」，混进来就错了。", "_id": 18}, {"id": 19, "type": "choice", "kp": "法治体系五大体系", "stem": "中国特色社会主义法治体系的五大体系，其名称正确的是？", "options": ["法律规范体系、法治实施体系、法治监督体系、法治保障体系、党内法规体系", "法律体系、法治执行体系、法治监督体系、法治保障体系、党内法规体系", "法律规范体系、法治实施体系、法治监察体系、法治保障体系、党外法规体系", "法律规范体系、法治运行体系、法治监督体系、法治保障体系、党内法规体系"], "answer": "A", "explain": "P1-7（第 7 次回滚）。五体系＝法律**规范**体系 → 法治**实施**体系 → 法治**监督**体系 → 法治**保障**体系 → **党内法规**体系。B 把「法律规范」写成「法律」、「实施」写成「执行」；C 把「监督」写成「监察」、「党内」写成「党外」；D 把「实施」写成「运行」。记忆抓手：**规 → 实 → 监 → 保 → 党**（五字链）。法律**规**范 → 法治**实**施 → 法治**监**督 → 法治**保**障 → **党**内法规。", "_id": 19}, {"id": 20, "type": "choice", "kp": "最根本", "stem": "「____是中国共产党领导中国人民取得一切成就的最根本的保证。」横线处应填？", "options": ["中国人民的爱国情怀和坚持奋斗", "有中国共产党的坚强领导", "马克思主义的科学指导", "中国特色社会主义道路"], "answer": "B", "explain": "P1-8（第 7 次回滚）。见「最根本」→ 落点必然是**党的领导**。三个后缀记牢：坚强领导（成就来源／最根本的保证）、最核心最根本的问题（统战领域）、最根本的保证（法治领域）。你 9.18 反馈第 1 空答「爱国情怀和坚持奋斗」——这是**主观感受替换客观表述**，政治题答案必须是文件原话，不能用自己的理解。", "_id": 20}, {"id": 21, "type": "choice", "kp": "三个法的分工", "stem": "论述题写作中的「社会环境法」「社会要素法」「社会思维法」，三者的核心分工是？", "options": ["三者是同一种方法的不同叫法，可互换使用", "环境法答「为什么」（外因大背景），要素法答「是什么构成」（拆组成要件），思维法答「怎么办」（给操作路径）", "环境法答「怎么办」，要素法答「为什么」，思维法答「是什么」", "三者都属于「社会框架 PETCSI」，是并列的六个分析维度"], "answer": "B", "explain": "P0-6（第 4 次回滚）。你 9.18 曾把这三种方法答成「就是社会框架 PETCSI 的不同说法」——方向性错误。三套方法各有操作路径：① **社会环境法**：列六类环境，答「外因与大背景」（学理：克罗兹四大元过程＋史安斌盛阳「四化」）；② **社会要素法**：列政策、法律、资本、市场、技术、公民、舆论七要素，拆构成要件（学理：十九届四中全会社会治理体系）；③ **社会思维法**：专门答「怎么做」，按政治／经济／文化／技术／国际五维给思维词。一句话分工：问「为什么」用环境法，问「是什么构成」用要素法，问「怎么办」用思维法。PETCSI 是**分析维度**，不是这三套方法的总名。", "_id": 21}]}, {"name": "四、英语", "questions": [{"id": 22, "type": "translate", "kp": "长难句", "stem": "翻译下面这句话，并标出主干：\n\nIn societies where social media has become the dominant channel of information, people are far more likely to accept claims that confirm their existing views than to seek out evidence that might challenge them.", "answer": "参考译文：在社交媒体已成为信息主导渠道的社会中，人们接受那些证实自己既有观点的说法的可能性，远远大于去寻找可能挑战自己观点的证据的可能性。\n主干：people are far more likely to accept claims ... than to seek out evidence ...（人／更有可能接受……而非寻找……）。\n结构：In societies（地点状语）+ where ... 定语从句修饰 societies；主句主语 people，谓语 are far more likely to ...；比较结构 far more likely to A than to B；claims 后接 that 定语从句（confirm their existing views），evidence 后接 that 定语从句（might challenge them）。", "keys": "主干（people are far more likely to...than to...）2分；比较结构「远远更有可能……而非……」翻译到位2分；两个定语从句（confirm／challenge）正确2分；整体通顺1分。共7分", "explain": "**这是你 P2-11 的同型考点（第 7 次回滚，换了句子）**。上次你漏译了 `far more likely`，这次注意：① 比较级和程度副词不能省（far more likely＝远远更有可能）；② 「A rather than B」结构要译出「而非／而不是」；③ 两个 that 都是定语从句，修饰 claims 和 evidence。这是英二翻译的稳定考点：比较结构＋多重定语从句。", "_id": 22}, {"id": 23, "type": "fill", "blanks": 5, "kp": "英语词汇", "stem": "根据语境填写恰当的英文单词或短语：\n1. The new regulation aims to ____ ____ on platforms that spread disinformation.（严厉打击、镇压）\n2. The once-endless ____ has been turned into farmland.（大草原）\n3. As the debate continued, the questions became ____（更棘手的）\n4. The company was ____ ____ stealing users' data.（被指控）\n5. Regulators decided to ____ the tech giant for antitrust violations.（处以罚款）", "answer": "1. crack down on；2. prairie；3. thornier；4. accused of（或 charged with）；5. fine", "keys": "crack down on 1分；prairie 1分；thornier 1分；accused of／charged with 1分；fine 1分。共5分", "explain": "P1-10（第 7 次回滚，换了语境）。逐个抓手：**crack down on** 是「朝外打压」（联想警方扫荡），你曾写「崩塌」（那是 collapse）；**prairie** 大草原，和 plain（平原）、plateau（高原）一起记；**thornier** 更棘手的（thorn 刺→带刺的问题），你曾写「更尖锐」；**accuse sb. of sth.** ／charge sb. with sth.；**fine** 作动词「罚款」（名词「罚款」同形）。", "_id": 23}, {"id": 24, "type": "short", "rows": 5, "kp": "翻译方法反思", "stem": "你在英语翻译中曾出现「漏译比较级」「漏译程度副词」的问题。请总结：翻译时如何用「三步自检法」避免这类失分？（至少写出三步具体动作）", "answer": "参考要点：① **划结构**——下笔前先划出主干（主谓宾），圈出所有修饰成分（定语从句、状语、插入语），确保不丢成分；② **标比较级与程度词**——专门用笔圈出 more / most / far / much / less / than / rather than 等，逐个确认是否译出（这是最高频的漏译点）；③ **回读补漏**——译完后对照原文逐句回读一遍，检查是否有定语、状语、否定、比较结构被吞掉；④ **代词具体化**——those / them / it 等代词要译出所指对象，不能直接省略。", "keys": "三步以上具体动作，每步 1–2 分；能点到「比较级／程度词专门标记」加 1 分；提到「代词具体化」加 1 分。共6分", "explain": "这是方法反思题，不按字数给分。核心是把「漏译比较级」这个具体错误升级为可执行的检查动作。你的错误模式是「读懂了但没译全」，属于**输出环节的疏漏**，不是理解问题——所以对策是**流程化的自检**，而不是再背单词。", "_id": 24}]}]};
+const QUIZID = "2026-10-10";
+const KEY = "quiz_" + QUIZID;
+const TOTAL = 24;
+
+// ---- 状态存取 ----
+let state = JSON.parse(localStorage.getItem(KEY) || "{}");
+
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+function answeredCount(){
+  let n = 0;
+  QUIZ.sections.forEach(s => s.questions.forEach((q, i) => {
+    const id = q._id;
+    const v = state[id];
+    if (q.type === "choice") { if (v) n++; }
+    else if (q.type === "fill") {
+      if (v && Object.values(v).some(x => (x||"").trim())) n++;
+    }
+    else { if (v && v.trim()) n++; }
+  }));
+  return n;
+}
+
+function updateProgress(){
+  const n = answeredCount();
+  const pct = Math.round(n / TOTAL * 100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("ptext").textContent = `已作答 ${n} / ${TOTAL}`;
+  document.getElementById("tbCount").textContent = `${n} / ${TOTAL}`;
+  document.getElementById("doneTip").classList.toggle("show", n >= TOTAL);
+}
+
+function flashSaved(n){
+  const el = document.querySelector(`.saved[data-saved="${n}"]`);
+  if (!el) return;
+  el.textContent = "已保存";
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 1200);
+}
+
+// ---- 绑定交互 ----
+document.querySelectorAll(".opt input").forEach(inp => {
+  inp.addEventListener("change", e => {
+    const n = +e.target.name.replace("q", "");
+    state[n] = e.target.value;
+    save(); updateProgress(); flashSaved(n);
+  });
+});
+
+document.querySelectorAll(".fillin").forEach(inp => {
+  inp.addEventListener("input", e => {
+    const n = e.target.dataset.q, b = e.target.dataset.b;
+    state[n] = state[n] || {};
+    state[n][b] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+document.querySelectorAll(".shortin,.transin").forEach(ta => {
+  ta.addEventListener("input", e => {
+    const n = e.target.dataset.q;
+    state[n] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+// 查看解析
+document.querySelectorAll(".btn-ans").forEach(b => {
+  b.addEventListener("click", () => {
+    const n = b.dataset.q;
+    const box = document.querySelector(`.ansbox[data-ans="${n}"]`);
+    const open = !box.hidden;
+    box.hidden = open;
+    b.textContent = open ? "查看解析" : "收起解析";
+  });
+});
+
+document.getElementById("btnRevealAll").addEventListener("click", function(){
+  const anyHidden = [...document.querySelectorAll(".ansbox")].some(b => b.hidden);
+  document.querySelectorAll(".ansbox").forEach(b => b.hidden = !anyHidden);
+  document.querySelectorAll(".btn-ans").forEach(b => {
+    b.textContent = anyHidden ? "收起解析" : "查看解析";
+  });
+  this.textContent = anyHidden ? "收起全部解析" : "展开全部解析";
+});
+
+// 清空
+document.getElementById("btnReset").addEventListener("click", () => {
+  if (!confirm("确定清空全部作答？此操作不可撤销。")) return;
+  state = {}; save();
+  document.querySelectorAll(".opt input").forEach(i => i.checked = false);
+  document.querySelectorAll(".fillin,.shortin,.transin").forEach(i => i.value = "");
+  updateProgress();
+});
+
+// ---- 导出答案 ----
+function buildExport(){
+  const L = [];
+  L.push(`# ${QUIZ.title} — 我的作答`);
+  L.push("");
+  L.push(`日期：${QUIZ.date}`);
+  L.push(`完成：${answeredCount()} / ${TOTAL} 题`);
+  L.push("");
+  const tname = {choice:"单选", fill:"填空", short:"问答", translate:"长难句翻译"};
+  QUIZ.sections.forEach(s => {
+    L.push(`## ${s.name}`);
+    L.push("");
+    s.questions.forEach(q => {
+      const v = state[q._id];
+      L.push(`### ${q._id}. [${tname[q.type]}]`);
+      L.push(q.stem);
+      L.push("");
+      if (q.type === "choice") {
+        L.push(`**我的答案：** ${v ? v : "（未作答）"}`);
+      } else if (q.type === "fill") {
+        const arr = [];
+        for (let i = 0; i < (q.blanks || 1); i++) {
+          const k = String(i);
+          arr.push(`第${i+1}空：${(v && v[k]) ? v[k] : "（空）"}`);
+        }
+        L.push(`**我的答案：** ${arr.join("　")}`);
+      } else {
+        L.push(`**我的答案：**`);
+        L.push("");
+        L.push(v && v.trim() ? v : "（未作答）");
+      }
+      L.push("");
+    });
+  });
+  return L.join("\n");
+}
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  document.getElementById("exportArea").value = buildExport();
+  document.getElementById("modal").classList.add("show");
+});
+document.getElementById("btnCloseModal").addEventListener("click", () => {
+  document.getElementById("modal").classList.remove("show");
+});
+document.getElementById("btnDownload").addEventListener("click", () => {
+  const blob = new Blob([buildExport()], {type:"text/markdown;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${QUIZID}-我的作答.md`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") e.target.classList.remove("show");
+});
+
+// ---- 恢复状态 ----
+(function restore(){
+  document.querySelectorAll(".opt input").forEach(inp => {
+    const n = +inp.name.replace("q", "");
+    if (state[n] === inp.value) inp.checked = true;
+  });
+  document.querySelectorAll(".fillin").forEach(inp => {
+    const n = inp.dataset.q, b = inp.dataset.b;
+    if (state[n] && state[n][b] != null) inp.value = state[n][b];
+  });
+  document.querySelectorAll(".shortin,.transin").forEach(ta => {
+    const n = ta.dataset.q;
+    if (state[n] != null) ta.value = state[n];
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
