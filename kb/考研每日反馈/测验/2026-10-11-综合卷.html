@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考研每日测验 · 网络传播核心概念＋错题回滚（素材：宝厂「牛啊」网络传播微课程讲义+真题答案库）</title>
+<style>
+:root{
+  --bg:#f7f8fb; --card:#fff; --ink:#1c2430; --sub:#60708a;
+  --line:#e3e8f0; --blue:#2F5B9E; --blue-l:#e8eef8;
+  --green:#1f8a52; --green-l:#e6f5ec;
+  --amber:#b4740a; --amber-l:#fdf3e0;
+  --red:#c0392b; --red-l:#fdeceb;
+  --violet:#6b4ea8; --violet-l:#f0ebfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+    "Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.7;
+  padding:0 0 120px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+/* 顶部 */
+header{
+  background:linear-gradient(135deg,#2F5B9E 0%,#40699f 60%,#5b7fb5 100%);
+  color:#fff;padding:34px 0 26px;margin-bottom:24px;
+  box-shadow:0 2px 14px rgba(47,91,158,.18);
+}
+header h1{font-size:23px;font-weight:650;letter-spacing:.3px;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.85}
+.statline{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chip{
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);
+  border-radius:999px;padding:4px 13px;font-size:12.5px;backdrop-filter:blur(4px)
+}
+
+/* 进度条 */
+.progress-sticky{
+  position:sticky;top:0;z-index:50;background:rgba(247,248,251,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  padding:10px 0;margin-bottom:8px;
+}
+.pbar{height:7px;background:#e6eaf2;border-radius:99px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,#2F5B9E,#5b8fd4);
+  border-radius:99px;transition:width .35s ease}
+.ptext{font-size:12.5px;color:var(--sub);margin-top:6px;display:flex;
+  justify-content:space-between}
+
+/* 分区 */
+.sec{margin:30px 0 0}
+.sec h2{
+  font-size:16.5px;font-weight:640;color:var(--blue);
+  display:flex;align-items:center;gap:9px;padding-bottom:9px;
+  border-bottom:2px solid var(--blue-l);margin-bottom:16px;
+}
+.dot{width:9px;height:9px;border-radius:3px;background:var(--blue);
+  display:inline-block;flex:0 0 auto}
+.secmeta{margin-left:auto;font-size:12px;color:var(--sub);font-weight:400}
+
+/* 题目卡片 */
+.q{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:17px 19px;margin-bottom:13px;transition:border-color .2s,box-shadow .2s;
+}
+.q:focus-within{border-color:#b9cdea;box-shadow:0 3px 14px rgba(47,91,158,.09)}
+.qhead{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.qno{
+  width:26px;height:26px;border-radius:8px;background:var(--blue);
+  color:#fff;font-size:13px;font-weight:600;display:flex;
+  align-items:center;justify-content:center;flex:0 0 auto;
+}
+.qtag{font-size:11.5px;padding:2px 9px;border-radius:6px;font-weight:500}
+.t-choice{background:var(--blue-l);color:var(--blue)}
+.t-fill{background:var(--green-l);color:var(--green)}
+.t-short{background:var(--violet-l);color:var(--violet)}
+.t-translate{background:var(--amber-l);color:var(--amber)}
+.kp{font-size:11.5px;color:var(--sub);margin-left:auto}
+.stem{font-size:14.8px;margin-bottom:12px;white-space:pre-wrap}
+
+/* 单选 */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 13px;
+  border:1px solid var(--line);border-radius:9px;cursor:pointer;
+  transition:all .16s;font-size:14.2px;
+}
+.opt:hover{background:#f4f7fc;border-color:#c3d5ee}
+.opt input{display:none}
+.opt .letter{
+  width:21px;height:21px;border-radius:6px;background:#eef1f6;color:var(--sub);
+  font-size:12px;font-weight:600;display:flex;align-items:center;
+  justify-content:center;flex:0 0 auto;margin-top:2px;transition:all .16s;
+}
+.opt input:checked~.letter{background:var(--blue);color:#fff}
+.opt:has(input:checked){background:var(--blue-l);border-color:#9dbde6}
+.otext{flex:1}
+
+/* 填空 */
+.fills{display:flex;flex-direction:column;gap:8px}
+.fillin{
+  font-family:inherit;font-size:14.2px;padding:9px 13px;
+  border:1px solid var(--line);border-radius:8px;background:#fcfdff;
+  transition:all .16s;width:100%;
+}
+.fillin:focus{outline:none;border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 文本域 */
+.shortin,.transin{
+  font-family:inherit;font-size:14.2px;line-height:1.75;padding:11px 14px;
+  border:1px solid var(--line);border-radius:9px;background:#fcfdff;
+  width:100%;resize:vertical;transition:all .16s;
+}
+.shortin:focus,.transin:focus{outline:none;border-color:var(--blue);
+  background:#fff;box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 按钮与解析 */
+.qfoot{display:flex;align-items:center;gap:11px;margin-top:11px}
+.btn-ans{
+  font-family:inherit;font-size:12.5px;padding:5px 13px;border-radius:7px;
+  border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;
+  transition:all .16s;
+}
+.btn-ans:hover{background:var(--blue-l);border-color:#a8c4e8;color:var(--blue)}
+.saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
+.saved.show{opacity:1}
+.ansbox{
+  margin-top:12px;padding:13px 15px;background:#fafbfd;
+  border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-size:13.8px;
+}
+.ansline{margin-bottom:8px;display:flex;gap:9px;line-height:1.7}
+.ansline:last-child{margin-bottom:0}
+.ansline b{
+  flex:0 0 auto;color:var(--blue);font-size:12px;font-weight:640;
+  background:var(--blue-l);padding:2px 8px;border-radius:5px;height:fit-content;
+  margin-top:3px;
+}
+.ansline .got{color:var(--green);font-weight:600}
+
+/* 底部操作栏 */
+.toolbar{
+  position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);padding:12px 20px;z-index:60;
+  backdrop-filter:blur(10px);box-shadow:0 -2px 16px rgba(28,36,48,.07);
+}
+.tb-inner{max-width:820px;margin:0 auto;display:flex;
+  align-items:center;gap:11px;flex-wrap:wrap}
+.btn{
+  font-family:inherit;font-size:13.5px;padding:9px 19px;border-radius:9px;
+  border:none;cursor:pointer;font-weight:530;transition:all .16s;
+}
+.btn-main{background:var(--blue);color:#fff}
+.btn-main:hover{background:#264d87;transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--sub);border:1px solid var(--line)}
+.btn-ghost:hover{background:#f4f6fa;color:var(--ink)}
+.tb-count{font-size:13px;color:var(--sub);margin-left:auto}
+
+/* 完成提示 */
+.done-tip{
+  margin-top:22px;padding:18px 20px;border-radius:12px;
+  background:var(--green-l);border:1px solid #bfe5ce;color:#14603a;
+  font-size:14px;display:none;
+}
+.done-tip.show{display:block}
+.done-tip b{display:block;margin-bottom:6px;font-size:15px}
+
+/* 答案导出弹层 */
+.modal{
+  position:fixed;inset:0;background:rgba(20,28,40,.5);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:#fff;border-radius:14px;max-width:660px;width:100%;
+  max-height:82vh;display:flex;flex-direction:column;overflow:hidden;
+}
+.modal-head{padding:17px 21px;border-bottom:1px solid var(--line);
+  font-weight:620;font-size:15.5px;color:var(--blue)}
+.modal-body{padding:18px 21px;overflow-y:auto;flex:1}
+.modal-body textarea{
+  width:100%;height:340px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.65;border:1px solid var(--line);
+  border-radius:9px;padding:13px;background:#fafbfd;resize:vertical;
+}
+.modal-foot{padding:14px 21px;border-top:1px solid var(--line);
+  display:flex;gap:10px;justify-content:flex-end}
+.modal-tip{font-size:12.5px;color:var(--sub);margin-bottom:11px;line-height:1.65}
+
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  header{padding:26px 0 20px}
+  header h1{font-size:19px}
+  .q{padding:14px 15px}
+  .stem{font-size:14.2px}
+  .tb-count{display:none}
+  .kp{margin-left:0;width:100%}
+}
+@media print{
+  .toolbar,.btn-ans,.progress-sticky{display:none}
+  .ansbox[hidden]{display:block!important}
+  .q{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>考研每日测验 · 网络传播核心概念＋错题回滚（素材：宝厂「牛啊」网络传播微课程讲义+真题答案库）</h1>
+    <div class="meta">2026-10-11 · 共 21 题 · 今晚 22:30 自动生成</div>
+    <div class="statline">
+      <span class="chip">单选 13</span>
+      <span class="chip">填空 2</span>
+      <span class="chip">问答 5</span>
+      <span class="chip">长难句 1</span>
+    </div>
+  </div>
+</header>
+
+<div class="progress-sticky">
+  <div class="wrap">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <div class="ptext">
+      <span id="ptext">已作答 0 / 21</span>
+      <span>进度自动保存，刷新不丢</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  
+<section class="sec">
+  <h2><span class="dot"></span>一、专业课 · 网络传播（技术演进与网络社会）
+    <span class="secmeta">7 题</span></h2>
+  
+<div class="q" data-q="1" data-type="choice">
+  <div class="qhead">
+    <span class="qno">1</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">网络的技术概念</span>
+  </div>
+  <div class="stem">在技术层面上，「网络」这一概念的核心意义是什么？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q1" value="A"><span class="letter">A</span><span class="otext">共享：以资源共建共用为根本目标</span></label><label class="opt"><input type="radio" name="q1" value="B"><span class="letter">B</span><span class="otext">连接：从机器—机器到人—机、万物互联</span></label><label class="opt"><input type="radio" name="q1" value="C"><span class="letter">C</span><span class="otext">互动：以双向交流取代单向灌输</span></label><label class="opt"><input type="radio" name="q1" value="D"><span class="letter">D</span><span class="otext">虚拟：以数字化空间替代物理空间</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="1">查看解析</button>
+    <span class="saved" data-saved="1"></span>
+  </div>
+  <div class="ansbox" data-ans="1" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>讲义明确：技术在不断迭代，网络概念从最初的计算机之间的「连接」，到连接人与计算机，再到万物互联——因此技术层面上网络的核心意义是「连接」。A「共享」是网络的功能之一（资源共享和信息传递），不是核心意义；C「互动」是新媒体的关键特征，属于媒介属性层面；D「虚拟」是网络空间的特征，不符合「技术概念」的提问口径。</div></div>
+</div>
+<div class="q" data-q="2" data-type="choice">
+  <div class="qhead">
+    <span class="qno">2</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">互联网发展史</span>
+  </div>
+  <div class="stem">关于 TCP/IP 协议，下列说法正确的是（　）</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q2" value="A"><span class="letter">A</span><span class="otext">1969 年由美国国防部高级研究计划署提出并投入使用</span></label><label class="opt"><input type="radio" name="q2" value="B"><span class="letter">B</span><span class="otext">1983 年被指定为互联网标准协议，标志着全球互联网正式诞生</span></label><label class="opt"><input type="radio" name="q2" value="C"><span class="letter">C</span><span class="otext">由蒂姆·伯纳斯·李于 1989 年在欧洲粒子物理实验室提出</span></label><label class="opt"><input type="radio" name="q2" value="D"><span class="letter">D</span><span class="otext">它与万维网是同一事物的两种叫法，均由浏览器实现</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="2">查看解析</button>
+    <span class="saved" data-saved="2"></span>
+  </div>
+  <div class="ansbox" data-ans="2" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>TCP/IP 于 1974 年由斯坦福大学文顿·瑟夫（Vint Cerf）和鲍勃·坎（Bob Khan）提出；1983 年被指定为互联网的标准协议，被所有网络采纳，这被认为是全球互联网正式诞生的标志——B 正确。A 混淆了阿帕网（1968 年组建、1969 年第一期工程投入使用）；C 是万维网（WWW）的溯源；D 错在「同一事物」——万维网只是互联网的一种服务，就像电子邮件一样，由服务器、浏览器及通信协议三部分构成。</div></div>
+</div>
+<div class="q" data-q="3" data-type="fill">
+  <div class="qhead">
+    <span class="qno">3</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">网络社会的形态辨析</span>
+  </div>
+  <div class="stem">网络社会的形态可从多学科方向辨析。请补全下列界定中的关键概念：
+① 卡斯特尔意义上，由信息技术革命催生的、以网络为基本组织逻辑的社会形态称____；
+② 卡斯特尔笔下「网络社会的最大规模实践」、指中国等国家互联网大规模普及形成的社会形态称____；
+③ 以算法和数据驱动的全球化在线平台生态系统渗透日常生活、人们的一切实践都受其调节的社会，由何塞·范·迪克提出，称____；
+④ 深度学习模型「只看得到输入与输出、看不到内部决策逻辑」的状态，称____。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="3" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="3" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="3" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="3" data-b="3" placeholder="第 4 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="3">查看解析</button>
+    <span class="saved" data-saved="3"></span>
+  </div>
+  <div class="ansbox" data-ans="3" hidden><div class="ansline"><b>参考答案</b>网络社会（network society）；互联网社会（cybersociety）；平台社会（platform society）；算法黑箱</div><div class="ansline"><b>得分点</b>每, 空,  , 1,  , 分, ，, 须, 写, 英, 文, 原, 文, 可, 加, 印, 象, 分</div><div class="ansline"><b>解析</b>四个概念常被串在一起考：① 网络社会（network society）是卡斯特尔的核心概念，强调网络化的组织逻辑；② 互联网社会（cybersociety）是网络社会的最大规模实践；③ 平台社会（platform society）由何塞·范·迪克提出，强调算法与数据驱动的平台生态系统对社会生活的全面调节；④ 算法黑箱指算法内部决策逻辑不透明、不可解释的状态，核心特征是不可解释性与不可预见性。</div></div>
+</div>
+<div class="q" data-q="4" data-type="choice">
+  <div class="qhead">
+    <span class="qno">4</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">人工智能与传播</span>
+  </div>
+  <div class="stem">关于「智能鸿沟」，下列说法错误的是（　）</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q4" value="A"><span class="letter">A</span><span class="otext">它是数字鸿沟在人工智能时代的新形态，指不同群体在智能技术接入、使用和收益上的不平等</span></label><label class="opt"><input type="radio" name="q4" value="B"><span class="letter">B</span><span class="otext">其核心表现为数据鸿沟与算法鸿沟两种全新的表征形态</span></label><label class="opt"><input type="radio" name="q4" value="C"><span class="letter">C</span><span class="otext">它包含「知识沟」升级、「生存沟」深化、「表达与参与沟」延续、「反异化沟」凸显四个方面</span></label><label class="opt"><input type="radio" name="q4" value="D"><span class="letter">D</span><span class="otext">它仅指弱势群体因不会使用智能技术而被排斥，数字精英不在此列</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="4">查看解析</button>
+    <span class="saved" data-saved="4"></span>
+  </div>
+  <div class="ansbox" data-ans="4" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>D 属于典型的「只取一半」式错误。讲义特别强调：智能鸿沟不仅包括个体因无法接触或不会使用智能技术而产生的鸿沟，**更值得关注的是个体因过度沉浸于智能技术应用而可能产生的知识与权益不平等**；而且在「反异化沟」方面，**技术精英的「落伍」风险更不可小视**。A、B、C 三项均为讲义原表述。</div></div>
+</div>
+<div class="q" data-q="5" data-type="short">
+  <div class="qhead">
+    <span class="qno">5</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">网络媒介理论·驯化理论</span>
+  </div>
+  <div class="stem">简述驯化理论的内涵及其四阶段机制，并说明它可以怎样用来解释 AIGC 进入个人日常生活的过程。</div>
+  <textarea class="shortin" data-q="5" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="5">查看解析</button>
+    <span class="saved" data-saved="5"></span>
+  </div>
+  <div class="ansbox" data-ans="5" hidden><div class="ansline"><b>参考答案</b>【内涵】驯化理论最初由英国学者西尔弗斯通在家庭场景中电视媒体使用的研究中提出，指媒介技术被使用者主动整合进日常生活实践，从而实现从陌生技术到被「驯服」的家庭工具的社会化过程。西尔弗斯通把生物驯化的隐喻嫁接至信息技术的私人使用中，意在表明使用技术存在两方面的互动：个人既可利用技术本身的「客观属性」满足私人目的，又因技术对人机能的拓展而能更好地参与公共空间活动。
+【四阶段】① 占有（appropriation，即消费购买）；② 物化（objectification，对其进行实际处理）；③ 融入（incorporation，技术在使用中逐渐融入个体日常生活，成为日常生活实践的一部分）；④ 转化（conversion，技术脱离私人生活范畴，重新「转化」进入公共空间）。
+【AIGC 的应用】占有——使用 AIGC 仍需一定代价或成本；物化——技术收编使其成为工作中的助手、用 AIGC 学习知识、把 AI 当聊天对象和技术伴侣；融合——人的思维方式被智能技术思维浸染，行为模式打上机器烙印；转化——内容生态格局调整、低质量纯人工内容退出，AIGC 可能成为社区发展新土壤，同时带来新的智能鸿沟。</div><div class="ansline"><b>得分点</b>提, 出, 者, 西, 尔, 弗, 斯, 通, （, 1, 分, ）, ；, 「, 整, 合, 进, 日, 常, 生, 活, /, 从, 陌, 生, 到, 驯, 服, 」, 的, 表, 述, （, 1, 分, ）, ；, 四, 阶, 段, 名, 称, 及, 英, 文, （, 占, /, 物, /, 融, /, 转, ，, 2, 分, ）, ；, 两, 方, 面, 互, 动, （, 私, 人, 目, 的, +, 公, 共, 参, 与, ，, 1, 分, ）, ；, 结, 合,  , A, I, G, C,  , 展, 开, （, 3, 分, ）</div><div class="ansline"><b>解析</b>这道题是名词解释＋应用的复合考法。容易失分的地方有两个：一是把提出者记成麦克卢汉或梅洛维茨（驯化＝西尔弗斯通、家庭电视研究）；二是四阶段顺序记错。「占有→物化→融入→转化」是从私人到公共的完整链条，联想一句：**先买回家（占有）→ 摆到桌上用起来（物化）→ 变成生活习惯（融入）→ 拿出去影响别人（转化）**。</div></div>
+</div>
+<div class="q" data-q="6" data-type="short">
+  <div class="qhead">
+    <span class="qno">6</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">网络用户研究</span>
+  </div>
+  <div class="stem">网络用户的内容消费呈现出两对辩证特征，请写出这两对特征并各作简要说明。</div>
+  <textarea class="shortin" data-q="6" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="6">查看解析</button>
+    <span class="saved" data-saved="6"></span>
+  </div>
+  <div class="ansbox" data-ans="6" hidden><div class="ansline"><b>参考答案</b>两对特征是：① 个性化与社会化并存；② 主动性与被动性并存。
+① 个性化：推荐算法根据用户偏好「量身定制」信息，提升满意度与使用黏性；但个性化始终嵌在社会化网络中——用户间的互动、分享与推荐深刻影响个体态度行为，形成群体效应，信息消费也成为编织社会关系的手段。更关键的是，社会化环境反过来限制了真正个性的形成：推荐与热点基于群体行为与社会流行趋势，结果「个性化」只是外壳的五彩斑斓，内核趋于同质化——个性化手段反而加速了社会化进程与趋同。
+② 主动性：用户拥有自由选择权与高度参与感，可按需「拉出」信息，甚至参与信息生产与评价，从被动接受者变为「产消者」。被动性：信息过载催生认知惰性，人们倾向以最小成本获取最大报偿，常被动接受算法推荐或热门推送；用户行为还有强烈惯性，每天访问的网站、浏览路径乃至视线轨迹往往固定不变，虽带来心理安全感，却限制了对多元信息环境的探索。</div><div class="ansline"><b>得分点</b>两, 对, 特, 征, 各,  , 1,  , 分, （, 共,  , 2,  , 分, ）, ；, 「, 个, 性, 化, →, 趋, 同, 」, 的, 辩, 证, 说, 明,  , 2,  , 分, ；, 「, 主, 动, 性, →, 惰, 性, /, 惯, 性, 」, 的, 说, 明,  , 2,  , 分</div><div class="ansline"><b>解析</b>这道题的标准答题格式是「成对出现＋正反两面」。很多同学只答一半（只写个性化、只写主动性），直接丢掉一半分数。记住一句话概括：**「个性化是壳，社会化是核；主动是赋权，被动是惯性。」**</div></div>
+</div>
+<div class="q" data-q="7" data-type="short">
+  <div class="qhead">
+    <span class="qno">7</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">网络舆论</span>
+  </div>
+  <div class="stem">简述网络舆论的形成过程（三个阶段）及其社会影响的双重性。</div>
+  <textarea class="shortin" data-q="7" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="7">查看解析</button>
+    <span class="saved" data-saved="7"></span>
+  </div>
+  <div class="ansbox" data-ans="7" hidden><div class="ansline"><b>参考答案</b>【三个阶段】① 起点：导火索性事件引发关注，专业媒体报道或社会化媒体发布推动事件传播；② 中间环节：讨论的扩散，事实与意见通过人际传播、群体传播、组织传播、大众传播等渠道交织传播；③ 达成标志：意见的整合，通过沉默的螺旋机制、意见领袖引导等途径，分散的意见趋向一致，形成相对统一的主流舆论。
+【双重影响】积极方面：推动舆论监督发展，发挥社会减压阀功能，促进政府信息公开。消极方面：存在跟风盲从、网络暴力、人肉搜索、谣言传播与群体极化等问题，需要加以引导与规范。</div><div class="ansline"><b>得分点</b>三, 阶, 段, 各,  , 1,  , 分, （, 导, 火, 索, 事, 件, —, 讨, 论, 扩, 散, —, 意, 见, 整, 合, ）, ；, 每, 阶, 段, 须, 点, 出, 关, 键, 机, 制, （, 媒, 体, /, 社, 会, 化, 媒, 体, 、, 多, 渠, 道, 交, 织, 、, 沉, 默, 的, 螺, 旋, 或, 意, 见, 领, 袖, ）, （, 1, 分, ）, ；, 积, 极, 影, 响,  , 1,  , 分, ；, 消, 极, 影, 响,  , 1,  , 分</div><div class="ansline"><b>解析</b>形成过程三步的得分点在于「每步都要点到机制」，只写「事件发生—大家讨论—形成舆论」这样的大白话拿不到分。影响部分必须成对写，只写消极或只写积极都扣分。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>二、专业课 · 错题回滚（概念谱系与辨析）
+    <span class="secmeta">3 题</span></h2>
+  
+<div class="q" data-q="8" data-type="choice">
+  <div class="qhead">
+    <span class="qno">8</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">回滚·数字鸿沟谱系</span>
+  </div>
+  <div class="stem">数字鸿沟的学术谱系存在一条演进链。下列哪一项的排列顺序是正确的？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q8" value="A"><span class="letter">A</span><span class="otext">知识沟 → 信息沟 → 数字鸿沟（接入沟）→ 使用沟／素养沟 → 数智鸿沟</span></label><label class="opt"><input type="radio" name="q8" value="B"><span class="letter">B</span><span class="otext">信息沟 → 知识沟 → 数智鸿沟 → 数字鸿沟（接入沟）→ 使用沟</span></label><label class="opt"><input type="radio" name="q8" value="C"><span class="letter">C</span><span class="otext">数字鸿沟（接入沟）→ 知识沟 → 信息沟 → 使用沟 → 数智鸿沟</span></label><label class="opt"><input type="radio" name="q8" value="D"><span class="letter">D</span><span class="otext">知识沟 → 数字鸿沟（接入沟）→ 信息沟 → 数智鸿沟 → 使用沟</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="8">查看解析</button>
+    <span class="saved" data-saved="8"></span>
+  </div>
+  <div class="ansbox" data-ans="8" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>这是你上次漏答两环的题（你只写出了「知识沟→数字鸿沟→数智鸿沟」）。正确顺序是：**知识沟**（蒂奇诺等，社会经济地位差异导致知识获取差异）→ **信息沟**（N.卡茨曼 1974 年提出，着眼于「信息富有者」与「信息贫困者」的分化）→ **数字鸿沟**（含接入沟）→ **使用沟／素养沟** → **数智鸿沟／智能鸿沟**。记忆链：**知识 → 信息 → 接入 → 使用 → 数智**。前两个是「知道与否」，中间两个是「能不能用」，最后是「用得好不好」。</div></div>
+</div>
+<div class="q" data-q="9" data-type="choice">
+  <div class="qhead">
+    <span class="qno">9</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">回滚·数字鸿沟谱系（辨析）</span>
+  </div>
+  <div class="stem">「信息沟」这一概念由谁在哪一年提出，其着眼点是什么？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q9" value="A"><span class="letter">A</span><span class="otext">蒂奇诺等，1970 年；着眼点是大众媒介信息量增加反而扩大高低社会经济地位者之间的知识差距</span></label><label class="opt"><input type="radio" name="q9" value="B"><span class="letter">B</span><span class="otext">N.卡茨曼，1974 年；着眼点是传播技术带来的「信息富有者」与「信息贫困者」之间的分化及由此产生的社会矛盾</span></label><label class="opt"><input type="radio" name="q9" value="C"><span class="letter">C</span><span class="otext">诺依曼，1974 年；着眼点是大众媒介营造的意见气候对个体表达意愿的压制</span></label><label class="opt"><input type="radio" name="q9" value="D"><span class="letter">D</span><span class="otext">罗杰斯，1962 年；着眼点是创新通过特定渠道在社会系统成员中的扩散过程</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="9">查看解析</button>
+    <span class="saved" data-saved="9"></span>
+  </div>
+  <div class="ansbox" data-ans="9" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>「信息沟」由 **N. 卡茨曼于 1974 年**提出，着眼于传播技术带来「信息富有者」与「信息贫困者」的分化以及由此带来的社会矛盾。A 是「知识沟」（蒂奇诺等，1970 年，常与「芝麻街」研究一起考）；C 是沉默的螺旋（诺依曼 1974，同年易混，注意区分）；D 是创新扩散理论（罗杰斯 1962）。**知识沟与信息沟的区分点：知识沟看「知识差距」，信息沟看「信息富有与贫困的分化」；两者同年份区间接近，出题人最爱在这里设混淆项。**</div></div>
+</div>
+<div class="q" data-q="10" data-type="short">
+  <div class="qhead">
+    <span class="qno">10</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">回滚·传媒业三个「法」的分工</span>
+  </div>
+  <div class="stem">答论述题时，社会环境法、社会要素法、社会思维法是三套不同的操作路径。请分别说明三者各解决什么问题，并各举出该路径下的核心列举内容。</div>
+  <textarea class="shortin" data-q="10" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="10">查看解析</button>
+    <span class="saved" data-saved="10"></span>
+  </div>
+  <div class="ansbox" data-ans="10" hidden><div class="ansline"><b>参考答案</b>① 社会环境法：解决「外因与大背景」的问题——问「为什么」用它。列举六类环境（政治、经济、文化、技术、社会、国际等），回答影响某传播现象的外部大背景。学理支撑：克罗兹四大元过程＋史安斌、盛阳「四化」。
+② 社会要素法：解决「是什么构成」的问题——问「拆构成要件」用它。列举政策、法律、资本、市场、技术、公民、舆论七要素，把现象拆成构成要件。学理支撑：十九届四中全会社会治理体系。
+③ 社会思维法：解决「怎么办」的问题——问「给出对策」用它。按政治、经济、文化、技术、国际五个维度给「思维词」，专门答「怎么做」。</div><div class="ansline"><b>得分点</b>三, 者, 各,  , 1,  , 分, （, 分, 工, 定, 位, ）, ，, 各,  , 1,  , 分, （, 核, 心, 列, 举, 内, 容, ）, ，, 共,  , 6,  , 分, ；, 能, 点, 出, 学, 理, 来, 源, 加, 印, 象, 分</div><div class="ansline"><b>解析</b>你上次把三者答成「就是『社会框架 PETCSI』的不同说法」，方向性错误——PETCSI 是**分析维度**，三个「法」是**三套操作路径**。一句话记住分工：**问「为什么」用环境法，问「是什么构成」用要素法，问「怎么办」用思维法。**</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>三、政治 · 单项选择题
+    <span class="secmeta">8 题</span></h2>
+  
+<div class="q" data-q="11" data-type="choice">
+  <div class="qhead">
+    <span class="qno">11</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">回滚·教育强国六个「以」</span>
+  </div>
+  <div class="stem">关于教育强国的战略定位，下列说法正确的是（　）</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q11" value="A"><span class="letter">A</span><span class="otext">以立德树人为根本保证，以服务中华民族伟大复兴为根本任务</span></label><label class="opt"><input type="radio" name="q11" value="B"><span class="letter">B</span><span class="otext">以坚持党对教育事业的全面领导为根本保证，以服务中华民族伟大复兴为重要使命</span></label><label class="opt"><input type="radio" name="q11" value="C"><span class="letter">C</span><span class="otext">以人民满意为根本目标，以支撑引领中国式现代化为根本尺度</span></label><label class="opt"><input type="radio" name="q11" value="D"><span class="letter">D</span><span class="otext">以培养担当民族复兴大任的时代新人为最根本的保证</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="11">查看解析</button>
+    <span class="saved" data-saved="11"></span>
+  </div>
+  <div class="ansbox" data-ans="11" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>你上次在这道题上填了「根本方向／基本目标／最终目的／最终标准」四个自造词——这是典型的「从没背过原表述、靠语感硬猜」。正确链条：**根本保证**（坚持党对教育事业的全面领导）→ **根本任务**（立德树人）→ **根本目标**（为党育人、为国育才，即培养社会主义建设者和接班人）→ **重要使命**（服务中华民族伟大复兴）→ **基本路径**（坚持教育现代化）→ **核心功能**（支撑引领中国式现代化）。另外记住：**「人民满意」是根本尺度，不是目标**——这对词是高频设错点。</div></div>
+</div>
+<div class="q" data-q="12" data-type="choice">
+  <div class="qhead">
+    <span class="qno">12</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">回滚·统战三个「最」</span>
+  </div>
+  <div class="stem">关于新时代统一战线的表述，下列说法正确的是（　）</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q12" value="A"><span class="letter">A</span><span class="otext">统一战线的本质要求是大团结大联合，解决的是人心和力量问题</span></label><label class="opt"><input type="radio" name="q12" value="B"><span class="letter">B</span><span class="otext">统一战线的本质要求是坚持求同存异，解决的是差异和分歧问题</span></label><label class="opt"><input type="radio" name="q12" value="C"><span class="letter">C</span><span class="otext">坚持党的领导是统一战线的关键所在</span></label><label class="opt"><input type="radio" name="q12" value="D"><span class="letter">D</span><span class="otext">统一战线最鲜明的特征是坚持求同存异</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="12">查看解析</button>
+    <span class="saved" data-saved="12"></span>
+  </div>
+  <div class="ansbox" data-ans="12" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>四级递进链不能错位：**本质要求＝大团结大联合**（解决的是**人心和力量**问题）→ **关键＝坚持求同存异** → **党的领导是统一战线最鲜明的特征**。B 错在把「本质要求」和「关键」的内容互换，还把「人心和力量」错记成「差异和分歧」；C 把「最鲜明的特征」错记成「关键」；D 把「关键」的内容安到了「最鲜明的特征」头上。记住四步：**联合（本质）→ 人心（对象）→ 存异（方法）→ 党旗（特征）**。</div></div>
+</div>
+<div class="q" data-q="13" data-type="choice">
+  <div class="qhead">
+    <span class="qno">13</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">回滚·「最根本」三条线</span>
+  </div>
+  <div class="stem">下列与「最根本」相关的表述，对应关系正确的是（　）</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q13" value="A"><span class="letter">A</span><span class="otext">「最根本的是有中国共产党的坚强领导」——讲的是取得一切成就的根本原因</span></label><label class="opt"><input type="radio" name="q13" value="B"><span class="letter">B</span><span class="otext">「最根本的保证」——讲的是统一战线工作的政治基础</span></label><label class="opt"><input type="radio" name="q13" value="C"><span class="letter">C</span><span class="otext">「最核心最根本的问题」——讲的是法治体系建设的基本前提</span></label><label class="opt"><input type="radio" name="q13" value="D"><span class="letter">D</span><span class="otext">「最根本的思路」——讲的是宣传思想工作的基本方针</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="13">查看解析</button>
+    <span class="saved" data-saved="13"></span>
+  </div>
+  <div class="ansbox" data-ans="13" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>「最根本」只有三条固定后缀，各不相同：① **有中国共产党的坚强领导**——成就来源（「最根本的是……」）；② **最核心最根本的问题**——统战领域（人心和力量问题）；③ **最根本的保证**——法治领域（坚持党的领导是社会主义法治最根本的保证）。B、C 把三个后缀的内容互换了；D 是自己造的说法，文件里没有。**记忆铁律：见「最根本」→ 落点必然是「党的领导」**，区别只在它修饰的是成就、统战还是法治。</div></div>
+</div>
+<div class="q" data-q="14" data-type="choice">
+  <div class="qhead">
+    <span class="qno">14</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">回滚·全过程人民民主「四个相统一」</span>
+  </div>
+  <div class="stem">全过程人民民主的「四个相统一」不包括下列哪一项？（　）</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q14" value="A"><span class="letter">A</span><span class="otext">过程民主和成果民主相统一</span></label><label class="opt"><input type="radio" name="q14" value="B"><span class="letter">B</span><span class="otext">程序民主和实质民主相统一</span></label><label class="opt"><input type="radio" name="q14" value="C"><span class="letter">C</span><span class="otext">直接民主和间接民主相统一</span></label><label class="opt"><input type="radio" name="q14" value="D"><span class="letter">D</span><span class="otext">选举民主和协商民主相统一</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="14">查看解析</button>
+    <span class="saved" data-saved="14"></span>
+  </div>
+  <div class="ansbox" data-ans="14" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>你上次把一道「选不属于」的题做成了「把包含项当成了不包含项」。四个相统一＝**过程民主与成果民主、程序民主与实质民主、直接民主与间接民主、人民民主与国家意志**。**选举民主与协商民主是两种民主形式，不是一组「统一」**——这是干扰项的标准设错法。记忆抓手：四对里有三对都是「同一民主的两个侧面」（过程／成果、程序／实质、直接／间接），最后一对是「人民民主／国家意志」。</div></div>
+</div>
+<div class="q" data-q="15" data-type="choice">
+  <div class="qhead">
+    <span class="qno">15</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">回滚·党的显著标志（第 9 次）</span>
+  </div>
+  <div class="stem">某同学的笔记写道：「理论联系实际、密切联系群众、批评和自我批评，以及坚持人民至上、勇于自我革命，这些都是党的显著标志。」关于这段表述，下列判断正确的是（　）</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q15" value="A"><span class="letter">A</span><span class="otext">该表述完全正确，五者并列同为党的显著标志</span></label><label class="opt"><input type="radio" name="q15" value="B"><span class="letter">B</span><span class="otext">该表述把两个不同历史来源的表述混为一句：三大优良作风出自七大（1945），「勇于自我革命是区别于其他政党的显著标志」出自十九届六中全会《决议》，且多了「坚持人民至上」一项</span></label><label class="opt"><input type="radio" name="q15" value="C"><span class="letter">C</span><span class="otext">该表述唯一的错误是把「三大优良作风」写成了「三个优良作风」</span></label><label class="opt"><input type="radio" name="q15" value="D"><span class="letter">D</span><span class="otext">该表述的错误在于「勇于自我革命」应改为「敢于自我革命」</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="15">查看解析</button>
+    <span class="saved" data-saved="15"></span>
+  </div>
+  <div class="ansbox" data-ans="15" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>⚠️ **这道题的题干就是你 9.17 反馈里的原文写法，一字未改。** 这是本题第 9 次考察同一个知识点。两条来源必须彻底拆开：① **党的七大（1945）**：理论联系实际、密切联系群众、批评和自我批评，是**三大**（不是「三个」）优良作风，**不含「人民至上」**；② **党的十九届六中全会《决议》**：**勇于自我革命**是我们党区别于其他政党的显著标志。你原文把它们并列成一句话，等于把两个不同来源、不同年的表述焊死在一起，考场上必然原样复现。**批改后请立刻回去改 `桌面_考研学习反馈/9.17 学习反馈（优化版）.docx`。**</div></div>
+</div>
+<div class="q" data-q="16" data-type="choice">
+  <div class="qhead">
+    <span class="qno">16</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">回滚·党的显著标志（旁支变式）</span>
+  </div>
+  <div class="stem">「勇于自我革命」这一表述在党的话语体系中有多重定位。下列哪一项与其他三项的「定位口径」不同？（　）</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q16" value="A"><span class="letter">A</span><span class="otext">我们党区别于其他政党的显著标志</span></label><label class="opt"><input type="radio" name="q16" value="B"><span class="letter">B</span><span class="otext">我们党最鲜明的品格</span></label><label class="opt"><input type="radio" name="q16" value="C"><span class="letter">C</span><span class="otext">我们党最大的优势</span></label><label class="opt"><input type="radio" name="q16" value="D"><span class="letter">D</span><span class="otext">党的三大优良作风之一</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="16">查看解析</button>
+    <span class="saved" data-saved="16"></span>
+  </div>
+  <div class="ansbox" data-ans="16" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>这是第 15 题的旁支变式，专测「勇于自我革命」的身份证是否被记准。「勇于自我革命」的定位口径是：**区别于其他政党的显著标志 / 最鲜明的品格 / 最大的优势**（三者都是「党自身独有」的话语定位）。而「三大优良作风」是七大（1945）提出的另一套表述（理论联系实际、密切联系群众、批评和自我批评）——**它和「勇于自我革命」没有从属关系**，D 是把两个不同来源硬凑成一项。第 15、16 两题若都错，说明这个知识点在笔记里已被焊死，必须回改原文。</div></div>
+</div>
+<div class="q" data-q="17" data-type="choice">
+  <div class="qhead">
+    <span class="qno">17</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">回滚·统战（变式）</span>
+  </div>
+  <div class="stem">「统一战线是党的重要法宝」这一判断已成为共识。下列哪一项最准确地概括了统一战线的本质要求？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q17" value="A"><span class="letter">A</span><span class="otext">坚持中国共产党的领导</span></label><label class="opt"><input type="radio" name="q17" value="B"><span class="letter">B</span><span class="otext">大团结大联合</span></label><label class="opt"><input type="radio" name="q17" value="C"><span class="letter">C</span><span class="otext">求同存异、体谅包容</span></label><label class="opt"><input type="radio" name="q17" value="D"><span class="letter">D</span><span class="otext">一致性和多样性相统一</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="17">查看解析</button>
+    <span class="saved" data-saved="17"></span>
+  </div>
+  <div class="ansbox" data-ans="17" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>本质要求＝**大团结大联合**。A「坚持党的领导」是统一战线**最鲜明的特征**（也是根本保证）；C「求同存异」是**关键**（方法）；D「一致性和多样性相统一」是统一战线工作的**重要方针/规律**，但不是「本质要求」这个特定口径。四个选项都是统战话语里的正确表述，考的是「定位词」是否精准——这正是你上次失分的原因（记住了有「大」字，但丢了完整词）。</div></div>
+</div>
+<div class="q" data-q="18" data-type="choice">
+  <div class="qhead">
+    <span class="qno">18</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">回滚·法治体系五大体系</span>
+  </div>
+  <div class="stem">中国特色社会主义法治体系由五大体系构成。下列哪一组名称完整且正确？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q18" value="A"><span class="letter">A</span><span class="otext">法律规范体系、法治实施体系、法治监督体系、法治保障体系、党内法规体系</span></label><label class="opt"><input type="radio" name="q18" value="B"><span class="letter">B</span><span class="otext">法律规范体系、法治运行体系、法治监督体系、法治保障体系、党内法规体系</span></label><label class="opt"><input type="radio" name="q18" value="C"><span class="letter">C</span><span class="otext">法律规范体系、法治实施体系、法治监督体系、法治保障体系、党外法规体系</span></label><label class="opt"><input type="radio" name="q18" value="D"><span class="letter">D</span><span class="otext">法律制度体系、法治实施体系、法治监督体系、法治保障体系、党内法规体系</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="18">查看解析</button>
+    <span class="saved" data-saved="18"></span>
+  </div>
+  <div class="ansbox" data-ans="18" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>你上次五空全空，只答对了「宪法／党章／民主集中制」三个细节空——**背诵顺序反了**：应先把骨架背成顺口溜，再补细节。五字链：**规 → 实 → 监 → 保 → 党**（法律**规**范体系 → 法治**实**施体系 → 法治**监**督体系 → 法治**保**障体系 → **党**内法规体系）。B 把「实施」错成「运行」；C 把「党内法规」错成「党外法规」（方向反了）；D 把「法律规范」错成「法律制度」。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>四、英语
+    <span class="secmeta">3 题</span></h2>
+  
+<div class="q" data-q="19" data-type="translate">
+  <div class="qhead">
+    <span class="qno">19</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">长难句翻译（比较结构）</span>
+  </div>
+  <div class="stem">翻译下面这句话，并标出主干结构：
+
+Those who are exposed to a constant stream of algorithmically curated content are far more likely to mistake familiarity for accuracy than to question the sources behind what they read.</div>
+  <textarea class="transin" data-q="19" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="19">查看解析</button>
+    <span class="saved" data-saved="19"></span>
+  </div>
+  <div class="ansbox" data-ans="19" hidden><div class="ansline"><b>参考答案</b>【参考译文】那些长期接触算法持续筛选推送内容的人，比起去质疑自己所读内容背后的信源，远远更有可能把「熟悉」误当作「准确」。
+【主干】Those ... are far more likely to mistake ... than to question ...
+主语：Those（后接 who 引导的定语从句修饰）
+谓语：are
+表语/比较结构：far more likely to do A than to do B（A = mistake familiarity for accuracy；B = question the sources behind what they read）
+定语从句内部：who are exposed to a constant stream of algorithmically curated content</div><div class="ansline"><b>得分点</b>主, 干, 识, 别, 正, 确, （, 1, 分, ）, ；, A,  , 部, 分,  , m, i, s, t, a, k, e,  , f, a, m, i, l, i, a, r, i, t, y,  , f, o, r,  , a, c, c, u, r, a, c, y,  , 译, 为, 「, 把, 熟, 悉, 误, 当, 作, 准, 确, 」, （, 1, 分, ）, ；, B,  , 部, 分,  , q, u, e, s, t, i, o, n,  , t, h, e,  , s, o, u, r, c, e, s,  , b, e, h, i, n, d,  , w, h, a, t,  , t, h, e, y,  , r, e, a, d,  , 译, 为, 「, 质, 疑, 所, 读, 内, 容, 背, 后, 的, 信, 源, 」, （, 1, 分, ）, ；, 比, 较, 结, 构,  , f, a, r,  , m, o, r, e,  , l, i, k, e, l, y,  , t, o,  , ., ., .,  , t, h, a, n,  , t, o,  , ., ., .,  , 译, 出, 「, 远, 远, 更, 有, 可, 能, …, …, 而, 不, 是, …, …, 」, （, 2, 分, ，, 漏, 译, 程, 度, 词, 扣, 分, ）, ；, 整, 体, 通, 顺, （, 1, 分, ）</div><div class="ansline"><b>解析</b>这道题的核心考点和上次一样：**比较级与程度副词不能省略**。`far more likely to A than to B` 是英二翻译的高频扣分点，你上次漏译了「far more likely（远远更有可能）」。另外本题还有两个要点：① `Those ... who ...` 结构要译出「那些……的人」；② `mistake A for B` 是固定搭配「把 A 误认为 B」。</div></div>
+</div>
+<div class="q" data-q="20" data-type="fill">
+  <div class="qhead">
+    <span class="qno">20</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">回滚·英语词汇</span>
+  </div>
+  <div class="stem">根据语境填入恰当的英文单词或短语（首字母已给出）：
+① Platforms have been forced to c____ d____ o____ hate speech and coordinated disinformation.
+② These regulations target the business model behind the so-called t____ business, in which fabricating stories is a profitable enterprise.
+③ As platforms grow more powerful, the questions surrounding liability become far t____ to resolve.
+④ Regulators have a____ the platform o____ failing to remove harmful content in time.
+⑤ The authority imposed a heavy f____ on the company for violating data-protection rules.</div>
+  <div class="fills"><input class="fillin" type="text" data-q="20" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="20" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="20" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="20" data-b="3" placeholder="第 4 空" autocomplete="off"><input class="fillin" type="text" data-q="20" data-b="4" placeholder="第 5 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="20">查看解析</button>
+    <span class="saved" data-saved="20"></span>
+  </div>
+  <div class="ansbox" data-ans="20" hidden><div class="ansline"><b>参考答案</b>① crack down on（严厉打击、镇压）② troll / trolling（此处指「造谣营销/黑公关」语境，可答 troll farm 或 trolling，讲义对应「谣言营销」）③ thornier（更棘手的）④ accused ... of（指责、控诉）⑤ fine（罚款）</div><div class="ansline"><b>得分点</b>每, 空,  , 1,  , 分, 。, 第, ①, 空, 必, 须, 写, 出, 完, 整, 短, 语,  , c, r, a, c, k,  , d, o, w, n,  , o, n, ，, 单, 写,  , c, r, a, c, k,  , 不, 给, 分, ；, 第, ③, 空, 须, 为, 比, 较, 级,  , t, h, o, r, n, i, e, r</div><div class="ansline"><b>解析</b>这道题把你上次踩的三个坑全抓回来了：① **crack down on** 你上次译成「崩塌」——「崩塌」是 collapse，crack down on 是朝外的「打压」，联想「警方扫荡」；② **thornier** 你上次写「更尖锐」，正确是「更**棘手**的」（搭配是「问题更棘手」，不是「观点更尖锐」）；③ **accuse sb. of (doing) sth.** 注意介词是 of，不是 for。第⑤空 fine 在此处是名词「罚款」，与第①空的动词 use 区分开。</div></div>
+</div>
+<div class="q" data-q="21" data-type="short">
+  <div class="qhead">
+    <span class="qno">21</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">英语学习方法反思</span>
+  </div>
+  <div class="stem">你近几次英语题失分集中在「词汇义项记偏」与「长难句漏译程度词」。请用两三句话写出一个可执行的改进动作（要具体到每天做什么，不要写「多背单词」这种空话）。</div>
+  <textarea class="shortin" data-q="21" rows="4" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="21">查看解析</button>
+    <span class="saved" data-saved="21"></span>
+  </div>
+  <div class="ansbox" data-ans="21" hidden><div class="ansline"><b>参考答案</b>【参考答案示例】① 把外刊精读中遇到的动词短语（crack down on、accuse sb. of、mistake A for B 这类）单独抄成「搭配本」，只记「动词＋介词＋义项」三件套，每天早读用 5 分钟盖住中文回译；② 长难句训练时强制先划出所有程度副词与比较结构（more / far more / rather than / than 等），翻译前先口头标出「这是比较还是并列」，再落笔。</div><div class="ansline"><b>得分点</b>动, 作, 须, 具, 体, 可, 执, 行, （, 2, 分, ）, ；, 须, 针, 对, 本, 次, 两, 个, 失, 分, 点, （, 词, 汇, 义, 项,  , /,  , 比, 较, 结, 构, 漏, 译, ）, （, 2, 分, ）, ；, 有, 频, 率, 或, 数, 量, （, 如, 每, 天,  , 5,  , 分, 钟, 、, 每, 次, 划, 标, ）, （, 1, 分, ）</div><div class="ansline"><b>解析</b>反思题的关键是「可执行」。批改时我会看你的动作能不能明天就开始做——「多背单词」「加强练习」这类不落地，不给分。</div></div>
+</div>
+</section>
+
+  <div class="done-tip" id="doneTip">
+    <b>🎉 全部作答完毕</b>
+    点右下角「导出我的答案」，把导出的文件发给我，我会逐题批改并给出评分与改进建议。
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="tb-inner">
+    <button class="btn btn-main" id="btnExport">导出我的答案</button>
+    <button class="btn btn-ghost" id="btnRevealAll">展开全部解析</button>
+    <button class="btn btn-ghost" id="btnReset">清空重做</button>
+    <span class="tb-count" id="tbCount">0 / 21</span>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">你的答案（复制后发给我批改）</div>
+    <div class="modal-body">
+      <div class="modal-tip">
+        全选复制下面的内容，粘贴到对话里发给我即可。也可以点「下载 .md」保存成文件再上传。
+      </div>
+      <textarea id="exportArea" readonly></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="btnCloseModal">关闭</button>
+      <button class="btn btn-main" id="btnDownload">下载 .md</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ = {"title": "考研每日测验 · 网络传播核心概念＋错题回滚（素材：宝厂「牛啊」网络传播微课程讲义+真题答案库）", "date": "2026-10-11", "sections": [{"name": "一、专业课 · 网络传播（技术演进与网络社会）", "questions": [{"id": 1, "type": "choice", "kp": "网络的技术概念", "stem": "在技术层面上，「网络」这一概念的核心意义是什么？", "options": ["共享：以资源共建共用为根本目标", "连接：从机器—机器到人—机、万物互联", "互动：以双向交流取代单向灌输", "虚拟：以数字化空间替代物理空间"], "answer": "B", "explain": "讲义明确：技术在不断迭代，网络概念从最初的计算机之间的「连接」，到连接人与计算机，再到万物互联——因此技术层面上网络的核心意义是「连接」。A「共享」是网络的功能之一（资源共享和信息传递），不是核心意义；C「互动」是新媒体的关键特征，属于媒介属性层面；D「虚拟」是网络空间的特征，不符合「技术概念」的提问口径。", "_id": 1}, {"id": 2, "type": "choice", "kp": "互联网发展史", "stem": "关于 TCP/IP 协议，下列说法正确的是（　）", "options": ["1969 年由美国国防部高级研究计划署提出并投入使用", "1983 年被指定为互联网标准协议，标志着全球互联网正式诞生", "由蒂姆·伯纳斯·李于 1989 年在欧洲粒子物理实验室提出", "它与万维网是同一事物的两种叫法，均由浏览器实现"], "answer": "B", "explain": "TCP/IP 于 1974 年由斯坦福大学文顿·瑟夫（Vint Cerf）和鲍勃·坎（Bob Khan）提出；1983 年被指定为互联网的标准协议，被所有网络采纳，这被认为是全球互联网正式诞生的标志——B 正确。A 混淆了阿帕网（1968 年组建、1969 年第一期工程投入使用）；C 是万维网（WWW）的溯源；D 错在「同一事物」——万维网只是互联网的一种服务，就像电子邮件一样，由服务器、浏览器及通信协议三部分构成。", "_id": 2}, {"id": 3, "type": "fill", "blanks": 4, "kp": "网络社会的形态辨析", "stem": "网络社会的形态可从多学科方向辨析。请补全下列界定中的关键概念：\n① 卡斯特尔意义上，由信息技术革命催生的、以网络为基本组织逻辑的社会形态称____；\n② 卡斯特尔笔下「网络社会的最大规模实践」、指中国等国家互联网大规模普及形成的社会形态称____；\n③ 以算法和数据驱动的全球化在线平台生态系统渗透日常生活、人们的一切实践都受其调节的社会，由何塞·范·迪克提出，称____；\n④ 深度学习模型「只看得到输入与输出、看不到内部决策逻辑」的状态，称____。", "answer": "网络社会（network society）；互联网社会（cybersociety）；平台社会（platform society）；算法黑箱", "keys": "每空 1 分，须写英文原文可加印象分", "explain": "四个概念常被串在一起考：① 网络社会（network society）是卡斯特尔的核心概念，强调网络化的组织逻辑；② 互联网社会（cybersociety）是网络社会的最大规模实践；③ 平台社会（platform society）由何塞·范·迪克提出，强调算法与数据驱动的平台生态系统对社会生活的全面调节；④ 算法黑箱指算法内部决策逻辑不透明、不可解释的状态，核心特征是不可解释性与不可预见性。", "_id": 3}, {"id": 4, "type": "choice", "kp": "人工智能与传播", "stem": "关于「智能鸿沟」，下列说法错误的是（　）", "options": ["它是数字鸿沟在人工智能时代的新形态，指不同群体在智能技术接入、使用和收益上的不平等", "其核心表现为数据鸿沟与算法鸿沟两种全新的表征形态", "它包含「知识沟」升级、「生存沟」深化、「表达与参与沟」延续、「反异化沟」凸显四个方面", "它仅指弱势群体因不会使用智能技术而被排斥，数字精英不在此列"], "answer": "D", "explain": "D 属于典型的「只取一半」式错误。讲义特别强调：智能鸿沟不仅包括个体因无法接触或不会使用智能技术而产生的鸿沟，**更值得关注的是个体因过度沉浸于智能技术应用而可能产生的知识与权益不平等**；而且在「反异化沟」方面，**技术精英的「落伍」风险更不可小视**。A、B、C 三项均为讲义原表述。", "_id": 4}, {"id": 5, "type": "short", "rows": 6, "kp": "网络媒介理论·驯化理论", "stem": "简述驯化理论的内涵及其四阶段机制，并说明它可以怎样用来解释 AIGC 进入个人日常生活的过程。", "answer": "【内涵】驯化理论最初由英国学者西尔弗斯通在家庭场景中电视媒体使用的研究中提出，指媒介技术被使用者主动整合进日常生活实践，从而实现从陌生技术到被「驯服」的家庭工具的社会化过程。西尔弗斯通把生物驯化的隐喻嫁接至信息技术的私人使用中，意在表明使用技术存在两方面的互动：个人既可利用技术本身的「客观属性」满足私人目的，又因技术对人机能的拓展而能更好地参与公共空间活动。\n【四阶段】① 占有（appropriation，即消费购买）；② 物化（objectification，对其进行实际处理）；③ 融入（incorporation，技术在使用中逐渐融入个体日常生活，成为日常生活实践的一部分）；④ 转化（conversion，技术脱离私人生活范畴，重新「转化」进入公共空间）。\n【AIGC 的应用】占有——使用 AIGC 仍需一定代价或成本；物化——技术收编使其成为工作中的助手、用 AIGC 学习知识、把 AI 当聊天对象和技术伴侣；融合——人的思维方式被智能技术思维浸染，行为模式打上机器烙印；转化——内容生态格局调整、低质量纯人工内容退出，AIGC 可能成为社区发展新土壤，同时带来新的智能鸿沟。", "keys": "提出者西尔弗斯通（1分）；「整合进日常生活/从陌生到驯服」的表述（1分）；四阶段名称及英文（占/物/融/转，2分）；两方面互动（私人目的+公共参与，1分）；结合 AIGC 展开（3分）", "explain": "这道题是名词解释＋应用的复合考法。容易失分的地方有两个：一是把提出者记成麦克卢汉或梅洛维茨（驯化＝西尔弗斯通、家庭电视研究）；二是四阶段顺序记错。「占有→物化→融入→转化」是从私人到公共的完整链条，联想一句：**先买回家（占有）→ 摆到桌上用起来（物化）→ 变成生活习惯（融入）→ 拿出去影响别人（转化）**。", "_id": 5}, {"id": 6, "type": "short", "rows": 5, "kp": "网络用户研究", "stem": "网络用户的内容消费呈现出两对辩证特征，请写出这两对特征并各作简要说明。", "answer": "两对特征是：① 个性化与社会化并存；② 主动性与被动性并存。\n① 个性化：推荐算法根据用户偏好「量身定制」信息，提升满意度与使用黏性；但个性化始终嵌在社会化网络中——用户间的互动、分享与推荐深刻影响个体态度行为，形成群体效应，信息消费也成为编织社会关系的手段。更关键的是，社会化环境反过来限制了真正个性的形成：推荐与热点基于群体行为与社会流行趋势，结果「个性化」只是外壳的五彩斑斓，内核趋于同质化——个性化手段反而加速了社会化进程与趋同。\n② 主动性：用户拥有自由选择权与高度参与感，可按需「拉出」信息，甚至参与信息生产与评价，从被动接受者变为「产消者」。被动性：信息过载催生认知惰性，人们倾向以最小成本获取最大报偿，常被动接受算法推荐或热门推送；用户行为还有强烈惯性，每天访问的网站、浏览路径乃至视线轨迹往往固定不变，虽带来心理安全感，却限制了对多元信息环境的探索。", "keys": "两对特征各 1 分（共 2 分）；「个性化→趋同」的辩证说明 2 分；「主动性→惰性/惯性」的说明 2 分", "explain": "这道题的标准答题格式是「成对出现＋正反两面」。很多同学只答一半（只写个性化、只写主动性），直接丢掉一半分数。记住一句话概括：**「个性化是壳，社会化是核；主动是赋权，被动是惯性。」**", "_id": 6}, {"id": 7, "type": "short", "rows": 5, "kp": "网络舆论", "stem": "简述网络舆论的形成过程（三个阶段）及其社会影响的双重性。", "answer": "【三个阶段】① 起点：导火索性事件引发关注，专业媒体报道或社会化媒体发布推动事件传播；② 中间环节：讨论的扩散，事实与意见通过人际传播、群体传播、组织传播、大众传播等渠道交织传播；③ 达成标志：意见的整合，通过沉默的螺旋机制、意见领袖引导等途径，分散的意见趋向一致，形成相对统一的主流舆论。\n【双重影响】积极方面：推动舆论监督发展，发挥社会减压阀功能，促进政府信息公开。消极方面：存在跟风盲从、网络暴力、人肉搜索、谣言传播与群体极化等问题，需要加以引导与规范。", "keys": "三阶段各 1 分（导火索事件—讨论扩散—意见整合）；每阶段须点出关键机制（媒体/社会化媒体、多渠道交织、沉默的螺旋或意见领袖）（1分）；积极影响 1 分；消极影响 1 分", "explain": "形成过程三步的得分点在于「每步都要点到机制」，只写「事件发生—大家讨论—形成舆论」这样的大白话拿不到分。影响部分必须成对写，只写消极或只写积极都扣分。", "_id": 7}]}, {"name": "二、专业课 · 错题回滚（概念谱系与辨析）", "questions": [{"id": 8, "type": "choice", "kp": "回滚·数字鸿沟谱系", "stem": "数字鸿沟的学术谱系存在一条演进链。下列哪一项的排列顺序是正确的？", "options": ["知识沟 → 信息沟 → 数字鸿沟（接入沟）→ 使用沟／素养沟 → 数智鸿沟", "信息沟 → 知识沟 → 数智鸿沟 → 数字鸿沟（接入沟）→ 使用沟", "数字鸿沟（接入沟）→ 知识沟 → 信息沟 → 使用沟 → 数智鸿沟", "知识沟 → 数字鸿沟（接入沟）→ 信息沟 → 数智鸿沟 → 使用沟"], "answer": "A", "explain": "这是你上次漏答两环的题（你只写出了「知识沟→数字鸿沟→数智鸿沟」）。正确顺序是：**知识沟**（蒂奇诺等，社会经济地位差异导致知识获取差异）→ **信息沟**（N.卡茨曼 1974 年提出，着眼于「信息富有者」与「信息贫困者」的分化）→ **数字鸿沟**（含接入沟）→ **使用沟／素养沟** → **数智鸿沟／智能鸿沟**。记忆链：**知识 → 信息 → 接入 → 使用 → 数智**。前两个是「知道与否」，中间两个是「能不能用」，最后是「用得好不好」。", "_id": 8}, {"id": 9, "type": "choice", "kp": "回滚·数字鸿沟谱系（辨析）", "stem": "「信息沟」这一概念由谁在哪一年提出，其着眼点是什么？", "options": ["蒂奇诺等，1970 年；着眼点是大众媒介信息量增加反而扩大高低社会经济地位者之间的知识差距", "N.卡茨曼，1974 年；着眼点是传播技术带来的「信息富有者」与「信息贫困者」之间的分化及由此产生的社会矛盾", "诺依曼，1974 年；着眼点是大众媒介营造的意见气候对个体表达意愿的压制", "罗杰斯，1962 年；着眼点是创新通过特定渠道在社会系统成员中的扩散过程"], "answer": "B", "explain": "「信息沟」由 **N. 卡茨曼于 1974 年**提出，着眼于传播技术带来「信息富有者」与「信息贫困者」的分化以及由此带来的社会矛盾。A 是「知识沟」（蒂奇诺等，1970 年，常与「芝麻街」研究一起考）；C 是沉默的螺旋（诺依曼 1974，同年易混，注意区分）；D 是创新扩散理论（罗杰斯 1962）。**知识沟与信息沟的区分点：知识沟看「知识差距」，信息沟看「信息富有与贫困的分化」；两者同年份区间接近，出题人最爱在这里设混淆项。**", "_id": 9}, {"id": 10, "type": "short", "rows": 5, "kp": "回滚·传媒业三个「法」的分工", "stem": "答论述题时，社会环境法、社会要素法、社会思维法是三套不同的操作路径。请分别说明三者各解决什么问题，并各举出该路径下的核心列举内容。", "answer": "① 社会环境法：解决「外因与大背景」的问题——问「为什么」用它。列举六类环境（政治、经济、文化、技术、社会、国际等），回答影响某传播现象的外部大背景。学理支撑：克罗兹四大元过程＋史安斌、盛阳「四化」。\n② 社会要素法：解决「是什么构成」的问题——问「拆构成要件」用它。列举政策、法律、资本、市场、技术、公民、舆论七要素，把现象拆成构成要件。学理支撑：十九届四中全会社会治理体系。\n③ 社会思维法：解决「怎么办」的问题——问「给出对策」用它。按政治、经济、文化、技术、国际五个维度给「思维词」，专门答「怎么做」。", "keys": "三者各 1 分（分工定位），各 1 分（核心列举内容），共 6 分；能点出学理来源加印象分", "explain": "你上次把三者答成「就是『社会框架 PETCSI』的不同说法」，方向性错误——PETCSI 是**分析维度**，三个「法」是**三套操作路径**。一句话记住分工：**问「为什么」用环境法，问「是什么构成」用要素法，问「怎么办」用思维法。**", "_id": 10}]}, {"name": "三、政治 · 单项选择题", "questions": [{"id": 11, "type": "choice", "kp": "回滚·教育强国六个「以」", "stem": "关于教育强国的战略定位，下列说法正确的是（　）", "options": ["以立德树人为根本保证，以服务中华民族伟大复兴为根本任务", "以坚持党对教育事业的全面领导为根本保证，以服务中华民族伟大复兴为重要使命", "以人民满意为根本目标，以支撑引领中国式现代化为根本尺度", "以培养担当民族复兴大任的时代新人为最根本的保证"], "answer": "B", "explain": "你上次在这道题上填了「根本方向／基本目标／最终目的／最终标准」四个自造词——这是典型的「从没背过原表述、靠语感硬猜」。正确链条：**根本保证**（坚持党对教育事业的全面领导）→ **根本任务**（立德树人）→ **根本目标**（为党育人、为国育才，即培养社会主义建设者和接班人）→ **重要使命**（服务中华民族伟大复兴）→ **基本路径**（坚持教育现代化）→ **核心功能**（支撑引领中国式现代化）。另外记住：**「人民满意」是根本尺度，不是目标**——这对词是高频设错点。", "_id": 11}, {"id": 12, "type": "choice", "kp": "回滚·统战三个「最」", "stem": "关于新时代统一战线的表述，下列说法正确的是（　）", "options": ["统一战线的本质要求是大团结大联合，解决的是人心和力量问题", "统一战线的本质要求是坚持求同存异，解决的是差异和分歧问题", "坚持党的领导是统一战线的关键所在", "统一战线最鲜明的特征是坚持求同存异"], "answer": "A", "explain": "四级递进链不能错位：**本质要求＝大团结大联合**（解决的是**人心和力量**问题）→ **关键＝坚持求同存异** → **党的领导是统一战线最鲜明的特征**。B 错在把「本质要求」和「关键」的内容互换，还把「人心和力量」错记成「差异和分歧」；C 把「最鲜明的特征」错记成「关键」；D 把「关键」的内容安到了「最鲜明的特征」头上。记住四步：**联合（本质）→ 人心（对象）→ 存异（方法）→ 党旗（特征）**。", "_id": 12}, {"id": 13, "type": "choice", "kp": "回滚·「最根本」三条线", "stem": "下列与「最根本」相关的表述，对应关系正确的是（　）", "options": ["「最根本的是有中国共产党的坚强领导」——讲的是取得一切成就的根本原因", "「最根本的保证」——讲的是统一战线工作的政治基础", "「最核心最根本的问题」——讲的是法治体系建设的基本前提", "「最根本的思路」——讲的是宣传思想工作的基本方针"], "answer": "A", "explain": "「最根本」只有三条固定后缀，各不相同：① **有中国共产党的坚强领导**——成就来源（「最根本的是……」）；② **最核心最根本的问题**——统战领域（人心和力量问题）；③ **最根本的保证**——法治领域（坚持党的领导是社会主义法治最根本的保证）。B、C 把三个后缀的内容互换了；D 是自己造的说法，文件里没有。**记忆铁律：见「最根本」→ 落点必然是「党的领导」**，区别只在它修饰的是成就、统战还是法治。", "_id": 13}, {"id": 14, "type": "choice", "kp": "回滚·全过程人民民主「四个相统一」", "stem": "全过程人民民主的「四个相统一」不包括下列哪一项？（　）", "options": ["过程民主和成果民主相统一", "程序民主和实质民主相统一", "直接民主和间接民主相统一", "选举民主和协商民主相统一"], "answer": "D", "explain": "你上次把一道「选不属于」的题做成了「把包含项当成了不包含项」。四个相统一＝**过程民主与成果民主、程序民主与实质民主、直接民主与间接民主、人民民主与国家意志**。**选举民主与协商民主是两种民主形式，不是一组「统一」**——这是干扰项的标准设错法。记忆抓手：四对里有三对都是「同一民主的两个侧面」（过程／成果、程序／实质、直接／间接），最后一对是「人民民主／国家意志」。", "_id": 14}, {"id": 15, "type": "choice", "kp": "回滚·党的显著标志（第 9 次）", "stem": "某同学的笔记写道：「理论联系实际、密切联系群众、批评和自我批评，以及坚持人民至上、勇于自我革命，这些都是党的显著标志。」关于这段表述，下列判断正确的是（　）", "options": ["该表述完全正确，五者并列同为党的显著标志", "该表述把两个不同历史来源的表述混为一句：三大优良作风出自七大（1945），「勇于自我革命是区别于其他政党的显著标志」出自十九届六中全会《决议》，且多了「坚持人民至上」一项", "该表述唯一的错误是把「三大优良作风」写成了「三个优良作风」", "该表述的错误在于「勇于自我革命」应改为「敢于自我革命」"], "answer": "B", "explain": "⚠️ **这道题的题干就是你 9.17 反馈里的原文写法，一字未改。** 这是本题第 9 次考察同一个知识点。两条来源必须彻底拆开：① **党的七大（1945）**：理论联系实际、密切联系群众、批评和自我批评，是**三大**（不是「三个」）优良作风，**不含「人民至上」**；② **党的十九届六中全会《决议》**：**勇于自我革命**是我们党区别于其他政党的显著标志。你原文把它们并列成一句话，等于把两个不同来源、不同年的表述焊死在一起，考场上必然原样复现。**批改后请立刻回去改 `桌面_考研学习反馈/9.17 学习反馈（优化版）.docx`。**", "_id": 15}, {"id": 16, "type": "choice", "kp": "回滚·党的显著标志（旁支变式）", "stem": "「勇于自我革命」这一表述在党的话语体系中有多重定位。下列哪一项与其他三项的「定位口径」不同？（　）", "options": ["我们党区别于其他政党的显著标志", "我们党最鲜明的品格", "我们党最大的优势", "党的三大优良作风之一"], "answer": "D", "explain": "这是第 15 题的旁支变式，专测「勇于自我革命」的身份证是否被记准。「勇于自我革命」的定位口径是：**区别于其他政党的显著标志 / 最鲜明的品格 / 最大的优势**（三者都是「党自身独有」的话语定位）。而「三大优良作风」是七大（1945）提出的另一套表述（理论联系实际、密切联系群众、批评和自我批评）——**它和「勇于自我革命」没有从属关系**，D 是把两个不同来源硬凑成一项。第 15、16 两题若都错，说明这个知识点在笔记里已被焊死，必须回改原文。", "_id": 16}, {"id": 17, "type": "choice", "kp": "回滚·统战（变式）", "stem": "「统一战线是党的重要法宝」这一判断已成为共识。下列哪一项最准确地概括了统一战线的本质要求？", "options": ["坚持中国共产党的领导", "大团结大联合", "求同存异、体谅包容", "一致性和多样性相统一"], "answer": "B", "explain": "本质要求＝**大团结大联合**。A「坚持党的领导」是统一战线**最鲜明的特征**（也是根本保证）；C「求同存异」是**关键**（方法）；D「一致性和多样性相统一」是统一战线工作的**重要方针/规律**，但不是「本质要求」这个特定口径。四个选项都是统战话语里的正确表述，考的是「定位词」是否精准——这正是你上次失分的原因（记住了有「大」字，但丢了完整词）。", "_id": 17}, {"id": 18, "type": "choice", "kp": "回滚·法治体系五大体系", "stem": "中国特色社会主义法治体系由五大体系构成。下列哪一组名称完整且正确？", "options": ["法律规范体系、法治实施体系、法治监督体系、法治保障体系、党内法规体系", "法律规范体系、法治运行体系、法治监督体系、法治保障体系、党内法规体系", "法律规范体系、法治实施体系、法治监督体系、法治保障体系、党外法规体系", "法律制度体系、法治实施体系、法治监督体系、法治保障体系、党内法规体系"], "answer": "A", "explain": "你上次五空全空，只答对了「宪法／党章／民主集中制」三个细节空——**背诵顺序反了**：应先把骨架背成顺口溜，再补细节。五字链：**规 → 实 → 监 → 保 → 党**（法律**规**范体系 → 法治**实**施体系 → 法治**监**督体系 → 法治**保**障体系 → **党**内法规体系）。B 把「实施」错成「运行」；C 把「党内法规」错成「党外法规」（方向反了）；D 把「法律规范」错成「法律制度」。", "_id": 18}]}, {"name": "四、英语", "questions": [{"id": 19, "type": "translate", "kp": "长难句翻译（比较结构）", "stem": "翻译下面这句话，并标出主干结构：\n\nThose who are exposed to a constant stream of algorithmically curated content are far more likely to mistake familiarity for accuracy than to question the sources behind what they read.", "answer": "【参考译文】那些长期接触算法持续筛选推送内容的人，比起去质疑自己所读内容背后的信源，远远更有可能把「熟悉」误当作「准确」。\n【主干】Those ... are far more likely to mistake ... than to question ...\n主语：Those（后接 who 引导的定语从句修饰）\n谓语：are\n表语/比较结构：far more likely to do A than to do B（A = mistake familiarity for accuracy；B = question the sources behind what they read）\n定语从句内部：who are exposed to a constant stream of algorithmically curated content", "keys": "主干识别正确（1分）；A 部分 mistake familiarity for accuracy 译为「把熟悉误当作准确」（1分）；B 部分 question the sources behind what they read 译为「质疑所读内容背后的信源」（1分）；比较结构 far more likely to ... than to ... 译出「远远更有可能……而不是……」（2分，漏译程度词扣分）；整体通顺（1分）", "explain": "这道题的核心考点和上次一样：**比较级与程度副词不能省略**。`far more likely to A than to B` 是英二翻译的高频扣分点，你上次漏译了「far more likely（远远更有可能）」。另外本题还有两个要点：① `Those ... who ...` 结构要译出「那些……的人」；② `mistake A for B` 是固定搭配「把 A 误认为 B」。", "_id": 19}, {"id": 20, "type": "fill", "blanks": 5, "kp": "回滚·英语词汇", "stem": "根据语境填入恰当的英文单词或短语（首字母已给出）：\n① Platforms have been forced to c____ d____ o____ hate speech and coordinated disinformation.\n② These regulations target the business model behind the so-called t____ business, in which fabricating stories is a profitable enterprise.\n③ As platforms grow more powerful, the questions surrounding liability become far t____ to resolve.\n④ Regulators have a____ the platform o____ failing to remove harmful content in time.\n⑤ The authority imposed a heavy f____ on the company for violating data-protection rules.", "answer": "① crack down on（严厉打击、镇压）② troll / trolling（此处指「造谣营销/黑公关」语境，可答 troll farm 或 trolling，讲义对应「谣言营销」）③ thornier（更棘手的）④ accused ... of（指责、控诉）⑤ fine（罚款）", "keys": "每空 1 分。第①空必须写出完整短语 crack down on，单写 crack 不给分；第③空须为比较级 thornier", "explain": "这道题把你上次踩的三个坑全抓回来了：① **crack down on** 你上次译成「崩塌」——「崩塌」是 collapse，crack down on 是朝外的「打压」，联想「警方扫荡」；② **thornier** 你上次写「更尖锐」，正确是「更**棘手**的」（搭配是「问题更棘手」，不是「观点更尖锐」）；③ **accuse sb. of (doing) sth.** 注意介词是 of，不是 for。第⑤空 fine 在此处是名词「罚款」，与第①空的动词 use 区分开。", "_id": 20}, {"id": 21, "type": "short", "rows": 4, "kp": "英语学习方法反思", "stem": "你近几次英语题失分集中在「词汇义项记偏」与「长难句漏译程度词」。请用两三句话写出一个可执行的改进动作（要具体到每天做什么，不要写「多背单词」这种空话）。", "answer": "【参考答案示例】① 把外刊精读中遇到的动词短语（crack down on、accuse sb. of、mistake A for B 这类）单独抄成「搭配本」，只记「动词＋介词＋义项」三件套，每天早读用 5 分钟盖住中文回译；② 长难句训练时强制先划出所有程度副词与比较结构（more / far more / rather than / than 等），翻译前先口头标出「这是比较还是并列」，再落笔。", "keys": "动作须具体可执行（2分）；须针对本次两个失分点（词汇义项 / 比较结构漏译）（2分）；有频率或数量（如每天 5 分钟、每次划标）（1分）", "explain": "反思题的关键是「可执行」。批改时我会看你的动作能不能明天就开始做——「多背单词」「加强练习」这类不落地，不给分。", "_id": 21}]}]};
+const QUIZID = "2026-10-11";
+const KEY = "quiz_" + QUIZID;
+const TOTAL = 21;
+
+// ---- 状态存取 ----
+let state = JSON.parse(localStorage.getItem(KEY) || "{}");
+
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+function answeredCount(){
+  let n = 0;
+  QUIZ.sections.forEach(s => s.questions.forEach((q, i) => {
+    const id = q._id;
+    const v = state[id];
+    if (q.type === "choice") { if (v) n++; }
+    else if (q.type === "fill") {
+      if (v && Object.values(v).some(x => (x||"").trim())) n++;
+    }
+    else { if (v && v.trim()) n++; }
+  }));
+  return n;
+}
+
+function updateProgress(){
+  const n = answeredCount();
+  const pct = Math.round(n / TOTAL * 100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("ptext").textContent = `已作答 ${n} / ${TOTAL}`;
+  document.getElementById("tbCount").textContent = `${n} / ${TOTAL}`;
+  document.getElementById("doneTip").classList.toggle("show", n >= TOTAL);
+}
+
+function flashSaved(n){
+  const el = document.querySelector(`.saved[data-saved="${n}"]`);
+  if (!el) return;
+  el.textContent = "已保存";
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 1200);
+}
+
+// ---- 绑定交互 ----
+document.querySelectorAll(".opt input").forEach(inp => {
+  inp.addEventListener("change", e => {
+    const n = +e.target.name.replace("q", "");
+    state[n] = e.target.value;
+    save(); updateProgress(); flashSaved(n);
+  });
+});
+
+document.querySelectorAll(".fillin").forEach(inp => {
+  inp.addEventListener("input", e => {
+    const n = e.target.dataset.q, b = e.target.dataset.b;
+    state[n] = state[n] || {};
+    state[n][b] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+document.querySelectorAll(".shortin,.transin").forEach(ta => {
+  ta.addEventListener("input", e => {
+    const n = e.target.dataset.q;
+    state[n] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+// 查看解析
+document.querySelectorAll(".btn-ans").forEach(b => {
+  b.addEventListener("click", () => {
+    const n = b.dataset.q;
+    const box = document.querySelector(`.ansbox[data-ans="${n}"]`);
+    const open = !box.hidden;
+    box.hidden = open;
+    b.textContent = open ? "查看解析" : "收起解析";
+  });
+});
+
+document.getElementById("btnRevealAll").addEventListener("click", function(){
+  const anyHidden = [...document.querySelectorAll(".ansbox")].some(b => b.hidden);
+  document.querySelectorAll(".ansbox").forEach(b => b.hidden = !anyHidden);
+  document.querySelectorAll(".btn-ans").forEach(b => {
+    b.textContent = anyHidden ? "收起解析" : "查看解析";
+  });
+  this.textContent = anyHidden ? "收起全部解析" : "展开全部解析";
+});
+
+// 清空
+document.getElementById("btnReset").addEventListener("click", () => {
+  if (!confirm("确定清空全部作答？此操作不可撤销。")) return;
+  state = {}; save();
+  document.querySelectorAll(".opt input").forEach(i => i.checked = false);
+  document.querySelectorAll(".fillin,.shortin,.transin").forEach(i => i.value = "");
+  updateProgress();
+});
+
+// ---- 导出答案 ----
+function buildExport(){
+  const L = [];
+  L.push(`# ${QUIZ.title} — 我的作答`);
+  L.push("");
+  L.push(`日期：${QUIZ.date}`);
+  L.push(`完成：${answeredCount()} / ${TOTAL} 题`);
+  L.push("");
+  const tname = {choice:"单选", fill:"填空", short:"问答", translate:"长难句翻译"};
+  QUIZ.sections.forEach(s => {
+    L.push(`## ${s.name}`);
+    L.push("");
+    s.questions.forEach(q => {
+      const v = state[q._id];
+      L.push(`### ${q._id}. [${tname[q.type]}]`);
+      L.push(q.stem);
+      L.push("");
+      if (q.type === "choice") {
+        L.push(`**我的答案：** ${v ? v : "（未作答）"}`);
+      } else if (q.type === "fill") {
+        const arr = [];
+        for (let i = 0; i < (q.blanks || 1); i++) {
+          const k = String(i);
+          arr.push(`第${i+1}空：${(v && v[k]) ? v[k] : "（空）"}`);
+        }
+        L.push(`**我的答案：** ${arr.join("　")}`);
+      } else {
+        L.push(`**我的答案：**`);
+        L.push("");
+        L.push(v && v.trim() ? v : "（未作答）");
+      }
+      L.push("");
+    });
+  });
+  return L.join("\n");
+}
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  document.getElementById("exportArea").value = buildExport();
+  document.getElementById("modal").classList.add("show");
+});
+document.getElementById("btnCloseModal").addEventListener("click", () => {
+  document.getElementById("modal").classList.remove("show");
+});
+document.getElementById("btnDownload").addEventListener("click", () => {
+  const blob = new Blob([buildExport()], {type:"text/markdown;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${QUIZID}-我的作答.md`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") e.target.classList.remove("show");
+});
+
+// ---- 恢复状态 ----
+(function restore(){
+  document.querySelectorAll(".opt input").forEach(inp => {
+    const n = +inp.name.replace("q", "");
+    if (state[n] === inp.value) inp.checked = true;
+  });
+  document.querySelectorAll(".fillin").forEach(inp => {
+    const n = inp.dataset.q, b = inp.dataset.b;
+    if (state[n] && state[n][b] != null) inp.value = state[n][b];
+  });
+  document.querySelectorAll(".shortin,.transin").forEach(ta => {
+    const n = ta.dataset.q;
+    if (state[n] != null) ta.value = state[n];
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
