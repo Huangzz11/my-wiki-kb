@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考研每日测验 · 10.12 综合卷（素材：宝厂实务「大明白」·新闻采访提纲与报道策划）</title>
+<style>
+:root{
+  --bg:#f7f8fb; --card:#fff; --ink:#1c2430; --sub:#60708a;
+  --line:#e3e8f0; --blue:#2F5B9E; --blue-l:#e8eef8;
+  --green:#1f8a52; --green-l:#e6f5ec;
+  --amber:#b4740a; --amber-l:#fdf3e0;
+  --red:#c0392b; --red-l:#fdeceb;
+  --violet:#6b4ea8; --violet-l:#f0ebfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+    "Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.7;
+  padding:0 0 120px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+/* 顶部 */
+header{
+  background:linear-gradient(135deg,#2F5B9E 0%,#40699f 60%,#5b7fb5 100%);
+  color:#fff;padding:34px 0 26px;margin-bottom:24px;
+  box-shadow:0 2px 14px rgba(47,91,158,.18);
+}
+header h1{font-size:23px;font-weight:650;letter-spacing:.3px;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.85}
+.statline{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chip{
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);
+  border-radius:999px;padding:4px 13px;font-size:12.5px;backdrop-filter:blur(4px)
+}
+
+/* 进度条 */
+.progress-sticky{
+  position:sticky;top:0;z-index:50;background:rgba(247,248,251,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  padding:10px 0;margin-bottom:8px;
+}
+.pbar{height:7px;background:#e6eaf2;border-radius:99px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,#2F5B9E,#5b8fd4);
+  border-radius:99px;transition:width .35s ease}
+.ptext{font-size:12.5px;color:var(--sub);margin-top:6px;display:flex;
+  justify-content:space-between}
+
+/* 分区 */
+.sec{margin:30px 0 0}
+.sec h2{
+  font-size:16.5px;font-weight:640;color:var(--blue);
+  display:flex;align-items:center;gap:9px;padding-bottom:9px;
+  border-bottom:2px solid var(--blue-l);margin-bottom:16px;
+}
+.dot{width:9px;height:9px;border-radius:3px;background:var(--blue);
+  display:inline-block;flex:0 0 auto}
+.secmeta{margin-left:auto;font-size:12px;color:var(--sub);font-weight:400}
+
+/* 题目卡片 */
+.q{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:17px 19px;margin-bottom:13px;transition:border-color .2s,box-shadow .2s;
+}
+.q:focus-within{border-color:#b9cdea;box-shadow:0 3px 14px rgba(47,91,158,.09)}
+.qhead{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.qno{
+  width:26px;height:26px;border-radius:8px;background:var(--blue);
+  color:#fff;font-size:13px;font-weight:600;display:flex;
+  align-items:center;justify-content:center;flex:0 0 auto;
+}
+.qtag{font-size:11.5px;padding:2px 9px;border-radius:6px;font-weight:500}
+.t-choice{background:var(--blue-l);color:var(--blue)}
+.t-fill{background:var(--green-l);color:var(--green)}
+.t-short{background:var(--violet-l);color:var(--violet)}
+.t-translate{background:var(--amber-l);color:var(--amber)}
+.kp{font-size:11.5px;color:var(--sub);margin-left:auto}
+.stem{font-size:14.8px;margin-bottom:12px;white-space:pre-wrap}
+
+/* 单选 */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 13px;
+  border:1px solid var(--line);border-radius:9px;cursor:pointer;
+  transition:all .16s;font-size:14.2px;
+}
+.opt:hover{background:#f4f7fc;border-color:#c3d5ee}
+.opt input{display:none}
+.opt .letter{
+  width:21px;height:21px;border-radius:6px;background:#eef1f6;color:var(--sub);
+  font-size:12px;font-weight:600;display:flex;align-items:center;
+  justify-content:center;flex:0 0 auto;margin-top:2px;transition:all .16s;
+}
+.opt input:checked~.letter{background:var(--blue);color:#fff}
+.opt:has(input:checked){background:var(--blue-l);border-color:#9dbde6}
+.otext{flex:1}
+
+/* 填空 */
+.fills{display:flex;flex-direction:column;gap:8px}
+.fillin{
+  font-family:inherit;font-size:14.2px;padding:9px 13px;
+  border:1px solid var(--line);border-radius:8px;background:#fcfdff;
+  transition:all .16s;width:100%;
+}
+.fillin:focus{outline:none;border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 文本域 */
+.shortin,.transin{
+  font-family:inherit;font-size:14.2px;line-height:1.75;padding:11px 14px;
+  border:1px solid var(--line);border-radius:9px;background:#fcfdff;
+  width:100%;resize:vertical;transition:all .16s;
+}
+.shortin:focus,.transin:focus{outline:none;border-color:var(--blue);
+  background:#fff;box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 按钮与解析 */
+.qfoot{display:flex;align-items:center;gap:11px;margin-top:11px}
+.btn-ans{
+  font-family:inherit;font-size:12.5px;padding:5px 13px;border-radius:7px;
+  border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;
+  transition:all .16s;
+}
+.btn-ans:hover{background:var(--blue-l);border-color:#a8c4e8;color:var(--blue)}
+.saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
+.saved.show{opacity:1}
+.ansbox{
+  margin-top:12px;padding:13px 15px;background:#fafbfd;
+  border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-size:13.8px;
+}
+.ansline{margin-bottom:8px;display:flex;gap:9px;line-height:1.7}
+.ansline:last-child{margin-bottom:0}
+.ansline b{
+  flex:0 0 auto;color:var(--blue);font-size:12px;font-weight:640;
+  background:var(--blue-l);padding:2px 8px;border-radius:5px;height:fit-content;
+  margin-top:3px;
+}
+.ansline .got{color:var(--green);font-weight:600}
+
+/* 底部操作栏 */
+.toolbar{
+  position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);padding:12px 20px;z-index:60;
+  backdrop-filter:blur(10px);box-shadow:0 -2px 16px rgba(28,36,48,.07);
+}
+.tb-inner{max-width:820px;margin:0 auto;display:flex;
+  align-items:center;gap:11px;flex-wrap:wrap}
+.btn{
+  font-family:inherit;font-size:13.5px;padding:9px 19px;border-radius:9px;
+  border:none;cursor:pointer;font-weight:530;transition:all .16s;
+}
+.btn-main{background:var(--blue);color:#fff}
+.btn-main:hover{background:#264d87;transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--sub);border:1px solid var(--line)}
+.btn-ghost:hover{background:#f4f6fa;color:var(--ink)}
+.tb-count{font-size:13px;color:var(--sub);margin-left:auto}
+
+/* 完成提示 */
+.done-tip{
+  margin-top:22px;padding:18px 20px;border-radius:12px;
+  background:var(--green-l);border:1px solid #bfe5ce;color:#14603a;
+  font-size:14px;display:none;
+}
+.done-tip.show{display:block}
+.done-tip b{display:block;margin-bottom:6px;font-size:15px}
+
+/* 答案导出弹层 */
+.modal{
+  position:fixed;inset:0;background:rgba(20,28,40,.5);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:#fff;border-radius:14px;max-width:660px;width:100%;
+  max-height:82vh;display:flex;flex-direction:column;overflow:hidden;
+}
+.modal-head{padding:17px 21px;border-bottom:1px solid var(--line);
+  font-weight:620;font-size:15.5px;color:var(--blue)}
+.modal-body{padding:18px 21px;overflow-y:auto;flex:1}
+.modal-body textarea{
+  width:100%;height:340px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.65;border:1px solid var(--line);
+  border-radius:9px;padding:13px;background:#fafbfd;resize:vertical;
+}
+.modal-foot{padding:14px 21px;border-top:1px solid var(--line);
+  display:flex;gap:10px;justify-content:flex-end}
+.modal-tip{font-size:12.5px;color:var(--sub);margin-bottom:11px;line-height:1.65}
+
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  header{padding:26px 0 20px}
+  header h1{font-size:19px}
+  .q{padding:14px 15px}
+  .stem{font-size:14.2px}
+  .tb-count{display:none}
+  .kp{margin-left:0;width:100%}
+}
+@media print{
+  .toolbar,.btn-ans,.progress-sticky{display:none}
+  .ansbox[hidden]{display:block!important}
+  .q{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>考研每日测验 · 10.12 综合卷（素材：宝厂实务「大明白」·新闻采访提纲与报道策划）</h1>
+    <div class="meta">2026-10-12 · 共 20 题 · 今晚 22:30 自动生成</div>
+    <div class="statline">
+      <span class="chip">单选 11</span>
+      <span class="chip">填空 3</span>
+      <span class="chip">问答 4</span>
+      <span class="chip">长难句 2</span>
+    </div>
+  </div>
+</header>
+
+<div class="progress-sticky">
+  <div class="wrap">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <div class="ptext">
+      <span id="ptext">已作答 0 / 20</span>
+      <span>进度自动保存，刷新不丢</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  
+<section class="sec">
+  <h2><span class="dot"></span>一、专业课 · 新闻实务（采访提纲与报道策划）
+    <span class="secmeta">8 题</span></h2>
+  
+<div class="q" data-q="1" data-type="choice">
+  <div class="qhead">
+    <span class="qno">1</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">采访基础概念</span>
+  </div>
+  <div class="stem">新闻实务写作中，几组概念容易混淆。下列说法**不正确**的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q1" value="A"><span class="letter">A</span><span class="otext">采访计划是采访活动之前针对本次采访任务的各项工作安排，重点在微观工作计划</span></label><label class="opt"><input type="radio" name="q1" value="B"><span class="letter">B</span><span class="otext">报道计划是就一个题材或多个题材乃至一段时间确定的报道任务及其实施步骤，重点在宏观选题策划</span></label><label class="opt"><input type="radio" name="q1" value="C"><span class="letter">C</span><span class="otext">采访计划与采访提纲是从属和包容的关系，采访提纲从属于采访计划</span></label><label class="opt"><input type="radio" name="q1" value="D"><span class="letter">D</span><span class="otext">采访提纲的外延比报道提纲更广，涵盖写作提纲及体裁样式、刊登（播发）方式等规划</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="1">查看解析</button>
+    <span class="saved" data-saved="1"></span>
+  </div>
+  <div class="ansbox" data-ans="1" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>说反了。外延更广的是**报道提纲**——它不仅包括采访提纲，还包括写作提纲及关于体裁样式、刊登（播发）方式的规划；采访提纲只针对采访对象拟提的问题和具体采访流程。A、B、C 均为《新闻采访与写作（马工程）》的原表述。记忆抓手：题目里只要出现&quot;外延更广&quot;&quot;涵盖写作提纲&quot;，就找报道提纲。</div></div>
+</div>
+<div class="q" data-q="2" data-type="choice">
+  <div class="qhead">
+    <span class="qno">2</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">采访方式·隐性采访</span>
+  </div>
+  <div class="stem">关于隐性采访，下列说法**正确**的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q2" value="A"><span class="letter">A</span><span class="otext">隐性采访的基本特征是记者公开身份但不申明采访目的</span></label><label class="opt"><input type="radio" name="q2" value="B"><span class="letter">B</span><span class="otext">隐性采访又称&quot;暗访&quot;，其基本特征包括隐瞒记者身份、采访对象不知情、秘密获取信息</span></label><label class="opt"><input type="radio" name="q2" value="C"><span class="letter">C</span><span class="otext">隐性采访因材料真实可靠且不涉法律争议，是舆论监督中最受推荐的手段</span></label><label class="opt"><input type="radio" name="q2" value="D"><span class="letter">D</span><span class="otext">隐性采访只有在采访对象明确拒绝合作时才可使用，其余情形一律禁止</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="2">查看解析</button>
+    <span class="saved" data-saved="2"></span>
+  </div>
+  <div class="ansbox" data-ans="2" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>A 错在&quot;公开身份&quot;——隐性采访是不公开记者身份、不申明采访目的。C 错，隐性采访恰恰面临危险性、法律与社会伦理困境、可能侵犯隐私，还存在滥用风险（有显性采访可选择时仍用、一段时期内密集使用、为获取&quot;猛料&quot;诱导对方违法、为报复敲诈而用）。D 把实践中的&quot;审慎适用&quot;说成了绝对化禁令，材料无此表述。B 为教材原表述。教训：答隐性采访的题，必须同时给出&quot;特征三条（隐身份／对象不知／秘密获取）＋弊端一串&quot;。</div></div>
+</div>
+<div class="q" data-q="3" data-type="choice">
+  <div class="qhead">
+    <span class="qno">3</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">提问类型</span>
+  </div>
+  <div class="stem">采访提问分为开放式与封闭式两类。下列情境中，**最适合使用封闭式提问**的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q3" value="A"><span class="letter">A</span><span class="otext">采访一位学者，请他谈谈对人工智能与新闻业关系的整体看法</span></label><label class="opt"><input type="radio" name="q3" value="B"><span class="letter">B</span><span class="otext">采访一位情绪低落、不愿多说的受访者，需确认事故发生的具体时间与地点</span></label><label class="opt"><input type="radio" name="q3" value="C"><span class="letter">C</span><span class="otext">采访一位老艺术家，请他讲述自己数十年的创作历程</span></label><label class="opt"><input type="radio" name="q3" value="D"><span class="letter">D</span><span class="otext">采访一位企业家，请他谈谈企业未来的战略构想</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="3">查看解析</button>
+    <span class="saved" data-saved="3"></span>
+  </div>
+  <div class="ansbox" data-ans="3" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>封闭式提问指向具体、明确，要求一个有针对性的答案，适用两类场景：①了解和调查具体事件信息、或时间紧迫的场合；②受访者回答主动性不强、积极性不高或情绪不好的时候。B 同时满足两点。A、C、D 都需要受访者展开叙述、表达态度情感观点，属开放式提问的适用场景——开放式的缺点是容易松散、空泛、跑题，更适合知识文化水平较高的受访者。</div></div>
+</div>
+<div class="q" data-q="4" data-type="fill">
+  <div class="qhead">
+    <span class="qno">4</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">提问的基本形式</span>
+  </div>
+  <div class="stem">记者提问有三种常见的基本形式：开门见山、直截了当、单刀直入的是____；运用启发引导原理、旁敲侧击、循循善诱的是____；通过一定强度的刺激设问、促使对方由&quot;要我谈&quot;转为&quot;我要谈&quot;的是____。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="4" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="4" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="4" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="4">查看解析</button>
+    <span class="saved" data-saved="4"></span>
+  </div>
+  <div class="ansbox" data-ans="4" hidden><div class="ansline"><b>参考答案</b>正面提、侧面探、反面激</div><div class="ansline"><b>得分点</b>每, 空,  , 1,  , 分, 。, &quot;, 正, 面, 提, &quot;, 写, &quot;, 直, 接, 提, 问, ／, 开, 门, 见, 山, &quot;, 可, 给, 分, ；, &quot;, 侧, 面, 探, &quot;, 写, &quot;, 旁, 敲, 侧, 击, ／, 启, 发, 引, 导, &quot;, 可, 给, 分, ；, &quot;, 反, 面, 激, &quot;, 写, &quot;, 激, 将, ／, 刺, 激, 设, 问, &quot;, 可, 给, 分, 。</div><div class="ansline"><b>解析</b>三种基本形式各有适用对象：正面提——一是记者熟悉的，二是干部、学者、演员运动员、外宾等；侧面探——想谈但一时回忆不起的对象，含接近性、相似性、对比性三种启发引导；反面激——谦虚不想谈、有顾虑怕谈、自恃地位身份不屑谈的对象，分&quot;激问&quot;与&quot;错问&quot;两档（错问刺激强度更大）。《新闻采访与写作（马工程）》另补两种：假借法（借受访者的话／借第三者的话／假设话题）与盘问法（一题多问＋连续追问，调查性报道常用）。</div></div>
+</div>
+<div class="q" data-q="5" data-type="fill">
+  <div class="qhead">
+    <span class="qno">5</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">采访计划的构成</span>
+  </div>
+  <div class="stem">一份周密可行的采访计划通常由若干部分组成。除&quot;采访任务&quot;与&quot;采访提纲&quot;之外，请再写出其中四项：____、____、____、____。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="5" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="5" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="5" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="5" data-b="3" placeholder="第 4 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="5">查看解析</button>
+    <span class="saved" data-saved="5"></span>
+  </div>
+  <div class="ansbox" data-ans="5" hidden><div class="ansline"><b>参考答案</b>人员安排、采访时间、采访地点、采访对象（也可写：交通方式、器材配备）</div><div class="ansline"><b>得分点</b>四, 项, 各,  , 1,  , 分, ，, 共,  , 4,  , 分, ；, 顺, 序, 不, 限, ，, 写, 对, 四, 项, 即, 满, 分, 。, 若, 写, &quot;, 交, 通, 方, 式, &quot;, &quot;, 器, 材, 配, 备, &quot;, 同, 样, 给, 分, 。</div><div class="ansline"><b>解析</b>采访计划完整构成共八项：采访任务 → 人员安排 → 采访时间 → 采访地点 → 采访对象 → 交通方式 → 器材配备 → 采访提纲。记忆抓手：按&quot;任务先行&quot;的口径串一遍——要干什么（任务）→ 谁去（人员）→ 什么时候（时间）→ 在哪（地点）→ 采访谁（对象）→ 怎么去（交通）→ 带什么（器材）→ 问什么（提纲）。注意&quot;采访对象&quot;一栏还要包括备选替代对象及联系方式。</div></div>
+</div>
+<div class="q" data-q="6" data-type="short">
+  <div class="qhead">
+    <span class="qno">6</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">人物采访提纲五方面</span>
+  </div>
+  <div class="stem">人物采访提纲一般需关注五个方面的内容。请写出这五个方面，并各用一句话说明其指向。</div>
+  <textarea class="shortin" data-q="6" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="6">查看解析</button>
+    <span class="saved" data-saved="6"></span>
+  </div>
+  <div class="ansbox" data-ans="6" hidden><div class="ansline"><b>参考答案</b>①其事——与该人物相关的新闻事实，通过采访必须将&quot;其事&quot;了解清楚；②观点——该人物对相关事件或事物的看法与解释；③经历——该人物自己讲述的个人经历；④拓展——采访中准备的拓展性问题，用以挖掘更多未知事实与生动细节；⑤个性——该人物的兴趣爱好、个人魅力、性格特征等。</div><div class="ansline"><b>得分点</b>五, 个, 方, 面, 各,  , 1,  , 分, （, 共,  , 5,  , 分, ）, ，, 每, 项, 说, 明,  , 0, ., 5,  , 分, （, 共,  , 2, ., 5,  , 分, ）, ；, 写, 出, &quot;, 其, 事, ／, 观, 点, ／, 经, 历, ／, 拓, 展, ／, 个, 性, &quot;, 五, 个, 关, 键, 词, 即, 得, 基, 础, 分, 。</div><div class="ansline"><b>解析</b>记忆抓手：事—观—历—拓—个，即&quot;发生了什么、他怎么想、他走过什么路、还能挖什么、他是什么人&quot;。另需辨析：事件（现象）采访提纲关注的是&quot;事&quot;的起因、过程、结局、影响，&quot;人&quot;只是作为&quot;事&quot;的讲述者而存在；只有人物采访提纲才以&quot;人&quot;为中心。多重人物采访提纲除五方面外，还要注意每个人物的不同特点、在新闻事件中的各自作用及相互关系，以防人物报道雷同。</div></div>
+</div>
+<div class="q" data-q="7" data-type="short">
+  <div class="qhead">
+    <span class="qno">7</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">专题报道与系列报道</span>
+  </div>
+  <div class="stem">专题报道与系列报道是报道内容层面两种主要类型。请分别写出二者的定义，并说明两者的主要区别。</div>
+  <textarea class="shortin" data-q="7" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="7">查看解析</button>
+    <span class="saved" data-saved="7"></span>
+  </div>
+  <div class="ansbox" data-ans="7" hidden><div class="ansline"><b>参考答案</b>专题报道：针对现实生活中具有重要社会意义的报道主题，以多篇稿件、从多个侧面揭示主题的丰富性与复杂性的报道，又称&quot;组合报道&quot;，具有多重整合、体裁多样、逻辑严密三个特点。系列报道：围绕同一新闻题材、新闻主题，从不同侧面、不同角度进行多次、连续的报道，由多篇报道构成，分之独立成篇、合之则成一整体，能产生&quot;集束效应&quot;，具有主题统一视角多元、紧扣热点激发关注、层层推进彰显深度三个特点。主要区别：专题报道重&quot;空间的整合&quot;——同一时间把多个侧面的稿件组合编排（报纸重版式与专栏设置，广电重时间段与节目长度，新媒体把空间与时间整合功能合于一体）；系列报道重&quot;时间的延展&quot;——同一主题在不同时间多次连续推出、层层递进。</div><div class="ansline"><b>得分点</b>专, 题, 报, 道, 定, 义,  , 1, ., 5,  , 分, ；, 系, 列, 报, 道, 定, 义,  , 1, ., 5,  , 分, ；, 两, 者, 区, 别, （, 空, 间, 整, 合, ／, 组, 合, 编, 排,  , v, s,  , 时, 间, 延, 展, ／, 连, 续, 推, 进, ）, 2,  , 分, ；, 共,  , 5,  , 分, 。</div><div class="ansline"><b>解析</b>记忆抓手：专题＝&quot;横着切&quot;，同一时间多个侧面一起上；系列＝&quot;竖着切&quot;，同一主题分几次连着来。二者都追求深度，但一个靠&quot;组合&quot;，一个靠&quot;递进&quot;。答题时若题目只给一个主题、没限定形式，写&quot;系列报道&quot;或&quot;专题报道&quot;都要把&quot;发稿计划&quot;落到具体版面／时段／平台上去，否则会失分在&quot;空泛&quot;。</div></div>
+</div>
+<div class="q" data-q="8" data-type="short">
+  <div class="qhead">
+    <span class="qno">8</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">【错题回滚·P0-6】社会分析方法</span>
+  </div>
+  <div class="stem">【错题回滚】论述题中常说的&quot;三个法&quot;——社会环境法、社会要素法、社会思维法，容易被当成同一套框架的别名。请分别说明三者的用途与操作方式，并给出判断该用哪一个的判据。</div>
+  <textarea class="shortin" data-q="8" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="8">查看解析</button>
+    <span class="saved" data-saved="8"></span>
+  </div>
+  <div class="ansbox" data-ans="8" hidden><div class="ansline"><b>参考答案</b>社会环境法——列六类环境，用于回答&quot;外因与大背景&quot;（为什么会产生／为什么如此）；社会要素法——列政策、法律、资本、市场、技术、公民、舆论七要素，用于拆解&quot;构成要件&quot;（由什么构成）；社会思维法——按政治／经济／文化／技术／国际五维给思维词，专门回答&quot;怎么做&quot;。判据：问&quot;为什么&quot;用环境法，问&quot;是什么构成&quot;用要素法，问&quot;怎么办&quot;用思维法。</div><div class="ansline"><b>得分点</b>三, 者, 用, 途, 与, 操, 作, 方, 式, 各,  , 1, ., 5,  , 分, （, 共,  , 4, ., 5,  , 分, ）, ；, 判, 据,  , 1, ., 5,  , 分, ；, 共,  , 6,  , 分, 。, 只, 答, 出, &quot;, P, E, T, C, S, I,  , 框, 架, 的, 不, 同, 说, 法, &quot;, 不, 给, 分, 。</div><div class="ansline"><b>解析</b>你上一次的答案是&quot;就是『社会框架 PETCSI』的不同说法&quot;——这是方向性错误。PETCSI 是**分析维度**，三个&quot;法&quot;是三套**不同的操作路径**，不能互换。一句话分工：问&quot;为什么&quot;用环境法，问&quot;是什么构成&quot;用要素法，问&quot;怎么办&quot;用思维法。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>二、政治 · 单选题
+    <span class="secmeta">8 题</span></h2>
+  
+<div class="q" data-q="9" data-type="choice">
+  <div class="qhead">
+    <span class="qno">9</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">【回滚·P0-5】党的建设</span>
+  </div>
+  <div class="stem">下列关于中国共产党的优良作风与&quot;显著标志&quot;的表述，**不正确**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q9" value="A"><span class="letter">A</span><span class="otext">理论联系实际、密切联系群众、批评和自我批评，是党在长期实践中形成的三大优良作风</span></label><label class="opt"><input type="radio" name="q9" value="B"><span class="letter">B</span><span class="otext">勇于自我革命是中国共产党区别于其他政党的显著标志</span></label><label class="opt"><input type="radio" name="q9" value="C"><span class="letter">C</span><span class="otext">理论联系实际、密切联系群众、批评和自我批评，是中国共产党区别于其他政党的显著标志</span></label><label class="opt"><input type="radio" name="q9" value="D"><span class="letter">D</span><span class="otext">三大优良作风由毛泽东在党的七大报告中加以概括</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="9">查看解析</button>
+    <span class="saved" data-saved="9"></span>
+  </div>
+  <div class="ansbox" data-ans="9" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>这是你反复出错的那一题，本次换成了&quot;选不正确的&quot;问法。&quot;三大优良作风&quot;不是&quot;区别于其他政党的显著标志&quot;的官方表述；&quot;区别于其他政党的显著标志&quot;专指**勇于自我革命**（出自党的十九届六中全会《决议》）。两条来源必须拆开背：①党的七大（1945）——三大优良作风＝理论联系实际、密切联系群众、批评和自我批评；②十九届六中全会——勇于自我革命是区别于其他政党的显著标志。你此前几次都选了把作风与自我革命并列的那一项，根子在 9.17 反馈原文里就把两者写成了一句话——那条笔记必须回去改。</div></div>
+</div>
+<div class="q" data-q="10" data-type="choice">
+  <div class="qhead">
+    <span class="qno">10</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">【回滚·P0-1】教育强国</span>
+  </div>
+  <div class="stem">建设教育强国，在战略要求上有一系列&quot;以…为…&quot;的表述。下列对应**不正确**的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q10" value="A"><span class="letter">A</span><span class="otext">以立德树人为根本任务</span></label><label class="opt"><input type="radio" name="q10" value="B"><span class="letter">B</span><span class="otext">以为党育人、为国育才为根本目标</span></label><label class="opt"><input type="radio" name="q10" value="C"><span class="letter">C</span><span class="otext">以人民满意为根本目标</span></label><label class="opt"><input type="radio" name="q10" value="D"><span class="letter">D</span><span class="otext">以支撑引领中国式现代化为核心功能</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="10">查看解析</button>
+    <span class="saved" data-saved="10"></span>
+  </div>
+  <div class="ansbox" data-ans="10" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>&quot;人民满意&quot;对应的表述是**根本尺度**，不是根本目标。你上次把&quot;根本方向／基本目标／最终目的／最终标准&quot;四个自造词填了进去——说明原表述从没背过，靠语感硬猜。记忆抓手：保（证）→党；任（务）→德育；目（标）→育才；使（命）→复兴；路（径）→现代化；功（能）→领现代化；&quot;人民满意&quot;单列，是**根本尺度**。凡看到&quot;人民满意&quot;被放进&quot;根本目标&quot;&quot;最终目的&quot;的位置，直接判错。</div></div>
+</div>
+<div class="q" data-q="11" data-type="choice">
+  <div class="qhead">
+    <span class="qno">11</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">【回滚·P0-2】统一战线</span>
+  </div>
+  <div class="stem">关于新时代统一战线，下列说法**不正确**的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q11" value="A"><span class="letter">A</span><span class="otext">大团结大联合是统一战线的本质要求</span></label><label class="opt"><input type="radio" name="q11" value="B"><span class="letter">B</span><span class="otext">统一战线解决的是人心和力量问题</span></label><label class="opt"><input type="radio" name="q11" value="C"><span class="letter">C</span><span class="otext">坚持求同存异是统一战线的关键</span></label><label class="opt"><input type="radio" name="q11" value="D"><span class="letter">D</span><span class="otext">统一战线最鲜明的特征是求同存异</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="11">查看解析</button>
+    <span class="saved" data-saved="11"></span>
+  </div>
+  <div class="ansbox" data-ans="11" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>最鲜明的特征是**坚持中国共产党的领导**，不是求同存异。你上次把&quot;大团结大联合&quot;记成&quot;大&quot;、把&quot;人心和力量&quot;记成&quot;差异&quot;——只记住了&quot;有个大字&quot;。记忆抓手：四级递进链——联合（本质）→人心（对象）→存异（方法）→党旗（特征），四步不能跳。</div></div>
+</div>
+<div class="q" data-q="12" data-type="choice">
+  <div class="qhead">
+    <span class="qno">12</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">【回滚·P1-7】法治体系</span>
+  </div>
+  <div class="stem">中国特色社会主义法治体系由若干子体系构成。下列**不属于**其组成部分的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q12" value="A"><span class="letter">A</span><span class="otext">法律规范体系</span></label><label class="opt"><input type="radio" name="q12" value="B"><span class="letter">B</span><span class="otext">法治实施体系</span></label><label class="opt"><input type="radio" name="q12" value="C"><span class="letter">C</span><span class="otext">法治宣传体系</span></label><label class="opt"><input type="radio" name="q12" value="D"><span class="letter">D</span><span class="otext">党内法规体系</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="12">查看解析</button>
+    <span class="saved" data-saved="12"></span>
+  </div>
+  <div class="ansbox" data-ans="12" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>五大体系＝法律规范体系、法治实施体系、法治监督体系、法治保障体系、党内法规体系。你上次五空全空，一个名字都写不出来。记忆抓手（五字链）：**规 → 实 → 监 → 保 → 党**。法律**规**范 → 法治**实**施 → 法治**监**督 → 法治**保**障 → **党**内法规。注意 C 是&quot;宣传&quot;，五大体系里没有&quot;法治宣传体系&quot;。</div></div>
+</div>
+<div class="q" data-q="13" data-type="choice">
+  <div class="qhead">
+    <span class="qno">13</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">四个意识</span>
+  </div>
+  <div class="stem">&quot;四个意识&quot;是新时期党的建设的重要要求。&quot;四个意识&quot;是指：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q13" value="A"><span class="letter">A</span><span class="otext">政治意识、大局意识、核心意识、看齐意识</span></label><label class="opt"><input type="radio" name="q13" value="B"><span class="letter">B</span><span class="otext">政治意识、责任意识、核心意识、看齐意识</span></label><label class="opt"><input type="radio" name="q13" value="C"><span class="letter">C</span><span class="otext">政治意识、大局意识、责任意识、看齐意识</span></label><label class="opt"><input type="radio" name="q13" value="D"><span class="letter">D</span><span class="otext">政治意识、大局意识、核心意识、忧患意识</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="13">查看解析</button>
+    <span class="saved" data-saved="13"></span>
+  </div>
+  <div class="ansbox" data-ans="13" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>四个意识＝政治意识、大局意识、核心意识、看齐意识。干扰项集中替换第 2 个或第 4 个词（把&quot;大局&quot;换成&quot;责任&quot;、把&quot;看齐&quot;换成&quot;忧患&quot;），这是此类题最常见的设错手法。记忆抓手：把四个词读成一句——&quot;讲政治、顾大局、拥核心、看齐步&quot;。</div></div>
+</div>
+<div class="q" data-q="14" data-type="choice">
+  <div class="qhead">
+    <span class="qno">14</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">抗战精神</span>
+  </div>
+  <div class="stem">2014 年 9 月 3 日，习近平在纪念中国人民抗日战争暨世界反法西斯战争胜利 69 周年座谈会上高度概括了抗战精神的内涵。下列**不属于**抗战精神内涵的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q14" value="A"><span class="letter">A</span><span class="otext">天下兴亡、匹夫有责的爱国情怀</span></label><label class="opt"><input type="radio" name="q14" value="B"><span class="letter">B</span><span class="otext">视死如归、宁死不屈的民族气节</span></label><label class="opt"><input type="radio" name="q14" value="C"><span class="letter">C</span><span class="otext">自力更生、艰苦奋斗的创业精神</span></label><label class="opt"><input type="radio" name="q14" value="D"><span class="letter">D</span><span class="otext">百折不挠、坚忍不拔的必胜信念</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="14">查看解析</button>
+    <span class="saved" data-saved="14"></span>
+  </div>
+  <div class="ansbox" data-ans="14" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>抗战精神四句＝爱国情怀（天下兴亡、匹夫有责）＋民族气节（视死如归、宁死不屈）＋英雄气概（不畏强暴、血战到底）＋必胜信念（百折不挠、坚忍不拔）。C 的&quot;自力更生、艰苦奋斗&quot;属另一套精神谱系的表述（延安精神、大寨精神等），此处用来做结构仿写干扰。记忆抓手：情怀—气节—气概—信念，四层由内到外、由个人到民族。</div></div>
+</div>
+<div class="q" data-q="15" data-type="choice">
+  <div class="qhead">
+    <span class="qno">15</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">抗战胜利纪念日</span>
+  </div>
+  <div class="stem">中国人民抗日战争胜利纪念日是每年的：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q15" value="A"><span class="letter">A</span><span class="otext">7 月 7 日</span></label><label class="opt"><input type="radio" name="q15" value="B"><span class="letter">B</span><span class="otext">8 月 15 日</span></label><label class="opt"><input type="radio" name="q15" value="C"><span class="letter">C</span><span class="otext">9 月 3 日</span></label><label class="opt"><input type="radio" name="q15" value="D"><span class="letter">D</span><span class="otext">9 月 18 日</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="15">查看解析</button>
+    <span class="saved" data-saved="15"></span>
+  </div>
+  <div class="ansbox" data-ans="15" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>抗战胜利纪念日为 **9 月 3 日**（1945 年 9 月 2 日日本签署投降书，9 月 3 日被定为纪念日）。三个易混日期必须分清：7 月 7 日＝卢沟桥事变（全民族抗战爆发）；9 月 18 日＝九一八事变（局部抗战起点）；8 月 15 日＝日本宣布无条件投降，不作为法定纪念日。记忆抓手：&quot;七七爆发、九三胜利、九一八事变&quot;。</div></div>
+</div>
+<div class="q" data-q="16" data-type="choice">
+  <div class="qhead">
+    <span class="qno">16</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">两个一百年</span>
+  </div>
+  <div class="stem">我国站在&quot;两个一百年&quot;奋斗目标的历史交汇点上，是在：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q16" value="A"><span class="letter">A</span><span class="otext">2019 年，新中国成立 70 周年</span></label><label class="opt"><input type="radio" name="q16" value="B"><span class="letter">B</span><span class="otext">2020 年，全面建成小康社会目标实现之年</span></label><label class="opt"><input type="radio" name="q16" value="C"><span class="letter">C</span><span class="otext">2021 年，中国共产党成立 100 周年</span></label><label class="opt"><input type="radio" name="q16" value="D"><span class="letter">D</span><span class="otext">2022 年，党的二十大召开之年</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="16">查看解析</button>
+    <span class="saved" data-saved="16"></span>
+  </div>
+  <div class="ansbox" data-ans="16" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>2021 年 7 月 1 日中国共产党成立 100 周年之际，第一个百年奋斗目标（全面建成小康社会）如期实现，第二个百年奋斗目标（全面建成社会主义现代化强国）新征程开启，这是&quot;两个一百年&quot;的历史交汇点。记忆抓手：交汇点＝党的百岁生日那一年。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>三、英语 · 翻译与词汇
+    <span class="secmeta">4 题</span></h2>
+  
+<div class="q" data-q="17" data-type="fill">
+  <div class="qhead">
+    <span class="qno">17</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">【回滚·P1-10】词汇</span>
+  </div>
+  <div class="stem">根据语境填入恰当的词或短语（每空填一个词或一个短语）：
+① Governments pledged to ____ ____ ____ illegal wildlife trade.（严厉打击）
+② These wild flowers grow best on the open ____.（大草原）
+③ The question of how to fund the whole plan is far ____.（更棘手的）
+④ The company was ____ ____ misleading consumers.（被指控）
+⑤ The regulator imposed a heavy ____ on the firm.（罚款）</div>
+  <div class="fills"><input class="fillin" type="text" data-q="17" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="17" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="17" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="17" data-b="3" placeholder="第 4 空" autocomplete="off"><input class="fillin" type="text" data-q="17" data-b="4" placeholder="第 5 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="17">查看解析</button>
+    <span class="saved" data-saved="17"></span>
+  </div>
+  <div class="ansbox" data-ans="17" hidden><div class="ansline"><b>参考答案</b>① crack down on　② prairie　③ thornier　④ accused of　⑤ fine</div><div class="ansline"><b>得分点</b>每, 空,  , 2,  , 分, ，, 共,  , 1, 0,  , 分, ；, 拼, 写, 错, 误, 每, 处, 扣,  , 0, ., 5,  , 分, 。, ①, ⑤,  , 介, 词, ／, 词, 形, 错, 扣,  , 1,  , 分, 。</div><div class="ansline"><b>解析</b>这五个词里有三个你以前答错过：**crack down on** 你写成&quot;崩塌&quot;——那是 collapse，crack down 是朝外的&quot;打压&quot;，联想&quot;警方扫荡&quot;；**prairie** 你留了空——与 plain（平原）、plateau（高原）一起记；**thornier** 你写&quot;更尖锐&quot;，接近但不准，固定搭配是&quot;问题更棘手&quot;。**accuse sb. of (doing) sth.** 与 charge sb. with 同义不同介词，是高频考点；**fine** 作名词＝罚款，作动词＝处以罚款。</div></div>
+</div>
+<div class="q" data-q="18" data-type="translate">
+  <div class="qhead">
+    <span class="qno">18</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">长难句·比较级</span>
+  </div>
+  <div class="stem">翻译下面这句话，并标出主干：
+
+Consumers who have grown used to free services are far more likely to switch to a paid platform than to give up the convenience altogether.</div>
+  <textarea class="transin" data-q="18" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="18">查看解析</button>
+    <span class="saved" data-saved="18"></span>
+  </div>
+  <div class="ansbox" data-ans="18" hidden><div class="ansline"><b>参考答案</b>译文：那些已经习惯了免费服务的消费者，转向付费平台的可能性要远远大于彻底放弃这种便利的可能性。
+主干：Consumers（who 引导定语从句修饰）are likely to switch ... than to give up ...；比较结构为 far more likely to A than to B，即&quot;做 A 的可能性远大于做 B&quot;。</div><div class="ansline"><b>得分点</b>①, 识, 别, 并, 译, 出,  , w, h, o,  , 引, 导, 的, 定, 语, 从, 句,  , 2,  , 分, ；, ②, f, a, r,  , m, o, r, e,  , l, i, k, e, l, y,  , t, o,  , A,  , t, h, a, n,  , t, o,  , B,  , 的, 比, 较, 结, 构, 必, 须, 译, 出, &quot;, 远, 远, 更, 有, 可, 能, ／, 可, 能, 性, 远, 大, 于, &quot;,  , 3,  , 分, ；, ③, 主, 干, 与, 全, 句, 意, 思, 准, 确,  , 2,  , 分, ；, ④, 中, 文, 通, 顺,  , 1,  , 分, ；, 共,  , 8,  , 分, 。</div><div class="ansline"><b>解析</b>你又遇到上次的老问题——比较级和程度副词不能吞。上次 `are far more likely to feel threatened` 你直接译成&quot;感到受到威胁&quot;，把 far more likely 整个丢了。英二翻译里，比较结构、程度副词、&quot;those／who&quot;这类指代，都是明确的采分点，漏一个就掉一档。</div></div>
+</div>
+<div class="q" data-q="19" data-type="translate">
+  <div class="qhead">
+    <span class="qno">19</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">长难句·not simply...but...</span>
+  </div>
+  <div class="stem">下面这句话结构较长，请先断句、标出主干，再翻译：
+
+What makes the current wave of automation different from earlier ones is not simply that machines can do more, but that they are learning to do it without being told exactly how.</div>
+  <textarea class="transin" data-q="19" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="19">查看解析</button>
+    <span class="saved" data-saved="19"></span>
+  </div>
+  <div class="ansbox" data-ans="19" hidden><div class="ansline"><b>参考答案</b>译文：当前这轮自动化之所以不同于以往几轮，关键不仅仅是机器能做更多的事，更在于它们正在学会在没人明确告知具体做法的情况下完成工作。
+主干：What makes ... different ... is not simply that ..., but that ...。主语为 What 引导的主语从句，系动词是 is，表语为 not simply that...but that... 两个并列的 that 从句。</div><div class="ansline"><b>得分点</b>①, 识, 别,  , W, h, a, t,  , 引, 导, 的, 主, 语, 从, 句,  , 2,  , 分, ；, ②, 识, 别,  , n, o, t,  , s, i, m, p, l, y,  , t, h, a, t, ., ., ., b, u, t,  , t, h, a, t, ., ., .,  , 的, 并, 列, 表, 语, 从, 句, 结, 构,  , 3,  , 分, ；, ③, &quot;, w, i, t, h, o, u, t,  , b, e, i, n, g,  , t, o, l, d,  , e, x, a, c, t, l, y,  , h, o, w, &quot;, 译, 为, &quot;, 在, 没, 人, 明, 确, 告, 知, 具, 体, 做, 法, 的, 情, 况, 下, &quot;,  , 2,  , 分, ；, ④, 译, 文, 通, 顺,  , 1,  , 分, ；, 共,  , 8,  , 分, 。</div><div class="ansline"><b>解析</b>方法要点：长难句先找&quot;主句的谓语动词&quot;（这里是 is）；谓语之前的是主语（What 从句），之后的是表语（that 从句）。not simply...but... 是递进关系：A 并未被否定，只是强调 B 更关键，译成&quot;不仅仅是 A，更在于 B&quot;。若把它当成取舍关系压缩成&quot;否定 A、只取 B&quot;，就把原文的 A 给否定了，属硬伤。</div></div>
+</div>
+<div class="q" data-q="20" data-type="short">
+  <div class="qhead">
+    <span class="qno">20</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">翻译方法反思</span>
+  </div>
+  <div class="stem">复盘你的英二翻译：结合上面两题的失分点，写出你自己的&quot;长难句翻译检查清单&quot;（至少 3 条，每条要说明&quot;看到什么信号 → 该怎么处理&quot;）。</div>
+  <textarea class="shortin" data-q="20" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="20">查看解析</button>
+    <span class="saved" data-saved="20"></span>
+  </div>
+  <div class="ansbox" data-ans="20" hidden><div class="ansline"><b>参考答案</b>参考答案（要点）：①看到比较级／程度副词（more、less、far、much、rather、-er than）→ 必须译出比较与程度，不能省略；②看到 who／which／that 引导的从句 → 先判断它修饰哪个名词，再译成&quot;……的&quot;或另起分句，不能丢；③看到 not A but B ／ not simply A but B → 分清是取舍还是递进：取舍关系要同时保留对 A 的否定，递进关系里 A 并不被否定，只是 B 更关键；④长句先断句、划出主谓宾，再逐段译；⑤译完通读中文，检查是否像人话、有无漏译。</div><div class="ansline"><b>得分点</b>每, 条,  , 2,  , 分, ，, 写, 出,  , 3,  , 条, 即, 满, 分, （, 共,  , 6,  , 分, ）, ；, 须, 包, 含, &quot;, 比, 较, 级, 不, 省, &quot;, &quot;, 从, 句, 不, 丢, &quot;, &quot;, 先, 划, 主, 干, 再, 译, &quot;, 三, 条, 中, 的, 至, 少, 两, 条, 。</div><div class="ansline"><b>解析</b>你的失分不在词量，在检查动作没建立。译完必须回头逐项对表：比较级、程度副词、从句、指代、否定范围，五个格子挨个过一遍。把这五条抄在笔记本第一页，每次翻译后过一遍再交卷。</div></div>
+</div>
+</section>
+
+  <div class="done-tip" id="doneTip">
+    <b>🎉 全部作答完毕</b>
+    点右下角「导出我的答案」，把导出的文件发给我，我会逐题批改并给出评分与改进建议。
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="tb-inner">
+    <button class="btn btn-main" id="btnExport">导出我的答案</button>
+    <button class="btn btn-ghost" id="btnRevealAll">展开全部解析</button>
+    <button class="btn btn-ghost" id="btnReset">清空重做</button>
+    <span class="tb-count" id="tbCount">0 / 20</span>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">你的答案（复制后发给我批改）</div>
+    <div class="modal-body">
+      <div class="modal-tip">
+        全选复制下面的内容，粘贴到对话里发给我即可。也可以点「下载 .md」保存成文件再上传。
+      </div>
+      <textarea id="exportArea" readonly></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="btnCloseModal">关闭</button>
+      <button class="btn btn-main" id="btnDownload">下载 .md</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ = {"title": "考研每日测验 · 10.12 综合卷（素材：宝厂实务「大明白」·新闻采访提纲与报道策划）", "date": "2026-10-12", "sections": [{"name": "一、专业课 · 新闻实务（采访提纲与报道策划）", "questions": [{"id": 1, "type": "choice", "kp": "采访基础概念", "stem": "新闻实务写作中，几组概念容易混淆。下列说法**不正确**的是：", "options": ["采访计划是采访活动之前针对本次采访任务的各项工作安排，重点在微观工作计划", "报道计划是就一个题材或多个题材乃至一段时间确定的报道任务及其实施步骤，重点在宏观选题策划", "采访计划与采访提纲是从属和包容的关系，采访提纲从属于采访计划", "采访提纲的外延比报道提纲更广，涵盖写作提纲及体裁样式、刊登（播发）方式等规划"], "answer": "D", "explain": "说反了。外延更广的是**报道提纲**——它不仅包括采访提纲，还包括写作提纲及关于体裁样式、刊登（播发）方式的规划；采访提纲只针对采访对象拟提的问题和具体采访流程。A、B、C 均为《新闻采访与写作（马工程）》的原表述。记忆抓手：题目里只要出现\"外延更广\"\"涵盖写作提纲\"，就找报道提纲。", "_id": 1}, {"id": 2, "type": "choice", "kp": "采访方式·隐性采访", "stem": "关于隐性采访，下列说法**正确**的是：", "options": ["隐性采访的基本特征是记者公开身份但不申明采访目的", "隐性采访又称\"暗访\"，其基本特征包括隐瞒记者身份、采访对象不知情、秘密获取信息", "隐性采访因材料真实可靠且不涉法律争议，是舆论监督中最受推荐的手段", "隐性采访只有在采访对象明确拒绝合作时才可使用，其余情形一律禁止"], "answer": "B", "explain": "A 错在\"公开身份\"——隐性采访是不公开记者身份、不申明采访目的。C 错，隐性采访恰恰面临危险性、法律与社会伦理困境、可能侵犯隐私，还存在滥用风险（有显性采访可选择时仍用、一段时期内密集使用、为获取\"猛料\"诱导对方违法、为报复敲诈而用）。D 把实践中的\"审慎适用\"说成了绝对化禁令，材料无此表述。B 为教材原表述。教训：答隐性采访的题，必须同时给出\"特征三条（隐身份／对象不知／秘密获取）＋弊端一串\"。", "_id": 2}, {"id": 3, "type": "choice", "kp": "提问类型", "stem": "采访提问分为开放式与封闭式两类。下列情境中，**最适合使用封闭式提问**的是：", "options": ["采访一位学者，请他谈谈对人工智能与新闻业关系的整体看法", "采访一位情绪低落、不愿多说的受访者，需确认事故发生的具体时间与地点", "采访一位老艺术家，请他讲述自己数十年的创作历程", "采访一位企业家，请他谈谈企业未来的战略构想"], "answer": "B", "explain": "封闭式提问指向具体、明确，要求一个有针对性的答案，适用两类场景：①了解和调查具体事件信息、或时间紧迫的场合；②受访者回答主动性不强、积极性不高或情绪不好的时候。B 同时满足两点。A、C、D 都需要受访者展开叙述、表达态度情感观点，属开放式提问的适用场景——开放式的缺点是容易松散、空泛、跑题，更适合知识文化水平较高的受访者。", "_id": 3}, {"id": 4, "type": "fill", "blanks": 3, "kp": "提问的基本形式", "stem": "记者提问有三种常见的基本形式：开门见山、直截了当、单刀直入的是____；运用启发引导原理、旁敲侧击、循循善诱的是____；通过一定强度的刺激设问、促使对方由\"要我谈\"转为\"我要谈\"的是____。", "answer": "正面提、侧面探、反面激", "keys": "每空 1 分。\"正面提\"写\"直接提问／开门见山\"可给分；\"侧面探\"写\"旁敲侧击／启发引导\"可给分；\"反面激\"写\"激将／刺激设问\"可给分。", "explain": "三种基本形式各有适用对象：正面提——一是记者熟悉的，二是干部、学者、演员运动员、外宾等；侧面探——想谈但一时回忆不起的对象，含接近性、相似性、对比性三种启发引导；反面激——谦虚不想谈、有顾虑怕谈、自恃地位身份不屑谈的对象，分\"激问\"与\"错问\"两档（错问刺激强度更大）。《新闻采访与写作（马工程）》另补两种：假借法（借受访者的话／借第三者的话／假设话题）与盘问法（一题多问＋连续追问，调查性报道常用）。", "_id": 4}, {"id": 5, "type": "fill", "blanks": 4, "kp": "采访计划的构成", "stem": "一份周密可行的采访计划通常由若干部分组成。除\"采访任务\"与\"采访提纲\"之外，请再写出其中四项：____、____、____、____。", "answer": "人员安排、采访时间、采访地点、采访对象（也可写：交通方式、器材配备）", "keys": "四项各 1 分，共 4 分；顺序不限，写对四项即满分。若写\"交通方式\"\"器材配备\"同样给分。", "explain": "采访计划完整构成共八项：采访任务 → 人员安排 → 采访时间 → 采访地点 → 采访对象 → 交通方式 → 器材配备 → 采访提纲。记忆抓手：按\"任务先行\"的口径串一遍——要干什么（任务）→ 谁去（人员）→ 什么时候（时间）→ 在哪（地点）→ 采访谁（对象）→ 怎么去（交通）→ 带什么（器材）→ 问什么（提纲）。注意\"采访对象\"一栏还要包括备选替代对象及联系方式。", "_id": 5}, {"id": 6, "type": "short", "rows": 6, "kp": "人物采访提纲五方面", "stem": "人物采访提纲一般需关注五个方面的内容。请写出这五个方面，并各用一句话说明其指向。", "answer": "①其事——与该人物相关的新闻事实，通过采访必须将\"其事\"了解清楚；②观点——该人物对相关事件或事物的看法与解释；③经历——该人物自己讲述的个人经历；④拓展——采访中准备的拓展性问题，用以挖掘更多未知事实与生动细节；⑤个性——该人物的兴趣爱好、个人魅力、性格特征等。", "keys": "五个方面各 1 分（共 5 分），每项说明 0.5 分（共 2.5 分）；写出\"其事／观点／经历／拓展／个性\"五个关键词即得基础分。", "explain": "记忆抓手：事—观—历—拓—个，即\"发生了什么、他怎么想、他走过什么路、还能挖什么、他是什么人\"。另需辨析：事件（现象）采访提纲关注的是\"事\"的起因、过程、结局、影响，\"人\"只是作为\"事\"的讲述者而存在；只有人物采访提纲才以\"人\"为中心。多重人物采访提纲除五方面外，还要注意每个人物的不同特点、在新闻事件中的各自作用及相互关系，以防人物报道雷同。", "_id": 6}, {"id": 7, "type": "short", "rows": 6, "kp": "专题报道与系列报道", "stem": "专题报道与系列报道是报道内容层面两种主要类型。请分别写出二者的定义，并说明两者的主要区别。", "answer": "专题报道：针对现实生活中具有重要社会意义的报道主题，以多篇稿件、从多个侧面揭示主题的丰富性与复杂性的报道，又称\"组合报道\"，具有多重整合、体裁多样、逻辑严密三个特点。系列报道：围绕同一新闻题材、新闻主题，从不同侧面、不同角度进行多次、连续的报道，由多篇报道构成，分之独立成篇、合之则成一整体，能产生\"集束效应\"，具有主题统一视角多元、紧扣热点激发关注、层层推进彰显深度三个特点。主要区别：专题报道重\"空间的整合\"——同一时间把多个侧面的稿件组合编排（报纸重版式与专栏设置，广电重时间段与节目长度，新媒体把空间与时间整合功能合于一体）；系列报道重\"时间的延展\"——同一主题在不同时间多次连续推出、层层递进。", "keys": "专题报道定义 1.5 分；系列报道定义 1.5 分；两者区别（空间整合／组合编排 vs 时间延展／连续推进）2 分；共 5 分。", "explain": "记忆抓手：专题＝\"横着切\"，同一时间多个侧面一起上；系列＝\"竖着切\"，同一主题分几次连着来。二者都追求深度，但一个靠\"组合\"，一个靠\"递进\"。答题时若题目只给一个主题、没限定形式，写\"系列报道\"或\"专题报道\"都要把\"发稿计划\"落到具体版面／时段／平台上去，否则会失分在\"空泛\"。", "_id": 7}, {"id": 8, "type": "short", "rows": 6, "kp": "【错题回滚·P0-6】社会分析方法", "stem": "【错题回滚】论述题中常说的\"三个法\"——社会环境法、社会要素法、社会思维法，容易被当成同一套框架的别名。请分别说明三者的用途与操作方式，并给出判断该用哪一个的判据。", "answer": "社会环境法——列六类环境，用于回答\"外因与大背景\"（为什么会产生／为什么如此）；社会要素法——列政策、法律、资本、市场、技术、公民、舆论七要素，用于拆解\"构成要件\"（由什么构成）；社会思维法——按政治／经济／文化／技术／国际五维给思维词，专门回答\"怎么做\"。判据：问\"为什么\"用环境法，问\"是什么构成\"用要素法，问\"怎么办\"用思维法。", "keys": "三者用途与操作方式各 1.5 分（共 4.5 分）；判据 1.5 分；共 6 分。只答出\"PETCSI 框架的不同说法\"不给分。", "explain": "你上一次的答案是\"就是『社会框架 PETCSI』的不同说法\"——这是方向性错误。PETCSI 是**分析维度**，三个\"法\"是三套**不同的操作路径**，不能互换。一句话分工：问\"为什么\"用环境法，问\"是什么构成\"用要素法，问\"怎么办\"用思维法。", "_id": 8}]}, {"name": "二、政治 · 单选题", "questions": [{"id": 9, "type": "choice", "kp": "【回滚·P0-5】党的建设", "stem": "下列关于中国共产党的优良作风与\"显著标志\"的表述，**不正确**的一项是：", "options": ["理论联系实际、密切联系群众、批评和自我批评，是党在长期实践中形成的三大优良作风", "勇于自我革命是中国共产党区别于其他政党的显著标志", "理论联系实际、密切联系群众、批评和自我批评，是中国共产党区别于其他政党的显著标志", "三大优良作风由毛泽东在党的七大报告中加以概括"], "answer": "C", "explain": "这是你反复出错的那一题，本次换成了\"选不正确的\"问法。\"三大优良作风\"不是\"区别于其他政党的显著标志\"的官方表述；\"区别于其他政党的显著标志\"专指**勇于自我革命**（出自党的十九届六中全会《决议》）。两条来源必须拆开背：①党的七大（1945）——三大优良作风＝理论联系实际、密切联系群众、批评和自我批评；②十九届六中全会——勇于自我革命是区别于其他政党的显著标志。你此前几次都选了把作风与自我革命并列的那一项，根子在 9.17 反馈原文里就把两者写成了一句话——那条笔记必须回去改。", "_id": 9}, {"id": 10, "type": "choice", "kp": "【回滚·P0-1】教育强国", "stem": "建设教育强国，在战略要求上有一系列\"以…为…\"的表述。下列对应**不正确**的是：", "options": ["以立德树人为根本任务", "以为党育人、为国育才为根本目标", "以人民满意为根本目标", "以支撑引领中国式现代化为核心功能"], "answer": "C", "explain": "\"人民满意\"对应的表述是**根本尺度**，不是根本目标。你上次把\"根本方向／基本目标／最终目的／最终标准\"四个自造词填了进去——说明原表述从没背过，靠语感硬猜。记忆抓手：保（证）→党；任（务）→德育；目（标）→育才；使（命）→复兴；路（径）→现代化；功（能）→领现代化；\"人民满意\"单列，是**根本尺度**。凡看到\"人民满意\"被放进\"根本目标\"\"最终目的\"的位置，直接判错。", "_id": 10}, {"id": 11, "type": "choice", "kp": "【回滚·P0-2】统一战线", "stem": "关于新时代统一战线，下列说法**不正确**的是：", "options": ["大团结大联合是统一战线的本质要求", "统一战线解决的是人心和力量问题", "坚持求同存异是统一战线的关键", "统一战线最鲜明的特征是求同存异"], "answer": "D", "explain": "最鲜明的特征是**坚持中国共产党的领导**，不是求同存异。你上次把\"大团结大联合\"记成\"大\"、把\"人心和力量\"记成\"差异\"——只记住了\"有个大字\"。记忆抓手：四级递进链——联合（本质）→人心（对象）→存异（方法）→党旗（特征），四步不能跳。", "_id": 11}, {"id": 12, "type": "choice", "kp": "【回滚·P1-7】法治体系", "stem": "中国特色社会主义法治体系由若干子体系构成。下列**不属于**其组成部分的是：", "options": ["法律规范体系", "法治实施体系", "法治宣传体系", "党内法规体系"], "answer": "C", "explain": "五大体系＝法律规范体系、法治实施体系、法治监督体系、法治保障体系、党内法规体系。你上次五空全空，一个名字都写不出来。记忆抓手（五字链）：**规 → 实 → 监 → 保 → 党**。法律**规**范 → 法治**实**施 → 法治**监**督 → 法治**保**障 → **党**内法规。注意 C 是\"宣传\"，五大体系里没有\"法治宣传体系\"。", "_id": 12}, {"id": 13, "type": "choice", "kp": "四个意识", "stem": "\"四个意识\"是新时期党的建设的重要要求。\"四个意识\"是指：", "options": ["政治意识、大局意识、核心意识、看齐意识", "政治意识、责任意识、核心意识、看齐意识", "政治意识、大局意识、责任意识、看齐意识", "政治意识、大局意识、核心意识、忧患意识"], "answer": "A", "explain": "四个意识＝政治意识、大局意识、核心意识、看齐意识。干扰项集中替换第 2 个或第 4 个词（把\"大局\"换成\"责任\"、把\"看齐\"换成\"忧患\"），这是此类题最常见的设错手法。记忆抓手：把四个词读成一句——\"讲政治、顾大局、拥核心、看齐步\"。", "_id": 13}, {"id": 14, "type": "choice", "kp": "抗战精神", "stem": "2014 年 9 月 3 日，习近平在纪念中国人民抗日战争暨世界反法西斯战争胜利 69 周年座谈会上高度概括了抗战精神的内涵。下列**不属于**抗战精神内涵的是：", "options": ["天下兴亡、匹夫有责的爱国情怀", "视死如归、宁死不屈的民族气节", "自力更生、艰苦奋斗的创业精神", "百折不挠、坚忍不拔的必胜信念"], "answer": "C", "explain": "抗战精神四句＝爱国情怀（天下兴亡、匹夫有责）＋民族气节（视死如归、宁死不屈）＋英雄气概（不畏强暴、血战到底）＋必胜信念（百折不挠、坚忍不拔）。C 的\"自力更生、艰苦奋斗\"属另一套精神谱系的表述（延安精神、大寨精神等），此处用来做结构仿写干扰。记忆抓手：情怀—气节—气概—信念，四层由内到外、由个人到民族。", "_id": 14}, {"id": 15, "type": "choice", "kp": "抗战胜利纪念日", "stem": "中国人民抗日战争胜利纪念日是每年的：", "options": ["7 月 7 日", "8 月 15 日", "9 月 3 日", "9 月 18 日"], "answer": "C", "explain": "抗战胜利纪念日为 **9 月 3 日**（1945 年 9 月 2 日日本签署投降书，9 月 3 日被定为纪念日）。三个易混日期必须分清：7 月 7 日＝卢沟桥事变（全民族抗战爆发）；9 月 18 日＝九一八事变（局部抗战起点）；8 月 15 日＝日本宣布无条件投降，不作为法定纪念日。记忆抓手：\"七七爆发、九三胜利、九一八事变\"。", "_id": 15}, {"id": 16, "type": "choice", "kp": "两个一百年", "stem": "我国站在\"两个一百年\"奋斗目标的历史交汇点上，是在：", "options": ["2019 年，新中国成立 70 周年", "2020 年，全面建成小康社会目标实现之年", "2021 年，中国共产党成立 100 周年", "2022 年，党的二十大召开之年"], "answer": "C", "explain": "2021 年 7 月 1 日中国共产党成立 100 周年之际，第一个百年奋斗目标（全面建成小康社会）如期实现，第二个百年奋斗目标（全面建成社会主义现代化强国）新征程开启，这是\"两个一百年\"的历史交汇点。记忆抓手：交汇点＝党的百岁生日那一年。", "_id": 16}]}, {"name": "三、英语 · 翻译与词汇", "questions": [{"id": 17, "type": "fill", "blanks": 5, "kp": "【回滚·P1-10】词汇", "stem": "根据语境填入恰当的词或短语（每空填一个词或一个短语）：\n① Governments pledged to ____ ____ ____ illegal wildlife trade.（严厉打击）\n② These wild flowers grow best on the open ____.（大草原）\n③ The question of how to fund the whole plan is far ____.（更棘手的）\n④ The company was ____ ____ misleading consumers.（被指控）\n⑤ The regulator imposed a heavy ____ on the firm.（罚款）", "answer": "① crack down on　② prairie　③ thornier　④ accused of　⑤ fine", "keys": "每空 2 分，共 10 分；拼写错误每处扣 0.5 分。①⑤ 介词／词形错扣 1 分。", "explain": "这五个词里有三个你以前答错过：**crack down on** 你写成\"崩塌\"——那是 collapse，crack down 是朝外的\"打压\"，联想\"警方扫荡\"；**prairie** 你留了空——与 plain（平原）、plateau（高原）一起记；**thornier** 你写\"更尖锐\"，接近但不准，固定搭配是\"问题更棘手\"。**accuse sb. of (doing) sth.** 与 charge sb. with 同义不同介词，是高频考点；**fine** 作名词＝罚款，作动词＝处以罚款。", "_id": 17}, {"id": 18, "type": "translate", "kp": "长难句·比较级", "stem": "翻译下面这句话，并标出主干：\n\nConsumers who have grown used to free services are far more likely to switch to a paid platform than to give up the convenience altogether.", "answer": "译文：那些已经习惯了免费服务的消费者，转向付费平台的可能性要远远大于彻底放弃这种便利的可能性。\n主干：Consumers（who 引导定语从句修饰）are likely to switch ... than to give up ...；比较结构为 far more likely to A than to B，即\"做 A 的可能性远大于做 B\"。", "keys": "①识别并译出 who 引导的定语从句 2 分；②far more likely to A than to B 的比较结构必须译出\"远远更有可能／可能性远大于\" 3 分；③主干与全句意思准确 2 分；④中文通顺 1 分；共 8 分。", "explain": "你又遇到上次的老问题——比较级和程度副词不能吞。上次 `are far more likely to feel threatened` 你直接译成\"感到受到威胁\"，把 far more likely 整个丢了。英二翻译里，比较结构、程度副词、\"those／who\"这类指代，都是明确的采分点，漏一个就掉一档。", "_id": 18}, {"id": 19, "type": "translate", "kp": "长难句·not simply...but...", "stem": "下面这句话结构较长，请先断句、标出主干，再翻译：\n\nWhat makes the current wave of automation different from earlier ones is not simply that machines can do more, but that they are learning to do it without being told exactly how.", "answer": "译文：当前这轮自动化之所以不同于以往几轮，关键不仅仅是机器能做更多的事，更在于它们正在学会在没人明确告知具体做法的情况下完成工作。\n主干：What makes ... different ... is not simply that ..., but that ...。主语为 What 引导的主语从句，系动词是 is，表语为 not simply that...but that... 两个并列的 that 从句。", "keys": "①识别 What 引导的主语从句 2 分；②识别 not simply that...but that... 的并列表语从句结构 3 分；③\"without being told exactly how\"译为\"在没人明确告知具体做法的情况下\" 2 分；④译文通顺 1 分；共 8 分。", "explain": "方法要点：长难句先找\"主句的谓语动词\"（这里是 is）；谓语之前的是主语（What 从句），之后的是表语（that 从句）。not simply...but... 是递进关系：A 并未被否定，只是强调 B 更关键，译成\"不仅仅是 A，更在于 B\"。若把它当成取舍关系压缩成\"否定 A、只取 B\"，就把原文的 A 给否定了，属硬伤。", "_id": 19}, {"id": 20, "type": "short", "rows": 5, "kp": "翻译方法反思", "stem": "复盘你的英二翻译：结合上面两题的失分点，写出你自己的\"长难句翻译检查清单\"（至少 3 条，每条要说明\"看到什么信号 → 该怎么处理\"）。", "answer": "参考答案（要点）：①看到比较级／程度副词（more、less、far、much、rather、-er than）→ 必须译出比较与程度，不能省略；②看到 who／which／that 引导的从句 → 先判断它修饰哪个名词，再译成\"……的\"或另起分句，不能丢；③看到 not A but B ／ not simply A but B → 分清是取舍还是递进：取舍关系要同时保留对 A 的否定，递进关系里 A 并不被否定，只是 B 更关键；④长句先断句、划出主谓宾，再逐段译；⑤译完通读中文，检查是否像人话、有无漏译。", "keys": "每条 2 分，写出 3 条即满分（共 6 分）；须包含\"比较级不省\"\"从句不丢\"\"先划主干再译\"三条中的至少两条。", "explain": "你的失分不在词量，在检查动作没建立。译完必须回头逐项对表：比较级、程度副词、从句、指代、否定范围，五个格子挨个过一遍。把这五条抄在笔记本第一页，每次翻译后过一遍再交卷。", "_id": 20}]}]};
+const QUIZID = "2026-10-12";
+const KEY = "quiz_" + QUIZID;
+const TOTAL = 20;
+
+// ---- 状态存取 ----
+let state = JSON.parse(localStorage.getItem(KEY) || "{}");
+
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+function answeredCount(){
+  let n = 0;
+  QUIZ.sections.forEach(s => s.questions.forEach((q, i) => {
+    const id = q._id;
+    const v = state[id];
+    if (q.type === "choice") { if (v) n++; }
+    else if (q.type === "fill") {
+      if (v && Object.values(v).some(x => (x||"").trim())) n++;
+    }
+    else { if (v && v.trim()) n++; }
+  }));
+  return n;
+}
+
+function updateProgress(){
+  const n = answeredCount();
+  const pct = Math.round(n / TOTAL * 100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("ptext").textContent = `已作答 ${n} / ${TOTAL}`;
+  document.getElementById("tbCount").textContent = `${n} / ${TOTAL}`;
+  document.getElementById("doneTip").classList.toggle("show", n >= TOTAL);
+}
+
+function flashSaved(n){
+  const el = document.querySelector(`.saved[data-saved="${n}"]`);
+  if (!el) return;
+  el.textContent = "已保存";
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 1200);
+}
+
+// ---- 绑定交互 ----
+document.querySelectorAll(".opt input").forEach(inp => {
+  inp.addEventListener("change", e => {
+    const n = +e.target.name.replace("q", "");
+    state[n] = e.target.value;
+    save(); updateProgress(); flashSaved(n);
+  });
+});
+
+document.querySelectorAll(".fillin").forEach(inp => {
+  inp.addEventListener("input", e => {
+    const n = e.target.dataset.q, b = e.target.dataset.b;
+    state[n] = state[n] || {};
+    state[n][b] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+document.querySelectorAll(".shortin,.transin").forEach(ta => {
+  ta.addEventListener("input", e => {
+    const n = e.target.dataset.q;
+    state[n] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+// 查看解析
+document.querySelectorAll(".btn-ans").forEach(b => {
+  b.addEventListener("click", () => {
+    const n = b.dataset.q;
+    const box = document.querySelector(`.ansbox[data-ans="${n}"]`);
+    const open = !box.hidden;
+    box.hidden = open;
+    b.textContent = open ? "查看解析" : "收起解析";
+  });
+});
+
+document.getElementById("btnRevealAll").addEventListener("click", function(){
+  const anyHidden = [...document.querySelectorAll(".ansbox")].some(b => b.hidden);
+  document.querySelectorAll(".ansbox").forEach(b => b.hidden = !anyHidden);
+  document.querySelectorAll(".btn-ans").forEach(b => {
+    b.textContent = anyHidden ? "收起解析" : "查看解析";
+  });
+  this.textContent = anyHidden ? "收起全部解析" : "展开全部解析";
+});
+
+// 清空
+document.getElementById("btnReset").addEventListener("click", () => {
+  if (!confirm("确定清空全部作答？此操作不可撤销。")) return;
+  state = {}; save();
+  document.querySelectorAll(".opt input").forEach(i => i.checked = false);
+  document.querySelectorAll(".fillin,.shortin,.transin").forEach(i => i.value = "");
+  updateProgress();
+});
+
+// ---- 导出答案 ----
+function buildExport(){
+  const L = [];
+  L.push(`# ${QUIZ.title} — 我的作答`);
+  L.push("");
+  L.push(`日期：${QUIZ.date}`);
+  L.push(`完成：${answeredCount()} / ${TOTAL} 题`);
+  L.push("");
+  const tname = {choice:"单选", fill:"填空", short:"问答", translate:"长难句翻译"};
+  QUIZ.sections.forEach(s => {
+    L.push(`## ${s.name}`);
+    L.push("");
+    s.questions.forEach(q => {
+      const v = state[q._id];
+      L.push(`### ${q._id}. [${tname[q.type]}]`);
+      L.push(q.stem);
+      L.push("");
+      if (q.type === "choice") {
+        L.push(`**我的答案：** ${v ? v : "（未作答）"}`);
+      } else if (q.type === "fill") {
+        const arr = [];
+        for (let i = 0; i < (q.blanks || 1); i++) {
+          const k = String(i);
+          arr.push(`第${i+1}空：${(v && v[k]) ? v[k] : "（空）"}`);
+        }
+        L.push(`**我的答案：** ${arr.join("　")}`);
+      } else {
+        L.push(`**我的答案：**`);
+        L.push("");
+        L.push(v && v.trim() ? v : "（未作答）");
+      }
+      L.push("");
+    });
+  });
+  return L.join("\n");
+}
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  document.getElementById("exportArea").value = buildExport();
+  document.getElementById("modal").classList.add("show");
+});
+document.getElementById("btnCloseModal").addEventListener("click", () => {
+  document.getElementById("modal").classList.remove("show");
+});
+document.getElementById("btnDownload").addEventListener("click", () => {
+  const blob = new Blob([buildExport()], {type:"text/markdown;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${QUIZID}-我的作答.md`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") e.target.classList.remove("show");
+});
+
+// ---- 恢复状态 ----
+(function restore(){
+  document.querySelectorAll(".opt input").forEach(inp => {
+    const n = +inp.name.replace("q", "");
+    if (state[n] === inp.value) inp.checked = true;
+  });
+  document.querySelectorAll(".fillin").forEach(inp => {
+    const n = inp.dataset.q, b = inp.dataset.b;
+    if (state[n] && state[n][b] != null) inp.value = state[n][b];
+  });
+  document.querySelectorAll(".shortin,.transin").forEach(ta => {
+    const n = ta.dataset.q;
+    if (state[n] != null) ta.value = state[n];
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
