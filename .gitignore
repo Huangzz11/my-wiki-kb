@@ -32,3 +32,15 @@ temp/
 # WorkBuddy 会话缓存（保留 .workbuddy/skills 项目级 Skill）
 .workbuddy/memory/
 .workbuddy/clipboard-images/
+
+# 本地工具脚本（不推送，仅本机使用）
+zhipu/
+langgraph/
+scripts/
+__pycache__/
+*.pyc
+
+# Python 虚拟环境
+.venv/
+venv/
+env/
