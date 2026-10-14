@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考研每日测验 · 10.14 晚卷（素材：国际传播 1／2 框架笔记 + 错题回滚）</title>
+<style>
+:root{
+  --bg:#f7f8fb; --card:#fff; --ink:#1c2430; --sub:#60708a;
+  --line:#e3e8f0; --blue:#2F5B9E; --blue-l:#e8eef8;
+  --green:#1f8a52; --green-l:#e6f5ec;
+  --amber:#b4740a; --amber-l:#fdf3e0;
+  --red:#c0392b; --red-l:#fdeceb;
+  --violet:#6b4ea8; --violet-l:#f0ebfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+    "Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.7;
+  padding:0 0 120px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+/* 顶部 */
+header{
+  background:linear-gradient(135deg,#2F5B9E 0%,#40699f 60%,#5b7fb5 100%);
+  color:#fff;padding:34px 0 26px;margin-bottom:24px;
+  box-shadow:0 2px 14px rgba(47,91,158,.18);
+}
+header h1{font-size:23px;font-weight:650;letter-spacing:.3px;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.85}
+.statline{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chip{
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);
+  border-radius:999px;padding:4px 13px;font-size:12.5px;backdrop-filter:blur(4px)
+}
+
+/* 进度条 */
+.progress-sticky{
+  position:sticky;top:0;z-index:50;background:rgba(247,248,251,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  padding:10px 0;margin-bottom:8px;
+}
+.pbar{height:7px;background:#e6eaf2;border-radius:99px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,#2F5B9E,#5b8fd4);
+  border-radius:99px;transition:width .35s ease}
+.ptext{font-size:12.5px;color:var(--sub);margin-top:6px;display:flex;
+  justify-content:space-between}
+
+/* 分区 */
+.sec{margin:30px 0 0}
+.sec h2{
+  font-size:16.5px;font-weight:640;color:var(--blue);
+  display:flex;align-items:center;gap:9px;padding-bottom:9px;
+  border-bottom:2px solid var(--blue-l);margin-bottom:16px;
+}
+.dot{width:9px;height:9px;border-radius:3px;background:var(--blue);
+  display:inline-block;flex:0 0 auto}
+.secmeta{margin-left:auto;font-size:12px;color:var(--sub);font-weight:400}
+
+/* 题目卡片 */
+.q{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:17px 19px;margin-bottom:13px;transition:border-color .2s,box-shadow .2s;
+}
+.q:focus-within{border-color:#b9cdea;box-shadow:0 3px 14px rgba(47,91,158,.09)}
+.qhead{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.qno{
+  width:26px;height:26px;border-radius:8px;background:var(--blue);
+  color:#fff;font-size:13px;font-weight:600;display:flex;
+  align-items:center;justify-content:center;flex:0 0 auto;
+}
+.qtag{font-size:11.5px;padding:2px 9px;border-radius:6px;font-weight:500}
+.t-choice{background:var(--blue-l);color:var(--blue)}
+.t-fill{background:var(--green-l);color:var(--green)}
+.t-short{background:var(--violet-l);color:var(--violet)}
+.t-translate{background:var(--amber-l);color:var(--amber)}
+.kp{font-size:11.5px;color:var(--sub);margin-left:auto}
+.stem{font-size:14.8px;margin-bottom:12px;white-space:pre-wrap}
+
+/* 单选 */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 13px;
+  border:1px solid var(--line);border-radius:9px;cursor:pointer;
+  transition:all .16s;font-size:14.2px;
+}
+.opt:hover{background:#f4f7fc;border-color:#c3d5ee}
+.opt input{display:none}
+.opt .letter{
+  width:21px;height:21px;border-radius:6px;background:#eef1f6;color:var(--sub);
+  font-size:12px;font-weight:600;display:flex;align-items:center;
+  justify-content:center;flex:0 0 auto;margin-top:2px;transition:all .16s;
+}
+.opt input:checked~.letter{background:var(--blue);color:#fff}
+.opt:has(input:checked){background:var(--blue-l);border-color:#9dbde6}
+.otext{flex:1}
+
+/* 填空 */
+.fills{display:flex;flex-direction:column;gap:8px}
+.fillin{
+  font-family:inherit;font-size:14.2px;padding:9px 13px;
+  border:1px solid var(--line);border-radius:8px;background:#fcfdff;
+  transition:all .16s;width:100%;
+}
+.fillin:focus{outline:none;border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 文本域 */
+.shortin,.transin{
+  font-family:inherit;font-size:14.2px;line-height:1.75;padding:11px 14px;
+  border:1px solid var(--line);border-radius:9px;background:#fcfdff;
+  width:100%;resize:vertical;transition:all .16s;
+}
+.shortin:focus,.transin:focus{outline:none;border-color:var(--blue);
+  background:#fff;box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 按钮与解析 */
+.qfoot{display:flex;align-items:center;gap:11px;margin-top:11px}
+.btn-ans{
+  font-family:inherit;font-size:12.5px;padding:5px 13px;border-radius:7px;
+  border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;
+  transition:all .16s;
+}
+.btn-ans:hover{background:var(--blue-l);border-color:#a8c4e8;color:var(--blue)}
+.saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
+.saved.show{opacity:1}
+.ansbox{
+  margin-top:12px;padding:13px 15px;background:#fafbfd;
+  border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-size:13.8px;
+}
+.ansline{margin-bottom:8px;display:flex;gap:9px;line-height:1.7}
+.ansline:last-child{margin-bottom:0}
+.ansline b{
+  flex:0 0 auto;color:var(--blue);font-size:12px;font-weight:640;
+  background:var(--blue-l);padding:2px 8px;border-radius:5px;height:fit-content;
+  margin-top:3px;
+}
+.ansline .got{color:var(--green);font-weight:600}
+
+/* 底部操作栏 */
+.toolbar{
+  position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);padding:12px 20px;z-index:60;
+  backdrop-filter:blur(10px);box-shadow:0 -2px 16px rgba(28,36,48,.07);
+}
+.tb-inner{max-width:820px;margin:0 auto;display:flex;
+  align-items:center;gap:11px;flex-wrap:wrap}
+.btn{
+  font-family:inherit;font-size:13.5px;padding:9px 19px;border-radius:9px;
+  border:none;cursor:pointer;font-weight:530;transition:all .16s;
+}
+.btn-main{background:var(--blue);color:#fff}
+.btn-main:hover{background:#264d87;transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--sub);border:1px solid var(--line)}
+.btn-ghost:hover{background:#f4f6fa;color:var(--ink)}
+.tb-count{font-size:13px;color:var(--sub);margin-left:auto}
+
+/* 完成提示 */
+.done-tip{
+  margin-top:22px;padding:18px 20px;border-radius:12px;
+  background:var(--green-l);border:1px solid #bfe5ce;color:#14603a;
+  font-size:14px;display:none;
+}
+.done-tip.show{display:block}
+.done-tip b{display:block;margin-bottom:6px;font-size:15px}
+
+/* 答案导出弹层 */
+.modal{
+  position:fixed;inset:0;background:rgba(20,28,40,.5);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:#fff;border-radius:14px;max-width:660px;width:100%;
+  max-height:82vh;display:flex;flex-direction:column;overflow:hidden;
+}
+.modal-head{padding:17px 21px;border-bottom:1px solid var(--line);
+  font-weight:620;font-size:15.5px;color:var(--blue)}
+.modal-body{padding:18px 21px;overflow-y:auto;flex:1}
+.modal-body textarea{
+  width:100%;height:340px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.65;border:1px solid var(--line);
+  border-radius:9px;padding:13px;background:#fafbfd;resize:vertical;
+}
+.modal-foot{padding:14px 21px;border-top:1px solid var(--line);
+  display:flex;gap:10px;justify-content:flex-end}
+.modal-tip{font-size:12.5px;color:var(--sub);margin-bottom:11px;line-height:1.65}
+
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  header{padding:26px 0 20px}
+  header h1{font-size:19px}
+  .q{padding:14px 15px}
+  .stem{font-size:14.2px}
+  .tb-count{display:none}
+  .kp{margin-left:0;width:100%}
+}
+@media print{
+  .toolbar,.btn-ans,.progress-sticky{display:none}
+  .ansbox[hidden]{display:block!important}
+  .q{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>考研每日测验 · 10.14 晚卷（素材：国际传播 1／2 框架笔记 + 错题回滚）</h1>
+    <div class="meta">2026-10-14b · 共 20 题 · 今晚 22:30 自动生成</div>
+    <div class="statline">
+      <span class="chip">单选 9</span>
+      <span class="chip">填空 5</span>
+      <span class="chip">问答 5</span>
+      <span class="chip">长难句 1</span>
+    </div>
+  </div>
+</header>
+
+<div class="progress-sticky">
+  <div class="wrap">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <div class="ptext">
+      <span id="ptext">已作答 0 / 20</span>
+      <span>进度自动保存，刷新不丢</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  
+<section class="sec">
+  <h2><span class="dot"></span>一、专业课 · 国际传播
+    <span class="secmeta">13 题</span></h2>
+  
+<div class="q" data-q="1" data-type="choice">
+  <div class="qhead">
+    <span class="qno">1</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">国际新闻与全球新闻</span>
+  </div>
+  <div class="stem">国际新闻（international news）与全球新闻（global news）在定义、主体、目的、对象、与政治的关系等方面存在一系列差别。二者的**根本差异**在于：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q1" value="A"><span class="letter">A</span><span class="otext">是否报道本国以外发生的事实</span></label><label class="opt"><input type="radio" name="q1" value="B"><span class="letter">B</span><span class="otext">是否由政府或官方媒体主导传播</span></label><label class="opt"><input type="radio" name="q1" value="C"><span class="letter">C</span><span class="otext">是否存在特定的民族国家参照系</span></label><label class="opt"><input type="radio" name="q1" value="D"><span class="letter">D</span><span class="otext">是否使用大众媒介进行传播</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="1">查看解析</button>
+    <span class="saved" data-saved="1"></span>
+  </div>
+  <div class="ansbox" data-ans="1" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>笔记原文写得很直接：「本位（根本差异）：以民族国家为本位 vs 以人类命运共同体为本位」，并总结为「根本差异：是否存在特定的民族国家参照系」。A 是两者的定义差别（国际新闻指本国以外重大事实或本国发生但涉及他国的事实；全球新闻广义指全球媒体报道世界各地新闻，狭义指超越国家地区的全球性问题报道），属于「定义」层面，不是「根本差异」；B 把「主体多元」简化成官方与非官方——国际新闻主体是代表民族国家利益的新闻媒体，全球新闻主体多元（国际媒体＋国际非政府组织＋自媒体＋个体记者），主体差别确实存在，但笔记把它归在「主体」维度而不是「根本」维度；D 错在两者都依赖互联网、卫星通讯、全球媒体平台，这是笔记列出的「主要联系」之一。</div></div>
+</div>
+<div class="q" data-q="2" data-type="choice">
+  <div class="qhead">
+    <span class="qno">2</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">跨文化传播学 · 学科渊源</span>
+  </div>
+  <div class="stem">跨文化传播（intercultural communication）研究的是不同文化背景的个体或群体之间的传播现象及规律。它作为独立研究领域兴起的标志性著作与作者是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q2" value="A"><span class="letter">A</span><span class="otext">麦克卢汉《理解媒介》（1964）</span></label><label class="opt"><input type="radio" name="q2" value="B"><span class="letter">B</span><span class="otext">爱德华·霍尔《无声的语言》（1959）</span></label><label class="opt"><input type="radio" name="q2" value="C"><span class="letter">C</span><span class="otext">萨义德《东方学》（1978）</span></label><label class="opt"><input type="radio" name="q2" value="D"><span class="letter">D</span><span class="otext">亨廷顿《文明的冲突》（1993）</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="2">查看解析</button>
+    <span class="saved" data-saved="2"></span>
+  </div>
+  <div class="ansbox" data-ans="2" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>笔记原文：「跨文化传播学：更早，起源于文化人类学；二战后期；带西方中心主义色彩；爱德华·霍尔 1959《无声的语言》；理论框架：文化差异、价值体系、符号互动。」A 麦克卢汉在笔记中的位置是「地球村」——用于解释李子柒案例里共通意义空间的形成，不是跨文化传播学的标志著作；C 萨义德《东方学》在笔记中用来解释「西方对东方带成见的建构」，服务的是「他者化」与污名化建构的分析，属批判话语分析传统；D 亨廷顿「文明冲突论」在笔记里的角色恰恰是论敌——笔记在讲三者联系时明确写「共同反对『文明冲突论』，促进跨文化理解」，方向正好相反。</div></div>
+</div>
+<div class="q" data-q="3" data-type="choice">
+  <div class="qhead">
+    <span class="qno">3</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">全球南方</span>
+  </div>
+  <div class="stem">「全球南方」（Global South）并非单纯的地理概念。笔记记录其源起为：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q3" value="A"><span class="letter">A</span><span class="otext">1955 年万隆会议提出的「第三世界」概念</span></label><label class="opt"><input type="radio" name="q3" value="B"><span class="letter">B</span><span class="otext">1980 年联合国教科文组织《多种声音，一个世界》报告</span></label><label class="opt"><input type="radio" name="q3" value="C"><span class="letter">C</span><span class="otext">美国左派活动家卡尔·奥格尔斯比于 1969 年首次提出</span></label><label class="opt"><input type="radio" name="q3" value="D"><span class="letter">D</span><span class="otext">2024 年联合国未来峰会《全球数字契约》正式确立</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="3">查看解析</button>
+    <span class="saved" data-saved="3"></span>
+  </div>
+  <div class="ansbox" data-ans="3" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>笔记原文：「源起：美国左派活动家：卡尔·奥格尔斯比；1969 年首次提出；指代：被全球北方用政治、经济手段剥削掌控的国家地区。」A「第三世界」是另一条概念谱系，笔记未提其出处，属外来干扰项；B 1980 年麦克布莱德报告是「新世界信息秩序之争」第一次浪潮的标志性成果，与全球南方概念源起不是一回事；D《全球数字契约》是第三次浪潮的成果，时间上远晚于 1969 年。另外要记住全球南方的三层定位：地缘政治经济文化概念、跨地区或多边联盟组织、一种反资本主义反殖民反帝国主义的抵抗空间。</div></div>
+</div>
+<div class="q" data-q="4" data-type="choice">
+  <div class="qhead">
+    <span class="qno">4</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">参与式文化</span>
+  </div>
+  <div class="stem">2025 年甲亢哥（IShowSpeed）中国行直播中，长城大妈即兴合拍、上海街头 Z 世代「抽象整活」、弹幕刷屏 Respect，受众从「传播客体」转变为主动赋予符号意义的「传播主体」。笔记为这一现象标注的理论是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q4" value="A"><span class="letter">A</span><span class="otext">亨利·詹金斯「参与式文化」（participatory culture）</span></label><label class="opt"><input type="radio" name="q4" value="B"><span class="letter">B</span><span class="otext">柯林斯「互动仪式链」</span></label><label class="opt"><input type="radio" name="q4" value="C"><span class="letter">C</span><span class="otext">诺依曼「沉默的螺旋」</span></label><label class="opt"><input type="radio" name="q4" value="D"><span class="letter">D</span><span class="otext">霍斯金斯和卢米斯「文化折扣」</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="4">查看解析</button>
+    <span class="saved" data-saved="4"></span>
+  </div>
+  <div class="ansbox" data-ans="4" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>笔记原文：「3. 参与式文化的破壁实践：抽象互动中的符号狂欢。理论：亨利·詹金斯『参与式文化』Participatory Culture；受众转变：『传播客体』→ 主动赋予符号意义的『传播主体』。」B 柯林斯「互动仪式链」在笔记里对应的是《黑神话：悟空》带动线下文旅那一节（名胜古迹还原→玩家线下游玩、山西文旅局「跟着悟空游山西」线路）；C「沉默的螺旋」属舆论学范畴，本讲未使用；D「文化折扣」指的是文化产品不被目标地区受众认同或理解导致价值降低，是**要克服**的障碍（见《给阿嬷的情书》一节），不是甲亢哥案例的理论标注。</div></div>
+</div>
+<div class="q" data-q="5" data-type="choice">
+  <div class="qhead">
+    <span class="qno">5</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">国际传播五力</span>
+  </div>
+  <div class="stem">构建具有鲜明中国特色的战略传播体系，需要明确「国际传播五力」。下列**不属于**五力的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q5" value="A"><span class="letter">A</span><span class="otext">中华文化感召力</span></label><label class="opt"><input type="radio" name="q5" value="B"><span class="letter">B</span><span class="otext">中国形象亲和力</span></label><label class="opt"><input type="radio" name="q5" value="C"><span class="letter">C</span><span class="otext">国际舆论威慑力</span></label><label class="opt"><input type="radio" name="q5" value="D"><span class="letter">D</span><span class="otext">国际舆论引导力</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="5">查看解析</button>
+    <span class="saved" data-saved="5"></span>
+  </div>
+  <div class="ansbox" data-ans="5" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>五力＝国际传播影响力、中华文化感召力、中国形象亲和力、中国话语说服力、国际舆论引导力，笔记口诀「传话舆形文」。C「国际舆论威慑力」是自己造的干扰项：笔记里整条线索讲的是柔性传播——亲和、感召、说服、引导，你会在「多元化主体协同」「共情传播」「文明交流互鉴」里反复看到这套逻辑，它与「威慑」在方向上是相反的。抓住这个内在一致性，比死背五个词更稳。</div></div>
+</div>
+<div class="q" data-q="6" data-type="fill">
+  <div class="qhead">
+    <span class="qno">6</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">三落差</span>
+  </div>
+  <div class="stem">做好中国国际传播，本质上针对的是「三个落差」。请按笔记顺序填写：____（对应争夺国际话语权，案例《冠察天下》）、____（对应塑造可信可爱可敬的国家形象，案例云吸象）、____（对应承担人类命运共同体传播责任，案例中老铁路纪行）。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="6" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="6" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="6" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="6">查看解析</button>
+    <span class="saved" data-saved="6"></span>
+  </div>
+  <div class="ansbox" data-ans="6" hidden><div class="ansline"><b>参考答案</b>信息逆差、认知反差、实力落差</div><div class="ansline"><b>得分点</b>每, 空,  , 1,  , 分, ，, 顺, 序, 不, 能, 错</div><div class="ansline"><b>解析</b>笔记原文：「信息逆差 / 认知反差 / 实力落差 | 国际话语权 — 国家形象 —— 大国责任」。三者的对应关系是固定的：逆差→话语权，反差→形象，落差→责任。这三个词构词相似（都含一个表「不一致」的字），顺序一乱整条意义链就断。记忆抓手：**逆（不均衡）→ 反（不一致）→ 落（不匹配）**。</div></div>
+</div>
+<div class="q" data-q="7" data-type="fill">
+  <div class="qhead">
+    <span class="qno">7</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">新世界信息秩序之争 · 三次浪潮</span>
+  </div>
+  <div class="stem">新世界信息秩序之争经历了三次浪潮，请填写各自的标志性成果：① 第一次浪潮（20 世纪 70 年代第三世界国家抨击新闻自由流通、质疑旧秩序）→ 1980 年联合国教科文组织发布《____》；② 第二次浪潮（21 世纪互联网规制下的「地球村」）→ 明确「____」概念，确立多方模式可行性；③ 第三次浪潮（AI 时代）→ 2024 年联合国未来峰会通过《____》。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="7" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="7">查看解析</button>
+    <span class="saved" data-saved="7"></span>
+  </div>
+  <div class="ansbox" data-ans="7" hidden><div class="ansline"><b>参考答案</b>多种声音，一个世界、网络治理、全球数字契约</div><div class="ansline"><b>得分点</b>每, 空,  , 1,  , 分, ；, 书, 名, 号, 内, 名, 称, 须, 完, 整, ，, 顿, 号, 可, 写, 成, 逗, 号</div><div class="ansline"><b>解析</b>笔记原文：「1. 第一次浪潮……标志：1980 年 UNESCO 发布《多种声音，一个世界》（麦克布莱德报告）」；「2. 第二次浪潮：21 世纪互联网规制下的『地球村』……成果：明确『网络治理』概念，确立多方模式可行性」；「3. 第三次浪潮：《全球数字契约》的制定……成果：2024 年联合国未来峰会通过《全球数字契约》，目标是消除数字鸿沟、构建包容性数字经济、保障数字人权等五大目标」。注意第一次浪潮是「70 年代提出、1980 年出报告」，别把 70 年代当成报告的年份。三次浪潮的结果有一条共同线：格局仍未根本改变，所以笔记总结里写「『美英垄断，西强东弱』的基本格局依然没有变」。</div></div>
+</div>
+<div class="q" data-q="8" data-type="fill">
+  <div class="qhead">
+    <span class="qno">8</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">中国国际传播五大困境</span>
+  </div>
+  <div class="stem">中国国际传播突围面临的五大困境（笔记口诀：有苦说不出／说了没人听／实力打不过／文化有差异／还要被攻击）分别是：____、____、____、____、____。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="8" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="8" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="8" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="8" data-b="3" placeholder="第 4 空" autocomplete="off"><input class="fillin" type="text" data-q="8" data-b="4" placeholder="第 5 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="8">查看解析</button>
+    <span class="saved" data-saved="8"></span>
+  </div>
+  <div class="ansbox" data-ans="8" hidden><div class="ansline"><b>参考答案</b>话语围堵困境、渠道压制困境、媒体围攻困境、认知差异困境、软硬实力困境</div><div class="ansline"><b>得分点</b>每, 空,  , 1,  , 分, ，, 须, 带, 「, 困, 境, 」, 二, 字, ，, 顺, 序, 不, 限</div><div class="ansline"><b>解析</b>笔记原文五条：「（一）话语围堵困境：西方话语体系对中国和平崛起的曲解；（二）渠道压制困境：西方政府与海外社交媒体平台刻意打压；（三）媒体围攻困境：西方媒体的『他者化』报道误导国际舆论；（四）认知差异困境：中西方文化差异造成的传播隔阂与障碍；（五）软硬实力困境：国际传播核心能力与国际一流媒体仍存在差距」。五个词都是四字＋「困境」，抓字头记：**围（堵）→ 压（制）→ 攻（围）→ 差（异）→ 实力**。</div></div>
+</div>
+<div class="q" data-q="9" data-type="fill">
+  <div class="qhead">
+    <span class="qno">9</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">国家形象三层</span>
+  </div>
+  <div class="stem">国家形象从存在形态可划分为三个层面，请填写：____（国家政治、经济、文化内外行为总和）、____（人们对国家外在表现的总体印象与评价）、____（媒体借助符号建构和传播的形象，本质是国家客观状态在公众舆论中的投影）。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="9" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="9" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="9" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="9">查看解析</button>
+    <span class="saved" data-saved="9"></span>
+  </div>
+  <div class="ansbox" data-ans="9" hidden><div class="ansline"><b>参考答案</b>客体形象、认知形象、媒体形象</div><div class="ansline"><b>得分点</b>每, 空,  , 1,  , 分</div><div class="ansline"><b>解析</b>笔记原文：「定义：国家形象从存在形态可以划分为客体形象，认知形象，媒体形象三个层面。客体形象：国家政治、经济、文化内外行为总和；认知形象：人们对国家外在表现的总体印象与评价；媒体形象：媒体借助符号建构和传播的形象……本质：国家客观状态在公众舆论中的投影。」三层是「客观存在 → 主观认知 → 媒介中介」的递进链，别把媒体形象与认知形象对调。</div></div>
+</div>
+<div class="q" data-q="10" data-type="short">
+  <div class="qhead">
+    <span class="qno">10</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">名词解释</span>
+  </div>
+  <div class="stem">名词解释：《多种声音，一个世界》（麦克布莱德报告）。请写出时间与机构、地位、核心内容、核心理念（两个关键词各自指什么）、意义与结果。</div>
+  <textarea class="shortin" data-q="10" rows="8" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="10">查看解析</button>
+    <span class="saved" data-saved="10"></span>
+  </div>
+  <div class="ansbox" data-ans="10" hidden><div class="ansline"><b>参考答案</b>又称《麦克布莱德报告》。① 时间与机构：1980 年由联合国教科文组织（UNESCO）发布。② 地位：20 世纪 70 年代「新世界信息与秩序之争」（NWICO）的标志性成果，也是三次浪潮中第一次浪潮的标志。③ 核心内容：提出 82 条构建国际信息新秩序的建议，批判西方发达国家及媒体垄断国际信息传播格局，倡导构建更加公正、平等的「新世界信息与传播秩序」。④ 核心理念：「多种声音」——尊重各民族文化特性与传播主权，保障多样性与多元性，使发展中国家能够自主发声；「一个世界」——追求全球信息平衡流动，维护人类共同利益。⑤ 意义与结果：因美英反对未完全落地，未实质改变旧格局；但唤醒了发展中国家的信息主权意识，是批判文化帝国主义、争取传播权利的重要理论基石。</div><div class="ansline"><b>得分点</b>时, 间, ＋, 机, 构, （, 1, 9, 8, 0, ／, 联, 合, 国, 教, 科, 文, 组, 织, ）, 1,  , 分, ；, 地, 位, （, N, W, I, C, O,  , 标, 志, 性, 成, 果, ）, 1,  , 分, ；, 核, 心, 内, 容, （, 8, 2,  , 条, 建, 议, ＋, 批, 判, 西, 方, 垄, 断, ）, 1, ., 5,  , 分, ；, 两, 个, 关, 键, 词, 各, 自, 释, 义,  , 1, ., 5,  , 分, ；, 意, 义, 与, 结, 果, （, 美, 英, 反, 对, 未, 落, 地, ＋, 唤, 醒, 信, 息, 主, 权, 意, 识, ）, 2,  , 分</div><div class="ansline"><b>解析</b>这是笔记里唯一明确标注「名解」的条目，而且把三种考法都点了出来（名解／简答／论述），必须写全五要素。最容易被压掉的是「82 条」这个硬数字与「因美英反对未完全落地」这一结果——前者是评分点，后者解释了它为什么没能改变格局，缺一个都扣分。</div></div>
+</div>
+<div class="q" data-q="11" data-type="short">
+  <div class="qhead">
+    <span class="qno">11</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">国际传播能力建设的意义</span>
+  </div>
+  <div class="stem">简答题：简述做好中国国际传播的意义。要求按「三落差」分三点作答，每一点须写明现状与目标，并各举一个笔记中的案例。</div>
+  <textarea class="shortin" data-q="11" rows="9" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="11">查看解析</button>
+    <span class="saved" data-saved="11"></span>
+  </div>
+  <div class="ansbox" data-ans="11" hidden><div class="ansline"><b>参考答案</b>① 扭转信息逆差，争夺国际话语权。现状是多极化博弈下「西强东弱、美英垄断」的格局仍在，西方以「他者化」污名化叙事进行形象建构；目标是扭转信息与话语权的「逆差」，激浊扬清，为和平崛起营造有利国际舆论环境。案例：CGTN 记者王冠《冠察天下》，宣介中国主张、中国智慧、中国方案，针对性回击海外污名化报道。② 弥合认知反差，塑造可信、可爱、可敬的国家形象。西方媒体聚焦政治议题和负面事件，形成国际社会的「刻板印象」，与中国「快速发展、多元包容」的真实形象形成反差；目标是建构听得懂、听得进、听得明白的视听语言，建立「信爱敬」形象。案例：总台云南「云吸象」报道，传递人象关怀，中国经验与世界语境相融，激发海外共鸣、共识、共振。③ 平衡软硬实力落差，承担人类命运共同体的传播责任。中国日益走近世界舞台中央，但软实力与硬实力存在「落差」；目标是传播人类命运共同体理念，建立更平等公正的国际传播新秩序，输出中国智慧、中国方案。案例：2025 年纪录片《中老铁路纪行》，英国摄影师希顿乘坐中老铁路，以「软叙事」讲中国基建，跨越文化边界获得国际认同。</div><div class="ansline"><b>得分点</b>三, 点, 骨, 架, （, 信, 息, 逆, 差, ／, 认, 知, 反, 差, ／, 实, 力, 落, 差, ）, 各,  , 1,  , 分, ＝, 3,  , 分, ；, 每, 点, 写, 清, 「, 现, 状, ＋, 目, 标, 」, 再,  , 1,  , 分, ＝, 3,  , 分, ；, 三, 个, 案, 例, （, 冠, 察, 天, 下, ／, 云, 吸, 象, ／, 中, 老, 铁, 路, 纪, 行, ）, 各,  , 0, ., 5,  , 分, ＝, 1, ., 5,  , 分</div><div class="ansline"><b>解析</b>这类题的失分点集中在两处：骨架没搭起来、案例对不上落点——字写多少都补不回这两处。三个案例必须一一对上：话语权→冠察天下，形象→云吸象，责任→中老铁路。写反了就是方向性错误。记忆抓手：**逆差争权、反差塑形、落差担责**。</div></div>
+</div>
+<div class="q" data-q="12" data-type="short">
+  <div class="qhead">
+    <span class="qno">12</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">文化折扣</span>
+  </div>
+  <div class="stem">简答题：什么是「文化折扣」？结合《给阿嬷的情书》或李子柒任一案例，说明国际传播中减少文化折扣的路径。</div>
+  <textarea class="shortin" data-q="12" rows="9" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="12">查看解析</button>
+    <span class="saved" data-saved="12"></span>
+  </div>
+  <div class="ansbox" data-ans="12" hidden><div class="ansline"><b>参考答案</b>① 概念：文化折扣由霍斯金斯和卢米斯提出，指文化产品不被目标地区受众认同或理解，导致其价值降低。② 减少文化折扣的核心机制：通过共情进入，再由文化深入；超越意识形态与地缘隔阂；寻找人类普遍情感的最大公约数——形成共通意义空间 → 同向解码 → 凝聚力与认同感。③ 案例一《给阿嬷的情书》（2026）：以潮汕方言加「侨批」为叙事核心，讲南洋谋生与家乡亲人；「侨批」已入选联合国教科文组织《世界记忆名录》。它不堆砌文化符号，落点是乡愁、坚守、亲情这些普世情感。④ 案例二李子柒：以「去中心化」「去工业化」诠释文化，来自民间、自带亲民立场、淡化官方特色，制作精细、内容差异化、节奏慢；以「慢生活」复现庄子「天人合一」，与西方哲学「诗意栖居」契合，机制是「替代性满足」——让观众重拾时间、享受时间。⑤ 结论：降低文化折扣靠的是以情动人、寻找共通意义空间，不是符号的密集堆砌；反宏大叙事可以避免选择性阅读与对抗式解读。</div><div class="ansline"><b>得分点</b>定, 义, （, 霍, 斯, 金, 斯, 和, 卢, 米, 斯, ）, 1,  , 分, ；, 机, 制, （, 共, 情, 进, 入, ＋, 共, 通, 意, 义, 空, 间, ＋, 同, 向, 解, 码, ）, 2,  , 分, ；, 案, 例, 要, 素, （, 《, 给, 阿, 嬷, 的, 情, 书, 》, 的, 侨, 批, 与, 普, 世, 情, 感, ，, 或, 李, 子, 柒, 的, 去, 中, 心, 化, 去, 工, 业, 化, 与, 替, 代, 性, 满, 足, ）, 3,  , 分, ；, 结, 论, （, 避, 免, 符, 号, 堆, 砌, ／, 反, 宏, 大, 叙, 事, ）, 1,  , 分</div><div class="ansline"><b>解析</b>两个采分点最容易丢：一是「文化折扣」要写出提出者霍斯金斯和卢米斯；二是要写出它为什么能被降低（共情→共通意义空间→同向解码这条因果链），只答「要有共鸣」等于没答。案例只写「很感人」不得分，必须落到具体手法：侨批、去中心化与去工业化、替代性满足。</div></div>
+</div>
+<div class="q" data-q="13" data-type="short">
+  <div class="qhead">
+    <span class="qno">13</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">全球南方 · 三大路径</span>
+  </div>
+  <div class="stem">论述题：全球南方国家如何重塑国际传播秩序？请按笔记的「三大路径」（知识／技术／合作）作答，并说明「南方转向」的总定位。</div>
+  <textarea class="shortin" data-q="13" rows="9" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="13">查看解析</button>
+    <span class="saved" data-saved="13"></span>
+  </div>
+  <div class="ansbox" data-ans="13" hidden><div class="ansline"><b>参考答案</b>总定位：全球南方从国际传播体系的边缘，转变为制度建构的重要力量，推进本土化理论与实践创新，形成多中心、多路径、多文明逻辑并存的新格局。① 知识重构：传播学知识地图的「南方再现」。全球北方霸权话语长期压制，南方知识智慧未获主流学界重视，形成「知识遮蔽」；2025 年以来持续深化「去西方中心化」——拉美走实践与行动主义路径，南亚关注底层群众运动，提出「亚洲精神主义」以摆脱西方语法主导的传播认知框架。② 技术驱动：中国开源 AI 模型破解「智能鸿沟」。智媒时代技术赋权成为关键变量，西方「平台帝国主义」加信息垄断构成障碍；DeepSeek 开源大模型让非洲开发者可以本地自由修改设置，赋能非洲国家的内容生产能力，打破垄断，开辟世界文明交往的数字新空间。③ 合作共建：迈向多元平等的信息秩序。近年来全球南方传播呈现合作化、组织化、机制化，多边合作不断深化，如《2026 中非伙伴赋能行动计划》在数字传媒、内容创新、治理研究方面深化中非合作；「一带一路」倡议、金砖国家、上合组织共同对既有国际传播结构产生「反向塑造力」，使全球南方从边缘叙事主体转变为新秩序的积极塑造者。</div><div class="ansline"><b>得分点</b>总, 定, 位, （, 边, 缘, →, 制, 度, 建, 构, 重, 要, 力, 量, ；, 多, 中, 心, 多, 路, 径, 多, 文, 明, ）, 1, ., 5,  , 分, ；, 知, 识, 重, 构, （, 去, 西, 方, 中, 心, 化, ＋, 拉, 美, ／, 南, 亚, ／, 亚, 洲, 精, 神, 主, 义, ）, 2,  , 分, ；, 技, 术, 驱, 动, （, 智, 能, 鸿, 沟, ＋, 平, 台, 帝, 国, 主, 义, ＋, D, e, e, p, S, e, e, k,  , 开, 源, ）, 2,  , 分, ；, 合, 作, 共, 建, （, 组, 织, 化, 机, 制, 化, ＋, 中, 非, 行, 动, 计, 划, ／, 一, 带, 一, 路, ／, 金, 砖, ／, 上, 合, ＋, 反, 向, 塑, 造, 力, ）, 2, ., 5,  , 分</div><div class="ansline"><b>解析</b>三条路径的小标题必须写出来（知识重构／技术驱动／合作共建），这是骨架分。失分集中在两处：一是「技术驱动」只写「用 AI」而没点出「破解智能鸿沟」这一目标与「平台帝国主义」这一障碍；二是「合作共建」漏掉「反向塑造力」这个结论性表述，它才是这一路径的价值升华。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>二、政治 · 错题回滚（全单选）
+    <span class="secmeta">4 题</span></h2>
+  
+<div class="q" data-q="14" data-type="choice">
+  <div class="qhead">
+    <span class="qno">14</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">错题回滚 · 教育强国「六个以」</span>
+  </div>
+  <div class="stem">〔错题回滚〕关于教育强国建设「六个以」的对应关系，下列表述**完全正确**的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q14" value="A"><span class="letter">A</span><span class="otext">以立德树人为根本保证，以坚持党对教育事业的全面领导为根本任务</span></label><label class="opt"><input type="radio" name="q14" value="B"><span class="letter">B</span><span class="otext">以坚持党对教育事业的全面领导为根本保证，以立德树人为根本任务</span></label><label class="opt"><input type="radio" name="q14" value="C"><span class="letter">C</span><span class="otext">以服务中华民族伟大复兴为根本目标，以立德树人为重要使命</span></label><label class="opt"><input type="radio" name="q14" value="D"><span class="letter">D</span><span class="otext">以人民满意为根本目标，以支撑引领中国式现代化为核心功能</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="14">查看解析</button>
+    <span class="saved" data-saved="14"></span>
+  </div>
+  <div class="ansbox" data-ans="14" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>正确链条：根本保证→坚持党对教育事业的全面领导；根本任务→立德树人；根本目标→为党育人、为国育才；重要使命→服务中华民族伟大复兴；基本路径→支撑引领中国式现代化；核心功能→引领现代化。A 把「根本保证」与「根本任务」对调；C 把「服务中华民族伟大复兴」错配成根本目标（它是**重要使命**）；D 把「人民满意」写成根本目标——**人民满意是根本尺度**，这正是上次全错那题的设错点，同一个坑换了个入口。记忆抓手：保（证）→党；任（务）→德育；目（标）→育才；使（命）→复兴；路（径）→现代化；功（能）→领现代化；另单记一句「人民满意是根本尺度」。</div></div>
+</div>
+<div class="q" data-q="15" data-type="choice">
+  <div class="qhead">
+    <span class="qno">15</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">错题回滚 · 统战三个「最」</span>
+  </div>
+  <div class="stem">〔错题回滚〕关于统一战线的几个关键表述，下列说法**正确**的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q15" value="A"><span class="letter">A</span><span class="otext">统一战线本质要求是大团结大联合，解决的是人心和力量问题</span></label><label class="opt"><input type="radio" name="q15" value="B"><span class="letter">B</span><span class="otext">统一战线本质要求是求同存异，解决的是差异和分歧问题</span></label><label class="opt"><input type="radio" name="q15" value="C"><span class="letter">C</span><span class="otext">党的领导是统一战线最鲜明的特征，本质要求是凝聚共识</span></label><label class="opt"><input type="radio" name="q15" value="D"><span class="letter">D</span><span class="otext">统一战线关键是坚持党的领导，最鲜明的特征是求同存异</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="15">查看解析</button>
+    <span class="saved" data-saved="15"></span>
+  </div>
+  <div class="ansbox" data-ans="15" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>正确链条：本质要求＝大团结大联合，解决的是**人心和力量**问题；关键＝坚持**求同存异**；**党的领导**是统一战线最鲜明的特征。B 把「关键（求同存异）」塞进了本质要求，还把对象写成「差异和分歧」——这两处正是你上次的错法；C 本质要求写成「凝聚共识」，搭配错；D 把关键与特征互换。记忆抓手：四级递进链——联合（本质）→ 人心（对象）→ 存异（方法）→ 党旗（特征），四步不能跳。</div></div>
+</div>
+<div class="q" data-q="16" data-type="choice">
+  <div class="qhead">
+    <span class="qno">16</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">错题回滚 · 全过程人民民主</span>
+  </div>
+  <div class="stem">〔错题回滚〕全过程人民民主「四个相统一」**不包括**下列哪一项？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q16" value="A"><span class="letter">A</span><span class="otext">过程民主和成果民主相统一</span></label><label class="opt"><input type="radio" name="q16" value="B"><span class="letter">B</span><span class="otext">程序民主和实质民主相统一</span></label><label class="opt"><input type="radio" name="q16" value="C"><span class="letter">C</span><span class="otext">选举民主和协商民主相统一</span></label><label class="opt"><input type="radio" name="q16" value="D"><span class="letter">D</span><span class="otext">人民民主和国家意志相统一</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="16">查看解析</button>
+    <span class="saved" data-saved="16"></span>
+  </div>
+  <div class="ansbox" data-ans="16" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>四个相统一＝过程民主和成果民主、程序民主和实质民主、直接民主和间接民主、人民民主和国家意志。本题四项中 A、B、D 都在其中（另缺「直接民主和间接民主」），只有 C「选举民主和协商民主相统一」**不在其中**——选举民主与协商民主是两种**形式**，是同一层次的一对并列，不构成一组「统一」。这是上次那道题的镜像问法（上次你选了包含项当不包含项）。记忆抓手：四对里有三对是「同一民主的两个侧面」（过程/成果、程序/实质、直接/间接），最后一对跳到「人民民主/国家意志」。</div></div>
+</div>
+<div class="q" data-q="17" data-type="choice">
+  <div class="qhead">
+    <span class="qno">17</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">错题回滚 · 党的显著标志</span>
+  </div>
+  <div class="stem">〔错题回滚〕下列哪一项表述把两个不同来源的结论**准确区分**开了？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q17" value="A"><span class="letter">A</span><span class="otext">理论联系实际、密切联系群众、批评和自我批评，是党区别于其他政党的显著标志</span></label><label class="opt"><input type="radio" name="q17" value="B"><span class="letter">B</span><span class="otext">勇于自我革命是党区别于其他政党的显著标志；理论联系实际、密切联系群众、批评和自我批评是党的三大优良作风</span></label><label class="opt"><input type="radio" name="q17" value="C"><span class="letter">C</span><span class="otext">理论联系实际、密切联系群众、批评和自我批评、人民至上，是党的三大优良作风</span></label><label class="opt"><input type="radio" name="q17" value="D"><span class="letter">D</span><span class="otext">勇于自我革命、人民至上、批评和自我批评，共同构成党区别于其他政党的显著标志</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="17">查看解析</button>
+    <span class="saved" data-saved="17"></span>
+  </div>
+  <div class="ansbox" data-ans="17" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>两条独立表述必须分开记：① 党的**七大（1945）**：理论联系实际、密切联系群众、批评和自我批评——是**三大**优良作风（不是「三个」，**也不含「人民至上」**）；② 党的**十九届六中全会《决议》**：**勇于自我革命**是党区别于其他政党的显著标志。A 把三大优良作风当成了「显著标志」，这正是你上次选的错误项；C 多塞了「人民至上」；D 把「勇于自我革命」与「三大作风」并成「共同构成」。提醒一句：这题的正确项与你 9.17 反馈原文里的错误写法正好相反——**文档里的错误不改，考场上会原样复现**，回头把 9.17 反馈里并列三者那句改掉。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>三、英语 · 错题回滚与方法反思
+    <span class="secmeta">3 题</span></h2>
+  
+<div class="q" data-q="18" data-type="fill">
+  <div class="qhead">
+    <span class="qno">18</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">错题回滚 · 词汇</span>
+  </div>
+  <div class="stem">〔错题回滚〕根据中文释义写出对应的英文表达：① 严厉打击、镇压（动词短语，常与 on 连用）：____；② 大草原（名词）：____；③ 更棘手的（形容词比较级，常修饰 problem／issue）：____。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="18" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="18">查看解析</button>
+    <span class="saved" data-saved="18"></span>
+  </div>
+  <div class="ansbox" data-ans="18" hidden><div class="ansline"><b>参考答案</b>crack down on、prairie、thornier</div><div class="ansline"><b>得分点</b>每, 空,  , 1,  , 分, ，, 拼, 写, 错, 误, 不, 得, 分</div><div class="ansline"><b>解析</b>这三处是上次的硬伤。① crack down on 你写成了「崩塌」——「崩塌」是 collapse，语义方向完全相反；记法：crack down on 是动作朝向外的「打压」，联想「警方扫荡」。② prairie 上次直接空着，把它和 plain（平原）、plateau（高原）绑成一组地貌词一起背。③ thornier 你写「更尖锐」——接近但不准，thorny 修饰 problem／issue 时的固定含义是「棘手的」，本义「多刺的」，从「刺手」到「棘手」是自然的隐喻延伸。</div></div>
+</div>
+<div class="q" data-q="19" data-type="translate">
+  <div class="qhead">
+    <span class="qno">19</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">错题回滚 · 长难句（比较结构与程度副词）</span>
+  </div>
+  <div class="stem">〔错题回滚〕翻译下面这句练习句，并标出句子主干：
+
+Those who have never seen the country for themselves are far more likely to feel threatened by its rise than those who have.</div>
+  <textarea class="transin" data-q="19" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="19">查看解析</button>
+    <span class="saved" data-saved="19"></span>
+  </div>
+  <div class="ansbox" data-ans="19" hidden><div class="ansline"><b>参考答案</b>译文：那些从未亲眼见过这个国家的人，远比那些见过的人更有可能对其崛起感到威胁。
+
+主干：Those … are far more likely to feel threatened … than those …（主语 Those＋定语从句／系动词 are＋表语 likely＋比较结构 more … than）。
+
+要点：① Those who … 是「那些……的人」，定语从句作主语，译文必须补出「人」；② far more likely 是「远远更有可能」，**far 这个程度副词不能省略**——这正是上次漏译的点；③ than those who have 是 than those who have seen the country 的省略，要补全成「那些见过的人」，不要译成「那些有的」；④ feel threatened by 译「对……感到威胁／因……而感到威胁」。</div><div class="ansline"><b>得分点</b>主, 干, 识, 别, 正, 确,  , 1,  , 分, ；, t, h, o, s, e,  , w, h, o, …,  , 译, 为, 「, 那, 些, …, …, 的, 人, 」, 1,  , 分, ；, f, a, r,  , m, o, r, e,  , l, i, k, e, l, y,  , 译, 为, 「, 远, 远, 更, 有, 可, 能, 」, 1,  , 分, （, 漏, 掉,  , f, a, r,  , 不, 得, 分, ）, ；, t, h, a, n,  , 比, 较, 对, 象, 补, 全, 正, 确,  , 1,  , 分, ；, 全, 句, 通, 顺, 无, 漏, 译,  , 1,  , 分</div><div class="ansline"><b>解析</b>换了一个新句子，考的仍是上次的失分点：**比较级与程度副词不能省**。英二翻译按踩点给分，「far」「more likely」「than those who have」三处任何一个没译出来都要扣。另外：句子主干是「Those … are … likely」，who 从句和 than 从句都是挂件，先把主干摘出来再填细节——这一步你上次做得不够。</div></div>
+</div>
+<div class="q" data-q="20" data-type="short">
+  <div class="qhead">
+    <span class="qno">20</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">英语 · 方法反思</span>
+  </div>
+  <div class="stem">方法反思：① 遇到比较级与程度副词，处理原则是什么？② 拿到一个长难句，第一步应该做什么？③ 为什么你的译文容易在 those／that 这类指代词上丢分？怎么处理？</div>
+  <textarea class="shortin" data-q="20" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="20">查看解析</button>
+    <span class="saved" data-saved="20"></span>
+  </div>
+  <div class="ansbox" data-ans="20" hidden><div class="ansline"><b>参考答案</b>① 比较级与程度副词必须完整译出，不能省略或模糊化。far、much、even、still 等程度副词修饰比较级时，要译出「远远／得多／更加」这类强度信息；more likely、less than、as … as 等比较结构要成对译出，漏一处扣一处。② 第一步是**摘主干**：先找出主语、谓语（或系动词）、宾语／表语，把定语从句、状语从句、插入语都当挂件暂时剥离；主干立住之后再逐层挂回修饰成分，最后按中文习惯调整语序。③ 因为 those／that／it／they 在英文里承担的是语法指代，中文没有对应词，直译就会丢信息。处理原则：指代对象是「人」就补出「那些……的人」，是「物／概念」就重复名词或补「这一点／这一现象」，宁可重复也不能留空。</div><div class="ansline"><b>得分点</b>①,  , 比, 较, 级, ＋, 程, 度, 副, 词, 不, 省, （, f, a, r, ／, m, u, c, h,  , 要, 译, 出, 强, 度, ）, 1, ., 5,  , 分, ；, ②,  , 先, 摘, 主, 干, 再, 挂, 修, 饰,  , 1, ., 5,  , 分, ；, ③,  , 指, 代, 词, 还, 原, 为, 具, 体, 名, 词, 或, 补, 出, 类, 别, 词,  , 2,  , 分</div><div class="ansline"><b>解析</b>三问分别对应你上次实际暴露的三个问题：漏译 far more likely、译文结构与原句结构脱节、those 没译出「那些……的人」。方法上记一句：**英译汉先拆骨架再填肉，比较结构成对出现就要成对翻译。**</div></div>
+</div>
+</section>
+
+  <div class="done-tip" id="doneTip">
+    <b>🎉 全部作答完毕</b>
+    点右下角「导出我的答案」，把导出的文件发给我，我会逐题批改并给出评分与改进建议。
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="tb-inner">
+    <button class="btn btn-main" id="btnExport">导出我的答案</button>
+    <button class="btn btn-ghost" id="btnRevealAll">展开全部解析</button>
+    <button class="btn btn-ghost" id="btnReset">清空重做</button>
+    <span class="tb-count" id="tbCount">0 / 20</span>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">你的答案（复制后发给我批改）</div>
+    <div class="modal-body">
+      <div class="modal-tip">
+        全选复制下面的内容，粘贴到对话里发给我即可。也可以点「下载 .md」保存成文件再上传。
+      </div>
+      <textarea id="exportArea" readonly></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="btnCloseModal">关闭</button>
+      <button class="btn btn-main" id="btnDownload">下载 .md</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ = {"title": "考研每日测验 · 10.14 晚卷（素材：国际传播 1／2 框架笔记 + 错题回滚）", "date": "2026-10-14b", "sections": [{"name": "一、专业课 · 国际传播", "questions": [{"id": 1, "type": "choice", "kp": "国际新闻与全球新闻", "stem": "国际新闻（international news）与全球新闻（global news）在定义、主体、目的、对象、与政治的关系等方面存在一系列差别。二者的**根本差异**在于：", "options": ["是否报道本国以外发生的事实", "是否由政府或官方媒体主导传播", "是否存在特定的民族国家参照系", "是否使用大众媒介进行传播"], "answer": "C", "explain": "笔记原文写得很直接：「本位（根本差异）：以民族国家为本位 vs 以人类命运共同体为本位」，并总结为「根本差异：是否存在特定的民族国家参照系」。A 是两者的定义差别（国际新闻指本国以外重大事实或本国发生但涉及他国的事实；全球新闻广义指全球媒体报道世界各地新闻，狭义指超越国家地区的全球性问题报道），属于「定义」层面，不是「根本差异」；B 把「主体多元」简化成官方与非官方——国际新闻主体是代表民族国家利益的新闻媒体，全球新闻主体多元（国际媒体＋国际非政府组织＋自媒体＋个体记者），主体差别确实存在，但笔记把它归在「主体」维度而不是「根本」维度；D 错在两者都依赖互联网、卫星通讯、全球媒体平台，这是笔记列出的「主要联系」之一。", "_id": 1}, {"id": 2, "type": "choice", "kp": "跨文化传播学 · 学科渊源", "stem": "跨文化传播（intercultural communication）研究的是不同文化背景的个体或群体之间的传播现象及规律。它作为独立研究领域兴起的标志性著作与作者是：", "options": ["麦克卢汉《理解媒介》（1964）", "爱德华·霍尔《无声的语言》（1959）", "萨义德《东方学》（1978）", "亨廷顿《文明的冲突》（1993）"], "answer": "B", "explain": "笔记原文：「跨文化传播学：更早，起源于文化人类学；二战后期；带西方中心主义色彩；爱德华·霍尔 1959《无声的语言》；理论框架：文化差异、价值体系、符号互动。」A 麦克卢汉在笔记中的位置是「地球村」——用于解释李子柒案例里共通意义空间的形成，不是跨文化传播学的标志著作；C 萨义德《东方学》在笔记中用来解释「西方对东方带成见的建构」，服务的是「他者化」与污名化建构的分析，属批判话语分析传统；D 亨廷顿「文明冲突论」在笔记里的角色恰恰是论敌——笔记在讲三者联系时明确写「共同反对『文明冲突论』，促进跨文化理解」，方向正好相反。", "_id": 2}, {"id": 3, "type": "choice", "kp": "全球南方", "stem": "「全球南方」（Global South）并非单纯的地理概念。笔记记录其源起为：", "options": ["1955 年万隆会议提出的「第三世界」概念", "1980 年联合国教科文组织《多种声音，一个世界》报告", "美国左派活动家卡尔·奥格尔斯比于 1969 年首次提出", "2024 年联合国未来峰会《全球数字契约》正式确立"], "answer": "C", "explain": "笔记原文：「源起：美国左派活动家：卡尔·奥格尔斯比；1969 年首次提出；指代：被全球北方用政治、经济手段剥削掌控的国家地区。」A「第三世界」是另一条概念谱系，笔记未提其出处，属外来干扰项；B 1980 年麦克布莱德报告是「新世界信息秩序之争」第一次浪潮的标志性成果，与全球南方概念源起不是一回事；D《全球数字契约》是第三次浪潮的成果，时间上远晚于 1969 年。另外要记住全球南方的三层定位：地缘政治经济文化概念、跨地区或多边联盟组织、一种反资本主义反殖民反帝国主义的抵抗空间。", "_id": 3}, {"id": 4, "type": "choice", "kp": "参与式文化", "stem": "2025 年甲亢哥（IShowSpeed）中国行直播中，长城大妈即兴合拍、上海街头 Z 世代「抽象整活」、弹幕刷屏 Respect，受众从「传播客体」转变为主动赋予符号意义的「传播主体」。笔记为这一现象标注的理论是：", "options": ["亨利·詹金斯「参与式文化」（participatory culture）", "柯林斯「互动仪式链」", "诺依曼「沉默的螺旋」", "霍斯金斯和卢米斯「文化折扣」"], "answer": "A", "explain": "笔记原文：「3. 参与式文化的破壁实践：抽象互动中的符号狂欢。理论：亨利·詹金斯『参与式文化』Participatory Culture；受众转变：『传播客体』→ 主动赋予符号意义的『传播主体』。」B 柯林斯「互动仪式链」在笔记里对应的是《黑神话：悟空》带动线下文旅那一节（名胜古迹还原→玩家线下游玩、山西文旅局「跟着悟空游山西」线路）；C「沉默的螺旋」属舆论学范畴，本讲未使用；D「文化折扣」指的是文化产品不被目标地区受众认同或理解导致价值降低，是**要克服**的障碍（见《给阿嬷的情书》一节），不是甲亢哥案例的理论标注。", "_id": 4}, {"id": 5, "type": "choice", "kp": "国际传播五力", "stem": "构建具有鲜明中国特色的战略传播体系，需要明确「国际传播五力」。下列**不属于**五力的是：", "options": ["中华文化感召力", "中国形象亲和力", "国际舆论威慑力", "国际舆论引导力"], "answer": "C", "explain": "五力＝国际传播影响力、中华文化感召力、中国形象亲和力、中国话语说服力、国际舆论引导力，笔记口诀「传话舆形文」。C「国际舆论威慑力」是自己造的干扰项：笔记里整条线索讲的是柔性传播——亲和、感召、说服、引导，你会在「多元化主体协同」「共情传播」「文明交流互鉴」里反复看到这套逻辑，它与「威慑」在方向上是相反的。抓住这个内在一致性，比死背五个词更稳。", "_id": 5}, {"id": 6, "type": "fill", "blanks": 3, "kp": "三落差", "stem": "做好中国国际传播，本质上针对的是「三个落差」。请按笔记顺序填写：____（对应争夺国际话语权，案例《冠察天下》）、____（对应塑造可信可爱可敬的国家形象，案例云吸象）、____（对应承担人类命运共同体传播责任，案例中老铁路纪行）。", "answer": "信息逆差、认知反差、实力落差", "keys": "每空 1 分，顺序不能错", "explain": "笔记原文：「信息逆差 / 认知反差 / 实力落差 | 国际话语权 — 国家形象 —— 大国责任」。三者的对应关系是固定的：逆差→话语权，反差→形象，落差→责任。这三个词构词相似（都含一个表「不一致」的字），顺序一乱整条意义链就断。记忆抓手：**逆（不均衡）→ 反（不一致）→ 落（不匹配）**。", "_id": 6}, {"id": 7, "type": "fill", "blanks": 3, "kp": "新世界信息秩序之争 · 三次浪潮", "stem": "新世界信息秩序之争经历了三次浪潮，请填写各自的标志性成果：① 第一次浪潮（20 世纪 70 年代第三世界国家抨击新闻自由流通、质疑旧秩序）→ 1980 年联合国教科文组织发布《____》；② 第二次浪潮（21 世纪互联网规制下的「地球村」）→ 明确「____」概念，确立多方模式可行性；③ 第三次浪潮（AI 时代）→ 2024 年联合国未来峰会通过《____》。", "answer": "多种声音，一个世界、网络治理、全球数字契约", "keys": "每空 1 分；书名号内名称须完整，顿号可写成逗号", "explain": "笔记原文：「1. 第一次浪潮……标志：1980 年 UNESCO 发布《多种声音，一个世界》（麦克布莱德报告）」；「2. 第二次浪潮：21 世纪互联网规制下的『地球村』……成果：明确『网络治理』概念，确立多方模式可行性」；「3. 第三次浪潮：《全球数字契约》的制定……成果：2024 年联合国未来峰会通过《全球数字契约》，目标是消除数字鸿沟、构建包容性数字经济、保障数字人权等五大目标」。注意第一次浪潮是「70 年代提出、1980 年出报告」，别把 70 年代当成报告的年份。三次浪潮的结果有一条共同线：格局仍未根本改变，所以笔记总结里写「『美英垄断，西强东弱』的基本格局依然没有变」。", "_id": 7}, {"id": 8, "type": "fill", "blanks": 5, "kp": "中国国际传播五大困境", "stem": "中国国际传播突围面临的五大困境（笔记口诀：有苦说不出／说了没人听／实力打不过／文化有差异／还要被攻击）分别是：____、____、____、____、____。", "answer": "话语围堵困境、渠道压制困境、媒体围攻困境、认知差异困境、软硬实力困境", "keys": "每空 1 分，须带「困境」二字，顺序不限", "explain": "笔记原文五条：「（一）话语围堵困境：西方话语体系对中国和平崛起的曲解；（二）渠道压制困境：西方政府与海外社交媒体平台刻意打压；（三）媒体围攻困境：西方媒体的『他者化』报道误导国际舆论；（四）认知差异困境：中西方文化差异造成的传播隔阂与障碍；（五）软硬实力困境：国际传播核心能力与国际一流媒体仍存在差距」。五个词都是四字＋「困境」，抓字头记：**围（堵）→ 压（制）→ 攻（围）→ 差（异）→ 实力**。", "_id": 8}, {"id": 9, "type": "fill", "blanks": 3, "kp": "国家形象三层", "stem": "国家形象从存在形态可划分为三个层面，请填写：____（国家政治、经济、文化内外行为总和）、____（人们对国家外在表现的总体印象与评价）、____（媒体借助符号建构和传播的形象，本质是国家客观状态在公众舆论中的投影）。", "answer": "客体形象、认知形象、媒体形象", "keys": "每空 1 分", "explain": "笔记原文：「定义：国家形象从存在形态可以划分为客体形象，认知形象，媒体形象三个层面。客体形象：国家政治、经济、文化内外行为总和；认知形象：人们对国家外在表现的总体印象与评价；媒体形象：媒体借助符号建构和传播的形象……本质：国家客观状态在公众舆论中的投影。」三层是「客观存在 → 主观认知 → 媒介中介」的递进链，别把媒体形象与认知形象对调。", "_id": 9}, {"id": 10, "type": "short", "rows": 8, "kp": "名词解释", "stem": "名词解释：《多种声音，一个世界》（麦克布莱德报告）。请写出时间与机构、地位、核心内容、核心理念（两个关键词各自指什么）、意义与结果。", "answer": "又称《麦克布莱德报告》。① 时间与机构：1980 年由联合国教科文组织（UNESCO）发布。② 地位：20 世纪 70 年代「新世界信息与秩序之争」（NWICO）的标志性成果，也是三次浪潮中第一次浪潮的标志。③ 核心内容：提出 82 条构建国际信息新秩序的建议，批判西方发达国家及媒体垄断国际信息传播格局，倡导构建更加公正、平等的「新世界信息与传播秩序」。④ 核心理念：「多种声音」——尊重各民族文化特性与传播主权，保障多样性与多元性，使发展中国家能够自主发声；「一个世界」——追求全球信息平衡流动，维护人类共同利益。⑤ 意义与结果：因美英反对未完全落地，未实质改变旧格局；但唤醒了发展中国家的信息主权意识，是批判文化帝国主义、争取传播权利的重要理论基石。", "keys": "时间＋机构（1980／联合国教科文组织）1 分；地位（NWICO 标志性成果）1 分；核心内容（82 条建议＋批判西方垄断）1.5 分；两个关键词各自释义 1.5 分；意义与结果（美英反对未落地＋唤醒信息主权意识）2 分", "explain": "这是笔记里唯一明确标注「名解」的条目，而且把三种考法都点了出来（名解／简答／论述），必须写全五要素。最容易被压掉的是「82 条」这个硬数字与「因美英反对未完全落地」这一结果——前者是评分点，后者解释了它为什么没能改变格局，缺一个都扣分。", "_id": 10}, {"id": 11, "type": "short", "rows": 9, "kp": "国际传播能力建设的意义", "stem": "简答题：简述做好中国国际传播的意义。要求按「三落差」分三点作答，每一点须写明现状与目标，并各举一个笔记中的案例。", "answer": "① 扭转信息逆差，争夺国际话语权。现状是多极化博弈下「西强东弱、美英垄断」的格局仍在，西方以「他者化」污名化叙事进行形象建构；目标是扭转信息与话语权的「逆差」，激浊扬清，为和平崛起营造有利国际舆论环境。案例：CGTN 记者王冠《冠察天下》，宣介中国主张、中国智慧、中国方案，针对性回击海外污名化报道。② 弥合认知反差，塑造可信、可爱、可敬的国家形象。西方媒体聚焦政治议题和负面事件，形成国际社会的「刻板印象」，与中国「快速发展、多元包容」的真实形象形成反差；目标是建构听得懂、听得进、听得明白的视听语言，建立「信爱敬」形象。案例：总台云南「云吸象」报道，传递人象关怀，中国经验与世界语境相融，激发海外共鸣、共识、共振。③ 平衡软硬实力落差，承担人类命运共同体的传播责任。中国日益走近世界舞台中央，但软实力与硬实力存在「落差」；目标是传播人类命运共同体理念，建立更平等公正的国际传播新秩序，输出中国智慧、中国方案。案例：2025 年纪录片《中老铁路纪行》，英国摄影师希顿乘坐中老铁路，以「软叙事」讲中国基建，跨越文化边界获得国际认同。", "keys": "三点骨架（信息逆差／认知反差／实力落差）各 1 分＝3 分；每点写清「现状＋目标」再 1 分＝3 分；三个案例（冠察天下／云吸象／中老铁路纪行）各 0.5 分＝1.5 分", "explain": "这类题的失分点集中在两处：骨架没搭起来、案例对不上落点——字写多少都补不回这两处。三个案例必须一一对上：话语权→冠察天下，形象→云吸象，责任→中老铁路。写反了就是方向性错误。记忆抓手：**逆差争权、反差塑形、落差担责**。", "_id": 11}, {"id": 12, "type": "short", "rows": 9, "kp": "文化折扣", "stem": "简答题：什么是「文化折扣」？结合《给阿嬷的情书》或李子柒任一案例，说明国际传播中减少文化折扣的路径。", "answer": "① 概念：文化折扣由霍斯金斯和卢米斯提出，指文化产品不被目标地区受众认同或理解，导致其价值降低。② 减少文化折扣的核心机制：通过共情进入，再由文化深入；超越意识形态与地缘隔阂；寻找人类普遍情感的最大公约数——形成共通意义空间 → 同向解码 → 凝聚力与认同感。③ 案例一《给阿嬷的情书》（2026）：以潮汕方言加「侨批」为叙事核心，讲南洋谋生与家乡亲人；「侨批」已入选联合国教科文组织《世界记忆名录》。它不堆砌文化符号，落点是乡愁、坚守、亲情这些普世情感。④ 案例二李子柒：以「去中心化」「去工业化」诠释文化，来自民间、自带亲民立场、淡化官方特色，制作精细、内容差异化、节奏慢；以「慢生活」复现庄子「天人合一」，与西方哲学「诗意栖居」契合，机制是「替代性满足」——让观众重拾时间、享受时间。⑤ 结论：降低文化折扣靠的是以情动人、寻找共通意义空间，不是符号的密集堆砌；反宏大叙事可以避免选择性阅读与对抗式解读。", "keys": "定义（霍斯金斯和卢米斯）1 分；机制（共情进入＋共通意义空间＋同向解码）2 分；案例要素（《给阿嬷的情书》的侨批与普世情感，或李子柒的去中心化去工业化与替代性满足）3 分；结论（避免符号堆砌／反宏大叙事）1 分", "explain": "两个采分点最容易丢：一是「文化折扣」要写出提出者霍斯金斯和卢米斯；二是要写出它为什么能被降低（共情→共通意义空间→同向解码这条因果链），只答「要有共鸣」等于没答。案例只写「很感人」不得分，必须落到具体手法：侨批、去中心化与去工业化、替代性满足。", "_id": 12}, {"id": 13, "type": "short", "rows": 9, "kp": "全球南方 · 三大路径", "stem": "论述题：全球南方国家如何重塑国际传播秩序？请按笔记的「三大路径」（知识／技术／合作）作答，并说明「南方转向」的总定位。", "answer": "总定位：全球南方从国际传播体系的边缘，转变为制度建构的重要力量，推进本土化理论与实践创新，形成多中心、多路径、多文明逻辑并存的新格局。① 知识重构：传播学知识地图的「南方再现」。全球北方霸权话语长期压制，南方知识智慧未获主流学界重视，形成「知识遮蔽」；2025 年以来持续深化「去西方中心化」——拉美走实践与行动主义路径，南亚关注底层群众运动，提出「亚洲精神主义」以摆脱西方语法主导的传播认知框架。② 技术驱动：中国开源 AI 模型破解「智能鸿沟」。智媒时代技术赋权成为关键变量，西方「平台帝国主义」加信息垄断构成障碍；DeepSeek 开源大模型让非洲开发者可以本地自由修改设置，赋能非洲国家的内容生产能力，打破垄断，开辟世界文明交往的数字新空间。③ 合作共建：迈向多元平等的信息秩序。近年来全球南方传播呈现合作化、组织化、机制化，多边合作不断深化，如《2026 中非伙伴赋能行动计划》在数字传媒、内容创新、治理研究方面深化中非合作；「一带一路」倡议、金砖国家、上合组织共同对既有国际传播结构产生「反向塑造力」，使全球南方从边缘叙事主体转变为新秩序的积极塑造者。", "keys": "总定位（边缘→制度建构重要力量；多中心多路径多文明）1.5 分；知识重构（去西方中心化＋拉美／南亚／亚洲精神主义）2 分；技术驱动（智能鸿沟＋平台帝国主义＋DeepSeek 开源）2 分；合作共建（组织化机制化＋中非行动计划／一带一路／金砖／上合＋反向塑造力）2.5 分", "explain": "三条路径的小标题必须写出来（知识重构／技术驱动／合作共建），这是骨架分。失分集中在两处：一是「技术驱动」只写「用 AI」而没点出「破解智能鸿沟」这一目标与「平台帝国主义」这一障碍；二是「合作共建」漏掉「反向塑造力」这个结论性表述，它才是这一路径的价值升华。", "_id": 13}]}, {"name": "二、政治 · 错题回滚（全单选）", "questions": [{"id": 14, "type": "choice", "kp": "错题回滚 · 教育强国「六个以」", "stem": "〔错题回滚〕关于教育强国建设「六个以」的对应关系，下列表述**完全正确**的一项是：", "options": ["以立德树人为根本保证，以坚持党对教育事业的全面领导为根本任务", "以坚持党对教育事业的全面领导为根本保证，以立德树人为根本任务", "以服务中华民族伟大复兴为根本目标，以立德树人为重要使命", "以人民满意为根本目标，以支撑引领中国式现代化为核心功能"], "answer": "B", "explain": "正确链条：根本保证→坚持党对教育事业的全面领导；根本任务→立德树人；根本目标→为党育人、为国育才；重要使命→服务中华民族伟大复兴；基本路径→支撑引领中国式现代化；核心功能→引领现代化。A 把「根本保证」与「根本任务」对调；C 把「服务中华民族伟大复兴」错配成根本目标（它是**重要使命**）；D 把「人民满意」写成根本目标——**人民满意是根本尺度**，这正是上次全错那题的设错点，同一个坑换了个入口。记忆抓手：保（证）→党；任（务）→德育；目（标）→育才；使（命）→复兴；路（径）→现代化；功（能）→领现代化；另单记一句「人民满意是根本尺度」。", "_id": 14}, {"id": 15, "type": "choice", "kp": "错题回滚 · 统战三个「最」", "stem": "〔错题回滚〕关于统一战线的几个关键表述，下列说法**正确**的是：", "options": ["统一战线本质要求是大团结大联合，解决的是人心和力量问题", "统一战线本质要求是求同存异，解决的是差异和分歧问题", "党的领导是统一战线最鲜明的特征，本质要求是凝聚共识", "统一战线关键是坚持党的领导，最鲜明的特征是求同存异"], "answer": "A", "explain": "正确链条：本质要求＝大团结大联合，解决的是**人心和力量**问题；关键＝坚持**求同存异**；**党的领导**是统一战线最鲜明的特征。B 把「关键（求同存异）」塞进了本质要求，还把对象写成「差异和分歧」——这两处正是你上次的错法；C 本质要求写成「凝聚共识」，搭配错；D 把关键与特征互换。记忆抓手：四级递进链——联合（本质）→ 人心（对象）→ 存异（方法）→ 党旗（特征），四步不能跳。", "_id": 15}, {"id": 16, "type": "choice", "kp": "错题回滚 · 全过程人民民主", "stem": "〔错题回滚〕全过程人民民主「四个相统一」**不包括**下列哪一项？", "options": ["过程民主和成果民主相统一", "程序民主和实质民主相统一", "选举民主和协商民主相统一", "人民民主和国家意志相统一"], "answer": "C", "explain": "四个相统一＝过程民主和成果民主、程序民主和实质民主、直接民主和间接民主、人民民主和国家意志。本题四项中 A、B、D 都在其中（另缺「直接民主和间接民主」），只有 C「选举民主和协商民主相统一」**不在其中**——选举民主与协商民主是两种**形式**，是同一层次的一对并列，不构成一组「统一」。这是上次那道题的镜像问法（上次你选了包含项当不包含项）。记忆抓手：四对里有三对是「同一民主的两个侧面」（过程/成果、程序/实质、直接/间接），最后一对跳到「人民民主/国家意志」。", "_id": 16}, {"id": 17, "type": "choice", "kp": "错题回滚 · 党的显著标志", "stem": "〔错题回滚〕下列哪一项表述把两个不同来源的结论**准确区分**开了？", "options": ["理论联系实际、密切联系群众、批评和自我批评，是党区别于其他政党的显著标志", "勇于自我革命是党区别于其他政党的显著标志；理论联系实际、密切联系群众、批评和自我批评是党的三大优良作风", "理论联系实际、密切联系群众、批评和自我批评、人民至上，是党的三大优良作风", "勇于自我革命、人民至上、批评和自我批评，共同构成党区别于其他政党的显著标志"], "answer": "B", "explain": "两条独立表述必须分开记：① 党的**七大（1945）**：理论联系实际、密切联系群众、批评和自我批评——是**三大**优良作风（不是「三个」，**也不含「人民至上」**）；② 党的**十九届六中全会《决议》**：**勇于自我革命**是党区别于其他政党的显著标志。A 把三大优良作风当成了「显著标志」，这正是你上次选的错误项；C 多塞了「人民至上」；D 把「勇于自我革命」与「三大作风」并成「共同构成」。提醒一句：这题的正确项与你 9.17 反馈原文里的错误写法正好相反——**文档里的错误不改，考场上会原样复现**，回头把 9.17 反馈里并列三者那句改掉。", "_id": 17}]}, {"name": "三、英语 · 错题回滚与方法反思", "questions": [{"id": 18, "type": "fill", "blanks": 3, "kp": "错题回滚 · 词汇", "stem": "〔错题回滚〕根据中文释义写出对应的英文表达：① 严厉打击、镇压（动词短语，常与 on 连用）：____；② 大草原（名词）：____；③ 更棘手的（形容词比较级，常修饰 problem／issue）：____。", "answer": "crack down on、prairie、thornier", "keys": "每空 1 分，拼写错误不得分", "explain": "这三处是上次的硬伤。① crack down on 你写成了「崩塌」——「崩塌」是 collapse，语义方向完全相反；记法：crack down on 是动作朝向外的「打压」，联想「警方扫荡」。② prairie 上次直接空着，把它和 plain（平原）、plateau（高原）绑成一组地貌词一起背。③ thornier 你写「更尖锐」——接近但不准，thorny 修饰 problem／issue 时的固定含义是「棘手的」，本义「多刺的」，从「刺手」到「棘手」是自然的隐喻延伸。", "_id": 18}, {"id": 19, "type": "translate", "kp": "错题回滚 · 长难句（比较结构与程度副词）", "stem": "〔错题回滚〕翻译下面这句练习句，并标出句子主干：\n\nThose who have never seen the country for themselves are far more likely to feel threatened by its rise than those who have.", "answer": "译文：那些从未亲眼见过这个国家的人，远比那些见过的人更有可能对其崛起感到威胁。\n\n主干：Those … are far more likely to feel threatened … than those …（主语 Those＋定语从句／系动词 are＋表语 likely＋比较结构 more … than）。\n\n要点：① Those who … 是「那些……的人」，定语从句作主语，译文必须补出「人」；② far more likely 是「远远更有可能」，**far 这个程度副词不能省略**——这正是上次漏译的点；③ than those who have 是 than those who have seen the country 的省略，要补全成「那些见过的人」，不要译成「那些有的」；④ feel threatened by 译「对……感到威胁／因……而感到威胁」。", "keys": "主干识别正确 1 分；those who… 译为「那些……的人」1 分；far more likely 译为「远远更有可能」1 分（漏掉 far 不得分）；than 比较对象补全正确 1 分；全句通顺无漏译 1 分", "explain": "换了一个新句子，考的仍是上次的失分点：**比较级与程度副词不能省**。英二翻译按踩点给分，「far」「more likely」「than those who have」三处任何一个没译出来都要扣。另外：句子主干是「Those … are … likely」，who 从句和 than 从句都是挂件，先把主干摘出来再填细节——这一步你上次做得不够。", "_id": 19}, {"id": 20, "type": "short", "rows": 6, "kp": "英语 · 方法反思", "stem": "方法反思：① 遇到比较级与程度副词，处理原则是什么？② 拿到一个长难句，第一步应该做什么？③ 为什么你的译文容易在 those／that 这类指代词上丢分？怎么处理？", "answer": "① 比较级与程度副词必须完整译出，不能省略或模糊化。far、much、even、still 等程度副词修饰比较级时，要译出「远远／得多／更加」这类强度信息；more likely、less than、as … as 等比较结构要成对译出，漏一处扣一处。② 第一步是**摘主干**：先找出主语、谓语（或系动词）、宾语／表语，把定语从句、状语从句、插入语都当挂件暂时剥离；主干立住之后再逐层挂回修饰成分，最后按中文习惯调整语序。③ 因为 those／that／it／they 在英文里承担的是语法指代，中文没有对应词，直译就会丢信息。处理原则：指代对象是「人」就补出「那些……的人」，是「物／概念」就重复名词或补「这一点／这一现象」，宁可重复也不能留空。", "keys": "① 比较级＋程度副词不省（far／much 要译出强度）1.5 分；② 先摘主干再挂修饰 1.5 分；③ 指代词还原为具体名词或补出类别词 2 分", "explain": "三问分别对应你上次实际暴露的三个问题：漏译 far more likely、译文结构与原句结构脱节、those 没译出「那些……的人」。方法上记一句：**英译汉先拆骨架再填肉，比较结构成对出现就要成对翻译。**", "_id": 20}]}]};
+const QUIZID = "2026-10-14b";
+const KEY = "quiz_" + QUIZID;
+const TOTAL = 20;
+
+// ---- 状态存取 ----
+let state = JSON.parse(localStorage.getItem(KEY) || "{}");
+
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+function answeredCount(){
+  let n = 0;
+  QUIZ.sections.forEach(s => s.questions.forEach((q, i) => {
+    const id = q._id;
+    const v = state[id];
+    if (q.type === "choice") { if (v) n++; }
+    else if (q.type === "fill") {
+      if (v && Object.values(v).some(x => (x||"").trim())) n++;
+    }
+    else { if (v && v.trim()) n++; }
+  }));
+  return n;
+}
+
+function updateProgress(){
+  const n = answeredCount();
+  const pct = Math.round(n / TOTAL * 100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("ptext").textContent = `已作答 ${n} / ${TOTAL}`;
+  document.getElementById("tbCount").textContent = `${n} / ${TOTAL}`;
+  document.getElementById("doneTip").classList.toggle("show", n >= TOTAL);
+}
+
+function flashSaved(n){
+  const el = document.querySelector(`.saved[data-saved="${n}"]`);
+  if (!el) return;
+  el.textContent = "已保存";
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 1200);
+}
+
+// ---- 绑定交互 ----
+document.querySelectorAll(".opt input").forEach(inp => {
+  inp.addEventListener("change", e => {
+    const n = +e.target.name.replace("q", "");
+    state[n] = e.target.value;
+    save(); updateProgress(); flashSaved(n);
+  });
+});
+
+document.querySelectorAll(".fillin").forEach(inp => {
+  inp.addEventListener("input", e => {
+    const n = e.target.dataset.q, b = e.target.dataset.b;
+    state[n] = state[n] || {};
+    state[n][b] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+document.querySelectorAll(".shortin,.transin").forEach(ta => {
+  ta.addEventListener("input", e => {
+    const n = e.target.dataset.q;
+    state[n] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+// 查看解析
+document.querySelectorAll(".btn-ans").forEach(b => {
+  b.addEventListener("click", () => {
+    const n = b.dataset.q;
+    const box = document.querySelector(`.ansbox[data-ans="${n}"]`);
+    const open = !box.hidden;
+    box.hidden = open;
+    b.textContent = open ? "查看解析" : "收起解析";
+  });
+});
+
+document.getElementById("btnRevealAll").addEventListener("click", function(){
+  const anyHidden = [...document.querySelectorAll(".ansbox")].some(b => b.hidden);
+  document.querySelectorAll(".ansbox").forEach(b => b.hidden = !anyHidden);
+  document.querySelectorAll(".btn-ans").forEach(b => {
+    b.textContent = anyHidden ? "收起解析" : "查看解析";
+  });
+  this.textContent = anyHidden ? "收起全部解析" : "展开全部解析";
+});
+
+// 清空
+document.getElementById("btnReset").addEventListener("click", () => {
+  if (!confirm("确定清空全部作答？此操作不可撤销。")) return;
+  state = {}; save();
+  document.querySelectorAll(".opt input").forEach(i => i.checked = false);
+  document.querySelectorAll(".fillin,.shortin,.transin").forEach(i => i.value = "");
+  updateProgress();
+});
+
+// ---- 导出答案 ----
+function buildExport(){
+  const L = [];
+  L.push(`# ${QUIZ.title} — 我的作答`);
+  L.push("");
+  L.push(`日期：${QUIZ.date}`);
+  L.push(`完成：${answeredCount()} / ${TOTAL} 题`);
+  L.push("");
+  const tname = {choice:"单选", fill:"填空", short:"问答", translate:"长难句翻译"};
+  QUIZ.sections.forEach(s => {
+    L.push(`## ${s.name}`);
+    L.push("");
+    s.questions.forEach(q => {
+      const v = state[q._id];
+      L.push(`### ${q._id}. [${tname[q.type]}]`);
+      L.push(q.stem);
+      L.push("");
+      if (q.type === "choice") {
+        L.push(`**我的答案：** ${v ? v : "（未作答）"}`);
+      } else if (q.type === "fill") {
+        const arr = [];
+        for (let i = 0; i < (q.blanks || 1); i++) {
+          const k = String(i);
+          arr.push(`第${i+1}空：${(v && v[k]) ? v[k] : "（空）"}`);
+        }
+        L.push(`**我的答案：** ${arr.join("　")}`);
+      } else {
+        L.push(`**我的答案：**`);
+        L.push("");
+        L.push(v && v.trim() ? v : "（未作答）");
+      }
+      L.push("");
+    });
+  });
+  return L.join("\n");
+}
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  document.getElementById("exportArea").value = buildExport();
+  document.getElementById("modal").classList.add("show");
+});
+document.getElementById("btnCloseModal").addEventListener("click", () => {
+  document.getElementById("modal").classList.remove("show");
+});
+document.getElementById("btnDownload").addEventListener("click", () => {
+  const blob = new Blob([buildExport()], {type:"text/markdown;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${QUIZID}-我的作答.md`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") e.target.classList.remove("show");
+});
+
+// ---- 恢复状态 ----
+(function restore(){
+  document.querySelectorAll(".opt input").forEach(inp => {
+    const n = +inp.name.replace("q", "");
+    if (state[n] === inp.value) inp.checked = true;
+  });
+  document.querySelectorAll(".fillin").forEach(inp => {
+    const n = inp.dataset.q, b = inp.dataset.b;
+    if (state[n] && state[n][b] != null) inp.value = state[n][b];
+  });
+  document.querySelectorAll(".shortin,.transin").forEach(ta => {
+    const n = ta.dataset.q;
+    if (state[n] != null) ta.value = state[n];
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
