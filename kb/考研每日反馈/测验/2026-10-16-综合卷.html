@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考研每日测验 · 10.16 综合卷（素材：新传高频名词 100 讲 第 01／02 讲「拟态环境」「沉默的螺旋」＋ 错题回滚）</title>
+<style>
+:root{
+  --bg:#f7f8fb; --card:#fff; --ink:#1c2430; --sub:#60708a;
+  --line:#e3e8f0; --blue:#2F5B9E; --blue-l:#e8eef8;
+  --green:#1f8a52; --green-l:#e6f5ec;
+  --amber:#b4740a; --amber-l:#fdf3e0;
+  --red:#c0392b; --red-l:#fdeceb;
+  --violet:#6b4ea8; --violet-l:#f0ebfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+    "Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.7;
+  padding:0 0 120px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+/* 顶部 */
+header{
+  background:linear-gradient(135deg,#2F5B9E 0%,#40699f 60%,#5b7fb5 100%);
+  color:#fff;padding:34px 0 26px;margin-bottom:24px;
+  box-shadow:0 2px 14px rgba(47,91,158,.18);
+}
+header h1{font-size:23px;font-weight:650;letter-spacing:.3px;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.85}
+.statline{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chip{
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);
+  border-radius:999px;padding:4px 13px;font-size:12.5px;backdrop-filter:blur(4px)
+}
+
+/* 进度条 */
+.progress-sticky{
+  position:sticky;top:0;z-index:50;background:rgba(247,248,251,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  padding:10px 0;margin-bottom:8px;
+}
+.pbar{height:7px;background:#e6eaf2;border-radius:99px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,#2F5B9E,#5b8fd4);
+  border-radius:99px;transition:width .35s ease}
+.ptext{font-size:12.5px;color:var(--sub);margin-top:6px;display:flex;
+  justify-content:space-between}
+
+/* 分区 */
+.sec{margin:30px 0 0}
+.sec h2{
+  font-size:16.5px;font-weight:640;color:var(--blue);
+  display:flex;align-items:center;gap:9px;padding-bottom:9px;
+  border-bottom:2px solid var(--blue-l);margin-bottom:16px;
+}
+.dot{width:9px;height:9px;border-radius:3px;background:var(--blue);
+  display:inline-block;flex:0 0 auto}
+.secmeta{margin-left:auto;font-size:12px;color:var(--sub);font-weight:400}
+
+/* 题目卡片 */
+.q{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:17px 19px;margin-bottom:13px;transition:border-color .2s,box-shadow .2s;
+}
+.q:focus-within{border-color:#b9cdea;box-shadow:0 3px 14px rgba(47,91,158,.09)}
+.qhead{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.qno{
+  width:26px;height:26px;border-radius:8px;background:var(--blue);
+  color:#fff;font-size:13px;font-weight:600;display:flex;
+  align-items:center;justify-content:center;flex:0 0 auto;
+}
+.qtag{font-size:11.5px;padding:2px 9px;border-radius:6px;font-weight:500}
+.t-choice{background:var(--blue-l);color:var(--blue)}
+.t-fill{background:var(--green-l);color:var(--green)}
+.t-short{background:var(--violet-l);color:var(--violet)}
+.t-translate{background:var(--amber-l);color:var(--amber)}
+.kp{font-size:11.5px;color:var(--sub);margin-left:auto}
+.stem{font-size:14.8px;margin-bottom:12px;white-space:pre-wrap}
+
+/* 单选 */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 13px;
+  border:1px solid var(--line);border-radius:9px;cursor:pointer;
+  transition:all .16s;font-size:14.2px;
+}
+.opt:hover{background:#f4f7fc;border-color:#c3d5ee}
+.opt input{display:none}
+.opt .letter{
+  width:21px;height:21px;border-radius:6px;background:#eef1f6;color:var(--sub);
+  font-size:12px;font-weight:600;display:flex;align-items:center;
+  justify-content:center;flex:0 0 auto;margin-top:2px;transition:all .16s;
+}
+.opt input:checked~.letter{background:var(--blue);color:#fff}
+.opt:has(input:checked){background:var(--blue-l);border-color:#9dbde6}
+.otext{flex:1}
+
+/* 填空 */
+.fills{display:flex;flex-direction:column;gap:8px}
+.fillin{
+  font-family:inherit;font-size:14.2px;padding:9px 13px;
+  border:1px solid var(--line);border-radius:8px;background:#fcfdff;
+  transition:all .16s;width:100%;
+}
+.fillin:focus{outline:none;border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 文本域 */
+.shortin,.transin{
+  font-family:inherit;font-size:14.2px;line-height:1.75;padding:11px 14px;
+  border:1px solid var(--line);border-radius:9px;background:#fcfdff;
+  width:100%;resize:vertical;transition:all .16s;
+}
+.shortin:focus,.transin:focus{outline:none;border-color:var(--blue);
+  background:#fff;box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 按钮与解析 */
+.qfoot{display:flex;align-items:center;gap:11px;margin-top:11px}
+.btn-ans{
+  font-family:inherit;font-size:12.5px;padding:5px 13px;border-radius:7px;
+  border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;
+  transition:all .16s;
+}
+.btn-ans:hover{background:var(--blue-l);border-color:#a8c4e8;color:var(--blue)}
+.saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
+.saved.show{opacity:1}
+.ansbox{
+  margin-top:12px;padding:13px 15px;background:#fafbfd;
+  border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-size:13.8px;
+}
+.ansline{margin-bottom:8px;display:flex;gap:9px;line-height:1.7}
+.ansline:last-child{margin-bottom:0}
+.ansline b{
+  flex:0 0 auto;color:var(--blue);font-size:12px;font-weight:640;
+  background:var(--blue-l);padding:2px 8px;border-radius:5px;height:fit-content;
+  margin-top:3px;
+}
+.ansline .got{color:var(--green);font-weight:600}
+
+/* 底部操作栏 */
+.toolbar{
+  position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);padding:12px 20px;z-index:60;
+  backdrop-filter:blur(10px);box-shadow:0 -2px 16px rgba(28,36,48,.07);
+}
+.tb-inner{max-width:820px;margin:0 auto;display:flex;
+  align-items:center;gap:11px;flex-wrap:wrap}
+.btn{
+  font-family:inherit;font-size:13.5px;padding:9px 19px;border-radius:9px;
+  border:none;cursor:pointer;font-weight:530;transition:all .16s;
+}
+.btn-main{background:var(--blue);color:#fff}
+.btn-main:hover{background:#264d87;transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--sub);border:1px solid var(--line)}
+.btn-ghost:hover{background:#f4f6fa;color:var(--ink)}
+.tb-count{font-size:13px;color:var(--sub);margin-left:auto}
+
+/* 完成提示 */
+.done-tip{
+  margin-top:22px;padding:18px 20px;border-radius:12px;
+  background:var(--green-l);border:1px solid #bfe5ce;color:#14603a;
+  font-size:14px;display:none;
+}
+.done-tip.show{display:block}
+.done-tip b{display:block;margin-bottom:6px;font-size:15px}
+
+/* 答案导出弹层 */
+.modal{
+  position:fixed;inset:0;background:rgba(20,28,40,.5);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:#fff;border-radius:14px;max-width:660px;width:100%;
+  max-height:82vh;display:flex;flex-direction:column;overflow:hidden;
+}
+.modal-head{padding:17px 21px;border-bottom:1px solid var(--line);
+  font-weight:620;font-size:15.5px;color:var(--blue)}
+.modal-body{padding:18px 21px;overflow-y:auto;flex:1}
+.modal-body textarea{
+  width:100%;height:340px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.65;border:1px solid var(--line);
+  border-radius:9px;padding:13px;background:#fafbfd;resize:vertical;
+}
+.modal-foot{padding:14px 21px;border-top:1px solid var(--line);
+  display:flex;gap:10px;justify-content:flex-end}
+.modal-tip{font-size:12.5px;color:var(--sub);margin-bottom:11px;line-height:1.65}
+
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  header{padding:26px 0 20px}
+  header h1{font-size:19px}
+  .q{padding:14px 15px}
+  .stem{font-size:14.2px}
+  .tb-count{display:none}
+  .kp{margin-left:0;width:100%}
+}
+@media print{
+  .toolbar,.btn-ans,.progress-sticky{display:none}
+  .ansbox[hidden]{display:block!important}
+  .q{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>考研每日测验 · 10.16 综合卷（素材：新传高频名词 100 讲 第 01／02 讲「拟态环境」「沉默的螺旋」＋ 错题回滚）</h1>
+    <div class="meta">2026-10-16 · 共 20 题 · 今晚 22:30 自动生成</div>
+    <div class="statline">
+      <span class="chip">单选 8</span>
+      <span class="chip">填空 5</span>
+      <span class="chip">问答 6</span>
+      <span class="chip">长难句 1</span>
+    </div>
+  </div>
+</header>
+
+<div class="progress-sticky">
+  <div class="wrap">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <div class="ptext">
+      <span id="ptext">已作答 0 / 20</span>
+      <span>进度自动保存，刷新不丢</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  
+<section class="sec">
+  <h2><span class="dot"></span>一、专业课 · 传播理论（沉默的螺旋 / 拟态环境）
+    <span class="secmeta">13 题</span></h2>
+  
+<div class="q" data-q="1" data-type="choice">
+  <div class="qhead">
+    <span class="qno">1</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">沉默的螺旋·提出者与年份</span>
+  </div>
+  <div class="stem">关于「沉默的螺旋」的提出者、提出年份与代表作，对应完全正确的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q1" value="A"><span class="letter">A</span><span class="otext">李普曼，1922 年，《舆论》</span></label><label class="opt"><input type="radio" name="q1" value="B"><span class="letter">B</span><span class="otext">诺依曼，1974 年在《传播学刊》发文提出，1980 年成书《沉默的螺旋：舆论——我们的社会皮肤》</span></label><label class="opt"><input type="radio" name="q1" value="C"><span class="letter">C</span><span class="otext">诺依曼，1980 年，《沉默的螺旋：舆论——我们的社会皮肤》</span></label><label class="opt"><input type="radio" name="q1" value="D"><span class="letter">D</span><span class="otext">藤竹晓，1968 年，《现代大众传播论》</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="1">查看解析</button>
+    <span class="saved" data-saved="1"></span>
+  </div>
+  <div class="ansbox" data-ans="1" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>提出是 1974 年（《传播学刊》发文），成书是 1980 年（《沉默的螺旋：舆论——我们的社会皮肤》），两步都要记住——C 项把提出年份写成了成书年份。李普曼《舆论》1922 是「拟态环境」的源头，D 项藤竹晓 1968 提出的是「拟态环境的环境化」，两者都不属于沉默的螺旋。另注：答案库对 1974 这一年份标注「有争议」，但主流教材与你用的《热点专题热点名词解释手册》第 39 条统一写 1974，按 1974 记。你上次这道题只答了提出者、漏了年份，这次盯住年份。</div></div>
+</div>
+<div class="q" data-q="2" data-type="choice">
+  <div class="qhead">
+    <span class="qno">2</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">配套概念群（意见气候／多元无知／准感官统计）</span>
+  </div>
+  <div class="stem">下列对「沉默的螺旋」配套概念的表述，正确的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q2" value="A"><span class="letter">A</span><span class="otext">「意见气候」只包含环境中现有的意见分布，不含未来可能出现的意见</span></label><label class="opt"><input type="radio" name="q2" value="B"><span class="letter">B</span><span class="otext">「多元无知」指人判断意见气候、判断什么观点能被环境接受的能力</span></label><label class="opt"><input type="radio" name="q2" value="C"><span class="letter">C</span><span class="otext">「多元无知」指反对意见只要不以明确强烈的形式表达，成员就会误以为大家意见一致</span></label><label class="opt"><input type="radio" name="q2" value="D"><span class="letter">D</span><span class="otext">「准感官统计」指大众媒介通过共鸣、累积、遍在三种效果营造出的意见环境</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="2">查看解析</button>
+    <span class="saved" data-saved="2"></span>
+  </div>
+  <div class="ansbox" data-ans="2" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>A 错——意见气候包含现有意见与未来可能出现的意见两类，信息源是大众媒介与所属群体。B 与 D 都是定义张冠李戴：B 描述的是「准感官统计」，D 描述的是大众传播三种效果营造「意见环境」的机制。准感官统计＝人判断意见气候、判断什么观点能被环境接受的能力。这三个词常被连着考，缺一个就丢分。</div></div>
+</div>
+<div class="q" data-q="3" data-type="choice">
+  <div class="qhead">
+    <span class="qno">3</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">理论定位（强效果论／舆论观）</span>
+  </div>
+  <div class="stem">关于沉默的螺旋在传播学效果研究中的定位，下列说法正确的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q3" value="A"><span class="letter">A</span><span class="otext">它属于有限效果论，认为媒介难以左右公众意见</span></label><label class="opt"><input type="radio" name="q3" value="B"><span class="letter">B</span><span class="otext">它主张舆论是「多数人的理性判断」，与「社会皮肤」说无关</span></label><label class="opt"><input type="radio" name="q3" value="C"><span class="letter">C</span><span class="otext">它认为劣势意见会主动公开表达，与优势意见形成动态平衡</span></label><label class="opt"><input type="radio" name="q3" value="D"><span class="letter">D</span><span class="otext">它属于强效果论，认定媒介具有创造社会现实的力量</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="3">查看解析</button>
+    <span class="saved" data-saved="3"></span>
+  </div>
+  <div class="ansbox" data-ans="3" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>诺依曼把这套理论放在强效果论的位置上，认定媒介具有创造社会现实的力量——A 项说反了。C 项也把机制说反了：劣势意见趋于沉默、优势意见不断增势，形成的是一路扩张的螺旋，不会走向平衡。B 项错在「社会皮肤」：诺依曼恰恰把舆论称作「我们的社会皮肤」，它既是个人感知意见气候、调整自身适应的那层皮肤，也像容器一样统合社会意见。</div></div>
+</div>
+<div class="q" data-q="4" data-type="choice">
+  <div class="qhead">
+    <span class="qno">4</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">拟态环境</span>
+  </div>
+  <div class="stem">关于「拟态环境」（pseudo-environment，又译假环境），下列说法不正确的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q4" value="A"><span class="letter">A</span><span class="otext">概念出自李普曼 1922 年出版的《舆论》</span></label><label class="opt"><input type="radio" name="q4" value="B"><span class="letter">B</span><span class="otext">它指大众媒介对现实环境进行选择、加工、重构之后向人们提示的环境</span></label><label class="opt"><input type="radio" name="q4" value="C"><span class="letter">C</span><span class="otext">藤竹晓 1968 年提出「拟态环境的环境化」，指出拟态环境会被人们当作现实环境本身来反应</span></label><label class="opt"><input type="radio" name="q4" value="D"><span class="letter">D</span><span class="otext">它是现代社会中客观现实环境的同义语，与客观环境是同一回事</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="4">查看解析</button>
+    <span class="saved" data-saved="4"></span>
+  </div>
+  <div class="ansbox" data-ans="4" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>错项是 D——拟态环境与客观现实环境是两回事，它由媒介选择性重构而来，这正是「拟态」二字的落点。B 描述的是生成机制（选择、加工、重构），C 是「拟态环境的环境化」的要点，A 是出处。注意把拟态环境与沉默的螺旋严格区分：一个是李普曼 1922《舆论》，一个是诺依曼 1974／1980——这两个「年份＋书名」是简答题里最容易互相串的组合。</div></div>
+</div>
+<div class="q" data-q="5" data-type="fill">
+  <div class="qhead">
+    <span class="qno">5</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">沉默的螺旋·三个基本命题</span>
+  </div>
+  <div class="stem">沉默的螺旋的三个基本命题：① 个人意见的表明是一个 ____ 过程，人先观察意见气候，再决定说不说；② 一方的沉默带来另一方的 ____，形成螺旋式扩展；③ 大众传播靠 ____、____、____ 三种效果，营造出「意见环境」并制约舆论。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="5" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="5" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="5" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="5" data-b="3" placeholder="第 4 空" autocomplete="off"><input class="fillin" type="text" data-q="5" data-b="4" placeholder="第 5 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="5">查看解析</button>
+    <span class="saved" data-saved="5"></span>
+  </div>
+  <div class="ansbox" data-ans="5" hidden><div class="ansline"><b>参考答案</b>社会心理、增势、共鸣、累积、遍在</div><div class="ansline"><b>得分点</b>每空 1 分，共 5 分, 第②空写「增势」或「声势壮大」均可, 第③空三种效果须写全：共鸣、累积、遍在</div><div class="ansline"><b>解析</b>三个命题是这道理论最硬的骨架，漏一个命题等于没答完。第③空最容易丢——「共鸣、累积、遍在」是诺依曼对大众传播效果特性的概括，不少教材写作「累积性、普遍性、共鸣性」，按「共鸣／累积／遍在」这组词记即可，但三个都要写出来，只写一两个不给分。</div></div>
+</div>
+<div class="q" data-q="6" data-type="fill">
+  <div class="qhead">
+    <span class="qno">6</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">配套概念群</span>
+  </div>
+  <div class="stem">沉默的螺旋的三个配套概念：____ —— 所处环境中的意见分布，含现有意见与未来可能出现的意见，信息源是大众媒介与所属群体；____ —— 反对意见只要不以明确强烈的形式表达，成员就会误以为大家意见一致；____ —— 人判断意见气候、判断什么观点能被环境接受的能力。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="6" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="6" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="6" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="6">查看解析</button>
+    <span class="saved" data-saved="6"></span>
+  </div>
+  <div class="ansbox" data-ans="6" hidden><div class="ansline"><b>参考答案</b>意见气候、多元无知、准感官统计</div><div class="ansline"><b>得分点</b>每空 1 分，共 3 分, 顺序不能颠倒：意见气候 → 多元无知 → 准感官统计</div><div class="ansline"><b>解析</b>这三个词在简答与名词解释里都是必挂项：意见气候是「对象」（环境中的意见分布），多元无知是「误判」（反对意见不吭声，于是误以为意见一致），准感官统计是「能力」（判断什么观点能被环境接受）。三者的差别就落在「对象 → 误判 → 能力」这一条线上，混掉任何一个都会在名词解释里丢分。</div></div>
+</div>
+<div class="q" data-q="7" data-type="fill">
+  <div class="qhead">
+    <span class="qno">7</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">拟态环境·出处与延伸</span>
+  </div>
+  <div class="stem">拟态环境由李普曼在 1922 年出版的《____》中提出；1968 年日本学者 ____ 提出「拟态环境的环境化」，指出拟态环境经媒介持续传播后会被人们当作现实环境本身。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="7" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="1" placeholder="第 2 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="7">查看解析</button>
+    <span class="saved" data-saved="7"></span>
+  </div>
+  <div class="ansbox" data-ans="7" hidden><div class="ansline"><b>参考答案</b>舆论、藤竹晓</div><div class="ansline"><b>得分点</b>每空 1 分，共 2 分</div><div class="ansline"><b>解析</b>这两个名字要成对记：李普曼《舆论》1922（美国，提出拟态环境）——藤竹晓 1968（日本，提出「环境化」）。一个负责答「是什么」，一个负责答「会怎样」，缺一个简答题就只剩一半。</div></div>
+</div>
+<div class="q" data-q="8" data-type="fill">
+  <div class="qhead">
+    <span class="qno">8</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">沉默的螺旋·背景起点</span>
+  </div>
+  <div class="stem">沉默的螺旋的经验起点是 1965 年 ____（国家）议会选举——投票前夕出现「____ 现象」，选票出现压倒性倾斜。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="8" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="8" data-b="1" placeholder="第 2 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="8">查看解析</button>
+    <span class="saved" data-saved="8"></span>
+  </div>
+  <div class="ansbox" data-ans="8" hidden><div class="ansline"><b>参考答案</b>联邦德国、雪崩</div><div class="ansline"><b>得分点</b>每空 1 分，共 2 分, 「雪崩现象」为原表述，写「雪崩」即可</div><div class="ansline"><b>解析</b>这个案例是诺依曼提出理论的经验起点，答题时写在「背景」那一层能加分。注意国家写「联邦德国」（当时的西德），不要写成「德国」；「雪崩现象」是原文用词，别改述成「一边倒」。</div></div>
+</div>
+<div class="q" data-q="9" data-type="short">
+  <div class="qhead">
+    <span class="qno">9</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">三个基本命题</span>
+  </div>
+  <div class="stem">简述「沉默的螺旋」的三个基本命题，并点明每个命题的关键落点。（10 分）</div>
+  <textarea class="shortin" data-q="9" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="9">查看解析</button>
+    <span class="saved" data-saved="9"></span>
+  </div>
+  <div class="ansbox" data-ans="9" hidden><div class="ansline"><b>参考答案</b>① 个人意见的表明是一个社会心理过程：人先通过准感官统计感知意见气候，再决定是否公开表达，对孤立的恐惧是驱动机制。② 一方的沉默带来另一方的增势，形成螺旋式扩展：劣势意见因沉默而显得更弱，优势意见因公开而显得更强，循环强化、越滚越大。③ 大众传播靠共鸣、累积、遍在三种效果营造「意见环境」并制约舆论：媒介以系统性、持续性的报道塑造公众对意见分布的感知。</div><div class="ansline"><b>得分点</b>命题一：社会心理过程 ＋ 先观察意见气候（3 分）, 命题二：沉默 → 增势 → 螺旋式扩展（3 分）, 命题三：共鸣／累积／遍在三种效果 ＋ 意见环境（3 分）, 分点作答、术语准确、表述完整（1 分）</div><div class="ansline"><b>解析</b>这题只考骨架完整度。三个命题必须分点写，每一点都要落到「机制词」上（社会心理过程／螺旋式扩展／意见环境），漏点就等于没答完。另外别把命题三的「三种效果」写成「大众传播的三种功能」——那是另一套表述，会被判术语不准。</div></div>
+</div>
+<div class="q" data-q="10" data-type="short">
+  <div class="qhead">
+    <span class="qno">10</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">沉默的螺旋·名词解释</span>
+  </div>
+  <div class="stem">名词解释：沉默的螺旋（5 分）</div>
+  <textarea class="shortin" data-q="10" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="10">查看解析</button>
+    <span class="saved" data-saved="10"></span>
+  </div>
+  <div class="ansbox" data-ans="10" hidden><div class="ansline"><b>参考答案</b>德国社会学家诺依曼 1974 年提出、1980 年在《沉默的螺旋：舆论——我们的社会皮肤》中系统阐述的理论。核心是：人出于对孤立的恐惧，先感知周围的意见气候，再决定是否公开表达；劣势意见趋于沉默、优势意见不断增势，形成螺旋式扩展，最终被强化的是人们感知中的「多数意见」。它属强效果论，配套概念有意见气候、多元无知、准感官统计。</div><div class="ansline"><b>得分点</b>提出者 ＋ 提出年份（年份须写 1974）（2 分）, 孤立恐惧／意见气候机制（2 分）, 强效果论定位 或 三个配套概念（1 分）</div><div class="ansline"><b>解析</b>5 分名词解释的答题公式＝「谁 ＋ 哪一年 ＋ 什么书 ＋ 一句话内核 ＋ 一个延伸」。你上次这类题只答了提出者、漏了年份——年份是硬性得分点，不写就是白丢 1 分。</div></div>
+</div>
+<div class="q" data-q="11" data-type="short">
+  <div class="qhead">
+    <span class="qno">11</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">舆论观与效果观</span>
+  </div>
+  <div class="stem">诺依曼用什么比喻表达她的舆论观？请解释这个比喻的双重含义，并说明该理论的效果观定位。（8 分）</div>
+  <textarea class="shortin" data-q="11" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="11">查看解析</button>
+    <span class="saved" data-saved="11"></span>
+  </div>
+  <div class="ansbox" data-ans="11" hidden><div class="ansline"><b>参考答案</b>比喻：舆论是「我们的社会皮肤」。双重含义——① 对个人：它是感知意见气候、据以调整自身表达的那层「皮肤」，是人与意见环境接触的界面；② 对社会：它像容器一样统合社会意见，防止意见过度分裂，维持社会整合。效果观：这套理论属强效果论，认定媒介具有创造社会现实的力量。</div><div class="ansline"><b>得分点</b>比喻名称「社会皮肤」（2 分）, 个人层面：感知意见气候／调整自身适应（2 分）, 社会层面：统合社会意见／防止意见过度分裂（2 分）, 效果观：强效果论／媒介创造社会现实（2 分）</div><div class="ansline"><b>解析</b>这个比喻的双重含义是常见追问点，只答「皮肤 = 感知」会丢掉一半。答题口诀：向外是「感知气候」，向内是「统合意见」。</div></div>
+</div>
+<div class="q" data-q="12" data-type="short">
+  <div class="qhead">
+    <span class="qno">12</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">沉默的螺旋·常见批评</span>
+  </div>
+  <div class="stem">学术界对沉默的螺旋提出的常见批评有哪三点？（6 分）</div>
+  <textarea class="shortin" data-q="12" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="12">查看解析</button>
+    <span class="saved" data-saved="12"></span>
+  </div>
+  <div class="ansbox" data-ans="12" hidden><div class="ansline"><b>参考答案</b>① 把从众心理与群体压力当成恒定常量，忽略了个体差异与情境差异；② 忽视「中坚分子」的作用——敢于坚持少数意见的人可以打破螺旋；③ 忽视意见本身说服力的强弱，把意见的消长几乎全部归因于社会心理机制。</div><div class="ansline"><b>得分点</b>三条各 2 分, 第②条须点出「中坚分子」这一术语，写「少数人」不给术语分</div><div class="ansline"><b>解析</b>这三条是论述题里的「反面弹药」——凡是问「沉默的螺旋的局限／受到的质疑」，写这三条就能拿分。顺序可换，点必须齐。</div></div>
+</div>
+<div class="q" data-q="13" data-type="short">
+  <div class="qhead">
+    <span class="qno">13</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">网络时代的延伸</span>
+  </div>
+  <div class="stem">到了互联网时代，沉默的螺旋是否还成立？请写出争论的焦点、双方各自的理由，并给出你的判断。（10 分）</div>
+  <textarea class="shortin" data-q="13" rows="8" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="13">查看解析</button>
+    <span class="saved" data-saved="13"></span>
+  </div>
+  <div class="ansbox" data-ans="13" hidden><div class="ansline"><b>参考答案</b>焦点：网络环境中群体压力是否仍然有效。仍有效的一方认为——网络中被孤立的对象变成了 ID，但对孤立的恐惧、以及公开表达前对周围意见的估量依然存在；平台上的可见性标识（点赞、转发、热评）反而把意见气候实时推到眼前，强化了感知。被削弱的一方认为——匿名降低了表达成本，中坚分子更容易找到同温层并持续发声，意见气候被算法分割成多个小气候，单一螺旋难以形成。判断：机制并未消失，变化的是压力生效的形式与范围——从「熟人群体压力」转向「平台可见性压力」，螺旋仍在，但可能表现为局部化、多中心的多个小螺旋。</div><div class="ansline"><b>得分点</b>写出争论焦点：群体压力是否仍有效（3 分）, 支持方理由：被孤立对象变成 ID／孤立恐惧与公开表达的心理机制依然存在（3 分）, 质疑方理由：匿名、中坚分子、算法分割意见气候（2 分）, 给出自己的判断并说明理由（2 分）</div><div class="ansline"><b>解析</b>标准答法不要求站定一方，要求「焦点 ＋ 两方理由 ＋ 自己判断」三层齐全。对照你手上卡片上的原表述：卡片只写到「网络中被孤立的对象变成了 ID，孤立恐惧与公开表达的心理机制依然存在」——这一层是必答项，写不出就是没掌握原始口径。「匿名性、中坚分子、算法分割」属于可延伸的加分理由，写上能加分，但不要用它们替换掉卡片上的核心句。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>二、政治 · 错题回滚（全单选）
+    <span class="secmeta">4 题</span></h2>
+  
+<div class="q" data-q="14" data-type="choice">
+  <div class="qhead">
+    <span class="qno">14</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">教育强国「六个以」</span>
+  </div>
+  <div class="stem">关于建设教育强国的「六个以」，下列对应正确的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q14" value="A"><span class="letter">A</span><span class="otext">以立德树人为根本保证</span></label><label class="opt"><input type="radio" name="q14" value="B"><span class="letter">B</span><span class="otext">以为党育人、为国育才为根本目标</span></label><label class="opt"><input type="radio" name="q14" value="C"><span class="letter">C</span><span class="otext">以支撑引领中国式现代化为基本路径</span></label><label class="opt"><input type="radio" name="q14" value="D"><span class="letter">D</span><span class="otext">以服务中华民族伟大复兴为核心功能</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="14">查看解析</button>
+    <span class="saved" data-saved="14"></span>
+  </div>
+  <div class="ansbox" data-ans="14" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>正确对应是——根本保证＝坚持党对教育事业的全面领导（A 错，把「根本保证」安给了立德树人）；根本任务＝立德树人；根本目标＝为党育人、为国育才（B 对）；重要使命＝服务中华民族伟大复兴（D 错）；基本路径＝教育理念、体系、制度、内容、方法、治理现代化（C 错，它写的是「核心功能」的内容）；核心功能＝支撑引领中国式现代化。原表述的落脚点是「最终是办好人民满意的教育」，「办好人民满意的教育」不在这「六个以」之内——你上次把这个意思记成了「最终标准」并混进「六个以」，这次分清。记忆抓手：保（证）→党；任（务）→德育；目（标）→育才；使（命）→复兴；路（径）→现代化；功（能）→领现代化。</div></div>
+</div>
+<div class="q" data-q="15" data-type="choice">
+  <div class="qhead">
+    <span class="qno">15</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">统战「本质要求与关键」</span>
+  </div>
+  <div class="stem">关于统一战线的本质要求与关键，下列表述正确的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q15" value="A"><span class="letter">A</span><span class="otext">本质要求是坚持党的领导，解决的是求同存异的方法问题</span></label><label class="opt"><input type="radio" name="q15" value="B"><span class="letter">B</span><span class="otext">本质要求是大团结大联合，解决的是人心和力量问题；关键是坚持求同存异</span></label><label class="opt"><input type="radio" name="q15" value="C"><span class="letter">C</span><span class="otext">本质要求是大团结大联合，关键是完全一致、消除多样性</span></label><label class="opt"><input type="radio" name="q15" value="D"><span class="letter">D</span><span class="otext">本质要求是发扬「团结—批评—团结」的优良传统，关键是扩大共识</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="15">查看解析</button>
+    <span class="saved" data-saved="15"></span>
+  </div>
+  <div class="ansbox" data-ans="15" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>原表述是——「统战工作的本质要求是大团结大联合，解决的就是人心和力量问题。关键是要坚持求同存异，发扬『团结—批评—团结』的优良传统，在尊重多样性中寻求一致性，找到最大公约数、画出最大同心圆。」A 把「关键」与「本质要求」两两互换了；C 错在「完全一致」——原文是「在尊重多样性中寻求一致性」，并没有要求消除多样性；D 把「传统」误当成了本质要求。记忆抓手：四级递进链——联合（本质）→ 人心（对象）→ 存异（方法）→ 党旗（特征）。</div></div>
+</div>
+<div class="q" data-q="16" data-type="choice">
+  <div class="qhead">
+    <span class="qno">16</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">党的优良作风与自我革命（笔记笔误题）</span>
+  </div>
+  <div class="stem">下列关于党的优良作风与自我革命的表述，正确的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q16" value="A"><span class="letter">A</span><span class="otext">理论联系实际、密切联系群众、批评和自我批评，与「人民至上」「勇于自我革命」并列，共同构成党的三大优良作风</span></label><label class="opt"><input type="radio" name="q16" value="B"><span class="letter">B</span><span class="otext">「勇于自我革命」是党的七大（1945）确立的三大优良作风之一</span></label><label class="opt"><input type="radio" name="q16" value="C"><span class="letter">C</span><span class="otext">党的三大优良作风是实事求是、群众路线、独立自主</span></label><label class="opt"><input type="radio" name="q16" value="D"><span class="letter">D</span><span class="otext">「勇于自我革命」是中国共产党区别于其他政党的显著标志</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="16">查看解析</button>
+    <span class="saved" data-saved="16"></span>
+  </div>
+  <div class="ansbox" data-ans="16" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>这题的重点在于提醒：选项 A 就是你 9.17 反馈里的原始写法——把三大优良作风与「人民至上」「勇于自我革命」并列成一句，当时的 AI 补充已经明确提醒要拆开，你没有改。笔记里的错误如果不主动清除，考场上会原样复现。正确口径来自两条彼此独立的线索：① 党的七大（1945）提出三大优良作风＝理论联系实际、密切联系群众、批评和自我批评（不含「人民至上」，也不含「勇于自我革命」）；②「勇于自我革命是我们党区别于其他政党的显著标志」出自党的十九届六中全会《决议》，习近平总书记在庆祝建党 100 周年大会上亦有同此论断。B、C 都错：B 把来源与年份张冠李戴，C 写的是毛泽东思想活的灵魂三个基本方面，与三大优良作风不是同一个组合。</div></div>
+</div>
+<div class="q" data-q="17" data-type="choice">
+  <div class="qhead">
+    <span class="qno">17</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">全过程人民民主「四个相统一」</span>
+  </div>
+  <div class="stem">我国全过程人民民主实现了「四个相统一」，下列不属于这「四个相统一」的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q17" value="A"><span class="letter">A</span><span class="otext">过程民主和成果民主相统一</span></label><label class="opt"><input type="radio" name="q17" value="B"><span class="letter">B</span><span class="otext">程序民主和实质民主相统一</span></label><label class="opt"><input type="radio" name="q17" value="C"><span class="letter">C</span><span class="otext">直接民主和间接民主相统一</span></label><label class="opt"><input type="radio" name="q17" value="D"><span class="letter">D</span><span class="otext">选举民主和协商民主相统一</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="17">查看解析</button>
+    <span class="saved" data-saved="17"></span>
+  </div>
+  <div class="ansbox" data-ans="17" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>「四个相统一」＝过程民主和成果民主、程序民主和实质民主、直接民主和间接民主、人民民主和国家意志。D 不在其中——「民主选举」与「民主协商」是民主的环节与形式，跟「四个相统一」是两套不同的划分，你上次就是把 D 当成了包含项。记忆抓手：前两对是「同一民主的两个侧面」（过程／成果、程序／实质），第三对是「实现形式」（直接／间接），最后一对是「人民意愿上升为国家意志」；四对各有落点，「选举 vs 协商」不在其中。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>三、英语 · 错题回滚与方法反思
+    <span class="secmeta">3 题</span></h2>
+  
+<div class="q" data-q="18" data-type="fill">
+  <div class="qhead">
+    <span class="qno">18</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">英二阅读词汇</span>
+  </div>
+  <div class="stem">写出下列词的释义：① crack down on ____；② prairie ____；③ thornier ____；④ plausible ____；⑤ jump at ____。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="18" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="3" placeholder="第 4 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="4" placeholder="第 5 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="18">查看解析</button>
+    <span class="saved" data-saved="18"></span>
+  </div>
+  <div class="ansbox" data-ans="18" hidden><div class="ansline"><b>参考答案</b>严厉打击（镇压）、大草原、更棘手的、似乎合理的（看似可信的）、急不可待地接受（机会）</div><div class="ansline"><b>得分点</b>每空 1 分，共 5 分, crack down on 须写出「打击／镇压」的动作义，写成「崩塌」不给分, jump at 拼写不能写成 jamp</div><div class="ansline"><b>解析</b>这几个都是你 9.16 整理的 2016 年英二阅读词汇。上次两处硬伤：① crack down on 你写成「崩塌」——「崩塌」对应的是 collapse，crack down 是朝外的打压动作，联想「警方扫荡」；② jump at 你原文拼作「Jamp at」，正确是 jump at，这类拼写错误留在笔记里，考场上会再犯一次，回去把笔记改掉。thornier 是 thorny 的比较级，固定搭配是「问题更棘手」；prairie 与 plain（平原）、plateau（高原）放在一起记。</div></div>
+</div>
+<div class="q" data-q="19" data-type="translate">
+  <div class="qhead">
+    <span class="qno">19</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">长难句·比较级与程度副词</span>
+  </div>
+  <div class="stem">翻译下面这句话，并标出主干（主句的主谓宾）：
+
+Those confronted with the prospect of a long and empty retirement are far more likely to feel threatened, unless they can find ways to make passing time fulfilling.</div>
+  <textarea class="transin" data-q="19" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="19">查看解析</button>
+    <span class="saved" data-saved="19"></span>
+  </div>
+  <div class="ansbox" data-ans="19" hidden><div class="ansline"><b>参考答案</b>译文：那些面临漫长而空虚的退休生活（前景）的人，远远更容易感到受威胁——除非他们能找到让流逝的时间变得有意义的方法。
+主干：Those … are far more likely to feel threatened（主语 Those ＋ 系动词 are ＋ 表语 far more likely to feel threatened）；confronted with the prospect of a long and empty retirement 是后置定语修饰 Those；unless 引导条件状语从句。</div><div class="ansline"><b>得分点</b>主干切分正确：Those … are far more likely to feel threatened（2 分）, 译出 far more likely＝远远更有可能（2 分）, those 译成「那些……的人」（1 分）, unless 条件从句译出（1 分）, make passing time fulfilling 译出「让流逝的时间变得有意义」（1 分）</div><div class="ansline"><b>解析</b>你上次这题的失分点是漏译比较级与程度副词——只写了「感到受到威胁」，把 far more likely 整块丢掉。英二翻译里比较级和程度副词是硬性扣分点，见到 -er／more／far／much／even，都要单独落到中文上。另外 those 指人，要译出「那些……的人」，不能只写「那些」。</div></div>
+</div>
+<div class="q" data-q="20" data-type="short">
+  <div class="qhead">
+    <span class="qno">20</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">翻译方法反思</span>
+  </div>
+  <div class="stem">结合上一题，说说你翻译长难句时最容易丢分的环节是什么？并写出你打算用哪两个具体动作来避免它。</div>
+  <textarea class="shortin" data-q="20" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="20">查看解析</button>
+    <span class="saved" data-saved="20"></span>
+  </div>
+  <div class="ansbox" data-ans="20" hidden><div class="ansline"><b>参考答案</b>示例（按自己的实际情况调整）：最容易丢分的环节是只译出主干大意，漏掉修饰成分与程度词（比较级、副词），以及把后置定语、状语从句误当成主干的一部分。两个可执行动作：① 落笔前先划句子主干（主谓宾），把后置定语、状语从句用括号单独隔出来，再逐个处理；② 译完后反向核对一遍——检查中文里是否出现了原句比较级／程度词对应的「更、远远、尤其、甚至」，缺了就补上。</div><div class="ansline"><b>得分点</b>指出具体丢分环节，须具体到「漏译程度词／修饰成分」这类，泛泛写「不细心」不给分（2 分）, 动作一：先划主干，再单独处理修饰成分（2 分）, 动作二：译后反向核对比较级／程度词（1 分）</div><div class="ansline"><b>解析</b>这题不按字数给分，按「动作是否可执行」给分。「多练翻译」「注意细节」这类答案不给分，要写成明天就能照做的动作。你 9.16 自己总结过「分析长难句要先找主句，再划从句或补充成分」——把它固定成每次落笔前的动作，别靠临场感觉。</div></div>
+</div>
+</section>
+
+  <div class="done-tip" id="doneTip">
+    <b>🎉 全部作答完毕</b>
+    点右下角「导出我的答案」，把导出的文件发给我，我会逐题批改并给出评分与改进建议。
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="tb-inner">
+    <button class="btn btn-main" id="btnExport">导出我的答案</button>
+    <button class="btn btn-ghost" id="btnRevealAll">展开全部解析</button>
+    <button class="btn btn-ghost" id="btnReset">清空重做</button>
+    <span class="tb-count" id="tbCount">0 / 20</span>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">你的答案（复制后发给我批改）</div>
+    <div class="modal-body">
+      <div class="modal-tip">
+        全选复制下面的内容，粘贴到对话里发给我即可。也可以点「下载 .md」保存成文件再上传。
+      </div>
+      <textarea id="exportArea" readonly></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="btnCloseModal">关闭</button>
+      <button class="btn btn-main" id="btnDownload">下载 .md</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ = {"title": "考研每日测验 · 10.16 综合卷（素材：新传高频名词 100 讲 第 01／02 讲「拟态环境」「沉默的螺旋」＋ 错题回滚）", "date": "2026-10-16", "sections": [{"name": "一、专业课 · 传播理论（沉默的螺旋 / 拟态环境）", "questions": [{"id": "1", "type": "choice", "kp": "沉默的螺旋·提出者与年份", "stem": "关于「沉默的螺旋」的提出者、提出年份与代表作，对应完全正确的一项是：", "options": ["李普曼，1922 年，《舆论》", "诺依曼，1974 年在《传播学刊》发文提出，1980 年成书《沉默的螺旋：舆论——我们的社会皮肤》", "诺依曼，1980 年，《沉默的螺旋：舆论——我们的社会皮肤》", "藤竹晓，1968 年，《现代大众传播论》"], "answer": "B", "explain": "提出是 1974 年（《传播学刊》发文），成书是 1980 年（《沉默的螺旋：舆论——我们的社会皮肤》），两步都要记住——C 项把提出年份写成了成书年份。李普曼《舆论》1922 是「拟态环境」的源头，D 项藤竹晓 1968 提出的是「拟态环境的环境化」，两者都不属于沉默的螺旋。另注：答案库对 1974 这一年份标注「有争议」，但主流教材与你用的《热点专题热点名词解释手册》第 39 条统一写 1974，按 1974 记。你上次这道题只答了提出者、漏了年份，这次盯住年份。", "_id": "1"}, {"id": "2", "type": "choice", "kp": "配套概念群（意见气候／多元无知／准感官统计）", "stem": "下列对「沉默的螺旋」配套概念的表述，正确的是：", "options": ["「意见气候」只包含环境中现有的意见分布，不含未来可能出现的意见", "「多元无知」指人判断意见气候、判断什么观点能被环境接受的能力", "「多元无知」指反对意见只要不以明确强烈的形式表达，成员就会误以为大家意见一致", "「准感官统计」指大众媒介通过共鸣、累积、遍在三种效果营造出的意见环境"], "answer": "C", "explain": "A 错——意见气候包含现有意见与未来可能出现的意见两类，信息源是大众媒介与所属群体。B 与 D 都是定义张冠李戴：B 描述的是「准感官统计」，D 描述的是大众传播三种效果营造「意见环境」的机制。准感官统计＝人判断意见气候、判断什么观点能被环境接受的能力。这三个词常被连着考，缺一个就丢分。", "_id": "2"}, {"id": "3", "type": "choice", "kp": "理论定位（强效果论／舆论观）", "stem": "关于沉默的螺旋在传播学效果研究中的定位，下列说法正确的是：", "options": ["它属于有限效果论，认为媒介难以左右公众意见", "它主张舆论是「多数人的理性判断」，与「社会皮肤」说无关", "它认为劣势意见会主动公开表达，与优势意见形成动态平衡", "它属于强效果论，认定媒介具有创造社会现实的力量"], "answer": "D", "explain": "诺依曼把这套理论放在强效果论的位置上，认定媒介具有创造社会现实的力量——A 项说反了。C 项也把机制说反了：劣势意见趋于沉默、优势意见不断增势，形成的是一路扩张的螺旋，不会走向平衡。B 项错在「社会皮肤」：诺依曼恰恰把舆论称作「我们的社会皮肤」，它既是个人感知意见气候、调整自身适应的那层皮肤，也像容器一样统合社会意见。", "_id": "3"}, {"id": "4", "type": "choice", "kp": "拟态环境", "stem": "关于「拟态环境」（pseudo-environment，又译假环境），下列说法不正确的一项是：", "options": ["概念出自李普曼 1922 年出版的《舆论》", "它指大众媒介对现实环境进行选择、加工、重构之后向人们提示的环境", "藤竹晓 1968 年提出「拟态环境的环境化」，指出拟态环境会被人们当作现实环境本身来反应", "它是现代社会中客观现实环境的同义语，与客观环境是同一回事"], "answer": "D", "explain": "错项是 D——拟态环境与客观现实环境是两回事，它由媒介选择性重构而来，这正是「拟态」二字的落点。B 描述的是生成机制（选择、加工、重构），C 是「拟态环境的环境化」的要点，A 是出处。注意把拟态环境与沉默的螺旋严格区分：一个是李普曼 1922《舆论》，一个是诺依曼 1974／1980——这两个「年份＋书名」是简答题里最容易互相串的组合。", "_id": "4"}, {"id": "5", "type": "fill", "blanks": 5, "kp": "沉默的螺旋·三个基本命题", "stem": "沉默的螺旋的三个基本命题：① 个人意见的表明是一个 ____ 过程，人先观察意见气候，再决定说不说；② 一方的沉默带来另一方的 ____，形成螺旋式扩展；③ 大众传播靠 ____、____、____ 三种效果，营造出「意见环境」并制约舆论。", "answer": "社会心理、增势、共鸣、累积、遍在", "keys": ["每空 1 分，共 5 分", "第②空写「增势」或「声势壮大」均可", "第③空三种效果须写全：共鸣、累积、遍在"], "explain": "三个命题是这道理论最硬的骨架，漏一个命题等于没答完。第③空最容易丢——「共鸣、累积、遍在」是诺依曼对大众传播效果特性的概括，不少教材写作「累积性、普遍性、共鸣性」，按「共鸣／累积／遍在」这组词记即可，但三个都要写出来，只写一两个不给分。", "_id": "5"}, {"id": "6", "type": "fill", "blanks": 3, "kp": "配套概念群", "stem": "沉默的螺旋的三个配套概念：____ —— 所处环境中的意见分布，含现有意见与未来可能出现的意见，信息源是大众媒介与所属群体；____ —— 反对意见只要不以明确强烈的形式表达，成员就会误以为大家意见一致；____ —— 人判断意见气候、判断什么观点能被环境接受的能力。", "answer": "意见气候、多元无知、准感官统计", "keys": ["每空 1 分，共 3 分", "顺序不能颠倒：意见气候 → 多元无知 → 准感官统计"], "explain": "这三个词在简答与名词解释里都是必挂项：意见气候是「对象」（环境中的意见分布），多元无知是「误判」（反对意见不吭声，于是误以为意见一致），准感官统计是「能力」（判断什么观点能被环境接受）。三者的差别就落在「对象 → 误判 → 能力」这一条线上，混掉任何一个都会在名词解释里丢分。", "_id": "6"}, {"id": "7", "type": "fill", "blanks": 2, "kp": "拟态环境·出处与延伸", "stem": "拟态环境由李普曼在 1922 年出版的《____》中提出；1968 年日本学者 ____ 提出「拟态环境的环境化」，指出拟态环境经媒介持续传播后会被人们当作现实环境本身。", "answer": "舆论、藤竹晓", "keys": ["每空 1 分，共 2 分"], "explain": "这两个名字要成对记：李普曼《舆论》1922（美国，提出拟态环境）——藤竹晓 1968（日本，提出「环境化」）。一个负责答「是什么」，一个负责答「会怎样」，缺一个简答题就只剩一半。", "_id": "7"}, {"id": "8", "type": "fill", "blanks": 2, "kp": "沉默的螺旋·背景起点", "stem": "沉默的螺旋的经验起点是 1965 年 ____（国家）议会选举——投票前夕出现「____ 现象」，选票出现压倒性倾斜。", "answer": "联邦德国、雪崩", "keys": ["每空 1 分，共 2 分", "「雪崩现象」为原表述，写「雪崩」即可"], "explain": "这个案例是诺依曼提出理论的经验起点，答题时写在「背景」那一层能加分。注意国家写「联邦德国」（当时的西德），不要写成「德国」；「雪崩现象」是原文用词，别改述成「一边倒」。", "_id": "8"}, {"id": "9", "type": "short", "rows": 6, "kp": "三个基本命题", "stem": "简述「沉默的螺旋」的三个基本命题，并点明每个命题的关键落点。（10 分）", "answer": "① 个人意见的表明是一个社会心理过程：人先通过准感官统计感知意见气候，再决定是否公开表达，对孤立的恐惧是驱动机制。② 一方的沉默带来另一方的增势，形成螺旋式扩展：劣势意见因沉默而显得更弱，优势意见因公开而显得更强，循环强化、越滚越大。③ 大众传播靠共鸣、累积、遍在三种效果营造「意见环境」并制约舆论：媒介以系统性、持续性的报道塑造公众对意见分布的感知。", "keys": ["命题一：社会心理过程 ＋ 先观察意见气候（3 分）", "命题二：沉默 → 增势 → 螺旋式扩展（3 分）", "命题三：共鸣／累积／遍在三种效果 ＋ 意见环境（3 分）", "分点作答、术语准确、表述完整（1 分）"], "explain": "这题只考骨架完整度。三个命题必须分点写，每一点都要落到「机制词」上（社会心理过程／螺旋式扩展／意见环境），漏点就等于没答完。另外别把命题三的「三种效果」写成「大众传播的三种功能」——那是另一套表述，会被判术语不准。", "_id": "9"}, {"id": "10", "type": "short", "rows": 6, "kp": "沉默的螺旋·名词解释", "stem": "名词解释：沉默的螺旋（5 分）", "answer": "德国社会学家诺依曼 1974 年提出、1980 年在《沉默的螺旋：舆论——我们的社会皮肤》中系统阐述的理论。核心是：人出于对孤立的恐惧，先感知周围的意见气候，再决定是否公开表达；劣势意见趋于沉默、优势意见不断增势，形成螺旋式扩展，最终被强化的是人们感知中的「多数意见」。它属强效果论，配套概念有意见气候、多元无知、准感官统计。", "keys": ["提出者 ＋ 提出年份（年份须写 1974）（2 分）", "孤立恐惧／意见气候机制（2 分）", "强效果论定位 或 三个配套概念（1 分）"], "explain": "5 分名词解释的答题公式＝「谁 ＋ 哪一年 ＋ 什么书 ＋ 一句话内核 ＋ 一个延伸」。你上次这类题只答了提出者、漏了年份——年份是硬性得分点，不写就是白丢 1 分。", "_id": "10"}, {"id": "11", "type": "short", "rows": 6, "kp": "舆论观与效果观", "stem": "诺依曼用什么比喻表达她的舆论观？请解释这个比喻的双重含义，并说明该理论的效果观定位。（8 分）", "answer": "比喻：舆论是「我们的社会皮肤」。双重含义——① 对个人：它是感知意见气候、据以调整自身表达的那层「皮肤」，是人与意见环境接触的界面；② 对社会：它像容器一样统合社会意见，防止意见过度分裂，维持社会整合。效果观：这套理论属强效果论，认定媒介具有创造社会现实的力量。", "keys": ["比喻名称「社会皮肤」（2 分）", "个人层面：感知意见气候／调整自身适应（2 分）", "社会层面：统合社会意见／防止意见过度分裂（2 分）", "效果观：强效果论／媒介创造社会现实（2 分）"], "explain": "这个比喻的双重含义是常见追问点，只答「皮肤 = 感知」会丢掉一半。答题口诀：向外是「感知气候」，向内是「统合意见」。", "_id": "11"}, {"id": "12", "type": "short", "rows": 5, "kp": "沉默的螺旋·常见批评", "stem": "学术界对沉默的螺旋提出的常见批评有哪三点？（6 分）", "answer": "① 把从众心理与群体压力当成恒定常量，忽略了个体差异与情境差异；② 忽视「中坚分子」的作用——敢于坚持少数意见的人可以打破螺旋；③ 忽视意见本身说服力的强弱，把意见的消长几乎全部归因于社会心理机制。", "keys": ["三条各 2 分", "第②条须点出「中坚分子」这一术语，写「少数人」不给术语分"], "explain": "这三条是论述题里的「反面弹药」——凡是问「沉默的螺旋的局限／受到的质疑」，写这三条就能拿分。顺序可换，点必须齐。", "_id": "12"}, {"id": "13", "type": "short", "rows": 8, "kp": "网络时代的延伸", "stem": "到了互联网时代，沉默的螺旋是否还成立？请写出争论的焦点、双方各自的理由，并给出你的判断。（10 分）", "answer": "焦点：网络环境中群体压力是否仍然有效。仍有效的一方认为——网络中被孤立的对象变成了 ID，但对孤立的恐惧、以及公开表达前对周围意见的估量依然存在；平台上的可见性标识（点赞、转发、热评）反而把意见气候实时推到眼前，强化了感知。被削弱的一方认为——匿名降低了表达成本，中坚分子更容易找到同温层并持续发声，意见气候被算法分割成多个小气候，单一螺旋难以形成。判断：机制并未消失，变化的是压力生效的形式与范围——从「熟人群体压力」转向「平台可见性压力」，螺旋仍在，但可能表现为局部化、多中心的多个小螺旋。", "keys": ["写出争论焦点：群体压力是否仍有效（3 分）", "支持方理由：被孤立对象变成 ID／孤立恐惧与公开表达的心理机制依然存在（3 分）", "质疑方理由：匿名、中坚分子、算法分割意见气候（2 分）", "给出自己的判断并说明理由（2 分）"], "explain": "标准答法不要求站定一方，要求「焦点 ＋ 两方理由 ＋ 自己判断」三层齐全。对照你手上卡片上的原表述：卡片只写到「网络中被孤立的对象变成了 ID，孤立恐惧与公开表达的心理机制依然存在」——这一层是必答项，写不出就是没掌握原始口径。「匿名性、中坚分子、算法分割」属于可延伸的加分理由，写上能加分，但不要用它们替换掉卡片上的核心句。", "_id": "13"}]}, {"name": "二、政治 · 错题回滚（全单选）", "questions": [{"id": "14", "type": "choice", "kp": "教育强国「六个以」", "stem": "关于建设教育强国的「六个以」，下列对应正确的一项是：", "options": ["以立德树人为根本保证", "以为党育人、为国育才为根本目标", "以支撑引领中国式现代化为基本路径", "以服务中华民族伟大复兴为核心功能"], "answer": "B", "explain": "正确对应是——根本保证＝坚持党对教育事业的全面领导（A 错，把「根本保证」安给了立德树人）；根本任务＝立德树人；根本目标＝为党育人、为国育才（B 对）；重要使命＝服务中华民族伟大复兴（D 错）；基本路径＝教育理念、体系、制度、内容、方法、治理现代化（C 错，它写的是「核心功能」的内容）；核心功能＝支撑引领中国式现代化。原表述的落脚点是「最终是办好人民满意的教育」，「办好人民满意的教育」不在这「六个以」之内——你上次把这个意思记成了「最终标准」并混进「六个以」，这次分清。记忆抓手：保（证）→党；任（务）→德育；目（标）→育才；使（命）→复兴；路（径）→现代化；功（能）→领现代化。", "_id": "14"}, {"id": "15", "type": "choice", "kp": "统战「本质要求与关键」", "stem": "关于统一战线的本质要求与关键，下列表述正确的一项是：", "options": ["本质要求是坚持党的领导，解决的是求同存异的方法问题", "本质要求是大团结大联合，解决的是人心和力量问题；关键是坚持求同存异", "本质要求是大团结大联合，关键是完全一致、消除多样性", "本质要求是发扬「团结—批评—团结」的优良传统，关键是扩大共识"], "answer": "B", "explain": "原表述是——「统战工作的本质要求是大团结大联合，解决的就是人心和力量问题。关键是要坚持求同存异，发扬『团结—批评—团结』的优良传统，在尊重多样性中寻求一致性，找到最大公约数、画出最大同心圆。」A 把「关键」与「本质要求」两两互换了；C 错在「完全一致」——原文是「在尊重多样性中寻求一致性」，并没有要求消除多样性；D 把「传统」误当成了本质要求。记忆抓手：四级递进链——联合（本质）→ 人心（对象）→ 存异（方法）→ 党旗（特征）。", "_id": "15"}, {"id": "16", "type": "choice", "kp": "党的优良作风与自我革命（笔记笔误题）", "stem": "下列关于党的优良作风与自我革命的表述，正确的一项是：", "options": ["理论联系实际、密切联系群众、批评和自我批评，与「人民至上」「勇于自我革命」并列，共同构成党的三大优良作风", "「勇于自我革命」是党的七大（1945）确立的三大优良作风之一", "党的三大优良作风是实事求是、群众路线、独立自主", "「勇于自我革命」是中国共产党区别于其他政党的显著标志"], "answer": "D", "explain": "这题的重点在于提醒：选项 A 就是你 9.17 反馈里的原始写法——把三大优良作风与「人民至上」「勇于自我革命」并列成一句，当时的 AI 补充已经明确提醒要拆开，你没有改。笔记里的错误如果不主动清除，考场上会原样复现。正确口径来自两条彼此独立的线索：① 党的七大（1945）提出三大优良作风＝理论联系实际、密切联系群众、批评和自我批评（不含「人民至上」，也不含「勇于自我革命」）；②「勇于自我革命是我们党区别于其他政党的显著标志」出自党的十九届六中全会《决议》，习近平总书记在庆祝建党 100 周年大会上亦有同此论断。B、C 都错：B 把来源与年份张冠李戴，C 写的是毛泽东思想活的灵魂三个基本方面，与三大优良作风不是同一个组合。", "_id": "16"}, {"id": "17", "type": "choice", "kp": "全过程人民民主「四个相统一」", "stem": "我国全过程人民民主实现了「四个相统一」，下列不属于这「四个相统一」的是：", "options": ["过程民主和成果民主相统一", "程序民主和实质民主相统一", "直接民主和间接民主相统一", "选举民主和协商民主相统一"], "answer": "D", "explain": "「四个相统一」＝过程民主和成果民主、程序民主和实质民主、直接民主和间接民主、人民民主和国家意志。D 不在其中——「民主选举」与「民主协商」是民主的环节与形式，跟「四个相统一」是两套不同的划分，你上次就是把 D 当成了包含项。记忆抓手：前两对是「同一民主的两个侧面」（过程／成果、程序／实质），第三对是「实现形式」（直接／间接），最后一对是「人民意愿上升为国家意志」；四对各有落点，「选举 vs 协商」不在其中。", "_id": "17"}]}, {"name": "三、英语 · 错题回滚与方法反思", "questions": [{"id": "18", "type": "fill", "blanks": 5, "kp": "英二阅读词汇", "stem": "写出下列词的释义：① crack down on ____；② prairie ____；③ thornier ____；④ plausible ____；⑤ jump at ____。", "answer": "严厉打击（镇压）、大草原、更棘手的、似乎合理的（看似可信的）、急不可待地接受（机会）", "keys": ["每空 1 分，共 5 分", "crack down on 须写出「打击／镇压」的动作义，写成「崩塌」不给分", "jump at 拼写不能写成 jamp"], "explain": "这几个都是你 9.16 整理的 2016 年英二阅读词汇。上次两处硬伤：① crack down on 你写成「崩塌」——「崩塌」对应的是 collapse，crack down 是朝外的打压动作，联想「警方扫荡」；② jump at 你原文拼作「Jamp at」，正确是 jump at，这类拼写错误留在笔记里，考场上会再犯一次，回去把笔记改掉。thornier 是 thorny 的比较级，固定搭配是「问题更棘手」；prairie 与 plain（平原）、plateau（高原）放在一起记。", "_id": "18"}, {"id": "19", "type": "translate", "kp": "长难句·比较级与程度副词", "stem": "翻译下面这句话，并标出主干（主句的主谓宾）：\n\nThose confronted with the prospect of a long and empty retirement are far more likely to feel threatened, unless they can find ways to make passing time fulfilling.", "answer": "译文：那些面临漫长而空虚的退休生活（前景）的人，远远更容易感到受威胁——除非他们能找到让流逝的时间变得有意义的方法。\n主干：Those … are far more likely to feel threatened（主语 Those ＋ 系动词 are ＋ 表语 far more likely to feel threatened）；confronted with the prospect of a long and empty retirement 是后置定语修饰 Those；unless 引导条件状语从句。", "keys": ["主干切分正确：Those … are far more likely to feel threatened（2 分）", "译出 far more likely＝远远更有可能（2 分）", "those 译成「那些……的人」（1 分）", "unless 条件从句译出（1 分）", "make passing time fulfilling 译出「让流逝的时间变得有意义」（1 分）"], "explain": "你上次这题的失分点是漏译比较级与程度副词——只写了「感到受到威胁」，把 far more likely 整块丢掉。英二翻译里比较级和程度副词是硬性扣分点，见到 -er／more／far／much／even，都要单独落到中文上。另外 those 指人，要译出「那些……的人」，不能只写「那些」。", "_id": "19"}, {"id": "20", "type": "short", "rows": 5, "kp": "翻译方法反思", "stem": "结合上一题，说说你翻译长难句时最容易丢分的环节是什么？并写出你打算用哪两个具体动作来避免它。", "answer": "示例（按自己的实际情况调整）：最容易丢分的环节是只译出主干大意，漏掉修饰成分与程度词（比较级、副词），以及把后置定语、状语从句误当成主干的一部分。两个可执行动作：① 落笔前先划句子主干（主谓宾），把后置定语、状语从句用括号单独隔出来，再逐个处理；② 译完后反向核对一遍——检查中文里是否出现了原句比较级／程度词对应的「更、远远、尤其、甚至」，缺了就补上。", "keys": ["指出具体丢分环节，须具体到「漏译程度词／修饰成分」这类，泛泛写「不细心」不给分（2 分）", "动作一：先划主干，再单独处理修饰成分（2 分）", "动作二：译后反向核对比较级／程度词（1 分）"], "explain": "这题不按字数给分，按「动作是否可执行」给分。「多练翻译」「注意细节」这类答案不给分，要写成明天就能照做的动作。你 9.16 自己总结过「分析长难句要先找主句，再划从句或补充成分」——把它固定成每次落笔前的动作，别靠临场感觉。", "_id": "20"}]}]};
+const QUIZID = "2026-10-16";
+const KEY = "quiz_" + QUIZID;
+const TOTAL = 20;
+
+// ---- 状态存取 ----
+let state = JSON.parse(localStorage.getItem(KEY) || "{}");
+
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+function answeredCount(){
+  let n = 0;
+  QUIZ.sections.forEach(s => s.questions.forEach((q, i) => {
+    const id = q._id;
+    const v = state[id];
+    if (q.type === "choice") { if (v) n++; }
+    else if (q.type === "fill") {
+      if (v && Object.values(v).some(x => (x||"").trim())) n++;
+    }
+    else { if (v && v.trim()) n++; }
+  }));
+  return n;
+}
+
+function updateProgress(){
+  const n = answeredCount();
+  const pct = Math.round(n / TOTAL * 100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("ptext").textContent = `已作答 ${n} / ${TOTAL}`;
+  document.getElementById("tbCount").textContent = `${n} / ${TOTAL}`;
+  document.getElementById("doneTip").classList.toggle("show", n >= TOTAL);
+}
+
+function flashSaved(n){
+  const el = document.querySelector(`.saved[data-saved="${n}"]`);
+  if (!el) return;
+  el.textContent = "已保存";
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 1200);
+}
+
+// ---- 绑定交互 ----
+document.querySelectorAll(".opt input").forEach(inp => {
+  inp.addEventListener("change", e => {
+    const n = +e.target.name.replace("q", "");
+    state[n] = e.target.value;
+    save(); updateProgress(); flashSaved(n);
+  });
+});
+
+document.querySelectorAll(".fillin").forEach(inp => {
+  inp.addEventListener("input", e => {
+    const n = e.target.dataset.q, b = e.target.dataset.b;
+    state[n] = state[n] || {};
+    state[n][b] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+document.querySelectorAll(".shortin,.transin").forEach(ta => {
+  ta.addEventListener("input", e => {
+    const n = e.target.dataset.q;
+    state[n] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+// 查看解析
+document.querySelectorAll(".btn-ans").forEach(b => {
+  b.addEventListener("click", () => {
+    const n = b.dataset.q;
+    const box = document.querySelector(`.ansbox[data-ans="${n}"]`);
+    const open = !box.hidden;
+    box.hidden = open;
+    b.textContent = open ? "查看解析" : "收起解析";
+  });
+});
+
+document.getElementById("btnRevealAll").addEventListener("click", function(){
+  const anyHidden = [...document.querySelectorAll(".ansbox")].some(b => b.hidden);
+  document.querySelectorAll(".ansbox").forEach(b => b.hidden = !anyHidden);
+  document.querySelectorAll(".btn-ans").forEach(b => {
+    b.textContent = anyHidden ? "收起解析" : "查看解析";
+  });
+  this.textContent = anyHidden ? "收起全部解析" : "展开全部解析";
+});
+
+// 清空
+document.getElementById("btnReset").addEventListener("click", () => {
+  if (!confirm("确定清空全部作答？此操作不可撤销。")) return;
+  state = {}; save();
+  document.querySelectorAll(".opt input").forEach(i => i.checked = false);
+  document.querySelectorAll(".fillin,.shortin,.transin").forEach(i => i.value = "");
+  updateProgress();
+});
+
+// ---- 导出答案 ----
+function buildExport(){
+  const L = [];
+  L.push(`# ${QUIZ.title} — 我的作答`);
+  L.push("");
+  L.push(`日期：${QUIZ.date}`);
+  L.push(`完成：${answeredCount()} / ${TOTAL} 题`);
+  L.push("");
+  const tname = {choice:"单选", fill:"填空", short:"问答", translate:"长难句翻译"};
+  QUIZ.sections.forEach(s => {
+    L.push(`## ${s.name}`);
+    L.push("");
+    s.questions.forEach(q => {
+      const v = state[q._id];
+      L.push(`### ${q._id}. [${tname[q.type]}]`);
+      L.push(q.stem);
+      L.push("");
+      if (q.type === "choice") {
+        L.push(`**我的答案：** ${v ? v : "（未作答）"}`);
+      } else if (q.type === "fill") {
+        const arr = [];
+        for (let i = 0; i < (q.blanks || 1); i++) {
+          const k = String(i);
+          arr.push(`第${i+1}空：${(v && v[k]) ? v[k] : "（空）"}`);
+        }
+        L.push(`**我的答案：** ${arr.join("　")}`);
+      } else {
+        L.push(`**我的答案：**`);
+        L.push("");
+        L.push(v && v.trim() ? v : "（未作答）");
+      }
+      L.push("");
+    });
+  });
+  return L.join("\n");
+}
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  document.getElementById("exportArea").value = buildExport();
+  document.getElementById("modal").classList.add("show");
+});
+document.getElementById("btnCloseModal").addEventListener("click", () => {
+  document.getElementById("modal").classList.remove("show");
+});
+document.getElementById("btnDownload").addEventListener("click", () => {
+  const blob = new Blob([buildExport()], {type:"text/markdown;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${QUIZID}-我的作答.md`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") e.target.classList.remove("show");
+});
+
+// ---- 恢复状态 ----
+(function restore(){
+  document.querySelectorAll(".opt input").forEach(inp => {
+    const n = +inp.name.replace("q", "");
+    if (state[n] === inp.value) inp.checked = true;
+  });
+  document.querySelectorAll(".fillin").forEach(inp => {
+    const n = inp.dataset.q, b = inp.dataset.b;
+    if (state[n] && state[n][b] != null) inp.value = state[n][b];
+  });
+  document.querySelectorAll(".shortin,.transin").forEach(ta => {
+    const n = ta.dataset.q;
+    if (state[n] != null) ta.value = state[n];
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
