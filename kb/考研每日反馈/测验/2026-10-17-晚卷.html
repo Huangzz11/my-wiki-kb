@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考研每日测验 · 10.17 晚卷（素材：宝厂拽上岸第十讲·马克思主义新闻观及其中国化 + 错题回滚）</title>
+<style>
+:root{
+  --bg:#f7f8fb; --card:#fff; --ink:#1c2430; --sub:#60708a;
+  --line:#e3e8f0; --blue:#2F5B9E; --blue-l:#e8eef8;
+  --green:#1f8a52; --green-l:#e6f5ec;
+  --amber:#b4740a; --amber-l:#fdf3e0;
+  --red:#c0392b; --red-l:#fdeceb;
+  --violet:#6b4ea8; --violet-l:#f0ebfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+    "Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.7;
+  padding:0 0 120px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+/* 顶部 */
+header{
+  background:linear-gradient(135deg,#2F5B9E 0%,#40699f 60%,#5b7fb5 100%);
+  color:#fff;padding:34px 0 26px;margin-bottom:24px;
+  box-shadow:0 2px 14px rgba(47,91,158,.18);
+}
+header h1{font-size:23px;font-weight:650;letter-spacing:.3px;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.85}
+.statline{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chip{
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);
+  border-radius:999px;padding:4px 13px;font-size:12.5px;backdrop-filter:blur(4px)
+}
+
+/* 进度条 */
+.progress-sticky{
+  position:sticky;top:0;z-index:50;background:rgba(247,248,251,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  padding:10px 0;margin-bottom:8px;
+}
+.pbar{height:7px;background:#e6eaf2;border-radius:99px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,#2F5B9E,#5b8fd4);
+  border-radius:99px;transition:width .35s ease}
+.ptext{font-size:12.5px;color:var(--sub);margin-top:6px;display:flex;
+  justify-content:space-between}
+
+/* 分区 */
+.sec{margin:30px 0 0}
+.sec h2{
+  font-size:16.5px;font-weight:640;color:var(--blue);
+  display:flex;align-items:center;gap:9px;padding-bottom:9px;
+  border-bottom:2px solid var(--blue-l);margin-bottom:16px;
+}
+.dot{width:9px;height:9px;border-radius:3px;background:var(--blue);
+  display:inline-block;flex:0 0 auto}
+.secmeta{margin-left:auto;font-size:12px;color:var(--sub);font-weight:400}
+
+/* 题目卡片 */
+.q{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:17px 19px;margin-bottom:13px;transition:border-color .2s,box-shadow .2s;
+}
+.q:focus-within{border-color:#b9cdea;box-shadow:0 3px 14px rgba(47,91,158,.09)}
+.qhead{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.qno{
+  width:26px;height:26px;border-radius:8px;background:var(--blue);
+  color:#fff;font-size:13px;font-weight:600;display:flex;
+  align-items:center;justify-content:center;flex:0 0 auto;
+}
+.qtag{font-size:11.5px;padding:2px 9px;border-radius:6px;font-weight:500}
+.t-choice{background:var(--blue-l);color:var(--blue)}
+.t-fill{background:var(--green-l);color:var(--green)}
+.t-short{background:var(--violet-l);color:var(--violet)}
+.t-translate{background:var(--amber-l);color:var(--amber)}
+.kp{font-size:11.5px;color:var(--sub);margin-left:auto}
+.stem{font-size:14.8px;margin-bottom:12px;white-space:pre-wrap}
+
+/* 单选 */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 13px;
+  border:1px solid var(--line);border-radius:9px;cursor:pointer;
+  transition:all .16s;font-size:14.2px;
+}
+.opt:hover{background:#f4f7fc;border-color:#c3d5ee}
+.opt input{display:none}
+.opt .letter{
+  width:21px;height:21px;border-radius:6px;background:#eef1f6;color:var(--sub);
+  font-size:12px;font-weight:600;display:flex;align-items:center;
+  justify-content:center;flex:0 0 auto;margin-top:2px;transition:all .16s;
+}
+.opt input:checked~.letter{background:var(--blue);color:#fff}
+.opt:has(input:checked){background:var(--blue-l);border-color:#9dbde6}
+.otext{flex:1}
+
+/* 填空 */
+.fills{display:flex;flex-direction:column;gap:8px}
+.fillin{
+  font-family:inherit;font-size:14.2px;padding:9px 13px;
+  border:1px solid var(--line);border-radius:8px;background:#fcfdff;
+  transition:all .16s;width:100%;
+}
+.fillin:focus{outline:none;border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 文本域 */
+.shortin,.transin{
+  font-family:inherit;font-size:14.2px;line-height:1.75;padding:11px 14px;
+  border:1px solid var(--line);border-radius:9px;background:#fcfdff;
+  width:100%;resize:vertical;transition:all .16s;
+}
+.shortin:focus,.transin:focus{outline:none;border-color:var(--blue);
+  background:#fff;box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 按钮与解析 */
+.qfoot{display:flex;align-items:center;gap:11px;margin-top:11px}
+.btn-ans{
+  font-family:inherit;font-size:12.5px;padding:5px 13px;border-radius:7px;
+  border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;
+  transition:all .16s;
+}
+.btn-ans:hover{background:var(--blue-l);border-color:#a8c4e8;color:var(--blue)}
+.saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
+.saved.show{opacity:1}
+.ansbox{
+  margin-top:12px;padding:13px 15px;background:#fafbfd;
+  border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-size:13.8px;
+}
+.ansline{margin-bottom:8px;display:flex;gap:9px;line-height:1.7}
+.ansline:last-child{margin-bottom:0}
+.ansline b{
+  flex:0 0 auto;color:var(--blue);font-size:12px;font-weight:640;
+  background:var(--blue-l);padding:2px 8px;border-radius:5px;height:fit-content;
+  margin-top:3px;
+}
+.ansline .got{color:var(--green);font-weight:600}
+
+/* 底部操作栏 */
+.toolbar{
+  position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);padding:12px 20px;z-index:60;
+  backdrop-filter:blur(10px);box-shadow:0 -2px 16px rgba(28,36,48,.07);
+}
+.tb-inner{max-width:820px;margin:0 auto;display:flex;
+  align-items:center;gap:11px;flex-wrap:wrap}
+.btn{
+  font-family:inherit;font-size:13.5px;padding:9px 19px;border-radius:9px;
+  border:none;cursor:pointer;font-weight:530;transition:all .16s;
+}
+.btn-main{background:var(--blue);color:#fff}
+.btn-main:hover{background:#264d87;transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--sub);border:1px solid var(--line)}
+.btn-ghost:hover{background:#f4f6fa;color:var(--ink)}
+.tb-count{font-size:13px;color:var(--sub);margin-left:auto}
+
+/* 完成提示 */
+.done-tip{
+  margin-top:22px;padding:18px 20px;border-radius:12px;
+  background:var(--green-l);border:1px solid #bfe5ce;color:#14603a;
+  font-size:14px;display:none;
+}
+.done-tip.show{display:block}
+.done-tip b{display:block;margin-bottom:6px;font-size:15px}
+
+/* 答案导出弹层 */
+.modal{
+  position:fixed;inset:0;background:rgba(20,28,40,.5);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:#fff;border-radius:14px;max-width:660px;width:100%;
+  max-height:82vh;display:flex;flex-direction:column;overflow:hidden;
+}
+.modal-head{padding:17px 21px;border-bottom:1px solid var(--line);
+  font-weight:620;font-size:15.5px;color:var(--blue)}
+.modal-body{padding:18px 21px;overflow-y:auto;flex:1}
+.modal-body textarea{
+  width:100%;height:340px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.65;border:1px solid var(--line);
+  border-radius:9px;padding:13px;background:#fafbfd;resize:vertical;
+}
+.modal-foot{padding:14px 21px;border-top:1px solid var(--line);
+  display:flex;gap:10px;justify-content:flex-end}
+.modal-tip{font-size:12.5px;color:var(--sub);margin-bottom:11px;line-height:1.65}
+
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  header{padding:26px 0 20px}
+  header h1{font-size:19px}
+  .q{padding:14px 15px}
+  .stem{font-size:14.2px}
+  .tb-count{display:none}
+  .kp{margin-left:0;width:100%}
+}
+@media print{
+  .toolbar,.btn-ans,.progress-sticky{display:none}
+  .ansbox[hidden]{display:block!important}
+  .q{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>考研每日测验 · 10.17 晚卷（素材：宝厂拽上岸第十讲·马克思主义新闻观及其中国化 + 错题回滚）</h1>
+    <div class="meta">2026-10-17b · 共 20 题 · 今晚 22:30 自动生成</div>
+    <div class="statline">
+      <span class="chip">单选 8</span>
+      <span class="chip">填空 5</span>
+      <span class="chip">问答 6</span>
+      <span class="chip">长难句 1</span>
+    </div>
+  </div>
+</header>
+
+<div class="progress-sticky">
+  <div class="wrap">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <div class="ptext">
+      <span id="ptext">已作答 0 / 20</span>
+      <span>进度自动保存，刷新不丢</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  
+<section class="sec">
+  <h2><span class="dot"></span>一、专业课 · 马克思主义新闻观及其中国化
+    <span class="secmeta">13 题</span></h2>
+  
+<div class="q" data-q="1" data-type="choice">
+  <div class="qhead">
+    <span class="qno">1</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">四大核心观念</span>
+  </div>
+  <div class="stem">马克思主义新闻观有四个核心观念，各自的定位不同。下列匹配正确的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q1" value="A"><span class="letter">A</span><span class="otext">党性原则观念＝第一观念、总体性统领性；新闻规律观念＝基础性、根基性的观念</span></label><label class="opt"><input type="radio" name="q1" value="B"><span class="letter">B</span><span class="otext">人民中心观念＝方法论观念；正确舆论观念＝价值目标观念</span></label><label class="opt"><input type="radio" name="q1" value="C"><span class="letter">C</span><span class="otext">新闻规律观念＝总体性统领性；党性原则观念＝基础性、根基性</span></label><label class="opt"><input type="radio" name="q1" value="D"><span class="letter">D</span><span class="otext">正确舆论观念＝价值目标观念；人民中心观念＝第一观念</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="1">查看解析</button>
+    <span class="saved" data-saved="1"></span>
+  </div>
+  <div class="ansbox" data-ans="1" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>四个定位是一条链：党性原则（第一观念，总体性统领性）→ 人民中心（价值目标）→ 新闻规律（基础性根基性）→ 正确舆论（方法论）。B 把后两个互换，C 把前两个互换，D 把人民中心和党性原则互换。记忆抓手：党（统领）—民（目标）—律（根基）—论（方法）。</div></div>
+</div>
+<div class="q" data-q="2" data-type="choice">
+  <div class="qhead">
+    <span class="qno">2</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">马新观与西方新闻专业主义</span>
+  </div>
+  <div class="stem">马新观与西方新闻专业主义在体制、技术、功能三个层面都存在差异。下列表述成立的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q2" value="A"><span class="letter">A</span><span class="otext">体制层面：马新观注重媒介的阶级性与政治性，西方新闻专业主义崇尚所谓的媒介独立性与超越性</span></label><label class="opt"><input type="radio" name="q2" value="B"><span class="letter">B</span><span class="otext">技术层面：马新观追求客观性以标榜价值中立，西方新闻专业主义注重真实性与倾向性的统一</span></label><label class="opt"><input type="radio" name="q2" value="C"><span class="letter">C</span><span class="otext">功能层面：马新观强调传媒效忠的对象是公众、仅提供多样化信息，西方专业主义主张传媒服务人民、推动党和国家事业大局</span></label><label class="opt"><input type="radio" name="q2" value="D"><span class="letter">D</span><span class="otext">三个层面的差异只存在于体制层面，技术与功能层面两者主张一致</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="2">查看解析</button>
+    <span class="saved" data-saved="2"></span>
+  </div>
+  <div class="ansbox" data-ans="2" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>B、C 都把两边的主张对调了。技术层面的正确表述是：西方讲「客观性、价值中立」，马新观讲「真实性与倾向性的统一」。功能层面的正确表述是：西方讲效忠公众、只提供多样化信息；马新观讲服务人民、宣传推动党和国家事业大局与中心工作。D 直接否定了差异的存在。记忆抓手：体制看「独立 vs 阶级」，技术看「中立 vs 倾向」，功能看「给信息 vs 做事业」。</div></div>
+</div>
+<div class="q" data-q="3" data-type="choice">
+  <div class="qhead">
+    <span class="qno">3</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">习近平文化思想</span>
+  </div>
+  <div class="stem">习近平文化思想提出「七个着力」，其中居于核心地位、被定位为「根本」的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q3" value="A"><span class="letter">A</span><span class="otext">着力加强党对宣传思想文化工作的领导</span></label><label class="opt"><input type="radio" name="q3" value="B"><span class="letter">B</span><span class="otext">着力建设具有强大凝聚力和引领力的社会主义意识形态</span></label><label class="opt"><input type="radio" name="q3" value="C"><span class="letter">C</span><span class="otext">着力提升新闻舆论传播力引导力影响力公信力</span></label><label class="opt"><input type="radio" name="q3" value="D"><span class="letter">D</span><span class="otext">着力加强国际传播能力建设，促进文明交流互鉴</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="3">查看解析</button>
+    <span class="saved" data-saved="3"></span>
+  </div>
+  <div class="ansbox" data-ans="3" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>「七个着力」第 1 条是管总的一条，讲义明确写「居于核心地位」。第 2—6 条是国内宣传思想文化工作的路线图，属国内循环；第 7 条属国际循环。记忆抓手：七个着力＝1 个总开关（党的领导）＋5 条国内任务＋1 条对外任务。</div></div>
+</div>
+<div class="q" data-q="4" data-type="choice">
+  <div class="qhead">
+    <span class="qno">4</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">48 字方针</span>
+  </div>
+  <div class="stem">下列各组表述中，全部属于新闻舆论工作「48 字方针」的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q4" value="A"><span class="letter">A</span><span class="otext">高举旗帜、引领导向；围绕中心、服务大局；团结人民、鼓舞士气</span></label><label class="opt"><input type="radio" name="q4" value="B"><span class="letter">B</span><span class="otext">举旗帜、聚民心、育新人、兴文化、展形象</span></label><label class="opt"><input type="radio" name="q4" value="C"><span class="letter">C</span><span class="otext">高举旗帜、凝聚共识；围绕中心、服务大局；团结人民、鼓舞士气</span></label><label class="opt"><input type="radio" name="q4" value="D"><span class="letter">D</span><span class="otext">澄清谬误、明辨是非；联接中外、沟通世界；成风化人、鼓舞士气</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="4">查看解析</button>
+    <span class="saved" data-saved="4"></span>
+  </div>
+  <div class="ansbox" data-ans="4" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>完整六组是：高举旗帜、引领导向／围绕中心、服务大局／团结人民、鼓舞士气／成风化人、凝心聚力／澄清谬误、明辨是非／联接中外、沟通世界。B 是 2018 年全国宣传思想工作会议的 15 字使命任务，不是 48 字方针。C 的「凝聚共识」是伪造词。D 的最后一条错在「鼓舞士气」，正确是「凝心聚力」——「鼓舞士气」属于第三组。</div></div>
+</div>
+<div class="q" data-q="5" data-type="fill">
+  <div class="qhead">
+    <span class="qno">5</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">四个核心问题</span>
+  </div>
+  <div class="stem">马克思主义新闻观围绕四个核心问题展开：______（解决办报宗旨和任务问题）、______（解决党报服务和依靠对象问题）、______（解决党报性质和功能定位问题）、______（解决办报的路径方法和原则策略问题）。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="5" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="5" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="5" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="5" data-b="3" placeholder="第 4 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="5">查看解析</button>
+    <span class="saved" data-saved="5"></span>
+  </div>
+  <div class="ansbox" data-ans="5" hidden><div class="ansline"><b>参考答案</b>为什么办报、为谁办报、办什么样的报纸、怎样办好报纸</div><div class="ansline"><b>得分点</b>四空按「为什么—为谁—办什么—怎么办」顺序, 每空 1 分，顺序错不给分</div><div class="ansline"><b>解析</b>四问是一条递进链：宗旨（为什么）→ 对象（为谁）→ 性质功能（办什么）→ 路径方法（怎么办）。答论述题时可以直接拿这四问当四个分论点。</div></div>
+</div>
+<div class="q" data-q="6" data-type="fill">
+  <div class="qhead">
+    <span class="qno">6</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">党性原则四项要求</span>
+  </div>
+  <div class="stem">党性原则观念的四项要求：坚持党对新闻舆论工作的领导，这是党性原则______的要求；坚持在思想上政治上行动上同党中央______；坚持党性和人民性______；坚持______，把党管媒体的原则贯彻到互联网领域。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="6" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="6" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="6" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="6" data-b="3" placeholder="第 4 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="6">查看解析</button>
+    <span class="saved" data-saved="6"></span>
+  </div>
+  <div class="ansbox" data-ans="6" hidden><div class="ansline"><b>参考答案</b>最根本、保持高度一致、相统一、党管互联网</div><div class="ansline"><b>得分点</b>第一空「最根本」, 第二空「保持高度一致」, 第三空「相统一」, 第四空「党管互联网」</div><div class="ansline"><b>解析</b>四项对应四个动作：受党领导（最根本）→ 向党看齐（高度一致）→ 党为人民（相统一）→ 抓主阵地（党管互联网）。第四空容易写成「党管媒体」，但前三项已经讲了党管媒体，这里专指互联网这个主阵地。</div></div>
+</div>
+<div class="q" data-q="7" data-type="fill">
+  <div class="qhead">
+    <span class="qno">7</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">近代中国传统新闻学</span>
+  </div>
+  <div class="stem">1919 年______《新闻学》出版、1923 年______《实际应用新闻学》出版、1926 年______《中国报学史》出版，标志着我国新闻学科发展开始步入成熟期。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="7" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="7">查看解析</button>
+    <span class="saved" data-saved="7"></span>
+  </div>
+  <div class="ansbox" data-ans="7" hidden><div class="ansline"><b>参考答案</b>徐宝璜、邵飘萍、戈公振</div><div class="ansline"><b>得分点</b>徐宝璜（1919《新闻学》）, 邵飘萍（1923《实际应用新闻学》）, 戈公振（1926《中国报学史》）</div><div class="ansline"><b>解析</b>三个年份三人三本书，按 19—23—26 递增记。徐宝璜被称为「中国新闻学开山祖」，邵飘萍重实务，戈公振重报史。答「马新观的思想来源」时，这三本书属于第 4 类来源「近代中国传统新闻学理论」的学术成果。</div></div>
+</div>
+<div class="q" data-q="8" data-type="fill">
+  <div class="qhead">
+    <span class="qno">8</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">网络空间治理</span>
+  </div>
+  <div class="stem">营造清朗健康的网络空间，要遏制违法有害信息网上传播，具体做法是：壮大______、压缩______、转化______。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="8" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="8" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="8" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="8">查看解析</button>
+    <span class="saved" data-saved="8"></span>
+  </div>
+  <div class="ansbox" data-ans="8" hidden><div class="ansline"><b>参考答案</b>红色地带、黑色地带、灰色地带</div><div class="ansline"><b>得分点</b>红色地带＝主流媒体和网上正面力量, 黑色地带＝负面言论与敌对势力制造的舆论, 灰色地带＝介于两者之间，可争取</div><div class="ansline"><b>解析</b>三个动词与三个地带是固定搭配：红色要「壮大」、黑色要「压缩」、灰色要「转化」。灰色地带的动词最容易写错成「消灭」——它属于可争取的中间地带，所以要转化。</div></div>
+</div>
+<div class="q" data-q="9" data-type="short">
+  <div class="qhead">
+    <span class="qno">9</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">马新观的思想来源</span>
+  </div>
+  <div class="stem">简述马克思主义新闻观的五类思想来源（每类一句话说明它提供了什么）。</div>
+  <textarea class="shortin" data-q="9" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="9">查看解析</button>
+    <span class="saved" data-saved="9"></span>
+  </div>
+  <div class="ansbox" data-ans="9" hidden><div class="ansline"><b>参考答案</b>① 马克思主义经典作家的新闻思想：马克思、恩格斯、列宁的新闻思想，是中国共产党办报经验和办报思想的学习继承与创新发展对象。② 中国共产党领导人新闻观的理论成果：毛泽东、邓小平、江泽民、胡锦涛、习近平关于新闻舆论工作的论述，实现了马新观的中国化。③ 现代中国新闻业的丰富实践：以现代新闻业产生、演进、成长中生成的现代新闻观念为基础因素。④ 近代中国传统新闻学理论：王韬、郑观应、梁启超、孙中山等人的办报思想，以及徐宝璜《新闻学》、邵飘萍《实际应用新闻学》、戈公振《中国报学史》等学术成果。⑤ 西方现代新闻观念的合理成分：认可其操作层面的基本规范和要求，但反对其媒介自主观、独立观。</div><div class="ansline"><b>得分点</b>五类名称全部答出（每类 1 分，共 5 分）, 第 5 类须写出「认可操作层面、反对独立观」的辩证态度（1 分）</div><div class="ansline"><b>解析</b>五类来源可以压成一句话记：经典作家打底、党的领导人中国化、现代新闻业实践、近代传统新闻学、西方合理成分。第 5 类是唯一带「反对」的来源，答题时不写辩证态度就成了半句。</div></div>
+</div>
+<div class="q" data-q="10" data-type="short">
+  <div class="qhead">
+    <span class="qno">10</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">党性人民性相统一</span>
+  </div>
+  <div class="stem">为什么说党性和人民性是相统一的？请从「客观基础」与「科学内涵」两个层面作答。</div>
+  <textarea class="shortin" data-q="10" rows="8" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="10">查看解析</button>
+    <span class="saved" data-saved="10"></span>
+  </div>
+  <div class="ansbox" data-ans="10" hidden><div class="ansline"><b>参考答案</b>客观基础：由党的性质宗旨决定，表现为三个「完全一致」——① 立场完全一致：党是中国工人阶级的先锋队，同时是中国人民和中华民族的先锋队，来自人民、代表人民、服务人民，根基、力量、血脉都在人民。② 目标完全一致：带领人民创造美好生活是党始终不渝的奋斗目标，「两个一百年」和中华民族伟大复兴的中国梦体现 14 亿人民共同意愿。③ 利益完全一致：党章规定党除了工人阶级和最广大人民群众的利益没有自己特殊的利益，任何时候都把群众利益放在第一位。
+科学内涵：① 党性是人民性的集中体现和升华，主要表现在「为了谁」的问题上——人民内部各阶级阶层的利益不能简单相加，只能由先进阶级及其政党来体现。② 人民性是党性的主要来源和根基，主要表现在「我是谁」「依靠谁」的问题上——人民群众是历史的创造者，是认识世界和改造世界的主体。③ 党性寓于人民性之中，人民性以党性引领方向——因为党的先进性，所以能引领；只有坚持党性才能更全面反映人民愿望。</div><div class="ansline"><b>得分点</b>三个「完全一致」：立场、目标、利益（3 分）, 科学内涵三层：集中体现和升华／主要来源和根基／寓于其中并以党性引领（3 分）, 每层要点出对应的追问：为了谁／我是谁依靠谁／先进性决定引领（2 分）</div><div class="ansline"><b>解析</b>这一题是近年高频简答（中山大学 2026、广西大学 2025、天津师大 2024 都考过）。结构必须两层：先答「为什么能统一」（客观基础），再答「统一是什么意思」（科学内涵）。只答内涵不答基础，会丢一半分。记忆抓手：三个一致（立场／目标／利益）＋三个追问（为了谁／我是谁／凭什么引领）。</div></div>
+</div>
+<div class="q" data-q="11" data-type="short">
+  <div class="qhead">
+    <span class="qno">11</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">队伍建设三框架</span>
+  </div>
+  <div class="stem">新闻舆论工作队伍建设有三套常用框架：请分别列出「四向四做」「四个者」「四力」的具体内容，并说明「四力」各自对应的能力。</div>
+  <textarea class="shortin" data-q="11" rows="8" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="11">查看解析</button>
+    <span class="saved" data-saved="11"></span>
+  </div>
+  <div class="ansbox" data-ans="11" hidden><div class="ansline"><b>参考答案</b>四向四做：坚持正确政治方向，做政治坚定的新闻工作者；坚持正确舆论导向，做引领时代的新闻工作者；坚持正确新闻志向，做业务精湛的新闻工作者；坚持正确工作取向，做作风优良的新闻工作者。
+四个者：党的政策主张的传播者、时代风云的记录者、社会进步的推动者、公平正义的守望者。
+四力：脚力＝行动力、采访力，迈开双脚到基层、到群众、到实践中去；眼力＝观察力、发现力，是做好新闻报道的基本功；脑力＝判断力、鉴别力，是思想水平、政治水平、理论水平的集中体现；笔力＝表现力、呈现力，即用文字符号和图片音像呈现新闻的能力。</div><div class="ansline"><b>得分点</b>四向四做四条完整（3 分）, 四个者四条完整（2 分）, 四力四个对应能力准确（3 分）</div><div class="ansline"><b>解析</b>三套框架都是「新闻舆论工作者该怎么做」的答题框架，可以互换使用。四力最容易错的是把眼力和脑力搞混：眼力管「看得见」（观察发现），脑力管「想得清」（判断鉴别）。</div></div>
+</div>
+<div class="q" data-q="12" data-type="short">
+  <div class="qhead">
+    <span class="qno">12</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">党性原则的必要性</span>
+  </div>
+  <div class="stem">论述题：为什么我国新闻事业必须坚持党性原则？请用「理论逻辑—历史逻辑—实践逻辑」三层搭出完整框架，每层写出分论点。</div>
+  <textarea class="shortin" data-q="12" rows="8" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="12">查看解析</button>
+    <span class="saved" data-saved="12"></span>
+  </div>
+  <div class="ansbox" data-ans="12" hidden><div class="ansline"><b>参考答案</b>理论逻辑：党性原则是马克思主义新闻观的核心观念，是第一观念、总体性统领性的观念。它与人民中心观念相统一（党的意志与人民意志统一），要求尊重新闻规律（实事求是是党的思想路线），并构成舆论引导的准绳。
+历史逻辑：党性原则是新闻舆论工作的根本原则。马克思主义经典作家一贯强调党报的阶级性与政治性，中国共产党在革命、建设、改革各时期都把党管媒体作为基本原则，毛泽东提出政治家办报、全党办报群众办报，历届领导人不断丰富其内涵。
+实践逻辑：党性原则是新闻事业发展的强大动力。在党性原则指导下，主流媒体在舆论引导、媒体融合、国际传播等方面取得成效，能够在复杂舆论场中把准方向、凝聚共识。
+结论：因此必须始终坚持党性原则。</div><div class="ansline"><b>得分点</b>理论逻辑：点出「第一观念、总体性统领性」并连到另三个观念（3 分）, 历史逻辑：举出经典作家论述＋党的办报传统（如政治家办报、全党办报）（3 分）, 实践逻辑：落到具体成效（舆论引导／媒体融合／国际传播）（2 分）, 有结论句（1 分）</div><div class="ansline"><b>解析</b>这是「为什么必须做某事」的标准问法，答题要点在地位（必要性）与作用（重要性）。讲义给了三条可替换路径：理论—历史—实践、四大核心观念、李良荣《新闻学概论》六条。考场上选一条写透，比三条各写一句更得分。</div></div>
+</div>
+<div class="q" data-q="13" data-type="short">
+  <div class="qhead">
+    <span class="qno">13</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">马新观的继承与发展</span>
+  </div>
+  <div class="stem">新媒体环境下，马克思主义新闻观如何继承与发展？请用「四大核心观念」路径写出四条分论点，每条落到一个具体做法。</div>
+  <textarea class="shortin" data-q="13" rows="8" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="13">查看解析</button>
+    <span class="saved" data-saved="13"></span>
+  </div>
+  <div class="ansbox" data-ans="13" hidden><div class="ansline"><b>参考答案</b>① 党性原则：把党管媒体的原则贯彻到新媒体领域，坚持党管互联网，占领网上意识形态主阵地。② 人民中心：走好网上群众路线，党政机关和领导干部经常上网了解群众所思所想，回应网民关切。③ 新闻规律：把握新媒体传播规律，适应分众化、差异化传播趋势，用好时度效，建设全程、全息、全员、全效媒体。④ 正确舆论：做好网络舆论引导，坚持正面宣传为主，壮大红色地带、压缩黑色地带、转化灰色地带。</div><div class="ansline"><b>得分点</b>四条分别对应党性原则／人民中心／新闻规律／正确舆论（每条 2 分）, 每条必须落到具体做法，只写观念名不给分（每条 1 分）</div><div class="ansline"><b>解析</b>这是华东师大 2022 的论述题。题眼是「新媒体环境」，所以每条都必须有网络场景的落点，否则就变成了背核心观念。可替代路径是「大大论述路径」六条（党性原则论、舆论引导论、媒体融合论、新闻创新论、国际传播论、职业素养论），两条路径二选一写透即可。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>二、政治 · 错题回滚（全部单选）
+    <span class="secmeta">4 题</span></h2>
+  
+<div class="q" data-q="14" data-type="choice">
+  <div class="qhead">
+    <span class="qno">14</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">教育强国六个以</span>
+  </div>
+  <div class="stem">关于建设教育强国的「六个以」，下列对应正确的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q14" value="A"><span class="letter">A</span><span class="otext">根本任务＝立德树人；根本目标＝为党育人、为国育才</span></label><label class="opt"><input type="radio" name="q14" value="B"><span class="letter">B</span><span class="otext">根本任务＝为党育人、为国育才；根本目标＝立德树人</span></label><label class="opt"><input type="radio" name="q14" value="C"><span class="letter">C</span><span class="otext">根本目标＝人民满意；根本尺度＝为党育人、为国育才</span></label><label class="opt"><input type="radio" name="q14" value="D"><span class="letter">D</span><span class="otext">重要使命＝支撑引领中国式现代化；核心功能＝服务中华民族伟大复兴</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="14">查看解析</button>
+    <span class="saved" data-saved="14"></span>
+  </div>
+  <div class="ansbox" data-ans="14" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>完整链条：根本保证＝坚持党对教育事业的全面领导；根本任务＝立德树人；根本目标＝为党育人、为国育才；重要使命＝服务中华民族伟大复兴；基本路径＝教育理念、体系、制度、内容、方法、治理现代化；核心功能＝支撑引领中国式现代化。「人民满意」是根本尺度，它不在这六个「以」里。B、D 都是两项互换，C 把「人民满意」提拔成了目标——这正是你上次自己造词的地方。</div></div>
+</div>
+<div class="q" data-q="15" data-type="choice">
+  <div class="qhead">
+    <span class="qno">15</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">统一战线</span>
+  </div>
+  <div class="stem">关于统一战线，下列表述正确的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q15" value="A"><span class="letter">A</span><span class="otext">本质要求是大团结大联合，解决的是人心和力量问题</span></label><label class="opt"><input type="radio" name="q15" value="B"><span class="letter">B</span><span class="otext">本质要求是求同存异，解决的是差异和分歧问题</span></label><label class="opt"><input type="radio" name="q15" value="C"><span class="letter">C</span><span class="otext">党的领导是统一战线最本质的特征</span></label><label class="opt"><input type="radio" name="q15" value="D"><span class="letter">D</span><span class="otext">大团结大联合解决的是思想和方向问题</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="15">查看解析</button>
+    <span class="saved" data-saved="15"></span>
+  </div>
+  <div class="ansbox" data-ans="15" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>四级递进链：本质要求＝大团结大联合（解决人心和力量）→ 关键＝坚持求同存异 → 最鲜明特征＝党的领导。B 把「关键」当成了「本质要求」，还把「人心和力量」换成了「差异和分歧」。C 把「最鲜明特征」写成了「最本质的特征」。D 是自造表述。你上次只记住「有个『大』字」，这次要记住整句。</div></div>
+</div>
+<div class="q" data-q="16" data-type="choice">
+  <div class="qhead">
+    <span class="qno">16</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">全过程人民民主</span>
+  </div>
+  <div class="stem">下列各项中，不属于全过程人民民主「四个相统一」的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q16" value="A"><span class="letter">A</span><span class="otext">过程民主和成果民主相统一</span></label><label class="opt"><input type="radio" name="q16" value="B"><span class="letter">B</span><span class="otext">程序民主和实质民主相统一</span></label><label class="opt"><input type="radio" name="q16" value="C"><span class="letter">C</span><span class="otext">选举民主和协商民主相统一</span></label><label class="opt"><input type="radio" name="q16" value="D"><span class="letter">D</span><span class="otext">直接民主和间接民主相统一</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="16">查看解析</button>
+    <span class="saved" data-saved="16"></span>
+  </div>
+  <div class="ansbox" data-ans="16" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>四个相统一＝过程民主与成果民主、程序民主与实质民主、直接民主与间接民主、人民民主与国家意志。前三对都是「同一种民主的两个侧面」，选举民主与协商民主是两种实现形式，构不成一组「统一」。你上次的错法是把包含项当成了不包含项——这次先默念「过程／程序／直接＋国家意志」四对，再排除。</div></div>
+</div>
+<div class="q" data-q="17" data-type="choice">
+  <div class="qhead">
+    <span class="qno">17</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">党的显著标志</span>
+  </div>
+  <div class="stem">关于「中国共产党区别于其他政党的显著标志」，下列说法正确的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q17" value="A"><span class="letter">A</span><span class="otext">党的七大提出理论联系实际、密切联系群众、批评和自我批评三大优良作风是显著标志；十九届六中全会《决议》提出勇于自我革命是显著标志</span></label><label class="opt"><input type="radio" name="q17" value="B"><span class="letter">B</span><span class="otext">显著标志只有一条，即勇于自我革命；「三大优良作风」只是「三个优良作风」的另一种说法</span></label><label class="opt"><input type="radio" name="q17" value="C"><span class="letter">C</span><span class="otext">显著标志＝三大优良作风＋人民至上＋勇于自我革命，三者并列</span></label><label class="opt"><input type="radio" name="q17" value="D"><span class="letter">D</span><span class="otext">党的七大提出「勇于自我革命」，十九届六中全会提出三大优良作风</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="17">查看解析</button>
+    <span class="saved" data-saved="17"></span>
+  </div>
+  <div class="ansbox" data-ans="17" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>两条独立来源，各背各的：七大（1945）的三大优良作风是一处，十九届六中全会《决议》的「勇于自我革命」是另一处。B 抹掉了七大这一条，C 是你 9.17 反馈里的原写法（把三者并列，还塞进了「人民至上」），D 把时序颠倒了。这一题答错，说明笔记里的错误还没清掉——回去把反馈文档里那句并列句改掉。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>三、英语 · 长难句翻译与词汇
+    <span class="secmeta">3 题</span></h2>
+  
+<div class="q" data-q="18" data-type="translate">
+  <div class="qhead">
+    <span class="qno">18</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">长难句·比较结构</span>
+  </div>
+  <div class="stem">翻译下面这句话，并标出句子主干：
+
+Those who rely on social media as their primary source of news are far more likely to mistake the intensity of online debate for the weight of public opinion than those who read a newspaper every day.</div>
+  <textarea class="transin" data-q="18" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="18">查看解析</button>
+    <span class="saved" data-saved="18"></span>
+  </div>
+  <div class="ansbox" data-ans="18" hidden><div class="ansline"><b>参考答案</b>译文：那些把社交媒体当作主要新闻来源的人，比每天读报纸的人要更容易——而且容易得多——把网络争论的激烈程度误当成公众舆论的分量。
+主干：Those (who ...) are far more likely to mistake A for B than those (who ...)。主系表结构，核心是比较结构「A are far more likely to do X than B」。</div><div class="ansline"><b>得分点</b>those 译出「那些……的人」，不能省成「人」（1 分）, far more likely 必须译出「远远更有可能／要容易得多」（2 分）, mistake A for B 译成「把 A 误当成 B」，方向不能反（2 分）, than 引导的比较对象要译出，不能吞掉（1 分）, 主干标出主系表＋比较结构（1 分）</div><div class="ansline"><b>解析</b>这句话有三个坑：一是 those 后的定语从句要译成「那些……的人」；二是 far more likely 的程度不能丢，这是你上次踩过的同一个坑（把 are far more likely to feel threatened 只译成「感到受到威胁」）；三是 mistake A for B 的方向，A 是被误认的东西。</div></div>
+</div>
+<div class="q" data-q="19" data-type="fill">
+  <div class="qhead">
+    <span class="qno">19</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">英语词汇回滚</span>
+  </div>
+  <div class="stem">根据中文提示填入恰当的英文（注意词形）：
+① Regulators vowed to ______ ______ ______ fake reviews posted by restaurants.（严厉打击）
+② Fewer grassland birds nest on the ______ than on the marsh.（大草原）
+③ The copyright question is ______ than it first appeared.（更棘手）</div>
+  <div class="fills"><input class="fillin" type="text" data-q="19" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="19" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="19" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="19">查看解析</button>
+    <span class="saved" data-saved="19"></span>
+  </div>
+  <div class="ansbox" data-ans="19" hidden><div class="ansline"><b>参考答案</b>crack down on、prairie、thornier</div><div class="ansline"><b>得分点</b>crack down on 三词齐全，介词不能丢（1 分）, prairie 拼写（1 分）, thornier 用比较级（1 分）</div><div class="ansline"><b>解析</b>crack down on＝严厉打击、镇压；「崩塌」是 collapse，两个词没有关系。prairie＝大草原，和 plain（平原）、plateau（高原）一起记。thornier 是 thorny 的比较级，y 变 i 加 er。</div></div>
+</div>
+<div class="q" data-q="20" data-type="short">
+  <div class="qhead">
+    <span class="qno">20</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">翻译方法反思</span>
+  </div>
+  <div class="stem">英二翻译里，比较级和程度副词为什么不能省？请结合你上次把「are far more likely to feel threatened」只译成「感到受到威胁」这个例子，写出一条你以后会用的检查办法。</div>
+  <textarea class="shortin" data-q="20" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="20">查看解析</button>
+    <span class="saved" data-saved="20"></span>
+  </div>
+  <div class="ansbox" data-ans="20" hidden><div class="ansline"><b>参考答案</b>不能省的原因：比较级和程度副词承载的是相对关系与程度判断，删掉后信息量直接改变——「远远更可能」被降级成「可能」，原文的判断强度消失，属于漏译失真。英二翻译按信息点给分，程度信息本身就是一个独立得分点。
+检查办法：译完后回原文，把所有 -er／more／most／far／much／even／less／rather 之类的程度标记圈出来，逐个在译文里找对应词；再通读一遍译文，检查「谁比谁、强多少」这层关系还在不在。</div><div class="ansline"><b>得分点</b>指出比较级承载相对关系与程度判断（2 分）, 指出漏译导致信息失真，英二按点给分（2 分）, 给出可操作的检查动作：圈标记—逐个对译—回读查关系（2 分）</div><div class="ansline"><b>解析</b>这条不是知识题，是流程题。你上次的问题不在「不认识 far more likely」，而在译完没有回头核对程度词。养成「圈标记—对译—回读」三步，这类失分能直接消掉。</div></div>
+</div>
+</section>
+
+  <div class="done-tip" id="doneTip">
+    <b>🎉 全部作答完毕</b>
+    点右下角「导出我的答案」，把导出的文件发给我，我会逐题批改并给出评分与改进建议。
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="tb-inner">
+    <button class="btn btn-main" id="btnExport">导出我的答案</button>
+    <button class="btn btn-ghost" id="btnRevealAll">展开全部解析</button>
+    <button class="btn btn-ghost" id="btnReset">清空重做</button>
+    <span class="tb-count" id="tbCount">0 / 20</span>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">你的答案（复制后发给我批改）</div>
+    <div class="modal-body">
+      <div class="modal-tip">
+        全选复制下面的内容，粘贴到对话里发给我即可。也可以点「下载 .md」保存成文件再上传。
+      </div>
+      <textarea id="exportArea" readonly></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="btnCloseModal">关闭</button>
+      <button class="btn btn-main" id="btnDownload">下载 .md</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ = {"title": "考研每日测验 · 10.17 晚卷（素材：宝厂拽上岸第十讲·马克思主义新闻观及其中国化 + 错题回滚）", "date": "2026-10-17b", "sections": [{"name": "一、专业课 · 马克思主义新闻观及其中国化", "questions": [{"id": 1, "type": "choice", "kp": "四大核心观念", "stem": "马克思主义新闻观有四个核心观念，各自的定位不同。下列匹配正确的是：", "options": ["党性原则观念＝第一观念、总体性统领性；新闻规律观念＝基础性、根基性的观念", "人民中心观念＝方法论观念；正确舆论观念＝价值目标观念", "新闻规律观念＝总体性统领性；党性原则观念＝基础性、根基性", "正确舆论观念＝价值目标观念；人民中心观念＝第一观念"], "answer": "A", "explain": "四个定位是一条链：党性原则（第一观念，总体性统领性）→ 人民中心（价值目标）→ 新闻规律（基础性根基性）→ 正确舆论（方法论）。B 把后两个互换，C 把前两个互换，D 把人民中心和党性原则互换。记忆抓手：党（统领）—民（目标）—律（根基）—论（方法）。", "_id": 1}, {"id": 2, "type": "choice", "kp": "马新观与西方新闻专业主义", "stem": "马新观与西方新闻专业主义在体制、技术、功能三个层面都存在差异。下列表述成立的是：", "options": ["体制层面：马新观注重媒介的阶级性与政治性，西方新闻专业主义崇尚所谓的媒介独立性与超越性", "技术层面：马新观追求客观性以标榜价值中立，西方新闻专业主义注重真实性与倾向性的统一", "功能层面：马新观强调传媒效忠的对象是公众、仅提供多样化信息，西方专业主义主张传媒服务人民、推动党和国家事业大局", "三个层面的差异只存在于体制层面，技术与功能层面两者主张一致"], "answer": "A", "explain": "B、C 都把两边的主张对调了。技术层面的正确表述是：西方讲「客观性、价值中立」，马新观讲「真实性与倾向性的统一」。功能层面的正确表述是：西方讲效忠公众、只提供多样化信息；马新观讲服务人民、宣传推动党和国家事业大局与中心工作。D 直接否定了差异的存在。记忆抓手：体制看「独立 vs 阶级」，技术看「中立 vs 倾向」，功能看「给信息 vs 做事业」。", "_id": 2}, {"id": 3, "type": "choice", "kp": "习近平文化思想", "stem": "习近平文化思想提出「七个着力」，其中居于核心地位、被定位为「根本」的是：", "options": ["着力加强党对宣传思想文化工作的领导", "着力建设具有强大凝聚力和引领力的社会主义意识形态", "着力提升新闻舆论传播力引导力影响力公信力", "着力加强国际传播能力建设，促进文明交流互鉴"], "answer": "A", "explain": "「七个着力」第 1 条是管总的一条，讲义明确写「居于核心地位」。第 2—6 条是国内宣传思想文化工作的路线图，属国内循环；第 7 条属国际循环。记忆抓手：七个着力＝1 个总开关（党的领导）＋5 条国内任务＋1 条对外任务。", "_id": 3}, {"id": 4, "type": "choice", "kp": "48 字方针", "stem": "下列各组表述中，全部属于新闻舆论工作「48 字方针」的是：", "options": ["高举旗帜、引领导向；围绕中心、服务大局；团结人民、鼓舞士气", "举旗帜、聚民心、育新人、兴文化、展形象", "高举旗帜、凝聚共识；围绕中心、服务大局；团结人民、鼓舞士气", "澄清谬误、明辨是非；联接中外、沟通世界；成风化人、鼓舞士气"], "answer": "A", "explain": "完整六组是：高举旗帜、引领导向／围绕中心、服务大局／团结人民、鼓舞士气／成风化人、凝心聚力／澄清谬误、明辨是非／联接中外、沟通世界。B 是 2018 年全国宣传思想工作会议的 15 字使命任务，不是 48 字方针。C 的「凝聚共识」是伪造词。D 的最后一条错在「鼓舞士气」，正确是「凝心聚力」——「鼓舞士气」属于第三组。", "_id": 4}, {"id": 5, "type": "fill", "blanks": 4, "kp": "四个核心问题", "stem": "马克思主义新闻观围绕四个核心问题展开：______（解决办报宗旨和任务问题）、______（解决党报服务和依靠对象问题）、______（解决党报性质和功能定位问题）、______（解决办报的路径方法和原则策略问题）。", "answer": "为什么办报、为谁办报、办什么样的报纸、怎样办好报纸", "keys": ["四空按「为什么—为谁—办什么—怎么办」顺序", "每空 1 分，顺序错不给分"], "explain": "四问是一条递进链：宗旨（为什么）→ 对象（为谁）→ 性质功能（办什么）→ 路径方法（怎么办）。答论述题时可以直接拿这四问当四个分论点。", "_id": 5}, {"id": 6, "type": "fill", "blanks": 4, "kp": "党性原则四项要求", "stem": "党性原则观念的四项要求：坚持党对新闻舆论工作的领导，这是党性原则______的要求；坚持在思想上政治上行动上同党中央______；坚持党性和人民性______；坚持______，把党管媒体的原则贯彻到互联网领域。", "answer": "最根本、保持高度一致、相统一、党管互联网", "keys": ["第一空「最根本」", "第二空「保持高度一致」", "第三空「相统一」", "第四空「党管互联网」"], "explain": "四项对应四个动作：受党领导（最根本）→ 向党看齐（高度一致）→ 党为人民（相统一）→ 抓主阵地（党管互联网）。第四空容易写成「党管媒体」，但前三项已经讲了党管媒体，这里专指互联网这个主阵地。", "_id": 6}, {"id": 7, "type": "fill", "blanks": 3, "kp": "近代中国传统新闻学", "stem": "1919 年______《新闻学》出版、1923 年______《实际应用新闻学》出版、1926 年______《中国报学史》出版，标志着我国新闻学科发展开始步入成熟期。", "answer": "徐宝璜、邵飘萍、戈公振", "keys": ["徐宝璜（1919《新闻学》）", "邵飘萍（1923《实际应用新闻学》）", "戈公振（1926《中国报学史》）"], "explain": "三个年份三人三本书，按 19—23—26 递增记。徐宝璜被称为「中国新闻学开山祖」，邵飘萍重实务，戈公振重报史。答「马新观的思想来源」时，这三本书属于第 4 类来源「近代中国传统新闻学理论」的学术成果。", "_id": 7}, {"id": 8, "type": "fill", "blanks": 3, "kp": "网络空间治理", "stem": "营造清朗健康的网络空间，要遏制违法有害信息网上传播，具体做法是：壮大______、压缩______、转化______。", "answer": "红色地带、黑色地带、灰色地带", "keys": ["红色地带＝主流媒体和网上正面力量", "黑色地带＝负面言论与敌对势力制造的舆论", "灰色地带＝介于两者之间，可争取"], "explain": "三个动词与三个地带是固定搭配：红色要「壮大」、黑色要「压缩」、灰色要「转化」。灰色地带的动词最容易写错成「消灭」——它属于可争取的中间地带，所以要转化。", "_id": 8}, {"id": 9, "type": "short", "rows": 6, "kp": "马新观的思想来源", "stem": "简述马克思主义新闻观的五类思想来源（每类一句话说明它提供了什么）。", "answer": "① 马克思主义经典作家的新闻思想：马克思、恩格斯、列宁的新闻思想，是中国共产党办报经验和办报思想的学习继承与创新发展对象。② 中国共产党领导人新闻观的理论成果：毛泽东、邓小平、江泽民、胡锦涛、习近平关于新闻舆论工作的论述，实现了马新观的中国化。③ 现代中国新闻业的丰富实践：以现代新闻业产生、演进、成长中生成的现代新闻观念为基础因素。④ 近代中国传统新闻学理论：王韬、郑观应、梁启超、孙中山等人的办报思想，以及徐宝璜《新闻学》、邵飘萍《实际应用新闻学》、戈公振《中国报学史》等学术成果。⑤ 西方现代新闻观念的合理成分：认可其操作层面的基本规范和要求，但反对其媒介自主观、独立观。", "keys": ["五类名称全部答出（每类 1 分，共 5 分）", "第 5 类须写出「认可操作层面、反对独立观」的辩证态度（1 分）"], "explain": "五类来源可以压成一句话记：经典作家打底、党的领导人中国化、现代新闻业实践、近代传统新闻学、西方合理成分。第 5 类是唯一带「反对」的来源，答题时不写辩证态度就成了半句。", "_id": 9}, {"id": 10, "type": "short", "rows": 8, "kp": "党性人民性相统一", "stem": "为什么说党性和人民性是相统一的？请从「客观基础」与「科学内涵」两个层面作答。", "answer": "客观基础：由党的性质宗旨决定，表现为三个「完全一致」——① 立场完全一致：党是中国工人阶级的先锋队，同时是中国人民和中华民族的先锋队，来自人民、代表人民、服务人民，根基、力量、血脉都在人民。② 目标完全一致：带领人民创造美好生活是党始终不渝的奋斗目标，「两个一百年」和中华民族伟大复兴的中国梦体现 14 亿人民共同意愿。③ 利益完全一致：党章规定党除了工人阶级和最广大人民群众的利益没有自己特殊的利益，任何时候都把群众利益放在第一位。\n科学内涵：① 党性是人民性的集中体现和升华，主要表现在「为了谁」的问题上——人民内部各阶级阶层的利益不能简单相加，只能由先进阶级及其政党来体现。② 人民性是党性的主要来源和根基，主要表现在「我是谁」「依靠谁」的问题上——人民群众是历史的创造者，是认识世界和改造世界的主体。③ 党性寓于人民性之中，人民性以党性引领方向——因为党的先进性，所以能引领；只有坚持党性才能更全面反映人民愿望。", "keys": ["三个「完全一致」：立场、目标、利益（3 分）", "科学内涵三层：集中体现和升华／主要来源和根基／寓于其中并以党性引领（3 分）", "每层要点出对应的追问：为了谁／我是谁依靠谁／先进性决定引领（2 分）"], "explain": "这一题是近年高频简答（中山大学 2026、广西大学 2025、天津师大 2024 都考过）。结构必须两层：先答「为什么能统一」（客观基础），再答「统一是什么意思」（科学内涵）。只答内涵不答基础，会丢一半分。记忆抓手：三个一致（立场／目标／利益）＋三个追问（为了谁／我是谁／凭什么引领）。", "_id": 10}, {"id": 11, "type": "short", "rows": 8, "kp": "队伍建设三框架", "stem": "新闻舆论工作队伍建设有三套常用框架：请分别列出「四向四做」「四个者」「四力」的具体内容，并说明「四力」各自对应的能力。", "answer": "四向四做：坚持正确政治方向，做政治坚定的新闻工作者；坚持正确舆论导向，做引领时代的新闻工作者；坚持正确新闻志向，做业务精湛的新闻工作者；坚持正确工作取向，做作风优良的新闻工作者。\n四个者：党的政策主张的传播者、时代风云的记录者、社会进步的推动者、公平正义的守望者。\n四力：脚力＝行动力、采访力，迈开双脚到基层、到群众、到实践中去；眼力＝观察力、发现力，是做好新闻报道的基本功；脑力＝判断力、鉴别力，是思想水平、政治水平、理论水平的集中体现；笔力＝表现力、呈现力，即用文字符号和图片音像呈现新闻的能力。", "keys": ["四向四做四条完整（3 分）", "四个者四条完整（2 分）", "四力四个对应能力准确（3 分）"], "explain": "三套框架都是「新闻舆论工作者该怎么做」的答题框架，可以互换使用。四力最容易错的是把眼力和脑力搞混：眼力管「看得见」（观察发现），脑力管「想得清」（判断鉴别）。", "_id": 11}, {"id": 12, "type": "short", "rows": 8, "kp": "党性原则的必要性", "stem": "论述题：为什么我国新闻事业必须坚持党性原则？请用「理论逻辑—历史逻辑—实践逻辑」三层搭出完整框架，每层写出分论点。", "answer": "理论逻辑：党性原则是马克思主义新闻观的核心观念，是第一观念、总体性统领性的观念。它与人民中心观念相统一（党的意志与人民意志统一），要求尊重新闻规律（实事求是是党的思想路线），并构成舆论引导的准绳。\n历史逻辑：党性原则是新闻舆论工作的根本原则。马克思主义经典作家一贯强调党报的阶级性与政治性，中国共产党在革命、建设、改革各时期都把党管媒体作为基本原则，毛泽东提出政治家办报、全党办报群众办报，历届领导人不断丰富其内涵。\n实践逻辑：党性原则是新闻事业发展的强大动力。在党性原则指导下，主流媒体在舆论引导、媒体融合、国际传播等方面取得成效，能够在复杂舆论场中把准方向、凝聚共识。\n结论：因此必须始终坚持党性原则。", "keys": ["理论逻辑：点出「第一观念、总体性统领性」并连到另三个观念（3 分）", "历史逻辑：举出经典作家论述＋党的办报传统（如政治家办报、全党办报）（3 分）", "实践逻辑：落到具体成效（舆论引导／媒体融合／国际传播）（2 分）", "有结论句（1 分）"], "explain": "这是「为什么必须做某事」的标准问法，答题要点在地位（必要性）与作用（重要性）。讲义给了三条可替换路径：理论—历史—实践、四大核心观念、李良荣《新闻学概论》六条。考场上选一条写透，比三条各写一句更得分。", "_id": 12}, {"id": 13, "type": "short", "rows": 8, "kp": "马新观的继承与发展", "stem": "新媒体环境下，马克思主义新闻观如何继承与发展？请用「四大核心观念」路径写出四条分论点，每条落到一个具体做法。", "answer": "① 党性原则：把党管媒体的原则贯彻到新媒体领域，坚持党管互联网，占领网上意识形态主阵地。② 人民中心：走好网上群众路线，党政机关和领导干部经常上网了解群众所思所想，回应网民关切。③ 新闻规律：把握新媒体传播规律，适应分众化、差异化传播趋势，用好时度效，建设全程、全息、全员、全效媒体。④ 正确舆论：做好网络舆论引导，坚持正面宣传为主，壮大红色地带、压缩黑色地带、转化灰色地带。", "keys": ["四条分别对应党性原则／人民中心／新闻规律／正确舆论（每条 2 分）", "每条必须落到具体做法，只写观念名不给分（每条 1 分）"], "explain": "这是华东师大 2022 的论述题。题眼是「新媒体环境」，所以每条都必须有网络场景的落点，否则就变成了背核心观念。可替代路径是「大大论述路径」六条（党性原则论、舆论引导论、媒体融合论、新闻创新论、国际传播论、职业素养论），两条路径二选一写透即可。", "_id": 13}]}, {"name": "二、政治 · 错题回滚（全部单选）", "questions": [{"id": 14, "type": "choice", "kp": "教育强国六个以", "stem": "关于建设教育强国的「六个以」，下列对应正确的是：", "options": ["根本任务＝立德树人；根本目标＝为党育人、为国育才", "根本任务＝为党育人、为国育才；根本目标＝立德树人", "根本目标＝人民满意；根本尺度＝为党育人、为国育才", "重要使命＝支撑引领中国式现代化；核心功能＝服务中华民族伟大复兴"], "answer": "A", "explain": "完整链条：根本保证＝坚持党对教育事业的全面领导；根本任务＝立德树人；根本目标＝为党育人、为国育才；重要使命＝服务中华民族伟大复兴；基本路径＝教育理念、体系、制度、内容、方法、治理现代化；核心功能＝支撑引领中国式现代化。「人民满意」是根本尺度，它不在这六个「以」里。B、D 都是两项互换，C 把「人民满意」提拔成了目标——这正是你上次自己造词的地方。", "_id": 14}, {"id": 15, "type": "choice", "kp": "统一战线", "stem": "关于统一战线，下列表述正确的是：", "options": ["本质要求是大团结大联合，解决的是人心和力量问题", "本质要求是求同存异，解决的是差异和分歧问题", "党的领导是统一战线最本质的特征", "大团结大联合解决的是思想和方向问题"], "answer": "A", "explain": "四级递进链：本质要求＝大团结大联合（解决人心和力量）→ 关键＝坚持求同存异 → 最鲜明特征＝党的领导。B 把「关键」当成了「本质要求」，还把「人心和力量」换成了「差异和分歧」。C 把「最鲜明特征」写成了「最本质的特征」。D 是自造表述。你上次只记住「有个『大』字」，这次要记住整句。", "_id": 15}, {"id": 16, "type": "choice", "kp": "全过程人民民主", "stem": "下列各项中，不属于全过程人民民主「四个相统一」的是：", "options": ["过程民主和成果民主相统一", "程序民主和实质民主相统一", "选举民主和协商民主相统一", "直接民主和间接民主相统一"], "answer": "C", "explain": "四个相统一＝过程民主与成果民主、程序民主与实质民主、直接民主与间接民主、人民民主与国家意志。前三对都是「同一种民主的两个侧面」，选举民主与协商民主是两种实现形式，构不成一组「统一」。你上次的错法是把包含项当成了不包含项——这次先默念「过程／程序／直接＋国家意志」四对，再排除。", "_id": 16}, {"id": 17, "type": "choice", "kp": "党的显著标志", "stem": "关于「中国共产党区别于其他政党的显著标志」，下列说法正确的是：", "options": ["党的七大提出理论联系实际、密切联系群众、批评和自我批评三大优良作风是显著标志；十九届六中全会《决议》提出勇于自我革命是显著标志", "显著标志只有一条，即勇于自我革命；「三大优良作风」只是「三个优良作风」的另一种说法", "显著标志＝三大优良作风＋人民至上＋勇于自我革命，三者并列", "党的七大提出「勇于自我革命」，十九届六中全会提出三大优良作风"], "answer": "A", "explain": "两条独立来源，各背各的：七大（1945）的三大优良作风是一处，十九届六中全会《决议》的「勇于自我革命」是另一处。B 抹掉了七大这一条，C 是你 9.17 反馈里的原写法（把三者并列，还塞进了「人民至上」），D 把时序颠倒了。这一题答错，说明笔记里的错误还没清掉——回去把反馈文档里那句并列句改掉。", "_id": 17}]}, {"name": "三、英语 · 长难句翻译与词汇", "questions": [{"id": 18, "type": "translate", "kp": "长难句·比较结构", "stem": "翻译下面这句话，并标出句子主干：\n\nThose who rely on social media as their primary source of news are far more likely to mistake the intensity of online debate for the weight of public opinion than those who read a newspaper every day.", "answer": "译文：那些把社交媒体当作主要新闻来源的人，比每天读报纸的人要更容易——而且容易得多——把网络争论的激烈程度误当成公众舆论的分量。\n主干：Those (who ...) are far more likely to mistake A for B than those (who ...)。主系表结构，核心是比较结构「A are far more likely to do X than B」。", "keys": ["those 译出「那些……的人」，不能省成「人」（1 分）", "far more likely 必须译出「远远更有可能／要容易得多」（2 分）", "mistake A for B 译成「把 A 误当成 B」，方向不能反（2 分）", "than 引导的比较对象要译出，不能吞掉（1 分）", "主干标出主系表＋比较结构（1 分）"], "explain": "这句话有三个坑：一是 those 后的定语从句要译成「那些……的人」；二是 far more likely 的程度不能丢，这是你上次踩过的同一个坑（把 are far more likely to feel threatened 只译成「感到受到威胁」）；三是 mistake A for B 的方向，A 是被误认的东西。", "_id": 18}, {"id": 19, "type": "fill", "blanks": 3, "kp": "英语词汇回滚", "stem": "根据中文提示填入恰当的英文（注意词形）：\n① Regulators vowed to ______ ______ ______ fake reviews posted by restaurants.（严厉打击）\n② Fewer grassland birds nest on the ______ than on the marsh.（大草原）\n③ The copyright question is ______ than it first appeared.（更棘手）", "answer": "crack down on、prairie、thornier", "keys": ["crack down on 三词齐全，介词不能丢（1 分）", "prairie 拼写（1 分）", "thornier 用比较级（1 分）"], "explain": "crack down on＝严厉打击、镇压；「崩塌」是 collapse，两个词没有关系。prairie＝大草原，和 plain（平原）、plateau（高原）一起记。thornier 是 thorny 的比较级，y 变 i 加 er。", "_id": 19}, {"id": 20, "type": "short", "rows": 5, "kp": "翻译方法反思", "stem": "英二翻译里，比较级和程度副词为什么不能省？请结合你上次把「are far more likely to feel threatened」只译成「感到受到威胁」这个例子，写出一条你以后会用的检查办法。", "answer": "不能省的原因：比较级和程度副词承载的是相对关系与程度判断，删掉后信息量直接改变——「远远更可能」被降级成「可能」，原文的判断强度消失，属于漏译失真。英二翻译按信息点给分，程度信息本身就是一个独立得分点。\n检查办法：译完后回原文，把所有 -er／more／most／far／much／even／less／rather 之类的程度标记圈出来，逐个在译文里找对应词；再通读一遍译文，检查「谁比谁、强多少」这层关系还在不在。", "keys": ["指出比较级承载相对关系与程度判断（2 分）", "指出漏译导致信息失真，英二按点给分（2 分）", "给出可操作的检查动作：圈标记—逐个对译—回读查关系（2 分）"], "explain": "这条不是知识题，是流程题。你上次的问题不在「不认识 far more likely」，而在译完没有回头核对程度词。养成「圈标记—对译—回读」三步，这类失分能直接消掉。", "_id": 20}]}]};
+const QUIZID = "2026-10-17b";
+const KEY = "quiz_" + QUIZID;
+const TOTAL = 20;
+
+// ---- 状态存取 ----
+let state = JSON.parse(localStorage.getItem(KEY) || "{}");
+
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+function answeredCount(){
+  let n = 0;
+  QUIZ.sections.forEach(s => s.questions.forEach((q, i) => {
+    const id = q._id;
+    const v = state[id];
+    if (q.type === "choice") { if (v) n++; }
+    else if (q.type === "fill") {
+      if (v && Object.values(v).some(x => (x||"").trim())) n++;
+    }
+    else { if (v && v.trim()) n++; }
+  }));
+  return n;
+}
+
+function updateProgress(){
+  const n = answeredCount();
+  const pct = Math.round(n / TOTAL * 100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("ptext").textContent = `已作答 ${n} / ${TOTAL}`;
+  document.getElementById("tbCount").textContent = `${n} / ${TOTAL}`;
+  document.getElementById("doneTip").classList.toggle("show", n >= TOTAL);
+}
+
+function flashSaved(n){
+  const el = document.querySelector(`.saved[data-saved="${n}"]`);
+  if (!el) return;
+  el.textContent = "已保存";
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 1200);
+}
+
+// ---- 绑定交互 ----
+document.querySelectorAll(".opt input").forEach(inp => {
+  inp.addEventListener("change", e => {
+    const n = +e.target.name.replace("q", "");
+    state[n] = e.target.value;
+    save(); updateProgress(); flashSaved(n);
+  });
+});
+
+document.querySelectorAll(".fillin").forEach(inp => {
+  inp.addEventListener("input", e => {
+    const n = e.target.dataset.q, b = e.target.dataset.b;
+    state[n] = state[n] || {};
+    state[n][b] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+document.querySelectorAll(".shortin,.transin").forEach(ta => {
+  ta.addEventListener("input", e => {
+    const n = e.target.dataset.q;
+    state[n] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+// 查看解析
+document.querySelectorAll(".btn-ans").forEach(b => {
+  b.addEventListener("click", () => {
+    const n = b.dataset.q;
+    const box = document.querySelector(`.ansbox[data-ans="${n}"]`);
+    const open = !box.hidden;
+    box.hidden = open;
+    b.textContent = open ? "查看解析" : "收起解析";
+  });
+});
+
+document.getElementById("btnRevealAll").addEventListener("click", function(){
+  const anyHidden = [...document.querySelectorAll(".ansbox")].some(b => b.hidden);
+  document.querySelectorAll(".ansbox").forEach(b => b.hidden = !anyHidden);
+  document.querySelectorAll(".btn-ans").forEach(b => {
+    b.textContent = anyHidden ? "收起解析" : "查看解析";
+  });
+  this.textContent = anyHidden ? "收起全部解析" : "展开全部解析";
+});
+
+// 清空
+document.getElementById("btnReset").addEventListener("click", () => {
+  if (!confirm("确定清空全部作答？此操作不可撤销。")) return;
+  state = {}; save();
+  document.querySelectorAll(".opt input").forEach(i => i.checked = false);
+  document.querySelectorAll(".fillin,.shortin,.transin").forEach(i => i.value = "");
+  updateProgress();
+});
+
+// ---- 导出答案 ----
+function buildExport(){
+  const L = [];
+  L.push(`# ${QUIZ.title} — 我的作答`);
+  L.push("");
+  L.push(`日期：${QUIZ.date}`);
+  L.push(`完成：${answeredCount()} / ${TOTAL} 题`);
+  L.push("");
+  const tname = {choice:"单选", fill:"填空", short:"问答", translate:"长难句翻译"};
+  QUIZ.sections.forEach(s => {
+    L.push(`## ${s.name}`);
+    L.push("");
+    s.questions.forEach(q => {
+      const v = state[q._id];
+      L.push(`### ${q._id}. [${tname[q.type]}]`);
+      L.push(q.stem);
+      L.push("");
+      if (q.type === "choice") {
+        L.push(`**我的答案：** ${v ? v : "（未作答）"}`);
+      } else if (q.type === "fill") {
+        const arr = [];
+        for (let i = 0; i < (q.blanks || 1); i++) {
+          const k = String(i);
+          arr.push(`第${i+1}空：${(v && v[k]) ? v[k] : "（空）"}`);
+        }
+        L.push(`**我的答案：** ${arr.join("　")}`);
+      } else {
+        L.push(`**我的答案：**`);
+        L.push("");
+        L.push(v && v.trim() ? v : "（未作答）");
+      }
+      L.push("");
+    });
+  });
+  return L.join("\n");
+}
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  document.getElementById("exportArea").value = buildExport();
+  document.getElementById("modal").classList.add("show");
+});
+document.getElementById("btnCloseModal").addEventListener("click", () => {
+  document.getElementById("modal").classList.remove("show");
+});
+document.getElementById("btnDownload").addEventListener("click", () => {
+  const blob = new Blob([buildExport()], {type:"text/markdown;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${QUIZID}-我的作答.md`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") e.target.classList.remove("show");
+});
+
+// ---- 恢复状态 ----
+(function restore(){
+  document.querySelectorAll(".opt input").forEach(inp => {
+    const n = +inp.name.replace("q", "");
+    if (state[n] === inp.value) inp.checked = true;
+  });
+  document.querySelectorAll(".fillin").forEach(inp => {
+    const n = inp.dataset.q, b = inp.dataset.b;
+    if (state[n] && state[n][b] != null) inp.value = state[n][b];
+  });
+  document.querySelectorAll(".shortin,.transin").forEach(ta => {
+    const n = ta.dataset.q;
+    if (state[n] != null) ta.value = state[n];
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
