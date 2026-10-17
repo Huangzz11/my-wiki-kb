@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考研每日测验 · 10.17 评论实战诊断（素材：Day64《评论训练2》幽灵外卖习作 + 实务大明白第四讲）</title>
+<style>
+:root{
+  --bg:#f7f8fb; --card:#fff; --ink:#1c2430; --sub:#60708a;
+  --line:#e3e8f0; --blue:#2F5B9E; --blue-l:#e8eef8;
+  --green:#1f8a52; --green-l:#e6f5ec;
+  --amber:#b4740a; --amber-l:#fdf3e0;
+  --red:#c0392b; --red-l:#fdeceb;
+  --violet:#6b4ea8; --violet-l:#f0ebfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+    "Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.7;
+  padding:0 0 120px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+/* 顶部 */
+header{
+  background:linear-gradient(135deg,#2F5B9E 0%,#40699f 60%,#5b7fb5 100%);
+  color:#fff;padding:34px 0 26px;margin-bottom:24px;
+  box-shadow:0 2px 14px rgba(47,91,158,.18);
+}
+header h1{font-size:23px;font-weight:650;letter-spacing:.3px;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.85}
+.statline{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chip{
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);
+  border-radius:999px;padding:4px 13px;font-size:12.5px;backdrop-filter:blur(4px)
+}
+
+/* 进度条 */
+.progress-sticky{
+  position:sticky;top:0;z-index:50;background:rgba(247,248,251,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  padding:10px 0;margin-bottom:8px;
+}
+.pbar{height:7px;background:#e6eaf2;border-radius:99px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,#2F5B9E,#5b8fd4);
+  border-radius:99px;transition:width .35s ease}
+.ptext{font-size:12.5px;color:var(--sub);margin-top:6px;display:flex;
+  justify-content:space-between}
+
+/* 分区 */
+.sec{margin:30px 0 0}
+.sec h2{
+  font-size:16.5px;font-weight:640;color:var(--blue);
+  display:flex;align-items:center;gap:9px;padding-bottom:9px;
+  border-bottom:2px solid var(--blue-l);margin-bottom:16px;
+}
+.dot{width:9px;height:9px;border-radius:3px;background:var(--blue);
+  display:inline-block;flex:0 0 auto}
+.secmeta{margin-left:auto;font-size:12px;color:var(--sub);font-weight:400}
+
+/* 题目卡片 */
+.q{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:17px 19px;margin-bottom:13px;transition:border-color .2s,box-shadow .2s;
+}
+.q:focus-within{border-color:#b9cdea;box-shadow:0 3px 14px rgba(47,91,158,.09)}
+.qhead{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.qno{
+  width:26px;height:26px;border-radius:8px;background:var(--blue);
+  color:#fff;font-size:13px;font-weight:600;display:flex;
+  align-items:center;justify-content:center;flex:0 0 auto;
+}
+.qtag{font-size:11.5px;padding:2px 9px;border-radius:6px;font-weight:500}
+.t-choice{background:var(--blue-l);color:var(--blue)}
+.t-fill{background:var(--green-l);color:var(--green)}
+.t-short{background:var(--violet-l);color:var(--violet)}
+.t-translate{background:var(--amber-l);color:var(--amber)}
+.kp{font-size:11.5px;color:var(--sub);margin-left:auto}
+.stem{font-size:14.8px;margin-bottom:12px;white-space:pre-wrap}
+
+/* 单选 */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 13px;
+  border:1px solid var(--line);border-radius:9px;cursor:pointer;
+  transition:all .16s;font-size:14.2px;
+}
+.opt:hover{background:#f4f7fc;border-color:#c3d5ee}
+.opt input{display:none}
+.opt .letter{
+  width:21px;height:21px;border-radius:6px;background:#eef1f6;color:var(--sub);
+  font-size:12px;font-weight:600;display:flex;align-items:center;
+  justify-content:center;flex:0 0 auto;margin-top:2px;transition:all .16s;
+}
+.opt input:checked~.letter{background:var(--blue);color:#fff}
+.opt:has(input:checked){background:var(--blue-l);border-color:#9dbde6}
+.otext{flex:1}
+
+/* 填空 */
+.fills{display:flex;flex-direction:column;gap:8px}
+.fillin{
+  font-family:inherit;font-size:14.2px;padding:9px 13px;
+  border:1px solid var(--line);border-radius:8px;background:#fcfdff;
+  transition:all .16s;width:100%;
+}
+.fillin:focus{outline:none;border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 文本域 */
+.shortin,.transin{
+  font-family:inherit;font-size:14.2px;line-height:1.75;padding:11px 14px;
+  border:1px solid var(--line);border-radius:9px;background:#fcfdff;
+  width:100%;resize:vertical;transition:all .16s;
+}
+.shortin:focus,.transin:focus{outline:none;border-color:var(--blue);
+  background:#fff;box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 按钮与解析 */
+.qfoot{display:flex;align-items:center;gap:11px;margin-top:11px}
+.btn-ans{
+  font-family:inherit;font-size:12.5px;padding:5px 13px;border-radius:7px;
+  border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;
+  transition:all .16s;
+}
+.btn-ans:hover{background:var(--blue-l);border-color:#a8c4e8;color:var(--blue)}
+.saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
+.saved.show{opacity:1}
+.ansbox{
+  margin-top:12px;padding:13px 15px;background:#fafbfd;
+  border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-size:13.8px;
+}
+.ansline{margin-bottom:8px;display:flex;gap:9px;line-height:1.7}
+.ansline:last-child{margin-bottom:0}
+.ansline b{
+  flex:0 0 auto;color:var(--blue);font-size:12px;font-weight:640;
+  background:var(--blue-l);padding:2px 8px;border-radius:5px;height:fit-content;
+  margin-top:3px;
+}
+.ansline .got{color:var(--green);font-weight:600}
+
+/* 底部操作栏 */
+.toolbar{
+  position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);padding:12px 20px;z-index:60;
+  backdrop-filter:blur(10px);box-shadow:0 -2px 16px rgba(28,36,48,.07);
+}
+.tb-inner{max-width:820px;margin:0 auto;display:flex;
+  align-items:center;gap:11px;flex-wrap:wrap}
+.btn{
+  font-family:inherit;font-size:13.5px;padding:9px 19px;border-radius:9px;
+  border:none;cursor:pointer;font-weight:530;transition:all .16s;
+}
+.btn-main{background:var(--blue);color:#fff}
+.btn-main:hover{background:#264d87;transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--sub);border:1px solid var(--line)}
+.btn-ghost:hover{background:#f4f6fa;color:var(--ink)}
+.tb-count{font-size:13px;color:var(--sub);margin-left:auto}
+
+/* 完成提示 */
+.done-tip{
+  margin-top:22px;padding:18px 20px;border-radius:12px;
+  background:var(--green-l);border:1px solid #bfe5ce;color:#14603a;
+  font-size:14px;display:none;
+}
+.done-tip.show{display:block}
+.done-tip b{display:block;margin-bottom:6px;font-size:15px}
+
+/* 答案导出弹层 */
+.modal{
+  position:fixed;inset:0;background:rgba(20,28,40,.5);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:#fff;border-radius:14px;max-width:660px;width:100%;
+  max-height:82vh;display:flex;flex-direction:column;overflow:hidden;
+}
+.modal-head{padding:17px 21px;border-bottom:1px solid var(--line);
+  font-weight:620;font-size:15.5px;color:var(--blue)}
+.modal-body{padding:18px 21px;overflow-y:auto;flex:1}
+.modal-body textarea{
+  width:100%;height:340px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.65;border:1px solid var(--line);
+  border-radius:9px;padding:13px;background:#fafbfd;resize:vertical;
+}
+.modal-foot{padding:14px 21px;border-top:1px solid var(--line);
+  display:flex;gap:10px;justify-content:flex-end}
+.modal-tip{font-size:12.5px;color:var(--sub);margin-bottom:11px;line-height:1.65}
+
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  header{padding:26px 0 20px}
+  header h1{font-size:19px}
+  .q{padding:14px 15px}
+  .stem{font-size:14.2px}
+  .tb-count{display:none}
+  .kp{margin-left:0;width:100%}
+}
+@media print{
+  .toolbar,.btn-ans,.progress-sticky{display:none}
+  .ansbox[hidden]{display:block!important}
+  .q{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>考研每日测验 · 10.17 评论实战诊断（素材：Day64《评论训练2》幽灵外卖习作 + 实务大明白第四讲）</h1>
+    <div class="meta">2026-10-17 · 共 20 题 · 今晚 22:30 自动生成</div>
+    <div class="statline">
+      <span class="chip">单选 7</span>
+      <span class="chip">填空 5</span>
+      <span class="chip">问答 7</span>
+      <span class="chip">长难句 1</span>
+    </div>
+  </div>
+</header>
+
+<div class="progress-sticky">
+  <div class="wrap">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <div class="ptext">
+      <span id="ptext">已作答 0 / 20</span>
+      <span>进度自动保存，刷新不丢</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  
+<section class="sec">
+  <h2><span class="dot"></span>一、专业课 · 新闻评论实战诊断（对着你自己那篇稿子批）
+    <span class="secmeta">14 题</span></h2>
+  
+<div class="q" data-q="1" data-type="choice">
+  <div class="qhead">
+    <span class="qno">1</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">评论标题·准确贴切</span>
+  </div>
+  <div class="stem">你在《评论训练2》里给「郑州骑手随手拍打击幽灵外卖」这则材料拟的标题是《让“幽灵外卖”在黑暗中无处遁形》。
+
+按讲义对标题的具体要求「准确贴切：要恰如其分，经得起推敲。意思表达要完整，语言没有漏洞」，这个标题最要害的毛病是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q1" value="A"><span class="letter">A</span><span class="otext">标题过长，违反「简明扼要」</span></label><label class="opt"><input type="radio" name="q1" value="B"><span class="letter">B</span><span class="otext">「在黑暗中」与「幽灵外卖」的藏身状态互相抵消——它本来就藏在暗处，说它在黑暗里无处遁形，等于把它留在原地</span></label><label class="opt"><input type="radio" name="q1" value="C"><span class="letter">C</span><span class="otext">标题里没有出现责任主体，读者不知道是谁在打击</span></label><label class="opt"><input type="radio" name="q1" value="D"><span class="letter">D</span><span class="otext">标题没有使用修辞，违反「鲜明生动」</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="1">查看解析</button>
+    <span class="saved" data-saved="1"></span>
+  </div>
+  <div class="ansbox" data-ans="1" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>标题的三条具体要求是准确贴切、简明扼要、鲜明生动。A 打的是第二条，D 打的是第三条，都不算「最要害」。这个标题的硬伤在准确性：「在黑暗中无处遁形」逻辑上把「黑暗」当成打击的场域，而黑暗恰恰是幽灵外卖的庇护所，句子自己拆自己的台。C 项似乎有理，但「无处遁形」已隐含施动者，评论标题允许省略主语。改法两条：直接写《让“幽灵外卖”无处遁形》；或把方向掉过来，《让“幽灵外卖”晒在阳光下》。</div></div>
+</div>
+<div class="q" data-q="2" data-type="choice">
+  <div class="qhead">
+    <span class="qno">2</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">评论引论·开门见山</span>
+  </div>
+  <div class="stem">你的开头是：「食品安全一直是公众关注的话题，也是每年3·15重点打击的对象，那么我们是否怀疑融入我们日常中的外卖在制作时也存在安全隐患呢？2026年12月，河南省“郑骑先锋随手拍”火出了圈……」
+
+讲义对引论的两条总要求是「简明扼要，开门见山，不要落笔太远」与「尽量新鲜，不落俗套，引人入胜」。这段话主要违反了哪一条？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q2" value="A"><span class="letter">A</span><span class="otext">开门见山。用一长句铺陈「食品安全」这个大话题，第二句才绕到「随手拍」这个新闻由头上</span></label><label class="opt"><input type="radio" name="q2" value="B"><span class="letter">B</span><span class="otext">新鲜。「3·15」这个提法太旧，属于俗套</span></label><label class="opt"><input type="radio" name="q2" value="C"><span class="letter">C</span><span class="otext">引人入胜。设问句不该出现在评论开头</span></label><label class="opt"><input type="radio" name="q2" value="D"><span class="letter">D</span><span class="otext">没有违反。这段开头正是讲义说的「用设问句直接点明论题」</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="2">查看解析</button>
+    <span class="saved" data-saved="2"></span>
+  </div>
+  <div class="ansbox" data-ans="2" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>讲义确实列了「用设问句直接点明论题」这一种开头，但设问的对象应当是新闻事件本身，而且这类论题「往往是国计民生中的重大问题或人民群众普遍关注的问题」。你把设问用在了泛泛的「食品安全」上，先绕一大圈再落到由头，正是「落笔太远」。C 项错在把一种被允许的写法整体否掉；D 项错在没看出设问对象跑偏了。改法：第一句直接写「去年12月26日，郑州8000多名外卖骑手注册『随手拍』，41人次领到奖励」，背景压到一句以内。</div></div>
+</div>
+<div class="q" data-q="3" data-type="choice">
+  <div class="qhead">
+    <span class="qno">3</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">逻辑谬误·归因错误</span>
+  </div>
+  <div class="stem">你第三段写：「随着外卖应用系统和配送系统的不断完善，作为外卖APP巨头的美团、饿了么、京东在25年2月开启外卖大战，开启商家入驻激励计划，也许对于商家注册资质缺乏深度核查，造成“幽灵外卖”出现。」
+
+按讲义「常见的24个逻辑谬误」的界定，这段推论最典型地犯了哪一条？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q3" value="A"><span class="letter">A</span><span class="otext">循环论证——用结论去证明结论</span></label><label class="opt"><input type="radio" name="q3" value="B"><span class="letter">B</span><span class="otext">归因错误——把时间上的先后或并存，当成了因果</span></label><label class="opt"><input type="radio" name="q3" value="C"><span class="letter">C</span><span class="otext">非黑即白——只给出两个选项</span></label><label class="opt"><input type="radio" name="q3" value="D"><span class="letter">D</span><span class="otext">迷信权威——借平台的名头压人</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="3">查看解析</button>
+    <span class="saved" data-saved="3"></span>
+  </div>
+  <div class="ansbox" data-ans="3" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>讲义对「归因错误」的界定是：因事物之间真实存在或假想出来的关联，得出两者存在因果关系；两件事同时或先后发生，并不意味其中一件是另一件的起因。你这段的因果只靠一个「也许」撑着，期间没有给出任何一条证据，属典型的归因错误。A 项的循环论证指「论点的前提中已包含结论」，此处不成立；C、D 与文段无关。更要紧的是：评论里出现「也许……造成」这种句式，等于自己承认论据不足，阅卷老师会直接判论证不成立。</div></div>
+</div>
+<div class="q" data-q="4" data-type="choice">
+  <div class="qhead">
+    <span class="qno">4</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">论据要求·孤例</span>
+  </div>
+  <div class="stem">你第二段转述一位骑手的话：参与这项活动，他主要考虑的是「自己家人也会点外卖吃」，为了家人和公众的食品安全「本该身体力行」。
+
+对这条论据的用法，下列批评最准确的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q4" value="A"><span class="letter">A</span><span class="otext">这是理论性论据，引证了当事人的权威言论，说服力强</span></label><label class="opt"><input type="radio" name="q4" value="B"><span class="letter">B</span><span class="otext">这是拿一名骑手的自述去推及全体骑手的动机，属于讲义所列的「道听途说」——用个人经验或孤例替代言之有理的论证</span></label><label class="opt"><input type="radio" name="q4" value="C"><span class="letter">C</span><span class="otext">这属于「情感绑架」，应当整段删掉</span></label><label class="opt"><input type="radio" name="q4" value="D"><span class="letter">D</span><span class="otext">这属于「以偏概全」，因为骑手代表不了平台</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="4">查看解析</button>
+    <span class="saved" data-saved="4"></span>
+  </div>
+  <div class="ansbox" data-ans="4" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>问题出在「一名骑手的话」能不能撑起「骑手群体是在承担社会责任」这个判断。讲义「道听途说」一条的界定正是：用个人经验或者孤例替代无可辩驳的证据，或者替代言之有理的论证。C 项的「情感绑架」指操弄情绪去替代论据，你这里是转述他人自述，性质不同；D 项错在对象，你推及的是骑手动机，并非平台责任。可用的写法：把孤例降格为「一个例子」，另外补上可核的数字论据（8000多名注册、41人次奖励、两个查实的违规案例）。</div></div>
+</div>
+<div class="q" data-q="5" data-type="fill">
+  <div class="qhead">
+    <span class="qno">5</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">评论标题·制作要求</span>
+  </div>
+  <div class="stem">讲义把评论标题的制作要求分成「总体要求」与「具体要求」两层。请补全（每空 1—2 字）：
+
+总体要求：①立意要____；②观点要____。
+具体要求：③____贴切；④____扼要；⑤____生动。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="5" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="5" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="5" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="5" data-b="3" placeholder="第 4 空" autocomplete="off"><input class="fillin" type="text" data-q="5" data-b="4" placeholder="第 5 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="5">查看解析</button>
+    <span class="saved" data-saved="5"></span>
+  </div>
+  <div class="ansbox" data-ans="5" hidden><div class="ansline"><b>参考答案</b>高／明／准确／简明／鲜明</div><div class="ansline"><b>得分点</b>每空 1 分，共 5 分, 总体两条：立意要高、观点要明, 具体三条的顺序：准确贴切 → 简明扼要 → 鲜明生动, 「鲜明生动」写成「生动鲜明」不算错</div><div class="ansline"><b>解析</b>这五条是固定表述，考场上写错一个字都可能被判不准。你的标题栽在第③条「准确贴切」上——意思表达不完整、语言有漏洞。记住这五条是两层的：总体看立场（高、明），具体看文字（准、简、活）。</div></div>
+</div>
+<div class="q" data-q="6" data-type="fill">
+  <div class="qhead">
+    <span class="qno">6</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">论据·四项要求</span>
+  </div>
+  <div class="stem">讲义对论据提出四项要求，依次是：____、____、____、____。
+
+（提示：第一项讲与论点的关联度；第二项要求溯及信息源头、审慎确认真实性；第三项相对读者的熟悉程度而言；第四项针对跨领域议题的专业认识。）</div>
+  <div class="fills"><input class="fillin" type="text" data-q="6" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="6" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="6" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="6" data-b="3" placeholder="第 4 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="6">查看解析</button>
+    <span class="saved" data-saved="6"></span>
+  </div>
+  <div class="ansbox" data-ans="6" hidden><div class="ansline"><b>参考答案</b>相关／可靠／新鲜／专业</div><div class="ansline"><b>得分点</b>每空 1 分，共 4 分, 顺序须与讲义一致：相关、可靠、新鲜、专业</div><div class="ansline"><b>解析</b>你把材料的「2025年12月26日推出」写成「2026年12月」，违反的是第二条「可靠」。这一条在实务卷上直接扣分，比文采问题严重得多。复习时把这四条当成递进链记：先看贴不贴题（相关）→ 再看真不真（可靠）→ 再看旧不旧（新鲜）→ 最后看专不专业（专业）。</div></div>
+</div>
+<div class="q" data-q="7" data-type="fill">
+  <div class="qhead">
+    <span class="qno">7</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">谋篇·结构与结尾</span>
+  </div>
+  <div class="stem">讲义把正论（主体）的谋篇结构分为六种：归纳论证结构、证明论证结构、①____论证结构、②____论证结构、比较论证结构、③____论证结构。
+
+评论结尾的三种常见写法是：精辟概括式、高昂激越式、④____式。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="7" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="3" placeholder="第 4 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="7">查看解析</button>
+    <span class="saved" data-saved="7"></span>
+  </div>
+  <div class="ansbox" data-ans="7" hidden><div class="ansline"><b>参考答案</b>并列／递进／正反／余音绕梁</div><div class="ansline"><b>得分点</b>每空 1 分，共 4 分, 六种结构：归纳、证明、并列、递进、比较、正反</div><div class="ansline"><b>解析</b>你的正文没有落到其中任何一种结构上：第一、二段在复述事件，第三段插进一段原因推测，第四段直接跳到「多元共治」的呼吁，段与段之间没有分论点的支撑关系。这就是讲义「大忌」里的「结构松散」。写之前先把两个分论点写成两行字，结构自然就出来了。</div></div>
+</div>
+<div class="q" data-q="8" data-type="fill">
+  <div class="qhead">
+    <span class="qno">8</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">评论大忌</span>
+  </div>
+  <div class="stem">讲义把评论的「大忌」拆成四小节，依次是：忌①____、忌②____、忌③____、忌④____。
+
+⑤按这四条衡量，你这篇最主要踩中的两条是（写名称）：____。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="8" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="8" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="8" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="8" data-b="3" placeholder="第 4 空" autocomplete="off"><input class="fillin" type="text" data-q="8" data-b="4" placeholder="第 5 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="8">查看解析</button>
+    <span class="saved" data-saved="8"></span>
+  </div>
+  <div class="ansbox" data-ans="8" hidden><div class="ansline"><b>参考答案</b>空泛／俗套／跑题／冗长／跑题、冗长</div><div class="ansline"><b>得分点</b>前四空每空 1 分，共 4 分，顺序：空泛、俗套、跑题、冗长, 第五空写出「跑题」「冗长」两个名称，写对其一给一半分</div><div class="ansline"><b>解析</b>注意讲义自身有个瑕疵：大忌的总起句写的是「议论的空泛，形式的俗套，结构的松散，篇幅的冗长」，但正文四小节的标题是空泛、俗套、跑题、冗长——总起句里的「结构松散」在正文里被「跑题」替掉了。答题时按正文四小节写。你这篇的「跑题」体现在第三段把论题从「监管如何借力骑手」拽到「平台扩张史」；「冗长」体现在开头那句泛论和结尾那串排比都可以整段删掉而信息不减。</div></div>
+</div>
+<div class="q" data-q="9" data-type="short">
+  <div class="qhead">
+    <span class="qno">9</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">结构诊断</span>
+  </div>
+  <div class="stem">给这篇 500 字评论做一次结构诊断。按「引论—正论—结论」三段，各指出一处最硬的伤，并各给一条具体的改法（改法要能直接落到文字上，不要写「加强论证」这类话）。</div>
+  <textarea class="shortin" data-q="9" rows="8" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="9">查看解析</button>
+    <span class="saved" data-saved="9"></span>
+  </div>
+  <div class="ansbox" data-ans="9" hidden><div class="ansline"><b>参考答案</b>引论：绕。先泛论「食品安全是公众关注的话题」，再设问「外卖是否也有隐患」，到第二句末尾才出现「郑骑先锋随手拍」。改法：第一句就落到由头上，写「2025年12月26日，郑州8000多名外卖骑手注册『随手拍』，41人次领到奖励」，把「食品安全」这层背景压进半句。
+
+正论：散。第二段复述活动，第三段推测「外卖大战导致资质审核放松」，两段都在「叙」，没有一段在「论」；段与段之间也没有分论点关系。改法：立两个分论点——「骑手能看见监管看不见的角落」（论据：两个查实的违规案例、41人次奖励），「举报要长久，得让激励和保护对得上」（论据：50元奖励、举报者身份是否受保护）；把「外卖大战」那段推测整段删掉。
+
+结论：平。结尾把开头的话又说了一遍（「让幽灵外卖无处遁形」「吃得安心、吃得健康」），没有提升。改法：按精辟概括式收，把落点从「打击」抬到「监管如何借力社会力量」。</div><div class="ansline"><b>得分点</b>引论：指出落笔太远，并给出以新闻由头开头的具体改法（3 分）, 正论：指出两段都是复述、缺分论点支撑，并给出两个分论点的方向（4 分）, 结论：指出与开头重复、无提升，并点出至少一种结尾写法的名称（3 分）, 改法具体可执行才给满分，写「加强论证」「多举例子」这类话不给分</div><div class="ansline"><b>解析</b>这道题考的是观察力，背模板在这里没用。你稿子的三段各自成立，合起来不成立——因为段与段之间没有一条线串着。讲义讲正论时说得很直白：谋篇的关键在于体现层次与层次之间的逻辑联系，也就是各分论点与中心论点的内在联系。你缺的正是这一步。</div></div>
+</div>
+<div class="q" data-q="10" data-type="short">
+  <div class="qhead">
+    <span class="qno">10</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">事实核查</span>
+  </div>
+  <div class="stem">这篇评论至少有三处与材料对不上。请逐条写「你稿子里的原话 → 材料里的正确表述」。不许翻原文，凭记忆写，写完再回去核。</div>
+  <textarea class="shortin" data-q="10" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="10">查看解析</button>
+    <span class="saved" data-saved="10"></span>
+  </div>
+  <div class="ansbox" data-ans="10" hidden><div class="ansline"><b>参考答案</b>①「2026年12月，河南省《郑骑先锋随手拍》火出了圈」——材料是 2025年12月26日，由郑州市市场监督管理局推出。年份错了一年，主体从市级单位写成了省级。
+②「多为骑手获得奖励」——材料是「已有41人次骑手受到奖励」，相对8000多名注册骑手是少数，写成「多为」与事实相反。
+③「截至26年1月」——材料写明是 2026年1月26日，评论里写「26年1月」属表述不清。
+④（附加）「25年2月美团、饿了么、京东开启外卖大战」——这是材料之外的自加事实，评论引用材料外信息必须交代来源。</div><div class="ansline"><b>得分点</b>年份：2025年12月26日（4 分，写成2026年不给分）, 主体：郑州市市场监督管理局（3 分）, 奖励：41人次，不是「多为」（3 分）, 能指出第四条自加事实，加 2 分印象分</div><div class="ansline"><b>解析</b>三处错误里有两种性质：①是手误，②是把数字读反。实务卷里事实错误是最不该丢的分，比语言粗糙严重。养成一个动作：写完评论，凡出现年份、数字、机构名，逐条回材料核一遍，核完再交卷。</div></div>
+</div>
+<div class="q" data-q="11" data-type="short">
+  <div class="qhead">
+    <span class="qno">11</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">论点·正确而有新意</span>
+  </div>
+  <div class="stem">你的中心论点是「政府、骑手、平台多元共治」。讲义说论点的要求是「正确而有新意」，并直言「正确而无新意」等于「正确的废话」。
+
+请回答：①这个论点为什么属于「正确的废话」；②给一个「有新意」的替代论点（一句话），并说明它比原论点多说了什么。</div>
+  <textarea class="shortin" data-q="11" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="11">查看解析</button>
+    <span class="saved" data-saved="11"></span>
+  </div>
+  <div class="ansbox" data-ans="11" hidden><div class="ansline"><b>参考答案</b>①「多元共治」放进任何一篇社会治理评论都成立，它没有回答这则材料特有的问题：为什么是骑手？骑手看见了监管看不见的什么？把「三方都要努力」当结论，读者读完不会多知道一件事。
+
+②替代论点举例：
+—「8000多名骑手愿意当眼睛，说明监管的短板在人力与信息，不在决心。」
+—「50元买得到一次举报，买不到长期举报；这项制度能不能续下去，看的是举报者的身份有没有被保护住。」
+—「幽灵外卖能藏住，靠的是平台审核这道关没人真去验。」
+
+比原论点多出的东西：把责任落到了具体环节（监管视野、激励与保护、平台审核），每个都能从材料里找到论据支撑。</div><div class="ansline"><b>得分点</b>指出原论点是放之四海皆准的套话，未回应材料特有问题（4 分）, 替代论点具体、可被材料支撑，且是一句判断（4 分）, 说明新论点比原论点多出的信息（2 分）, 替代论点若仍是「多方协同」「加强监管」一类，不给分</div><div class="ansline"><b>解析</b>讲义对此说得很清楚：「正确而无新意」就是「正确的废话」。评论的分差通常不在语言，就在这一步——同样一则材料，你的落点跟别人一样，分数就跟别人一样。</div></div>
+</div>
+<div class="q" data-q="12" data-type="short">
+  <div class="qhead">
+    <span class="qno">12</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">结尾·精辟概括式</span>
+  </div>
+  <div class="stem">你的结尾是：「……推动搭建多元共治的格局，让“幽灵外卖”无处遁形，才能让大家真正放心享受这份便利，吃的更安心，吃的更健康。」
+
+请按「精辟概括式」重写这个结尾，不超过 45 字。要求：既总括全文，又高于全文；不许重复标题里的话；不许出现「让大家吃得安心」这类口号。</div>
+  <textarea class="shortin" data-q="12" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="12">查看解析</button>
+    <span class="saved" data-saved="12"></span>
+  </div>
+  <div class="ansbox" data-ans="12" hidden><div class="ansline"><b>参考答案</b>参考一：监管的人力总有尽头，社会的眼睛没有。让举报者敢报、报了有回音，比多挂一块「明厨亮灶」的牌子更管用。
+参考二（余音绕梁式）：骑手每天要跑几十单，他停下来的那三十秒，替我们看了一次后厨。
+参考三：一项制度好不好，不看它号召了多少人，看它留住了多少人。</div><div class="ansline"><b>得分点</b>总括全文，回应「打击靠谁」这条主线（4 分）, 高于全文，落到制度、价值或人的层面（3 分）, 不重复标题原句、不出现口号式排比（2 分）, 45 字以内（1 分）</div><div class="ansline"><b>解析</b>讲义对结尾的要求是「既要总括全文，又要高于全文，应富有启发性和号召性」。你现在的结尾只做到了「重复」，把开头的意思再讲一遍，没有往前走一步。三个参考里做法不同：参考一把判断压在最后半句，参考二把视角落到具体的人身上，参考三用一句反常识的话收住。任选一路，关键是别回到口号。</div></div>
+</div>
+<div class="q" data-q="13" data-type="short">
+  <div class="qhead">
+    <span class="qno">13</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">删减·口子过大</span>
+  </div>
+  <div class="stem">考场只给 500 字，你这篇已经 600 字上下。讲义把「冗长」列为评论大忌，并指出两个成因：思想认识上「过度追求全面」，业务上「取材口子过大」。
+
+请回答：①这篇最该删的是哪一段，理由是什么；②删完之后，剩下的材料按什么顺序排才不散。</div>
+  <textarea class="shortin" data-q="13" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="13">查看解析</button>
+    <span class="saved" data-saved="13"></span>
+  </div>
+  <div class="ansbox" data-ans="13" hidden><div class="ansline"><b>参考答案</b>①最该删第三段（「外卖大战→资质核查不严→幽灵外卖」）。理由两条：整段建立在「也许」上，没有材料支撑，属归因错误；它把论题从「监管如何借力骑手」拽到「平台扩张史」，正是讲义说的「取材口子过大」。第二段的数据（8000多名注册、41人次奖励）必须留，那是全文最硬的论据。
+
+②重排：引论＝由头加一组数据（谁在做、做了多久、结果如何）→ 正论一：骑手补的是监管的视野盲区（用「小碗菜」「私域外卖」两个查实案例）→ 正论二：要让举报持续，激励与保护得配套（50元奖励、身份保护）→ 结论：把落点抬到社会力量如何进入监管。</div><div class="ansline"><b>得分点</b>指出该删第三段并给出理由：无证据、跑题（4 分）, 说明哪些材料必须保留（数据、两个查实案例）（3 分）, 重排后的顺序有推进关系，不是简单罗列（3 分）</div><div class="ansline"><b>解析</b>删稿是实务卷的基本功。判断标准很简单：把这一段删掉，读者对中心论点的理解会不会受损？不会，就删。第三段删掉之后你只丢了「外卖大战」这个话题，中心论点反而更清楚。</div></div>
+</div>
+<div class="q" data-q="14" data-type="short">
+  <div class="qhead">
+    <span class="qno">14</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">错题回滚·三个「法」的分工</span>
+  </div>
+  <div class="stem">【错题回滚 · 换问法：由「分辨三套方法」改为「现场用一次」】
+
+你错题本上留着一条：三个「法」的分工没分清。现在用它做一件事——
+
+①用「社会要素法」拆解「幽灵外卖为何屡禁不止」，列出至少五个要素，每个要素配一句与本材料挂钩的说明；
+②最后用一句话说清这三个「法」各自什么时候用。</div>
+  <textarea class="shortin" data-q="14" rows="7" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="14">查看解析</button>
+    <span class="saved" data-saved="14"></span>
+  </div>
+  <div class="ansbox" data-ans="14" hidden><div class="ansline"><b>参考答案</b>①社会要素法（政策、法律、资本、市场、技术、公民、舆论七要素，答对五个即可）：
+政策——属地监管人力有限，日常巡查覆盖不到海量小店；
+法律——网络餐饮许可与处罚的力度，决定违规成本高不高；
+资本——平台补贴与开店激励，推动商家数量快速扩张；
+市场——低价竞争压缩利润，部分商家转向无证作坊；
+技术——平台资质审核是否真验、后厨能否可视化；
+公民——消费者维权与举报的意愿；
+舆论——媒体曝光和话题热度带来的压力。
+
+②一句话分工：问「为什么会出现」用社会环境法（外因与大背景）；问「由哪些要件构成」用社会要素法；问「该怎么办」用社会思维法。</div><div class="ansline"><b>得分点</b>至少五个要素，名称用讲义原词（政策/法律/资本/市场/技术/公民/舆论）（5 分）, 每个要素配一句与本材料挂钩的说明，不能只写词（3 分）, 三套方法的分工一句话答对（2 分）, 把三者说成同一个框架的不同叫法，本题 0 分</div><div class="ansline"><b>解析</b>这条错题你上次的答案是「就是社会框架 PETCSI 的不同说法」，属方向性错误。三者是三套操作路径：环境法答外因，要素法拆构成，思维法给对策。PETCSI 是分析维度，跟这三套不是一回事。今天这道题就是让你把「分得清」变成「用得上」——考场上一道 30 分的论述，第一步就是判断它问的是哪一种。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>二、政治 · 单选（错题回滚，全部换问法）
+    <span class="secmeta">3 题</span></h2>
+  
+<div class="q" data-q="15" data-type="choice">
+  <div class="qhead">
+    <span class="qno">15</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">教育强国·六个以</span>
+  </div>
+  <div class="stem">【错题回滚】关于建设教育强国的「六个以」，下列表述错误的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q15" value="A"><span class="letter">A</span><span class="otext">坚持党的全面领导是根本保证</span></label><label class="opt"><input type="radio" name="q15" value="B"><span class="letter">B</span><span class="otext">立德树人是根本任务</span></label><label class="opt"><input type="radio" name="q15" value="C"><span class="letter">C</span><span class="otext">为党育人、为国育才是根本目标</span></label><label class="opt"><input type="radio" name="q15" value="D"><span class="letter">D</span><span class="otext">「人民满意」既是根本尺度，也是核心功能</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="15">查看解析</button>
+    <span class="saved" data-saved="15"></span>
+  </div>
+  <div class="ansbox" data-ans="15" hidden><div class="ansline"><b>参考答案</b>D</div><div class="ansline"><b>解析</b>六个以的完整链条：坚持党的全面领导（根本保证）→ 立德树人（根本任务）→ 为党育人、为国育才（根本目标）→ 服务中华民族伟大复兴（重要使命）→ 走中国特色社会主义教育发展道路（基本路径）→ 支撑引领中国式现代化（核心功能）。「人民满意」是根本尺度，跟核心功能是两回事——这正是你 9.18 反馈原文写错的地方（当时你自己造了「根本方向／基本目标／最终目的／最终标准」四个词）。记忆抓手：保→党，任→德育，目→育才，使→复兴，路→现代化，功→领现代化。</div></div>
+</div>
+<div class="q" data-q="16" data-type="choice">
+  <div class="qhead">
+    <span class="qno">16</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">统一战线·三个最</span>
+  </div>
+  <div class="stem">【错题回滚】统一战线的「三个最」，下列配对全部正确的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q16" value="A"><span class="letter">A</span><span class="otext">本质要求＝大团结大联合｜关键＝求同存异｜最鲜明的特征＝党的领导</span></label><label class="opt"><input type="radio" name="q16" value="B"><span class="letter">B</span><span class="otext">本质要求＝求同存异｜关键＝大团结大联合｜最鲜明的特征＝党的领导</span></label><label class="opt"><input type="radio" name="q16" value="C"><span class="letter">C</span><span class="otext">本质要求＝大团结大联合｜关键＝党的领导｜最鲜明的特征＝求同存异</span></label><label class="opt"><input type="radio" name="q16" value="D"><span class="letter">D</span><span class="otext">本质要求＝人心和力量｜关键＝求同存异｜最鲜明的特征＝大团结大联合</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="16">查看解析</button>
+    <span class="saved" data-saved="16"></span>
+  </div>
+  <div class="ansbox" data-ans="16" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>三级对应只有一组成立：本质要求＝大团结大联合（解决的是人心和力量问题）；关键＝求同存异；最鲜明的特征＝党的领导。B 把前两项对调；C 把后两项对调；D 把「人心和力量」当成了本质要求的名称——它是本质要求所「解决」的对象，不是名称本身。记忆抓手：联合（本质）→ 人心（对象）→ 存异（方法）→ 党旗（特征），四步是一条链，不能跳着记。</div></div>
+</div>
+<div class="q" data-q="17" data-type="choice">
+  <div class="qhead">
+    <span class="qno">17</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">三大优良作风 vs 显著标志</span>
+  </div>
+  <div class="stem">【错题回滚 · 换问法：改为「两条来源分列」】关于党的三大优良作风与「区别于其他政党的显著标志」，下列表述正确的一项是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q17" value="A"><span class="letter">A</span><span class="otext">理论联系实际、密切联系群众、批评和自我批评，是中国共产党区别于其他政党的显著标志</span></label><label class="opt"><input type="radio" name="q17" value="B"><span class="letter">B</span><span class="otext">三大优良作风是党的七大（1945）确立的；「勇于自我革命」是党区别于其他政党的显著标志，出自十九届六中全会《决议》</span></label><label class="opt"><input type="radio" name="q17" value="C"><span class="letter">C</span><span class="otext">「勇于自我革命」是三大优良作风之一，与另外两条并称</span></label><label class="opt"><input type="radio" name="q17" value="D"><span class="letter">D</span><span class="otext">三大优良作风包括「艰苦奋斗」，它同时也是区别于其他政党的显著标志</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="17">查看解析</button>
+    <span class="saved" data-saved="17"></span>
+  </div>
+  <div class="ansbox" data-ans="17" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>两条独立来源，各背各的：① 七大（1945）确立三大优良作风＝理论联系实际、密切联系群众、批评和自我批评；② 十九届六中全会《决议》指出「勇于自我革命」是党区别于其他政党的显著标志。A 就是你 9.17 反馈原文一字不差写下的那句，把两条来源焊成了一句——这是本题唯一要你改掉的东西，改文档比记答案重要。C 把「勇于自我革命」塞进三大作风，凭空多出一条；D 的「艰苦奋斗」不在三大作风里（它是「两个务必」里的表述）。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>三、英语 · 长难句与词汇（含错题回滚）
+    <span class="secmeta">3 题</span></h2>
+  
+<div class="q" data-q="18" data-type="translate">
+  <div class="qhead">
+    <span class="qno">18</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">长难句·比较结构</span>
+  </div>
+  <div class="stem">翻译下面这句话，并标出主干：
+
+Critics argue that a regulatory system which relies on workers to report violations can only be as effective as the incentives it offers and the protection it gives to those who speak up.</div>
+  <textarea class="transin" data-q="18" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="18">查看解析</button>
+    <span class="saved" data-saved="18"></span>
+  </div>
+  <div class="ansbox" data-ans="18" hidden><div class="ansline"><b>参考答案</b>译文：批评者认为，一个靠劳动者举报违规行为来运转的监管体系，其效力只能取决于它给出的激励，以及它给敢于发声者提供的保护。
+
+主干：Critics argue that…（主句：主＋谓＋宾语从句）。
+宾语从句主语 a regulatory system，谓语 can only be as effective as…；which relies on workers to report violations 是定语从句修饰 system；those who speak up 是「敢于发声的人」。</div><div class="ansline"><b>得分点</b>主干标对：Critics argue that + 宾语从句（3 分）, 定语从句 which relies on… 译成前置定语「靠劳动者举报违规行为来运转的」（3 分）, as…as 比较结构必须译出，译成「只能取决于／只能达到……的程度」（3 分）, those who speak up 译「敢于发声的人」，漏译不给分（1 分）</div><div class="ansline"><b>解析</b>这句的坑有两处。一是 as effective as 是同级比较，很多人顺手写成「很有效」，把比较关系丢了；二是 those who speak up 是「那些敢于发声的人」，不是「说话的人」。主干判断只看三样：主语、谓语、宾语从句的引导词，其余全是修饰。</div></div>
+</div>
+<div class="q" data-q="19" data-type="fill">
+  <div class="qhead">
+    <span class="qno">19</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">错题回滚·词汇</span>
+  </div>
+  <div class="stem">【错题回滚 · 换句子】根据中文提示填入恰当的单词或短语（只填词形，不必造句）：
+
+① 监管部门誓言严厉打击无证的「幽灵厨房」：Regulators have vowed to ____ unlicensed “ghost kitchens”.（严厉打击）
+② 问题比看上去更棘手：平台从这个漏洞里获利。The problem is ____ than it looks.（更棘手）
+③ 牛群在开阔的大草原上吃草：Herds of cattle grazed across the open ____.（大草原）</div>
+  <div class="fills"><input class="fillin" type="text" data-q="19" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="19" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="19" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="19">查看解析</button>
+    <span class="saved" data-saved="19"></span>
+  </div>
+  <div class="ansbox" data-ans="19" hidden><div class="ansline"><b>参考答案</b>① crack down on　② thornier　③ prairie</div><div class="ansline"><b>得分点</b>① crack down on（3 分）, ② thornier（3 分）, ③ prairie（4 分）</div><div class="ansline"><b>解析</b>三处都是你已经错过的：crack down on 你译成过「崩塌」（那是 collapse，方向反了），prairie 你直接空着，thornier 你写成「更尖锐」（问题只能「更棘手」，尖锐形容批评或矛盾）。记法：crack down 想「警方扫荡」，动作朝外；prairie 和 plain（平原）、plateau（高原）一起记成一串；thorny 本义「多刺的」，带刺的问题就是棘手的。</div></div>
+</div>
+<div class="q" data-q="20" data-type="short">
+  <div class="qhead">
+    <span class="qno">20</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">方法反思·翻译自检</span>
+  </div>
+  <div class="stem">【方法反思】你连续几卷都在「漏译比较级、程度副词」上失分。请做两件事：
+
+①用一句话说清你上次为什么漏——不要写「没看到」，要说清是哪个动作没做。
+②回到第 18 题你的译文，逐词对照原句，指出你在哪一处最容易漏掉修饰成分，并写下一个下次一定执行的自检动作（要有具体动作，不要写「仔细检查」）。</div>
+  <textarea class="shortin" data-q="20" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="20">查看解析</button>
+    <span class="saved" data-saved="20"></span>
+  </div>
+  <div class="ansbox" data-ans="20" hidden><div class="ansline"><b>参考答案</b>参考：①漏的原因是译完只顺了一遍中文，没有回到英文原句逐词比对修饰语——中文读起来通顺，就默认译全了。通顺感会骗人。
+②最容易漏的是 as…as 比较结构和 those who 这类指代成分，因为它们不承担句子主干，扫读时会被眼睛跳过。自检动作：译完后把英文原句的每一个形容词、副词、比较结构、定语从句用笔圈出来，逐个在中文里找对应词，找不到就补；补完再读一遍中文，检查有没有变啰嗦。</div><div class="ansline"><b>得分点</b>说清具体缺失的动作，不写「没看到」「粗心」（4 分）, 指出自己易漏的成分类型（比较级／程度副词／定语从句／指代）（3 分）, 自检动作具体、可执行、有次序（3 分）</div><div class="ansline"><b>解析</b>翻译扣分大多来自「读懂了但没写全」，很少来自「没读懂」。中文通顺会掩盖漏译，所以自检必须回到英文原句查，不能只看译文。这个动作练三遍就会变成习惯。</div></div>
+</div>
+</section>
+
+  <div class="done-tip" id="doneTip">
+    <b>🎉 全部作答完毕</b>
+    点右下角「导出我的答案」，把导出的文件发给我，我会逐题批改并给出评分与改进建议。
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="tb-inner">
+    <button class="btn btn-main" id="btnExport">导出我的答案</button>
+    <button class="btn btn-ghost" id="btnRevealAll">展开全部解析</button>
+    <button class="btn btn-ghost" id="btnReset">清空重做</button>
+    <span class="tb-count" id="tbCount">0 / 20</span>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">你的答案（复制后发给我批改）</div>
+    <div class="modal-body">
+      <div class="modal-tip">
+        全选复制下面的内容，粘贴到对话里发给我即可。也可以点「下载 .md」保存成文件再上传。
+      </div>
+      <textarea id="exportArea" readonly></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="btnCloseModal">关闭</button>
+      <button class="btn btn-main" id="btnDownload">下载 .md</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ = {"title": "考研每日测验 · 10.17 评论实战诊断（素材：Day64《评论训练2》幽灵外卖习作 + 实务大明白第四讲）", "date": "2026-10-17", "sections": [{"name": "一、专业课 · 新闻评论实战诊断（对着你自己那篇稿子批）", "questions": [{"id": 1, "type": "choice", "kp": "评论标题·准确贴切", "stem": "你在《评论训练2》里给「郑州骑手随手拍打击幽灵外卖」这则材料拟的标题是《让“幽灵外卖”在黑暗中无处遁形》。\n\n按讲义对标题的具体要求「准确贴切：要恰如其分，经得起推敲。意思表达要完整，语言没有漏洞」，这个标题最要害的毛病是：", "options": ["标题过长，违反「简明扼要」", "「在黑暗中」与「幽灵外卖」的藏身状态互相抵消——它本来就藏在暗处，说它在黑暗里无处遁形，等于把它留在原地", "标题里没有出现责任主体，读者不知道是谁在打击", "标题没有使用修辞，违反「鲜明生动」"], "answer": "B", "explain": "标题的三条具体要求是准确贴切、简明扼要、鲜明生动。A 打的是第二条，D 打的是第三条，都不算「最要害」。这个标题的硬伤在准确性：「在黑暗中无处遁形」逻辑上把「黑暗」当成打击的场域，而黑暗恰恰是幽灵外卖的庇护所，句子自己拆自己的台。C 项似乎有理，但「无处遁形」已隐含施动者，评论标题允许省略主语。改法两条：直接写《让“幽灵外卖”无处遁形》；或把方向掉过来，《让“幽灵外卖”晒在阳光下》。", "_id": 1}, {"id": 2, "type": "choice", "kp": "评论引论·开门见山", "stem": "你的开头是：「食品安全一直是公众关注的话题，也是每年3·15重点打击的对象，那么我们是否怀疑融入我们日常中的外卖在制作时也存在安全隐患呢？2026年12月，河南省“郑骑先锋随手拍”火出了圈……」\n\n讲义对引论的两条总要求是「简明扼要，开门见山，不要落笔太远」与「尽量新鲜，不落俗套，引人入胜」。这段话主要违反了哪一条？", "options": ["开门见山。用一长句铺陈「食品安全」这个大话题，第二句才绕到「随手拍」这个新闻由头上", "新鲜。「3·15」这个提法太旧，属于俗套", "引人入胜。设问句不该出现在评论开头", "没有违反。这段开头正是讲义说的「用设问句直接点明论题」"], "answer": "A", "explain": "讲义确实列了「用设问句直接点明论题」这一种开头，但设问的对象应当是新闻事件本身，而且这类论题「往往是国计民生中的重大问题或人民群众普遍关注的问题」。你把设问用在了泛泛的「食品安全」上，先绕一大圈再落到由头，正是「落笔太远」。C 项错在把一种被允许的写法整体否掉；D 项错在没看出设问对象跑偏了。改法：第一句直接写「去年12月26日，郑州8000多名外卖骑手注册『随手拍』，41人次领到奖励」，背景压到一句以内。", "_id": 2}, {"id": 3, "type": "choice", "kp": "逻辑谬误·归因错误", "stem": "你第三段写：「随着外卖应用系统和配送系统的不断完善，作为外卖APP巨头的美团、饿了么、京东在25年2月开启外卖大战，开启商家入驻激励计划，也许对于商家注册资质缺乏深度核查，造成“幽灵外卖”出现。」\n\n按讲义「常见的24个逻辑谬误」的界定，这段推论最典型地犯了哪一条？", "options": ["循环论证——用结论去证明结论", "归因错误——把时间上的先后或并存，当成了因果", "非黑即白——只给出两个选项", "迷信权威——借平台的名头压人"], "answer": "B", "explain": "讲义对「归因错误」的界定是：因事物之间真实存在或假想出来的关联，得出两者存在因果关系；两件事同时或先后发生，并不意味其中一件是另一件的起因。你这段的因果只靠一个「也许」撑着，期间没有给出任何一条证据，属典型的归因错误。A 项的循环论证指「论点的前提中已包含结论」，此处不成立；C、D 与文段无关。更要紧的是：评论里出现「也许……造成」这种句式，等于自己承认论据不足，阅卷老师会直接判论证不成立。", "_id": 3}, {"id": 4, "type": "choice", "kp": "论据要求·孤例", "stem": "你第二段转述一位骑手的话：参与这项活动，他主要考虑的是「自己家人也会点外卖吃」，为了家人和公众的食品安全「本该身体力行」。\n\n对这条论据的用法，下列批评最准确的一项是：", "options": ["这是理论性论据，引证了当事人的权威言论，说服力强", "这是拿一名骑手的自述去推及全体骑手的动机，属于讲义所列的「道听途说」——用个人经验或孤例替代言之有理的论证", "这属于「情感绑架」，应当整段删掉", "这属于「以偏概全」，因为骑手代表不了平台"], "answer": "B", "explain": "问题出在「一名骑手的话」能不能撑起「骑手群体是在承担社会责任」这个判断。讲义「道听途说」一条的界定正是：用个人经验或者孤例替代无可辩驳的证据，或者替代言之有理的论证。C 项的「情感绑架」指操弄情绪去替代论据，你这里是转述他人自述，性质不同；D 项错在对象，你推及的是骑手动机，并非平台责任。可用的写法：把孤例降格为「一个例子」，另外补上可核的数字论据（8000多名注册、41人次奖励、两个查实的违规案例）。", "_id": 4}, {"id": 5, "type": "fill", "blanks": 5, "kp": "评论标题·制作要求", "stem": "讲义把评论标题的制作要求分成「总体要求」与「具体要求」两层。请补全（每空 1—2 字）：\n\n总体要求：①立意要____；②观点要____。\n具体要求：③____贴切；④____扼要；⑤____生动。", "answer": "高／明／准确／简明／鲜明", "keys": ["每空 1 分，共 5 分", "总体两条：立意要高、观点要明", "具体三条的顺序：准确贴切 → 简明扼要 → 鲜明生动", "「鲜明生动」写成「生动鲜明」不算错"], "explain": "这五条是固定表述，考场上写错一个字都可能被判不准。你的标题栽在第③条「准确贴切」上——意思表达不完整、语言有漏洞。记住这五条是两层的：总体看立场（高、明），具体看文字（准、简、活）。", "_id": 5}, {"id": 6, "type": "fill", "blanks": 4, "kp": "论据·四项要求", "stem": "讲义对论据提出四项要求，依次是：____、____、____、____。\n\n（提示：第一项讲与论点的关联度；第二项要求溯及信息源头、审慎确认真实性；第三项相对读者的熟悉程度而言；第四项针对跨领域议题的专业认识。）", "answer": "相关／可靠／新鲜／专业", "keys": ["每空 1 分，共 4 分", "顺序须与讲义一致：相关、可靠、新鲜、专业"], "explain": "你把材料的「2025年12月26日推出」写成「2026年12月」，违反的是第二条「可靠」。这一条在实务卷上直接扣分，比文采问题严重得多。复习时把这四条当成递进链记：先看贴不贴题（相关）→ 再看真不真（可靠）→ 再看旧不旧（新鲜）→ 最后看专不专业（专业）。", "_id": 6}, {"id": 7, "type": "fill", "blanks": 4, "kp": "谋篇·结构与结尾", "stem": "讲义把正论（主体）的谋篇结构分为六种：归纳论证结构、证明论证结构、①____论证结构、②____论证结构、比较论证结构、③____论证结构。\n\n评论结尾的三种常见写法是：精辟概括式、高昂激越式、④____式。", "answer": "并列／递进／正反／余音绕梁", "keys": ["每空 1 分，共 4 分", "六种结构：归纳、证明、并列、递进、比较、正反"], "explain": "你的正文没有落到其中任何一种结构上：第一、二段在复述事件，第三段插进一段原因推测，第四段直接跳到「多元共治」的呼吁，段与段之间没有分论点的支撑关系。这就是讲义「大忌」里的「结构松散」。写之前先把两个分论点写成两行字，结构自然就出来了。", "_id": 7}, {"id": 8, "type": "fill", "blanks": 5, "kp": "评论大忌", "stem": "讲义把评论的「大忌」拆成四小节，依次是：忌①____、忌②____、忌③____、忌④____。\n\n⑤按这四条衡量，你这篇最主要踩中的两条是（写名称）：____。", "answer": "空泛／俗套／跑题／冗长／跑题、冗长", "keys": ["前四空每空 1 分，共 4 分，顺序：空泛、俗套、跑题、冗长", "第五空写出「跑题」「冗长」两个名称，写对其一给一半分"], "explain": "注意讲义自身有个瑕疵：大忌的总起句写的是「议论的空泛，形式的俗套，结构的松散，篇幅的冗长」，但正文四小节的标题是空泛、俗套、跑题、冗长——总起句里的「结构松散」在正文里被「跑题」替掉了。答题时按正文四小节写。你这篇的「跑题」体现在第三段把论题从「监管如何借力骑手」拽到「平台扩张史」；「冗长」体现在开头那句泛论和结尾那串排比都可以整段删掉而信息不减。", "_id": 8}, {"id": 9, "type": "short", "rows": 8, "kp": "结构诊断", "stem": "给这篇 500 字评论做一次结构诊断。按「引论—正论—结论」三段，各指出一处最硬的伤，并各给一条具体的改法（改法要能直接落到文字上，不要写「加强论证」这类话）。", "answer": "引论：绕。先泛论「食品安全是公众关注的话题」，再设问「外卖是否也有隐患」，到第二句末尾才出现「郑骑先锋随手拍」。改法：第一句就落到由头上，写「2025年12月26日，郑州8000多名外卖骑手注册『随手拍』，41人次领到奖励」，把「食品安全」这层背景压进半句。\n\n正论：散。第二段复述活动，第三段推测「外卖大战导致资质审核放松」，两段都在「叙」，没有一段在「论」；段与段之间也没有分论点关系。改法：立两个分论点——「骑手能看见监管看不见的角落」（论据：两个查实的违规案例、41人次奖励），「举报要长久，得让激励和保护对得上」（论据：50元奖励、举报者身份是否受保护）；把「外卖大战」那段推测整段删掉。\n\n结论：平。结尾把开头的话又说了一遍（「让幽灵外卖无处遁形」「吃得安心、吃得健康」），没有提升。改法：按精辟概括式收，把落点从「打击」抬到「监管如何借力社会力量」。", "keys": ["引论：指出落笔太远，并给出以新闻由头开头的具体改法（3 分）", "正论：指出两段都是复述、缺分论点支撑，并给出两个分论点的方向（4 分）", "结论：指出与开头重复、无提升，并点出至少一种结尾写法的名称（3 分）", "改法具体可执行才给满分，写「加强论证」「多举例子」这类话不给分"], "explain": "这道题考的是观察力，背模板在这里没用。你稿子的三段各自成立，合起来不成立——因为段与段之间没有一条线串着。讲义讲正论时说得很直白：谋篇的关键在于体现层次与层次之间的逻辑联系，也就是各分论点与中心论点的内在联系。你缺的正是这一步。", "_id": 9}, {"id": 10, "type": "short", "rows": 6, "kp": "事实核查", "stem": "这篇评论至少有三处与材料对不上。请逐条写「你稿子里的原话 → 材料里的正确表述」。不许翻原文，凭记忆写，写完再回去核。", "answer": "①「2026年12月，河南省《郑骑先锋随手拍》火出了圈」——材料是 2025年12月26日，由郑州市市场监督管理局推出。年份错了一年，主体从市级单位写成了省级。\n②「多为骑手获得奖励」——材料是「已有41人次骑手受到奖励」，相对8000多名注册骑手是少数，写成「多为」与事实相反。\n③「截至26年1月」——材料写明是 2026年1月26日，评论里写「26年1月」属表述不清。\n④（附加）「25年2月美团、饿了么、京东开启外卖大战」——这是材料之外的自加事实，评论引用材料外信息必须交代来源。", "keys": ["年份：2025年12月26日（4 分，写成2026年不给分）", "主体：郑州市市场监督管理局（3 分）", "奖励：41人次，不是「多为」（3 分）", "能指出第四条自加事实，加 2 分印象分"], "explain": "三处错误里有两种性质：①是手误，②是把数字读反。实务卷里事实错误是最不该丢的分，比语言粗糙严重。养成一个动作：写完评论，凡出现年份、数字、机构名，逐条回材料核一遍，核完再交卷。", "_id": 10}, {"id": 11, "type": "short", "rows": 6, "kp": "论点·正确而有新意", "stem": "你的中心论点是「政府、骑手、平台多元共治」。讲义说论点的要求是「正确而有新意」，并直言「正确而无新意」等于「正确的废话」。\n\n请回答：①这个论点为什么属于「正确的废话」；②给一个「有新意」的替代论点（一句话），并说明它比原论点多说了什么。", "answer": "①「多元共治」放进任何一篇社会治理评论都成立，它没有回答这则材料特有的问题：为什么是骑手？骑手看见了监管看不见的什么？把「三方都要努力」当结论，读者读完不会多知道一件事。\n\n②替代论点举例：\n—「8000多名骑手愿意当眼睛，说明监管的短板在人力与信息，不在决心。」\n—「50元买得到一次举报，买不到长期举报；这项制度能不能续下去，看的是举报者的身份有没有被保护住。」\n—「幽灵外卖能藏住，靠的是平台审核这道关没人真去验。」\n\n比原论点多出的东西：把责任落到了具体环节（监管视野、激励与保护、平台审核），每个都能从材料里找到论据支撑。", "keys": ["指出原论点是放之四海皆准的套话，未回应材料特有问题（4 分）", "替代论点具体、可被材料支撑，且是一句判断（4 分）", "说明新论点比原论点多出的信息（2 分）", "替代论点若仍是「多方协同」「加强监管」一类，不给分"], "explain": "讲义对此说得很清楚：「正确而无新意」就是「正确的废话」。评论的分差通常不在语言，就在这一步——同样一则材料，你的落点跟别人一样，分数就跟别人一样。", "_id": 11}, {"id": 12, "type": "short", "rows": 5, "kp": "结尾·精辟概括式", "stem": "你的结尾是：「……推动搭建多元共治的格局，让“幽灵外卖”无处遁形，才能让大家真正放心享受这份便利，吃的更安心，吃的更健康。」\n\n请按「精辟概括式」重写这个结尾，不超过 45 字。要求：既总括全文，又高于全文；不许重复标题里的话；不许出现「让大家吃得安心」这类口号。", "answer": "参考一：监管的人力总有尽头，社会的眼睛没有。让举报者敢报、报了有回音，比多挂一块「明厨亮灶」的牌子更管用。\n参考二（余音绕梁式）：骑手每天要跑几十单，他停下来的那三十秒，替我们看了一次后厨。\n参考三：一项制度好不好，不看它号召了多少人，看它留住了多少人。", "keys": ["总括全文，回应「打击靠谁」这条主线（4 分）", "高于全文，落到制度、价值或人的层面（3 分）", "不重复标题原句、不出现口号式排比（2 分）", "45 字以内（1 分）"], "explain": "讲义对结尾的要求是「既要总括全文，又要高于全文，应富有启发性和号召性」。你现在的结尾只做到了「重复」，把开头的意思再讲一遍，没有往前走一步。三个参考里做法不同：参考一把判断压在最后半句，参考二把视角落到具体的人身上，参考三用一句反常识的话收住。任选一路，关键是别回到口号。", "_id": 12}, {"id": 13, "type": "short", "rows": 6, "kp": "删减·口子过大", "stem": "考场只给 500 字，你这篇已经 600 字上下。讲义把「冗长」列为评论大忌，并指出两个成因：思想认识上「过度追求全面」，业务上「取材口子过大」。\n\n请回答：①这篇最该删的是哪一段，理由是什么；②删完之后，剩下的材料按什么顺序排才不散。", "answer": "①最该删第三段（「外卖大战→资质核查不严→幽灵外卖」）。理由两条：整段建立在「也许」上，没有材料支撑，属归因错误；它把论题从「监管如何借力骑手」拽到「平台扩张史」，正是讲义说的「取材口子过大」。第二段的数据（8000多名注册、41人次奖励）必须留，那是全文最硬的论据。\n\n②重排：引论＝由头加一组数据（谁在做、做了多久、结果如何）→ 正论一：骑手补的是监管的视野盲区（用「小碗菜」「私域外卖」两个查实案例）→ 正论二：要让举报持续，激励与保护得配套（50元奖励、身份保护）→ 结论：把落点抬到社会力量如何进入监管。", "keys": ["指出该删第三段并给出理由：无证据、跑题（4 分）", "说明哪些材料必须保留（数据、两个查实案例）（3 分）", "重排后的顺序有推进关系，不是简单罗列（3 分）"], "explain": "删稿是实务卷的基本功。判断标准很简单：把这一段删掉，读者对中心论点的理解会不会受损？不会，就删。第三段删掉之后你只丢了「外卖大战」这个话题，中心论点反而更清楚。", "_id": 13}, {"id": 14, "type": "short", "rows": 7, "kp": "错题回滚·三个「法」的分工", "stem": "【错题回滚 · 换问法：由「分辨三套方法」改为「现场用一次」】\n\n你错题本上留着一条：三个「法」的分工没分清。现在用它做一件事——\n\n①用「社会要素法」拆解「幽灵外卖为何屡禁不止」，列出至少五个要素，每个要素配一句与本材料挂钩的说明；\n②最后用一句话说清这三个「法」各自什么时候用。", "answer": "①社会要素法（政策、法律、资本、市场、技术、公民、舆论七要素，答对五个即可）：\n政策——属地监管人力有限，日常巡查覆盖不到海量小店；\n法律——网络餐饮许可与处罚的力度，决定违规成本高不高；\n资本——平台补贴与开店激励，推动商家数量快速扩张；\n市场——低价竞争压缩利润，部分商家转向无证作坊；\n技术——平台资质审核是否真验、后厨能否可视化；\n公民——消费者维权与举报的意愿；\n舆论——媒体曝光和话题热度带来的压力。\n\n②一句话分工：问「为什么会出现」用社会环境法（外因与大背景）；问「由哪些要件构成」用社会要素法；问「该怎么办」用社会思维法。", "keys": ["至少五个要素，名称用讲义原词（政策/法律/资本/市场/技术/公民/舆论）（5 分）", "每个要素配一句与本材料挂钩的说明，不能只写词（3 分）", "三套方法的分工一句话答对（2 分）", "把三者说成同一个框架的不同叫法，本题 0 分"], "explain": "这条错题你上次的答案是「就是社会框架 PETCSI 的不同说法」，属方向性错误。三者是三套操作路径：环境法答外因，要素法拆构成，思维法给对策。PETCSI 是分析维度，跟这三套不是一回事。今天这道题就是让你把「分得清」变成「用得上」——考场上一道 30 分的论述，第一步就是判断它问的是哪一种。", "_id": 14}]}, {"name": "二、政治 · 单选（错题回滚，全部换问法）", "questions": [{"id": 15, "type": "choice", "kp": "教育强国·六个以", "stem": "【错题回滚】关于建设教育强国的「六个以」，下列表述错误的一项是：", "options": ["坚持党的全面领导是根本保证", "立德树人是根本任务", "为党育人、为国育才是根本目标", "「人民满意」既是根本尺度，也是核心功能"], "answer": "D", "explain": "六个以的完整链条：坚持党的全面领导（根本保证）→ 立德树人（根本任务）→ 为党育人、为国育才（根本目标）→ 服务中华民族伟大复兴（重要使命）→ 走中国特色社会主义教育发展道路（基本路径）→ 支撑引领中国式现代化（核心功能）。「人民满意」是根本尺度，跟核心功能是两回事——这正是你 9.18 反馈原文写错的地方（当时你自己造了「根本方向／基本目标／最终目的／最终标准」四个词）。记忆抓手：保→党，任→德育，目→育才，使→复兴，路→现代化，功→领现代化。", "_id": 15}, {"id": 16, "type": "choice", "kp": "统一战线·三个最", "stem": "【错题回滚】统一战线的「三个最」，下列配对全部正确的一项是：", "options": ["本质要求＝大团结大联合｜关键＝求同存异｜最鲜明的特征＝党的领导", "本质要求＝求同存异｜关键＝大团结大联合｜最鲜明的特征＝党的领导", "本质要求＝大团结大联合｜关键＝党的领导｜最鲜明的特征＝求同存异", "本质要求＝人心和力量｜关键＝求同存异｜最鲜明的特征＝大团结大联合"], "answer": "A", "explain": "三级对应只有一组成立：本质要求＝大团结大联合（解决的是人心和力量问题）；关键＝求同存异；最鲜明的特征＝党的领导。B 把前两项对调；C 把后两项对调；D 把「人心和力量」当成了本质要求的名称——它是本质要求所「解决」的对象，不是名称本身。记忆抓手：联合（本质）→ 人心（对象）→ 存异（方法）→ 党旗（特征），四步是一条链，不能跳着记。", "_id": 16}, {"id": 17, "type": "choice", "kp": "三大优良作风 vs 显著标志", "stem": "【错题回滚 · 换问法：改为「两条来源分列」】关于党的三大优良作风与「区别于其他政党的显著标志」，下列表述正确的一项是：", "options": ["理论联系实际、密切联系群众、批评和自我批评，是中国共产党区别于其他政党的显著标志", "三大优良作风是党的七大（1945）确立的；「勇于自我革命」是党区别于其他政党的显著标志，出自十九届六中全会《决议》", "「勇于自我革命」是三大优良作风之一，与另外两条并称", "三大优良作风包括「艰苦奋斗」，它同时也是区别于其他政党的显著标志"], "answer": "B", "explain": "两条独立来源，各背各的：① 七大（1945）确立三大优良作风＝理论联系实际、密切联系群众、批评和自我批评；② 十九届六中全会《决议》指出「勇于自我革命」是党区别于其他政党的显著标志。A 就是你 9.17 反馈原文一字不差写下的那句，把两条来源焊成了一句——这是本题唯一要你改掉的东西，改文档比记答案重要。C 把「勇于自我革命」塞进三大作风，凭空多出一条；D 的「艰苦奋斗」不在三大作风里（它是「两个务必」里的表述）。", "_id": 17}]}, {"name": "三、英语 · 长难句与词汇（含错题回滚）", "questions": [{"id": 18, "type": "translate", "kp": "长难句·比较结构", "stem": "翻译下面这句话，并标出主干：\n\nCritics argue that a regulatory system which relies on workers to report violations can only be as effective as the incentives it offers and the protection it gives to those who speak up.", "answer": "译文：批评者认为，一个靠劳动者举报违规行为来运转的监管体系，其效力只能取决于它给出的激励，以及它给敢于发声者提供的保护。\n\n主干：Critics argue that…（主句：主＋谓＋宾语从句）。\n宾语从句主语 a regulatory system，谓语 can only be as effective as…；which relies on workers to report violations 是定语从句修饰 system；those who speak up 是「敢于发声的人」。", "keys": ["主干标对：Critics argue that + 宾语从句（3 分）", "定语从句 which relies on… 译成前置定语「靠劳动者举报违规行为来运转的」（3 分）", "as…as 比较结构必须译出，译成「只能取决于／只能达到……的程度」（3 分）", "those who speak up 译「敢于发声的人」，漏译不给分（1 分）"], "explain": "这句的坑有两处。一是 as effective as 是同级比较，很多人顺手写成「很有效」，把比较关系丢了；二是 those who speak up 是「那些敢于发声的人」，不是「说话的人」。主干判断只看三样：主语、谓语、宾语从句的引导词，其余全是修饰。", "_id": 18}, {"id": 19, "type": "fill", "blanks": 3, "kp": "错题回滚·词汇", "stem": "【错题回滚 · 换句子】根据中文提示填入恰当的单词或短语（只填词形，不必造句）：\n\n① 监管部门誓言严厉打击无证的「幽灵厨房」：Regulators have vowed to ____ unlicensed “ghost kitchens”.（严厉打击）\n② 问题比看上去更棘手：平台从这个漏洞里获利。The problem is ____ than it looks.（更棘手）\n③ 牛群在开阔的大草原上吃草：Herds of cattle grazed across the open ____.（大草原）", "answer": "① crack down on　② thornier　③ prairie", "keys": ["① crack down on（3 分）", "② thornier（3 分）", "③ prairie（4 分）"], "explain": "三处都是你已经错过的：crack down on 你译成过「崩塌」（那是 collapse，方向反了），prairie 你直接空着，thornier 你写成「更尖锐」（问题只能「更棘手」，尖锐形容批评或矛盾）。记法：crack down 想「警方扫荡」，动作朝外；prairie 和 plain（平原）、plateau（高原）一起记成一串；thorny 本义「多刺的」，带刺的问题就是棘手的。", "_id": 19}, {"id": 20, "type": "short", "rows": 6, "kp": "方法反思·翻译自检", "stem": "【方法反思】你连续几卷都在「漏译比较级、程度副词」上失分。请做两件事：\n\n①用一句话说清你上次为什么漏——不要写「没看到」，要说清是哪个动作没做。\n②回到第 18 题你的译文，逐词对照原句，指出你在哪一处最容易漏掉修饰成分，并写下一个下次一定执行的自检动作（要有具体动作，不要写「仔细检查」）。", "answer": "参考：①漏的原因是译完只顺了一遍中文，没有回到英文原句逐词比对修饰语——中文读起来通顺，就默认译全了。通顺感会骗人。\n②最容易漏的是 as…as 比较结构和 those who 这类指代成分，因为它们不承担句子主干，扫读时会被眼睛跳过。自检动作：译完后把英文原句的每一个形容词、副词、比较结构、定语从句用笔圈出来，逐个在中文里找对应词，找不到就补；补完再读一遍中文，检查有没有变啰嗦。", "keys": ["说清具体缺失的动作，不写「没看到」「粗心」（4 分）", "指出自己易漏的成分类型（比较级／程度副词／定语从句／指代）（3 分）", "自检动作具体、可执行、有次序（3 分）"], "explain": "翻译扣分大多来自「读懂了但没写全」，很少来自「没读懂」。中文通顺会掩盖漏译，所以自检必须回到英文原句查，不能只看译文。这个动作练三遍就会变成习惯。", "_id": 20}]}]};
+const QUIZID = "2026-10-17";
+const KEY = "quiz_" + QUIZID;
+const TOTAL = 20;
+
+// ---- 状态存取 ----
+let state = JSON.parse(localStorage.getItem(KEY) || "{}");
+
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+function answeredCount(){
+  let n = 0;
+  QUIZ.sections.forEach(s => s.questions.forEach((q, i) => {
+    const id = q._id;
+    const v = state[id];
+    if (q.type === "choice") { if (v) n++; }
+    else if (q.type === "fill") {
+      if (v && Object.values(v).some(x => (x||"").trim())) n++;
+    }
+    else { if (v && v.trim()) n++; }
+  }));
+  return n;
+}
+
+function updateProgress(){
+  const n = answeredCount();
+  const pct = Math.round(n / TOTAL * 100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("ptext").textContent = `已作答 ${n} / ${TOTAL}`;
+  document.getElementById("tbCount").textContent = `${n} / ${TOTAL}`;
+  document.getElementById("doneTip").classList.toggle("show", n >= TOTAL);
+}
+
+function flashSaved(n){
+  const el = document.querySelector(`.saved[data-saved="${n}"]`);
+  if (!el) return;
+  el.textContent = "已保存";
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 1200);
+}
+
+// ---- 绑定交互 ----
+document.querySelectorAll(".opt input").forEach(inp => {
+  inp.addEventListener("change", e => {
+    const n = +e.target.name.replace("q", "");
+    state[n] = e.target.value;
+    save(); updateProgress(); flashSaved(n);
+  });
+});
+
+document.querySelectorAll(".fillin").forEach(inp => {
+  inp.addEventListener("input", e => {
+    const n = e.target.dataset.q, b = e.target.dataset.b;
+    state[n] = state[n] || {};
+    state[n][b] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+document.querySelectorAll(".shortin,.transin").forEach(ta => {
+  ta.addEventListener("input", e => {
+    const n = e.target.dataset.q;
+    state[n] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+// 查看解析
+document.querySelectorAll(".btn-ans").forEach(b => {
+  b.addEventListener("click", () => {
+    const n = b.dataset.q;
+    const box = document.querySelector(`.ansbox[data-ans="${n}"]`);
+    const open = !box.hidden;
+    box.hidden = open;
+    b.textContent = open ? "查看解析" : "收起解析";
+  });
+});
+
+document.getElementById("btnRevealAll").addEventListener("click", function(){
+  const anyHidden = [...document.querySelectorAll(".ansbox")].some(b => b.hidden);
+  document.querySelectorAll(".ansbox").forEach(b => b.hidden = !anyHidden);
+  document.querySelectorAll(".btn-ans").forEach(b => {
+    b.textContent = anyHidden ? "收起解析" : "查看解析";
+  });
+  this.textContent = anyHidden ? "收起全部解析" : "展开全部解析";
+});
+
+// 清空
+document.getElementById("btnReset").addEventListener("click", () => {
+  if (!confirm("确定清空全部作答？此操作不可撤销。")) return;
+  state = {}; save();
+  document.querySelectorAll(".opt input").forEach(i => i.checked = false);
+  document.querySelectorAll(".fillin,.shortin,.transin").forEach(i => i.value = "");
+  updateProgress();
+});
+
+// ---- 导出答案 ----
+function buildExport(){
+  const L = [];
+  L.push(`# ${QUIZ.title} — 我的作答`);
+  L.push("");
+  L.push(`日期：${QUIZ.date}`);
+  L.push(`完成：${answeredCount()} / ${TOTAL} 题`);
+  L.push("");
+  const tname = {choice:"单选", fill:"填空", short:"问答", translate:"长难句翻译"};
+  QUIZ.sections.forEach(s => {
+    L.push(`## ${s.name}`);
+    L.push("");
+    s.questions.forEach(q => {
+      const v = state[q._id];
+      L.push(`### ${q._id}. [${tname[q.type]}]`);
+      L.push(q.stem);
+      L.push("");
+      if (q.type === "choice") {
+        L.push(`**我的答案：** ${v ? v : "（未作答）"}`);
+      } else if (q.type === "fill") {
+        const arr = [];
+        for (let i = 0; i < (q.blanks || 1); i++) {
+          const k = String(i);
+          arr.push(`第${i+1}空：${(v && v[k]) ? v[k] : "（空）"}`);
+        }
+        L.push(`**我的答案：** ${arr.join("　")}`);
+      } else {
+        L.push(`**我的答案：**`);
+        L.push("");
+        L.push(v && v.trim() ? v : "（未作答）");
+      }
+      L.push("");
+    });
+  });
+  return L.join("\n");
+}
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  document.getElementById("exportArea").value = buildExport();
+  document.getElementById("modal").classList.add("show");
+});
+document.getElementById("btnCloseModal").addEventListener("click", () => {
+  document.getElementById("modal").classList.remove("show");
+});
+document.getElementById("btnDownload").addEventListener("click", () => {
+  const blob = new Blob([buildExport()], {type:"text/markdown;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${QUIZID}-我的作答.md`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") e.target.classList.remove("show");
+});
+
+// ---- 恢复状态 ----
+(function restore(){
+  document.querySelectorAll(".opt input").forEach(inp => {
+    const n = +inp.name.replace("q", "");
+    if (state[n] === inp.value) inp.checked = true;
+  });
+  document.querySelectorAll(".fillin").forEach(inp => {
+    const n = inp.dataset.q, b = inp.dataset.b;
+    if (state[n] && state[n][b] != null) inp.value = state[n][b];
+  });
+  document.querySelectorAll(".shortin,.transin").forEach(ta => {
+    const n = ta.dataset.q;
+    if (state[n] != null) ta.value = state[n];
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
