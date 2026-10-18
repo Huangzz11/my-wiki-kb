@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考研每日测验 · 10.18 综合卷（素材：宝厂拽上岸第十七讲·数字新闻学 + 错题回滚 30%）</title>
+<style>
+:root{
+  --bg:#f7f8fb; --card:#fff; --ink:#1c2430; --sub:#60708a;
+  --line:#e3e8f0; --blue:#2F5B9E; --blue-l:#e8eef8;
+  --green:#1f8a52; --green-l:#e6f5ec;
+  --amber:#b4740a; --amber-l:#fdf3e0;
+  --red:#c0392b; --red-l:#fdeceb;
+  --violet:#6b4ea8; --violet-l:#f0ebfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+    "Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.7;
+  padding:0 0 120px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+/* 顶部 */
+header{
+  background:linear-gradient(135deg,#2F5B9E 0%,#40699f 60%,#5b7fb5 100%);
+  color:#fff;padding:34px 0 26px;margin-bottom:24px;
+  box-shadow:0 2px 14px rgba(47,91,158,.18);
+}
+header h1{font-size:23px;font-weight:650;letter-spacing:.3px;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.85}
+.statline{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chip{
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);
+  border-radius:999px;padding:4px 13px;font-size:12.5px;backdrop-filter:blur(4px)
+}
+
+/* 进度条 */
+.progress-sticky{
+  position:sticky;top:0;z-index:50;background:rgba(247,248,251,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  padding:10px 0;margin-bottom:8px;
+}
+.pbar{height:7px;background:#e6eaf2;border-radius:99px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,#2F5B9E,#5b8fd4);
+  border-radius:99px;transition:width .35s ease}
+.ptext{font-size:12.5px;color:var(--sub);margin-top:6px;display:flex;
+  justify-content:space-between}
+
+/* 分区 */
+.sec{margin:30px 0 0}
+.sec h2{
+  font-size:16.5px;font-weight:640;color:var(--blue);
+  display:flex;align-items:center;gap:9px;padding-bottom:9px;
+  border-bottom:2px solid var(--blue-l);margin-bottom:16px;
+}
+.dot{width:9px;height:9px;border-radius:3px;background:var(--blue);
+  display:inline-block;flex:0 0 auto}
+.secmeta{margin-left:auto;font-size:12px;color:var(--sub);font-weight:400}
+
+/* 题目卡片 */
+.q{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:17px 19px;margin-bottom:13px;transition:border-color .2s,box-shadow .2s;
+}
+.q:focus-within{border-color:#b9cdea;box-shadow:0 3px 14px rgba(47,91,158,.09)}
+.qhead{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.qno{
+  width:26px;height:26px;border-radius:8px;background:var(--blue);
+  color:#fff;font-size:13px;font-weight:600;display:flex;
+  align-items:center;justify-content:center;flex:0 0 auto;
+}
+.qtag{font-size:11.5px;padding:2px 9px;border-radius:6px;font-weight:500}
+.t-choice{background:var(--blue-l);color:var(--blue)}
+.t-fill{background:var(--green-l);color:var(--green)}
+.t-short{background:var(--violet-l);color:var(--violet)}
+.t-translate{background:var(--amber-l);color:var(--amber)}
+.kp{font-size:11.5px;color:var(--sub);margin-left:auto}
+.stem{font-size:14.8px;margin-bottom:12px;white-space:pre-wrap}
+
+/* 单选 */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 13px;
+  border:1px solid var(--line);border-radius:9px;cursor:pointer;
+  transition:all .16s;font-size:14.2px;
+}
+.opt:hover{background:#f4f7fc;border-color:#c3d5ee}
+.opt input{display:none}
+.opt .letter{
+  width:21px;height:21px;border-radius:6px;background:#eef1f6;color:var(--sub);
+  font-size:12px;font-weight:600;display:flex;align-items:center;
+  justify-content:center;flex:0 0 auto;margin-top:2px;transition:all .16s;
+}
+.opt input:checked~.letter{background:var(--blue);color:#fff}
+.opt:has(input:checked){background:var(--blue-l);border-color:#9dbde6}
+.otext{flex:1}
+
+/* 填空 */
+.fills{display:flex;flex-direction:column;gap:8px}
+.fillin{
+  font-family:inherit;font-size:14.2px;padding:9px 13px;
+  border:1px solid var(--line);border-radius:8px;background:#fcfdff;
+  transition:all .16s;width:100%;
+}
+.fillin:focus{outline:none;border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 文本域 */
+.shortin,.transin{
+  font-family:inherit;font-size:14.2px;line-height:1.75;padding:11px 14px;
+  border:1px solid var(--line);border-radius:9px;background:#fcfdff;
+  width:100%;resize:vertical;transition:all .16s;
+}
+.shortin:focus,.transin:focus{outline:none;border-color:var(--blue);
+  background:#fff;box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 按钮与解析 */
+.qfoot{display:flex;align-items:center;gap:11px;margin-top:11px}
+.btn-ans{
+  font-family:inherit;font-size:12.5px;padding:5px 13px;border-radius:7px;
+  border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;
+  transition:all .16s;
+}
+.btn-ans:hover{background:var(--blue-l);border-color:#a8c4e8;color:var(--blue)}
+.saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
+.saved.show{opacity:1}
+.ansbox{
+  margin-top:12px;padding:13px 15px;background:#fafbfd;
+  border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-size:13.8px;
+}
+.ansline{margin-bottom:8px;display:flex;gap:9px;line-height:1.7}
+.ansline:last-child{margin-bottom:0}
+.ansline b{
+  flex:0 0 auto;color:var(--blue);font-size:12px;font-weight:640;
+  background:var(--blue-l);padding:2px 8px;border-radius:5px;height:fit-content;
+  margin-top:3px;
+}
+.ansline .got{color:var(--green);font-weight:600}
+
+/* 底部操作栏 */
+.toolbar{
+  position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);padding:12px 20px;z-index:60;
+  backdrop-filter:blur(10px);box-shadow:0 -2px 16px rgba(28,36,48,.07);
+}
+.tb-inner{max-width:820px;margin:0 auto;display:flex;
+  align-items:center;gap:11px;flex-wrap:wrap}
+.btn{
+  font-family:inherit;font-size:13.5px;padding:9px 19px;border-radius:9px;
+  border:none;cursor:pointer;font-weight:530;transition:all .16s;
+}
+.btn-main{background:var(--blue);color:#fff}
+.btn-main:hover{background:#264d87;transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--sub);border:1px solid var(--line)}
+.btn-ghost:hover{background:#f4f6fa;color:var(--ink)}
+.tb-count{font-size:13px;color:var(--sub);margin-left:auto}
+
+/* 完成提示 */
+.done-tip{
+  margin-top:22px;padding:18px 20px;border-radius:12px;
+  background:var(--green-l);border:1px solid #bfe5ce;color:#14603a;
+  font-size:14px;display:none;
+}
+.done-tip.show{display:block}
+.done-tip b{display:block;margin-bottom:6px;font-size:15px}
+
+/* 答案导出弹层 */
+.modal{
+  position:fixed;inset:0;background:rgba(20,28,40,.5);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:#fff;border-radius:14px;max-width:660px;width:100%;
+  max-height:82vh;display:flex;flex-direction:column;overflow:hidden;
+}
+.modal-head{padding:17px 21px;border-bottom:1px solid var(--line);
+  font-weight:620;font-size:15.5px;color:var(--blue)}
+.modal-body{padding:18px 21px;overflow-y:auto;flex:1}
+.modal-body textarea{
+  width:100%;height:340px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.65;border:1px solid var(--line);
+  border-radius:9px;padding:13px;background:#fafbfd;resize:vertical;
+}
+.modal-foot{padding:14px 21px;border-top:1px solid var(--line);
+  display:flex;gap:10px;justify-content:flex-end}
+.modal-tip{font-size:12.5px;color:var(--sub);margin-bottom:11px;line-height:1.65}
+
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  header{padding:26px 0 20px}
+  header h1{font-size:19px}
+  .q{padding:14px 15px}
+  .stem{font-size:14.2px}
+  .tb-count{display:none}
+  .kp{margin-left:0;width:100%}
+}
+@media print{
+  .toolbar,.btn-ans,.progress-sticky{display:none}
+  .ansbox[hidden]{display:block!important}
+  .q{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>考研每日测验 · 10.18 综合卷（素材：宝厂拽上岸第十七讲·数字新闻学 + 错题回滚 30%）</h1>
+    <div class="meta">2026-10-18 · 共 20 题 · 今晚 22:30 自动生成</div>
+    <div class="statline">
+      <span class="chip">单选 9</span>
+      <span class="chip">填空 5</span>
+      <span class="chip">问答 5</span>
+      <span class="chip">长难句 1</span>
+    </div>
+  </div>
+</header>
+
+<div class="progress-sticky">
+  <div class="wrap">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <div class="ptext">
+      <span id="ptext">已作答 0 / 20</span>
+      <span>进度自动保存，刷新不丢</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  
+<section class="sec">
+  <h2><span class="dot"></span>一、专业课 · 数字新闻学（单选 5 题）
+    <span class="secmeta">5 题</span></h2>
+  
+<div class="q" data-q="1" data-type="choice">
+  <div class="qhead">
+    <span class="qno">1</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">数字新闻 vs 数据新闻</span>
+  </div>
+  <div class="stem">辨析「数字新闻」与「数据新闻」中那个「数」字，下列说法正确的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q1" value="A"><span class="letter">A</span><span class="otext">两者都指媒介形态，因为都依托数字技术和网络平台</span></label><label class="opt"><input type="radio" name="q1" value="B"><span class="letter">B</span><span class="otext">数字新闻的「数字」指媒介形态，数据新闻的「数据」指内容形态</span></label><label class="opt"><input type="radio" name="q1" value="C"><span class="letter">C</span><span class="otext">数字新闻的「数字」指数据量级，数据新闻的「数据」指数据类型</span></label><label class="opt"><input type="radio" name="q1" value="D"><span class="letter">D</span><span class="otext">两者都指内容形态，区别只在于是否使用可视化呈现</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="1">查看解析</button>
+    <span class="saved" data-saved="1"></span>
+  </div>
+  <div class="ansbox" data-ans="1" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>这是整讲的枢纽。数字新闻的「数字」是媒介形态——数字媒介不只是载体，更是整个新闻产业链的基础设施；数据新闻的「数据」是内容形态，即「量化」，文本、图像、视频、事件皆可被数据化。A 错在把两者等同，正是讲义开头点出的「常被混用」；C 生造了「数据量级/数据类型」；D 把主次说反，且可视化只是数据新闻的常用手段，不是界定标准（讲义明说「数据新闻不一定需要可视化」）。</div></div>
+</div>
+<div class="q" data-q="2" data-type="choice">
+  <div class="qhead">
+    <span class="qno">2</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">新闻偶遇</span>
+  </div>
+  <div class="stem">关于新闻偶遇（incidental news exposure）的处理策略与研究结论，下列说法正确的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q2" value="A"><span class="letter">A</span><span class="otext">只要发生过新闻偶遇，就必然带来客观政治知识的增长</span></label><label class="opt"><input type="radio" name="q2" value="B"><span class="letter">B</span><span class="otext">浏览属于第一层次偶遇，阅读属于第二层次，只有第二层次与在线及线下参与呈正相关</span></label><label class="opt"><input type="radio" name="q2" value="C"><span class="letter">C</span><span class="otext">偶遇显著提升用户的客观知识，同时降低了用户的主观知识感</span></label><label class="opt"><input type="radio" name="q2" value="D"><span class="letter">D</span><span class="otext">算法环境下的偶遇必然带来异质观点接触，因而有助于缓解舆论极化</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="2">查看解析</button>
+    <span class="saved" data-saved="2"></span>
+  </div>
+  <div class="ansbox" data-ans="2" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>A 错：偶遇并不导向真正的知识获取，它提升的是「感知知识」，主动搜索带来的客观知识增长显著高于偶遇。C 把主客观说反了——是「主观知识感上升、客观知识增长有限」，这正是讲义说的「知识幻觉」（illusion of knowing）。D 错：个性化算法与选择性接触交织，偶遇内容是用户画像与内容标签精准匹配的产物，难以实现真正的异质接触，反而可能加剧极化。B 对：浏览＝忽略或快速扫导读，属第一层次；阅读＝把注意力从当前任务转向偶遇新闻，属第二层次，跨国研究显示只有第二层次与参与正相关。</div></div>
+</div>
+<div class="q" data-q="3" data-type="choice">
+  <div class="qhead">
+    <span class="qno">3</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">精确新闻学</span>
+  </div>
+  <div class="stem">精确新闻学（precision journalism）的提出者、提出时间与核心主张，对应正确的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q3" value="A"><span class="letter">A</span><span class="otext">菲利普·迈耶，1971 年，主张用社会科学研究方法提升报道的准确性与客观性</span></label><label class="opt"><input type="radio" name="q3" value="B"><span class="letter">B</span><span class="otext">保罗·布拉德肖，2010 年，主张用「双金字塔」结构组织数据新闻生产</span></label><label class="opt"><input type="radio" name="q3" value="C"><span class="letter">C</span><span class="otext">米尔科·劳伦兹，2008 年，主张「数据选取—过滤—可视化」三阶段流程</span></label><label class="opt"><input type="radio" name="q3" value="D"><span class="letter">D</span><span class="otext">菲利普·迈耶，1952 年，主张用计算机预测大选结果</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="3">查看解析</button>
+    <span class="saved" data-saved="3"></span>
+  </div>
+  <div class="ansbox" data-ans="3" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>B 的布拉德肖是数据新闻「倒金字塔／双金字塔」的提出者；C 的劳伦兹是数据新闻流程三阶段；D 是故意把两件事缝在一起——1952 年 CBS 用计算机预测大选结果是「计算机辅助报道」的起点，不是精确新闻学。精确新闻学的落点必须记成三件套：迈耶／1971／社会科学研究方法（调查法、内容分析法、观察法、实地实验法）。</div></div>
+</div>
+<div class="q" data-q="4" data-type="choice">
+  <div class="qhead">
+    <span class="qno">4</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">新闻泰勒主义</span>
+  </div>
+  <div class="stem">「新闻泰勒主义」（Journalistic Taylorism）这一概念，下列说法正确的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q4" value="A"><span class="letter">A</span><span class="otext">由罗萨提出，指新闻业的时间加速导致从业者被卷入「永远在线」的异化状态</span></label><label class="opt"><input type="radio" name="q4" value="B"><span class="letter">B</span><span class="otext">由史安斌、郑恩提出，指 AI 介入后新闻生产被「精细分工—量化考核—流程标准化」的科学管理逻辑改造</span></label><label class="opt"><input type="radio" name="q4" value="C"><span class="letter">C</span><span class="otext">由布拉德肖提出，指数据新闻生产中采集、清洗、可视化之间的流水线分工</span></label><label class="opt"><input type="radio" name="q4" value="D"><span class="letter">D</span><span class="otext">由常江提出，指平台通过「算力—API—数据」闭环形成数字封建主义</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="4">查看解析</button>
+    <span class="saved" data-saved="4"></span>
+  </div>
+  <div class="ansbox" data-ans="4" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>A 是罗萨的「社会加速」；C 是数据新闻生产流程，跟泰勒制只是形似；D 的「数字封建主义」是新闻泰勒主义三层体现中的第二层，被单独拎出来当成了提出者的主张。记住来源：《超越新闻泰勒主义：人工智能时代新闻业的转型危机与制度重构》，史安斌、郑恩，《青年记者》2025 年第 4 期。三层体现＝生产流程标准化（记者去技能化）／平台依赖塑造数字封建主义（数据贡赋）／可见性剥夺与算法规训（带宽压缩）。</div></div>
+</div>
+<div class="q" data-q="5" data-type="choice">
+  <div class="qhead">
+    <span class="qno">5</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">融合新闻叙事</span>
+  </div>
+  <div class="stem">融合新闻叙事在「时空结构」上的三种常见组织方式是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q5" value="A"><span class="letter">A</span><span class="otext">时间叙事、空间叙事、关系叙事</span></label><label class="opt"><input type="radio" name="q5" value="B"><span class="letter">B</span><span class="otext">界面响应、路径选择、角色扮演</span></label><label class="opt"><input type="radio" name="q5" value="C"><span class="letter">C</span><span class="otext">嵌入叙事、并置叙事、线性叙事</span></label><label class="opt"><input type="radio" name="q5" value="D"><span class="letter">D</span><span class="otext">描绘状态、呈现异常、预测趋势</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="5">查看解析</button>
+    <span class="saved" data-saved="5"></span>
+  </div>
+  <div class="ansbox" data-ans="5" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>B 是「创意互动趋势」的三分类（界面响应让用户按提示操作、路径选择给多叙事路径、角色扮演多用于新闻游戏），属于互动维度不是时空维度；C 里的嵌入与并置属于「大数据与小命运」下的叙事维度，而且融合新闻恰恰是突破线性叙事的；D 是数据新闻的八种叙事路径中的三种。时空三维度要记成一句话：时间叙事按顺序看全貌、空间叙事按地图逻辑展开、关系叙事聚焦主体间的相关关系。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>二、专业课 · 数字新闻学（填空 4 题）
+    <span class="secmeta">4 题</span></h2>
+  
+<div class="q" data-q="6" data-type="fill">
+  <div class="qhead">
+    <span class="qno">6</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">数字新闻定义</span>
+  </div>
+  <div class="stem">讲义对「数字新闻」的界定是：数字新闻是由数字媒体的____培育的，兼有____、____和____特征的一种新型____关系。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="6" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="6" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="6" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="6" data-b="3" placeholder="第 4 空" autocomplete="off"><input class="fillin" type="text" data-q="6" data-b="4" placeholder="第 5 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="6">查看解析</button>
+    <span class="saved" data-saved="6"></span>
+  </div>
+  <div class="ansbox" data-ans="6" hidden><div class="ansline"><b>参考答案</b>技术可供性、网络化、行动性、情感化、公共信息</div><div class="ansline"><b>得分点</b>每, 空,  , 1,  , 分, ，, 术, 语, 须, 准, 确, ，, 「, 技, 术, 可, 供, 性, 」, 写, 成, 「, 技, 术, 支, 持, 」, 不, 得, 分</div><div class="ansline"><b>解析</b>这五个词是本讲的「定义锚」。注意它把新闻定义成「关系」而不是「产品」或「文本」——这是数字新闻学区别于传统新闻学的根本立场：新闻是人与公共信息之间的一种关系状态。「情感化」被写进定义，正好接上第二部分「情感」问题：情感在这里是新闻的构成项，不再被当成干扰项。</div></div>
+</div>
+<div class="q" data-q="7" data-type="fill">
+  <div class="qhead">
+    <span class="qno">7</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">数据新闻生产流程</span>
+  </div>
+  <div class="stem">结合布拉德肖的「数据新闻倒金字塔」，数据新闻的生产流程可概括为四个核心环节：____、____、____、____。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="7" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="3" placeholder="第 4 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="7">查看解析</button>
+    <span class="saved" data-saved="7"></span>
+  </div>
+  <div class="ansbox" data-ans="7" hidden><div class="ansline"><b>参考答案</b>选题策划与数据可行性判断、数据收集（采集）、数据清洗与加工、数据结合与可视化传播</div><div class="ansline"><b>得分点</b>每, 空,  , 1,  , 分, ；, 第, 一, 空, 必, 须, 体, 现, 「, 数, 据, 可, 行, 性, 」, 这, 层, 判, 断, ，, 只, 写, 「, 选, 题, 」, 得,  , 0, ., 5</div><div class="ansline"><b>解析</b>最容易漏的是第一个环节的特殊性：传统新闻选题只看新闻价值，数据新闻要同时评估「这个选题能不能找到数据、适不适合用数据表现」。没有数据支撑，再好的选题也立不住——这是数据新闻与传统新闻在生产起点的分野，也是简答题里最能加分的一句。第三环节要写「清洗」，只写「分析」不完整；第四环节要包含「结合」（把两个不同系列数据结合起来才能发现深层问题）。</div></div>
+</div>
+<div class="q" data-q="8" data-type="fill">
+  <div class="qhead">
+    <span class="qno">8</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">数字新闻时间性</span>
+  </div>
+  <div class="stem">数字新闻时间性的变化可概括为四种「时间」：____的时间、____的时间、____的时间、____的时间。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="8" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="8" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="8" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="8" data-b="3" placeholder="第 4 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="8">查看解析</button>
+    <span class="saved" data-saved="8"></span>
+  </div>
+  <div class="ansbox" data-ans="8" hidden><div class="ansline"><b>参考答案</b>加速、提前、拉长、冲突</div><div class="ansline"><b>得分点</b>每, 空,  , 1,  , 分, ，, 四, 字, 顺, 序, 不, 限, ，, 但, 必, 须, 是, 这, 四, 个, 词</div><div class="ansline"><b>解析</b>这四个词是「一个逻辑的四张面孔」，建议串成因果链记：加速（更新频次加快、任务时长缩短）→ 提前（编辑部高峰从下午深夜挪到清晨）→ 拉长（全天候运作，工作与生活界限消失）→ 冲突（前三种压力在个体与组织层面集中爆发）。答题时每个词后面必须跟一句机制，只写四个词最多拿一半分。</div></div>
+</div>
+<div class="q" data-q="9" data-type="fill">
+  <div class="qhead">
+    <span class="qno">9</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">新闻回避的分类</span>
+  </div>
+  <div class="stem">新闻回避可按三个维度分类：按____分为有意回避与无意回避；按____分为特定情境下回避与周期性回避；按____分为协商性回避与激进型回避。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="9" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="9" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="9" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="9">查看解析</button>
+    <span class="saved" data-saved="9"></span>
+  </div>
+  <div class="ansbox" data-ans="9" hidden><div class="ansline"><b>参考答案</b>行为意图、回避时长、回避程度</div><div class="ansline"><b>得分点</b>每, 空,  , 1,  , 分, ，, 术, 语, 须, 准, 确</div><div class="ansline"><b>解析</b>三组对照要能两两说清：有意（排斥新闻内容）／无意（更偏好其他信息类型）；特定情境（短期间歇）／周期性（长期习惯）；协商性（管理自身新闻套餐的自主策略）／激进型（对特定议题完全关闭接触渠道）。这题是「论述新闻回避」的骨架零件，简答开头若能用分类把概念切细，比直接罗列成因更像研究生答卷。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>三、专业课 · 数字新闻学（问答 4 题）
+    <span class="secmeta">4 题</span></h2>
+  
+<div class="q" data-q="10" data-type="short">
+  <div class="qhead">
+    <span class="qno">10</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">数字新闻与数据新闻的区别</span>
+  </div>
+  <div class="stem">简述数字新闻与数据新闻的区别。要求分三个层面展开，并在结尾说明二者的关系。</div>
+  <textarea class="shortin" data-q="10" rows="12" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="10">查看解析</button>
+    <span class="saved" data-saved="10"></span>
+  </div>
+  <div class="ansbox" data-ans="10" hidden><div class="ansline"><b>参考答案</b>【层面一：「数」的内涵不同】数字新闻的「数字」指媒介形态，数字媒介不只是传播载体，更是整个新闻产业链的基础设施，带来即时、互动、个性化，也带来信息过载、虚假信息与版权问题；数据新闻的「数据」指内容形态，即「量化」，文本、图像、视频、事件皆可被数据化，数据在此构成新闻故事的主体，靠挖掘、统计分析与可视化揭示趋势、模式与关联。
+【层面二：实践与理论脉络不同】数字新闻：线上新闻（Online Journalism）→ 融合新闻（Convergent Journalism）→ 数字新闻（Digital Journalism），理论化路径关注技术在生产中的角色、新闻与用户的互动关系、机构如何适应数字时代。数据新闻：计算机辅助新闻（CAR）→ 精确新闻（Precision Journalism）→ 数据（驱动）新闻（Data Journalism），理论化路径关注数据分析与新闻叙事如何有效结合、如何提升数据素养。
+【层面三：对计算机与数字技术的应用方式不同】二者都用计算机，但数字新闻强调以计算机编程语言为媒介，数据新闻强调用计算机的算力去挖掘与处理数据。
+【关系】二者并非彼此隔绝。在媒体普遍数字化转型的背景下，数据新闻已成为数字新闻的一种重要形态——前者标识新闻业在数字媒介环境中的整体转型，后者标识一种以数据驱动叙事为核心的新闻实践。</div><div class="ansline"><b>得分点</b>①, 「, 数, 」, 的, 内, 涵, ：, 媒, 介, 形, 态,  , v, s,  , 内, 容, 形, 态, （, 3,  , 分, ）, ②, 两, 条, 脉, 络, 各, 自, 三, 阶, 段, ，, 写, 全, 各, 得,  , 2,  , 分, （, 4,  , 分, ）, ③, 技, 术, 应, 用, 方, 式, ：, 编, 程, 语, 言, 为, 媒, 介,  , v, s,  , 算, 力, 挖, 掘, 数, 据, （, 2,  , 分, ）, ④, 关, 系, ：, 数, 据, 新, 闻, 是, 数, 字, 新, 闻, 的, 重, 要, 形, 态, ，, 非, 对, 立, （, 1,  , 分, ）</div><div class="ansline"><b>解析</b>这题的标准失分是「只答区别不答关系」，以及两条脉络记串——把「融合新闻」塞进数据新闻的脉络里。记法：数字那条线全是「新闻形态的迭代」（线上→融合→数字），数据那条线全是「方法的迭代」（辅助→精确→驱动）。前者换的是载体，后者换的是证据来源。</div></div>
+</div>
+<div class="q" data-q="11" data-type="short">
+  <div class="qhead">
+    <span class="qno">11</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">数字新闻对传统新闻的冲击</span>
+  </div>
+  <div class="stem">数字新闻对传统新闻造成了哪些冲击？请分三点作答，每点须写成「论点＋论据＋论证」的完整结构。</div>
+  <textarea class="shortin" data-q="11" rows="14" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="11">查看解析</button>
+    <span class="saved" data-saved="11"></span>
+  </div>
+  <div class="ansbox" data-ans="11" hidden><div class="ansline"><b>参考答案</b>【一、新闻生产主体的泛化与去媒体化：从机构主导到节点连接】传统新闻生产理论围绕专业媒体机构构建，数字技术环境下主流新闻生产机制经历鲜明的去媒体化过程。一方面，新闻机构把内容生产权限不断让渡给非专业机构乃至用户，自身转向中介化，日益演变为新闻社交网络上带信息和观点聚焦功能的节点；另一方面，对既有信息进行分类、遴选和包装的能力，逐渐取代原创内容生产能力，成为数字新闻机构最主要的竞争力。论证：这两方面变化预示着媒体机构正在丧失传统意义上的新闻生产主导权，新资本与技术流向自媒体、新闻聚合服务、众筹新闻等没有传统束缚的新型主体，生产主体多元化不可逆转。
+【二、新闻从业者的技工化：从标准评判者到技术使用者】数字技术削弱了从业者作为把关人的身份认同，群体从新闻标准的评判者向生产技术的使用者转型。传统环境下，一线采编人员拥有相对独立于政府、广告商和受众的自治权，决定哪些新闻元素进入流通；数字环境下新闻成为跨媒体、跨平台的语境化叙事，放诸四海皆准的新闻价值判断体系和基于单一媒介的编排原则不再重要，生产技术的发展转向对信息高效分类、甄别和模式化制作的智能技术。论证：新闻生产日益成为技术性工作，遵循机械的与智能的理性，职业身份中的人文精神式微、技术思维崛起，深刻影响专业认同与价值取向。
+【三、新闻专业文化走向价值极化：从公共产品到观点宿主】数字技术以技术理性取代专业主义，使新闻业形成价值极化的专业文化，新闻从严肃的公共文化产品堕落为立场和观点寄生的宿主。数字新闻业的利润与影响力首要来源是用户访问与交互带来的流量，各类平台通过产品功能设计鼓励甚至刺激观点冲突，令原本并不明显极化的价值体系受到人为撕裂，操演出不同极端意识形态。论证：专业文化的极化并非偶然偏差，它是技术理性取代专业主义之后的系统性后果——当流量成为核心评价标准、情感认同取代客观信息需求，新闻业便从理性的公共讨论空间滑向情绪化的观点竞争场域。</div><div class="ansline"><b>得分点</b>三, 点, 各,  , 3,  , 分, ：, 论, 点, 准, 确,  , 1,  , 分, 、, 论, 据, 具, 体,  , 1,  , 分, 、, 论, 证, 到, 位,  , 1,  , 分, ；, 结, 构, 不, 写, 成, 「, 论, 点, —, 论, 据, —, 论, 证, 」, 整, 体, 扣,  , 2,  , 分</div><div class="ansline"><b>解析</b>三点是递进的：主体变了（谁在生产）→ 人的角色变了（生产者变成什么）→ 文化变了（生产出来的东西变成什么）。这个「主体—人—文化」的三级链条比死记三个小标题好使，考场上就算忘了一个标题，也能顺着链条推。另注意第三点的表述是「价值极化」，不是「价值多元」——极化是贬义，指被流量人为撕裂成两个极端，写成「多元」等于答反。</div></div>
+</div>
+<div class="q" data-q="12" data-type="short">
+  <div class="qhead">
+    <span class="qno">12</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">新闻回避（上海交大 2026 真题）</span>
+  </div>
+  <div class="stem">论述新闻回避的成因、影响及措施。（上海交通大学 2026）</div>
+  <textarea class="shortin" data-q="12" rows="16" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="12">查看解析</button>
+    <span class="saved" data-saved="12"></span>
+  </div>
+  <div class="ansbox" data-ans="12" hidden><div class="ansline"><b>参考答案</b>【概念与背景】新闻回避指新闻用户在一段特定时间内有意识地、主动地忽视、逃避或拒绝部分或全部新闻内容的行为，是用户对信息失序、信息过载和舆论极化等结构性问题做出的有意义的抵消行为。路透社新闻研究所《2026 年数字新闻报告》覆盖 48 个市场显示，全球 42% 的受访者经常或有时刻意回避新闻，较 2017 年的 29% 大幅上升，新闻信任度降至 37% 的历史最低水平。
+【一、成因】①个体层面：认知负荷与情绪调节的自我保护。新闻过载与低质量内容引发新闻倦怠，进而促使用户回避；用户为对抗倦怠而规避同质化新闻，为构筑信息安全屏障而忽略负能量新闻；报告指出回避最常见的原因是新闻对情绪产生了负面影响。②社会层面：新闻信任崩塌与传播生态公共性的侵蚀。新闻信任度越低的人群回避越频繁——信任是新闻消费得以发生的前提，当用户不再相信机构能提供准确公正可信的信息，接触新闻便失去基本的认知回报预期，回避反而成为理性选择。
+【二、影响】①认知层面：知识鸿沟与误解风险加剧。回避者缺乏信息输入，难以形成对公共事务的准确判断，在公共决策中处于认知弱势；持续接触者不断积累政治知识与参与技能，两者差距叠加扩大，公共讨论话语权日益集中于少数信息优势群体。②态度层面：新闻信任侵蚀的恶性循环。回避者不仅对新闻机构失去信任，更将不信任扩展为对信息环境整体的不安全感，形成「不信任—回避—更缺高质量接触—固化负面认知」的自我强化闭环。爱德曼信任度晴雨表中国报告显示，「主要新闻机构」净信任度变化为 -11，传统媒体作为新闻信源的信任度较上年下降 5 个百分点。
+【三、措施】①理念层面：从记录问题转向介入解决。以建设性新闻的解决方案导向报道重塑公众消费意愿——回避的核心动因之一是对负面信息的情绪疲劳，而建设性新闻呈现问题的应对路径，能促进读者的乐观情绪与内在效能感，提升其继续阅读相关议题的可能性。②实践层面：从被动接收转向主动辨识。有赖于媒介素养的系统性提升，使用户具备辨识能力、情绪调节能力与理性参与能力；日本 NIE（Newspaper in Education）项目把报纸引入课堂，由新闻博物馆与学校、图书馆合作跨越媒介边界承担素养教育职能，可作为参照。媒介素养教育的目标落在恢复用户与新闻之间的建设性连接上，单靠提升新闻消费量并不够。③【自行补充的制度层】平台责任与评价机制：将公共价值指标纳入平台算法与媒体考核，避免流量单一指标挤压公共议题可见性。
+【结语】新闻回避既是用户理性的自我保护，也是新闻业合法性危机的症候。仅靠劝用户「多看新闻」无效，须在理念、实践与制度三层同时修复信任与连接。</div><div class="ansline"><b>得分点</b>成, 因, 两, 层, 面, 各,  , 2,  , 分, （, 共,  , 4, ）, ／, 影, 响, 两, 层, 面, 各,  , 2,  , 分, （, 共,  , 4, ）, ／, 措, 施, 两, 层, 各,  , 2,  , 分, （, 共,  , 4, ）, ／, 概, 念, 与, 数, 据, 支, 撑,  , 2,  , 分, ／, 结, 语, 有, 判, 断,  , 1,  , 分</div><div class="ansline"><b>解析</b>⚠️ 讲义这一题的批注写「理念、制度、实践——治理框架带入」，但正文只展开了「理念」和「实践」两层，「制度」层是空的。也就是说，按讲义原样背，你的答案只有两层措施，而题目批注自己要求三层——这是本讲最明显的缺口，考场上必须自己补一层制度（平台责任、评价机制、算法透明度任选其一）。补上这层，答案才配得上「治理框架」四个字。另外数据要背准：42%／2017 年 29%／信任度 37%，三个数字是一组，写错一个这题的实证支撑就塌了。</div></div>
+</div>
+<div class="q" data-q="13" data-type="short">
+  <div class="qhead">
+    <span class="qno">13</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">数字新闻业流程再造</span>
+  </div>
+  <div class="stem">数字技术推动新闻业全流程再造，请简述数字新闻业呈现出的四个转向，并各举一例。</div>
+  <textarea class="shortin" data-q="13" rows="14" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="13">查看解析</button>
+    <span class="saved" data-saved="13"></span>
+  </div>
+  <div class="ansbox" data-ans="13" hidden><div class="ansline"><b>参考答案</b>【一、生产主体的泛化转向：从记者到新闻人】传统由专业记者与机构主导的格局被打破，普通公众、自媒体运营者、公民记者广泛参与新闻生产与传播。「新闻人」概念超越「记者」的职业范畴，涵盖所有参与新闻生产与传播的个体，反映生产实践的民主化与去中心化。例：加拿大 1998—2017 年记者总数翻番，但长期受雇于新闻机构的记者在减少，临时记者比例从 15% 升至约 25%。
+【二、运营的算法化转向：从数字化阶段迈向人工智能阶段】算法广泛深入参与新闻生产，改变了新闻价值评估标准（从经验判断转向基于实证测量的数据分析），革新了生产模式（手工作坊转向人机协同）、叙事方式（线性叙事转向交互叙事）与内容推送（大众化覆盖转向个体化定制）。需注意算法并非中立，其设计与运行蕴含设计者价值观。例：平台以算法分配可见性，情绪化、冲突性内容更易获得推送。
+【三、实践的介入性转向：新闻业与用户建立亲密关系】新闻业更注重与社会现实紧密互动，通过深度参与帮助解决社会问题。新闻工作者不仅是社会观察者，更是社会参与者，报道中嵌入建设性解决方案，并通过社交平台获取反馈、迭代报道。例：河南广播电视台「大象帮」平台，联合各地市党委政府部门、民生栏目与县域融媒体，构建跨媒体跨屏幕的融合生态系统，实现群众、媒体、政府之间的实时互动。
+【四、内容的感官化转向：创造有「厚度」的声色体验】报道不再局限于文字与图片，而通过视频、音频、虚拟现实等多媒体形态提供更丰富感官体验，用 360 度全景视频、空间音频模拟三维空间，提供沉浸式体验。例：重庆广电第 1 眼 TV 新闻 XR 演播区 2026 年 9 月升级至 2.0，从搭建观感出众的新闻棚，转向在云端构建能讲故事的城市观察空间。
+【收束】四个转向是技术逻辑与新闻逻辑交织的产物，既拓展了新闻的形态与功能，也带来质量、偏见与伦理风险，新闻业需在开放与专业、技术与人文之间寻求平衡。</div><div class="ansline"><b>得分点</b>四, 个, 转, 向, 名, 称, 各,  , 1, ., 5,  , 分, （, 共,  , 6, ）, ；, 每, 个, 转, 向, 配, 一, 句, 机, 制, 说, 明, 各,  , 1,  , 分, （, 共,  , 4, ）, ；, 举, 例, 两, 个, 以, 上, 各,  , 0, ., 5,  , 分, ；, 收, 束, 有, 风, 险, 判, 断,  , 1,  , 分</div><div class="ansline"><b>解析</b>四个转向的记法是一条「谁做—怎么做—做什么姿态—做成什么样子」的链：主体（新闻人）→ 运营（算法化）→ 姿态（介入性）→ 呈现（感官化）。举例不必死背数字，但「大象帮」「XR 演播区 2.0」这两个本土案例值得记——论述题里能举出国内主流媒体的融合实践，比只举《纽约时报》更贴中国语境。注意「感官化」的辩证：讲义明确提示要防感官超负荷、防以感官刺激牺牲内容深度，最后一句不写风险，这题就只是列举不是论述。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>四、政治 · 错题回滚（全单选 4 题）
+    <span class="secmeta">4 题</span></h2>
+  
+<div class="q" data-q="14" data-type="choice">
+  <div class="qhead">
+    <span class="qno">14</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">教育强国「六个以」</span>
+  </div>
+  <div class="stem">在教育强国建设的战略部署中，「立德树人」对应的定位是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q14" value="A"><span class="letter">A</span><span class="otext">根本保证</span></label><label class="opt"><input type="radio" name="q14" value="B"><span class="letter">B</span><span class="otext">根本任务</span></label><label class="opt"><input type="radio" name="q14" value="C"><span class="letter">C</span><span class="otext">根本目标</span></label><label class="opt"><input type="radio" name="q14" value="D"><span class="letter">D</span><span class="otext">核心功能</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="14">查看解析</button>
+    <span class="saved" data-saved="14"></span>
+  </div>
+  <div class="ansbox" data-ans="14" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>六个「以」的完整链条：根本保证＝党的领导；根本任务＝立德树人；根本目标＝为党育人、为国育才；重要使命＝服务中华民族伟大复兴；基本路径＝教育现代化；核心功能＝支撑引领中国式现代化。另外「人民满意」是根本尺度，不是目标——这一对词是高频设错点。你上次这道题四个空全是自己造的词（「根本方向」「基本目标」「最终目的」「最终标准」），说明问题不在记牢与否，在于没背过原表述。用「保—任—目—使—路—功」六字链先锁骨架，再填内容。</div></div>
+</div>
+<div class="q" data-q="15" data-type="choice">
+  <div class="qhead">
+    <span class="qno">15</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">统一战线「三个最」</span>
+  </div>
+  <div class="stem">统一战线工作中，要解决「人心和力量」问题，其对应的定位与路径是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q15" value="A"><span class="letter">A</span><span class="otext">统一战线的关键，靠坚持求同存异</span></label><label class="opt"><input type="radio" name="q15" value="B"><span class="letter">B</span><span class="otext">统一战线的本质要求，靠坚持大团结大联合</span></label><label class="opt"><input type="radio" name="q15" value="C"><span class="letter">C</span><span class="otext">统一战线最鲜明的特征，靠坚持党的领导</span></label><label class="opt"><input type="radio" name="q15" value="D"><span class="letter">D</span><span class="otext">统一战线的根本方法，靠坚持协商民主</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="15">查看解析</button>
+    <span class="saved" data-saved="15"></span>
+  </div>
+  <div class="ansbox" data-ans="15" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>四级递进链：本质要求＝大团结大联合，解决的是人心和力量问题；关键＝求同存异；最鲜明的特征＝党的领导。A 把「关键」的路径安到了「本质要求」上；C 的定位对但解决的不是人心和力量问题；D「根本方法」是自己造的词。你上次填成「大／差异」，是只记住了有个「大」字却丢了整个词——这次注意：答案必须是文件原话，不能靠语感拼。</div></div>
+</div>
+<div class="q" data-q="16" data-type="choice">
+  <div class="qhead">
+    <span class="qno">16</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">法治体系五大体系</span>
+  </div>
+  <div class="stem">中国特色社会主义法治体系由五个子体系构成。按「法律规范—法治实施—法治监督—法治保障」的排列顺序，紧随其后的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q16" value="A"><span class="letter">A</span><span class="otext">党内法规体系</span></label><label class="opt"><input type="radio" name="q16" value="B"><span class="letter">B</span><span class="otext">法治人才体系</span></label><label class="opt"><input type="radio" name="q16" value="C"><span class="letter">C</span><span class="otext">法治文化体系</span></label><label class="opt"><input type="radio" name="q16" value="D"><span class="letter">D</span><span class="otext">法律监督体系</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="16">查看解析</button>
+    <span class="saved" data-saved="16"></span>
+  </div>
+  <div class="ansbox" data-ans="16" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>五字链：规 → 实 → 监 → 保 → 党。法律规范体系、法治实施体系、法治监督体系、法治保障体系、党内法规体系。B、C 是自己造的词（法治人才、法治文化是建设内容，不是这五个子体系之一）；D「法律监督」与「法治监督」一字之差，是最容易上当的干扰项——监督的对象是「法治」的整体运行，不是「法律」本身。你上次五个名字全空，却把「两个以…为核心」的精细辨析记住了，说明背诵顺序反了：先把五字链背成顺口溜，再补细节。</div></div>
+</div>
+<div class="q" data-q="17" data-type="choice">
+  <div class="qhead">
+    <span class="qno">17</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">全过程人民民主「四个相统一」</span>
+  </div>
+  <div class="stem">全过程人民民主的「四个相统一」，不包括下列哪一项？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q17" value="A"><span class="letter">A</span><span class="otext">过程民主和成果民主相统一</span></label><label class="opt"><input type="radio" name="q17" value="B"><span class="letter">B</span><span class="otext">程序民主和实质民主相统一</span></label><label class="opt"><input type="radio" name="q17" value="C"><span class="letter">C</span><span class="otext">选举民主和协商民主相统一</span></label><label class="opt"><input type="radio" name="q17" value="D"><span class="letter">D</span><span class="otext">直接民主和间接民主相统一</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="17">查看解析</button>
+    <span class="saved" data-saved="17"></span>
+  </div>
+  <div class="ansbox" data-ans="17" hidden><div class="ansline"><b>参考答案</b>C</div><div class="ansline"><b>解析</b>四个相统一＝过程民主与成果民主、程序民主与实质民主、直接民主与间接民主、人民民主与国家意志。C 不在其中：选举民主与协商民主是社会主义民主的两种重要形式（两种「形式」），不是「同一民主的两个侧面」，因此不构成一组「统一」。判别口诀：四对里的前三对都是「同一个民主的两个面向」，第四对是「民主的主体与国家意志」，而选举／协商是并列的两种实现形式。你上次就是在这里把包含项当成了不包含项。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>五、英语（词汇 + 长难句 + 方法反思 3 题）
+    <span class="secmeta">3 题</span></h2>
+  
+<div class="q" data-q="18" data-type="fill">
+  <div class="qhead">
+    <span class="qno">18</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">核心词汇（上次错题换句回滚）</span>
+  </div>
+  <div class="stem">根据中文提示，在横线上填入恰当的英文（第 1 空填动词短语，第 2、3 空各填一个单词，注意词形变化）：
+① 政府承诺严厉打击网络诈骗。
+　The government promised to ____ cyber fraud.
+② 那片北美大草原上几乎见不到树。
+　There are hardly any trees on the ____.
+③ 这个问题比上一个更棘手。
+　This problem is ____ than the previous one.</div>
+  <div class="fills"><input class="fillin" type="text" data-q="18" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="18">查看解析</button>
+    <span class="saved" data-saved="18"></span>
+  </div>
+  <div class="ansbox" data-ans="18" hidden><div class="ansline"><b>参考答案</b>① crack down on　② prairie　③ thornier</div><div class="ansline"><b>得分点</b>每, 空,  , 1,  , 分, ，, 拼, 写, 错, 即, 不, 得, 分, ；, ①, 漏, 掉,  , o, n,  , 扣,  , 0, ., 5</div><div class="ansline"><b>解析</b>这三个词上次全错：crack down on 你译成「崩塌」（那是 collapse，且词性不对——crack down 是朝外的「打压」，联想「警方扫荡」）；prairie 你没答出来，建议和 plain／plateau 三个一起记（草原／平原／高原）；thornier 你写「更尖锐」，方向对但搭配错，thorny 修饰「问题」时固定译「棘手」。这次换成产出题（给中文写英文），比上次的英译中更狠——认得出不等于写得出。</div></div>
+</div>
+<div class="q" data-q="19" data-type="translate">
+  <div class="qhead">
+    <span class="qno">19</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">长难句（比较级回滚）</span>
+  </div>
+  <div class="stem">翻译下面这句话，并单独标出句子主干：
+
+Adults who rely mainly on social media for information are far more likely to overestimate how much they actually know than those who actively seek out news.</div>
+  <textarea class="transin" data-q="19" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="19">查看解析</button>
+    <span class="saved" data-saved="19"></span>
+  </div>
+  <div class="ansbox" data-ans="19" hidden><div class="ansline"><b>参考答案</b>【译文】主要依靠社交媒体获取信息的成年人，远比那些主动搜寻新闻的人更容易高估自己实际掌握的知识。
+【主干】Adults ... are far more likely to overestimate ... than those ...
+　主语：Adults（后接 who 定语从句 who rely mainly on social media for information）
+　谓语：are
+　表语：far more likely to overestimate how much they actually know
+　比较状语：than those（those 后接 who actively seek out news）
+【要点】① far more likely 必须译出「远远更可能／远比……更可能」，漏掉 far 的强化意味扣分；② overestimate 译「高估」而非「过度估计」；③ those 要译成「那些……的人」，不能留空或译成「他们」；④ how much they actually know 是宾语从句，译「自己实际掌握多少知识」。</div><div class="ansline"><b>得分点</b>主, 干, 正, 确,  , 3,  , 分, ；, 定, 语, 从, 句, 与, 比, 较, 结, 构, 译, 出,  , 3,  , 分, ；, f, a, r,  , m, o, r, e,  , l, i, k, e, l, y,  , 的, 程, 度, 义, 译, 出,  , 1,  , 分, ；, o, v, e, r, e, s, t, i, m, a, t, e,  , 词, 义, 准, 确,  , 1,  , 分, ；, 汉, 语, 通, 顺,  , 2,  , 分</div><div class="ansline"><b>解析</b>这题就是上次那道「are far more likely to feel threatened」的换句回滚——同一个坑：比较级前的程度副词 far 被吞掉。英二翻译的评分细则里，程度副词和比较级属于「信息完整」项，漏了直接扣分，而这类错在你身上已经出现过一次。另外 those 的指代上次也没译出来，这次两个考点叠在一句里，看你还漏不漏。</div></div>
+</div>
+<div class="q" data-q="20" data-type="short">
+  <div class="qhead">
+    <span class="qno">20</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">翻译方法反思</span>
+  </div>
+  <div class="stem">复盘：你近三次测验的英语失分集中在两类——词汇义项记错、比较级与程度副词漏译。请写出明天要执行的两条具体动作（要求可验证，不要写「多背单词」「多练翻译」这类空话），并说明你怎么判断自己做到了。</div>
+  <textarea class="shortin" data-q="20" rows="6" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="20">查看解析</button>
+    <span class="saved" data-saved="20"></span>
+  </div>
+  <div class="ansbox" data-ans="20" hidden><div class="ansline"><b>参考答案</b>参考方向（不要求一致，但要具体可验证）：
+① 词汇：把 crack down on／prairie／thornier 这类「认得出但写不对」的词单独建一个「产出型词表」，只收中文→英文方向的条目；每天睡前遮住英文默写 10 个，写错的重置计数，连续两天全对才移出。判断标准：默写正确率，不靠「感觉记住了」。
+② 翻译：每译完一句，回头专门做一次「程度词扫描」——把 far／much／far more／significantly／considerably／increasingly 这类词圈出来，检查是否在译文里有对应表达；同时检查比较结构是否有「比」字落地。判断标准：每句至少过一遍这个清单，且译文中「比／更／远」类词与原文程度词数量对得上。
+③ 记录方式：在错题本上只记「错因标签」（义项错／漏译程度词／指代未译），不抄整句，一周看一次标签分布。</div><div class="ansline"><b>得分点</b>两, 条, 动, 作, 各,  , 2,  , 分, （, 须, 可, 验, 证, 、, 可, 执, 行, ）, ；, 判, 断, 标, 准, 各,  , 1,  , 分, ；, 有, 记, 录, 或, 复, 盘, 机, 制,  , 1,  , 分</div><div class="ansline"><b>解析</b>这题不是考知识，是考你有没有把「失分」变成「机制」。你的失分模式很稳定——不是不会，是漏。漏的毛病靠「多练」治不好，只能靠固定检查动作治。写不出判断标准的答案，等于明天不会执行。</div></div>
+</div>
+</section>
+
+  <div class="done-tip" id="doneTip">
+    <b>🎉 全部作答完毕</b>
+    点右下角「导出我的答案」，把导出的文件发给我，我会逐题批改并给出评分与改进建议。
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="tb-inner">
+    <button class="btn btn-main" id="btnExport">导出我的答案</button>
+    <button class="btn btn-ghost" id="btnRevealAll">展开全部解析</button>
+    <button class="btn btn-ghost" id="btnReset">清空重做</button>
+    <span class="tb-count" id="tbCount">0 / 20</span>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">你的答案（复制后发给我批改）</div>
+    <div class="modal-body">
+      <div class="modal-tip">
+        全选复制下面的内容，粘贴到对话里发给我即可。也可以点「下载 .md」保存成文件再上传。
+      </div>
+      <textarea id="exportArea" readonly></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="btnCloseModal">关闭</button>
+      <button class="btn btn-main" id="btnDownload">下载 .md</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ = {"title": "考研每日测验 · 10.18 综合卷（素材：宝厂拽上岸第十七讲·数字新闻学 + 错题回滚 30%）", "date": "2026-10-18", "sections": [{"name": "一、专业课 · 数字新闻学（单选 5 题）", "questions": [{"id": 1, "type": "choice", "kp": "数字新闻 vs 数据新闻", "stem": "辨析「数字新闻」与「数据新闻」中那个「数」字，下列说法正确的是：", "options": ["两者都指媒介形态，因为都依托数字技术和网络平台", "数字新闻的「数字」指媒介形态，数据新闻的「数据」指内容形态", "数字新闻的「数字」指数据量级，数据新闻的「数据」指数据类型", "两者都指内容形态，区别只在于是否使用可视化呈现"], "answer": "B", "explain": "这是整讲的枢纽。数字新闻的「数字」是媒介形态——数字媒介不只是载体，更是整个新闻产业链的基础设施；数据新闻的「数据」是内容形态，即「量化」，文本、图像、视频、事件皆可被数据化。A 错在把两者等同，正是讲义开头点出的「常被混用」；C 生造了「数据量级/数据类型」；D 把主次说反，且可视化只是数据新闻的常用手段，不是界定标准（讲义明说「数据新闻不一定需要可视化」）。", "_id": 1}, {"id": 2, "type": "choice", "kp": "新闻偶遇", "stem": "关于新闻偶遇（incidental news exposure）的处理策略与研究结论，下列说法正确的是：", "options": ["只要发生过新闻偶遇，就必然带来客观政治知识的增长", "浏览属于第一层次偶遇，阅读属于第二层次，只有第二层次与在线及线下参与呈正相关", "偶遇显著提升用户的客观知识，同时降低了用户的主观知识感", "算法环境下的偶遇必然带来异质观点接触，因而有助于缓解舆论极化"], "answer": "B", "explain": "A 错：偶遇并不导向真正的知识获取，它提升的是「感知知识」，主动搜索带来的客观知识增长显著高于偶遇。C 把主客观说反了——是「主观知识感上升、客观知识增长有限」，这正是讲义说的「知识幻觉」（illusion of knowing）。D 错：个性化算法与选择性接触交织，偶遇内容是用户画像与内容标签精准匹配的产物，难以实现真正的异质接触，反而可能加剧极化。B 对：浏览＝忽略或快速扫导读，属第一层次；阅读＝把注意力从当前任务转向偶遇新闻，属第二层次，跨国研究显示只有第二层次与参与正相关。", "_id": 2}, {"id": 3, "type": "choice", "kp": "精确新闻学", "stem": "精确新闻学（precision journalism）的提出者、提出时间与核心主张，对应正确的是：", "options": ["菲利普·迈耶，1971 年，主张用社会科学研究方法提升报道的准确性与客观性", "保罗·布拉德肖，2010 年，主张用「双金字塔」结构组织数据新闻生产", "米尔科·劳伦兹，2008 年，主张「数据选取—过滤—可视化」三阶段流程", "菲利普·迈耶，1952 年，主张用计算机预测大选结果"], "answer": "A", "explain": "B 的布拉德肖是数据新闻「倒金字塔／双金字塔」的提出者；C 的劳伦兹是数据新闻流程三阶段；D 是故意把两件事缝在一起——1952 年 CBS 用计算机预测大选结果是「计算机辅助报道」的起点，不是精确新闻学。精确新闻学的落点必须记成三件套：迈耶／1971／社会科学研究方法（调查法、内容分析法、观察法、实地实验法）。", "_id": 3}, {"id": 4, "type": "choice", "kp": "新闻泰勒主义", "stem": "「新闻泰勒主义」（Journalistic Taylorism）这一概念，下列说法正确的是：", "options": ["由罗萨提出，指新闻业的时间加速导致从业者被卷入「永远在线」的异化状态", "由史安斌、郑恩提出，指 AI 介入后新闻生产被「精细分工—量化考核—流程标准化」的科学管理逻辑改造", "由布拉德肖提出，指数据新闻生产中采集、清洗、可视化之间的流水线分工", "由常江提出，指平台通过「算力—API—数据」闭环形成数字封建主义"], "answer": "B", "explain": "A 是罗萨的「社会加速」；C 是数据新闻生产流程，跟泰勒制只是形似；D 的「数字封建主义」是新闻泰勒主义三层体现中的第二层，被单独拎出来当成了提出者的主张。记住来源：《超越新闻泰勒主义：人工智能时代新闻业的转型危机与制度重构》，史安斌、郑恩，《青年记者》2025 年第 4 期。三层体现＝生产流程标准化（记者去技能化）／平台依赖塑造数字封建主义（数据贡赋）／可见性剥夺与算法规训（带宽压缩）。", "_id": 4}, {"id": 5, "type": "choice", "kp": "融合新闻叙事", "stem": "融合新闻叙事在「时空结构」上的三种常见组织方式是：", "options": ["时间叙事、空间叙事、关系叙事", "界面响应、路径选择、角色扮演", "嵌入叙事、并置叙事、线性叙事", "描绘状态、呈现异常、预测趋势"], "answer": "A", "explain": "B 是「创意互动趋势」的三分类（界面响应让用户按提示操作、路径选择给多叙事路径、角色扮演多用于新闻游戏），属于互动维度不是时空维度；C 里的嵌入与并置属于「大数据与小命运」下的叙事维度，而且融合新闻恰恰是突破线性叙事的；D 是数据新闻的八种叙事路径中的三种。时空三维度要记成一句话：时间叙事按顺序看全貌、空间叙事按地图逻辑展开、关系叙事聚焦主体间的相关关系。", "_id": 5}]}, {"name": "二、专业课 · 数字新闻学（填空 4 题）", "questions": [{"id": 6, "type": "fill", "blanks": 5, "kp": "数字新闻定义", "stem": "讲义对「数字新闻」的界定是：数字新闻是由数字媒体的____培育的，兼有____、____和____特征的一种新型____关系。", "answer": "技术可供性、网络化、行动性、情感化、公共信息", "keys": "每空 1 分，术语须准确，「技术可供性」写成「技术支持」不得分", "explain": "这五个词是本讲的「定义锚」。注意它把新闻定义成「关系」而不是「产品」或「文本」——这是数字新闻学区别于传统新闻学的根本立场：新闻是人与公共信息之间的一种关系状态。「情感化」被写进定义，正好接上第二部分「情感」问题：情感在这里是新闻的构成项，不再被当成干扰项。", "_id": 6}, {"id": 7, "type": "fill", "blanks": 4, "kp": "数据新闻生产流程", "stem": "结合布拉德肖的「数据新闻倒金字塔」，数据新闻的生产流程可概括为四个核心环节：____、____、____、____。", "answer": "选题策划与数据可行性判断、数据收集（采集）、数据清洗与加工、数据结合与可视化传播", "keys": "每空 1 分；第一空必须体现「数据可行性」这层判断，只写「选题」得 0.5", "explain": "最容易漏的是第一个环节的特殊性：传统新闻选题只看新闻价值，数据新闻要同时评估「这个选题能不能找到数据、适不适合用数据表现」。没有数据支撑，再好的选题也立不住——这是数据新闻与传统新闻在生产起点的分野，也是简答题里最能加分的一句。第三环节要写「清洗」，只写「分析」不完整；第四环节要包含「结合」（把两个不同系列数据结合起来才能发现深层问题）。", "_id": 7}, {"id": 8, "type": "fill", "blanks": 4, "kp": "数字新闻时间性", "stem": "数字新闻时间性的变化可概括为四种「时间」：____的时间、____的时间、____的时间、____的时间。", "answer": "加速、提前、拉长、冲突", "keys": "每空 1 分，四字顺序不限，但必须是这四个词", "explain": "这四个词是「一个逻辑的四张面孔」，建议串成因果链记：加速（更新频次加快、任务时长缩短）→ 提前（编辑部高峰从下午深夜挪到清晨）→ 拉长（全天候运作，工作与生活界限消失）→ 冲突（前三种压力在个体与组织层面集中爆发）。答题时每个词后面必须跟一句机制，只写四个词最多拿一半分。", "_id": 8}, {"id": 9, "type": "fill", "blanks": 3, "kp": "新闻回避的分类", "stem": "新闻回避可按三个维度分类：按____分为有意回避与无意回避；按____分为特定情境下回避与周期性回避；按____分为协商性回避与激进型回避。", "answer": "行为意图、回避时长、回避程度", "keys": "每空 1 分，术语须准确", "explain": "三组对照要能两两说清：有意（排斥新闻内容）／无意（更偏好其他信息类型）；特定情境（短期间歇）／周期性（长期习惯）；协商性（管理自身新闻套餐的自主策略）／激进型（对特定议题完全关闭接触渠道）。这题是「论述新闻回避」的骨架零件，简答开头若能用分类把概念切细，比直接罗列成因更像研究生答卷。", "_id": 9}]}, {"name": "三、专业课 · 数字新闻学（问答 4 题）", "questions": [{"id": 10, "type": "short", "rows": 12, "kp": "数字新闻与数据新闻的区别", "stem": "简述数字新闻与数据新闻的区别。要求分三个层面展开，并在结尾说明二者的关系。", "answer": "【层面一：「数」的内涵不同】数字新闻的「数字」指媒介形态，数字媒介不只是传播载体，更是整个新闻产业链的基础设施，带来即时、互动、个性化，也带来信息过载、虚假信息与版权问题；数据新闻的「数据」指内容形态，即「量化」，文本、图像、视频、事件皆可被数据化，数据在此构成新闻故事的主体，靠挖掘、统计分析与可视化揭示趋势、模式与关联。\n【层面二：实践与理论脉络不同】数字新闻：线上新闻（Online Journalism）→ 融合新闻（Convergent Journalism）→ 数字新闻（Digital Journalism），理论化路径关注技术在生产中的角色、新闻与用户的互动关系、机构如何适应数字时代。数据新闻：计算机辅助新闻（CAR）→ 精确新闻（Precision Journalism）→ 数据（驱动）新闻（Data Journalism），理论化路径关注数据分析与新闻叙事如何有效结合、如何提升数据素养。\n【层面三：对计算机与数字技术的应用方式不同】二者都用计算机，但数字新闻强调以计算机编程语言为媒介，数据新闻强调用计算机的算力去挖掘与处理数据。\n【关系】二者并非彼此隔绝。在媒体普遍数字化转型的背景下，数据新闻已成为数字新闻的一种重要形态——前者标识新闻业在数字媒介环境中的整体转型，后者标识一种以数据驱动叙事为核心的新闻实践。", "keys": "①「数」的内涵：媒介形态 vs 内容形态（3 分）②两条脉络各自三阶段，写全各得 2 分（4 分）③技术应用方式：编程语言为媒介 vs 算力挖掘数据（2 分）④关系：数据新闻是数字新闻的重要形态，非对立（1 分）", "explain": "这题的标准失分是「只答区别不答关系」，以及两条脉络记串——把「融合新闻」塞进数据新闻的脉络里。记法：数字那条线全是「新闻形态的迭代」（线上→融合→数字），数据那条线全是「方法的迭代」（辅助→精确→驱动）。前者换的是载体，后者换的是证据来源。", "_id": 10}, {"id": 11, "type": "short", "rows": 14, "kp": "数字新闻对传统新闻的冲击", "stem": "数字新闻对传统新闻造成了哪些冲击？请分三点作答，每点须写成「论点＋论据＋论证」的完整结构。", "answer": "【一、新闻生产主体的泛化与去媒体化：从机构主导到节点连接】传统新闻生产理论围绕专业媒体机构构建，数字技术环境下主流新闻生产机制经历鲜明的去媒体化过程。一方面，新闻机构把内容生产权限不断让渡给非专业机构乃至用户，自身转向中介化，日益演变为新闻社交网络上带信息和观点聚焦功能的节点；另一方面，对既有信息进行分类、遴选和包装的能力，逐渐取代原创内容生产能力，成为数字新闻机构最主要的竞争力。论证：这两方面变化预示着媒体机构正在丧失传统意义上的新闻生产主导权，新资本与技术流向自媒体、新闻聚合服务、众筹新闻等没有传统束缚的新型主体，生产主体多元化不可逆转。\n【二、新闻从业者的技工化：从标准评判者到技术使用者】数字技术削弱了从业者作为把关人的身份认同，群体从新闻标准的评判者向生产技术的使用者转型。传统环境下，一线采编人员拥有相对独立于政府、广告商和受众的自治权，决定哪些新闻元素进入流通；数字环境下新闻成为跨媒体、跨平台的语境化叙事，放诸四海皆准的新闻价值判断体系和基于单一媒介的编排原则不再重要，生产技术的发展转向对信息高效分类、甄别和模式化制作的智能技术。论证：新闻生产日益成为技术性工作，遵循机械的与智能的理性，职业身份中的人文精神式微、技术思维崛起，深刻影响专业认同与价值取向。\n【三、新闻专业文化走向价值极化：从公共产品到观点宿主】数字技术以技术理性取代专业主义，使新闻业形成价值极化的专业文化，新闻从严肃的公共文化产品堕落为立场和观点寄生的宿主。数字新闻业的利润与影响力首要来源是用户访问与交互带来的流量，各类平台通过产品功能设计鼓励甚至刺激观点冲突，令原本并不明显极化的价值体系受到人为撕裂，操演出不同极端意识形态。论证：专业文化的极化并非偶然偏差，它是技术理性取代专业主义之后的系统性后果——当流量成为核心评价标准、情感认同取代客观信息需求，新闻业便从理性的公共讨论空间滑向情绪化的观点竞争场域。", "keys": "三点各 3 分：论点准确 1 分、论据具体 1 分、论证到位 1 分；结构不写成「论点—论据—论证」整体扣 2 分", "explain": "三点是递进的：主体变了（谁在生产）→ 人的角色变了（生产者变成什么）→ 文化变了（生产出来的东西变成什么）。这个「主体—人—文化」的三级链条比死记三个小标题好使，考场上就算忘了一个标题，也能顺着链条推。另注意第三点的表述是「价值极化」，不是「价值多元」——极化是贬义，指被流量人为撕裂成两个极端，写成「多元」等于答反。", "_id": 11}, {"id": 12, "type": "short", "rows": 16, "kp": "新闻回避（上海交大 2026 真题）", "stem": "论述新闻回避的成因、影响及措施。（上海交通大学 2026）", "answer": "【概念与背景】新闻回避指新闻用户在一段特定时间内有意识地、主动地忽视、逃避或拒绝部分或全部新闻内容的行为，是用户对信息失序、信息过载和舆论极化等结构性问题做出的有意义的抵消行为。路透社新闻研究所《2026 年数字新闻报告》覆盖 48 个市场显示，全球 42% 的受访者经常或有时刻意回避新闻，较 2017 年的 29% 大幅上升，新闻信任度降至 37% 的历史最低水平。\n【一、成因】①个体层面：认知负荷与情绪调节的自我保护。新闻过载与低质量内容引发新闻倦怠，进而促使用户回避；用户为对抗倦怠而规避同质化新闻，为构筑信息安全屏障而忽略负能量新闻；报告指出回避最常见的原因是新闻对情绪产生了负面影响。②社会层面：新闻信任崩塌与传播生态公共性的侵蚀。新闻信任度越低的人群回避越频繁——信任是新闻消费得以发生的前提，当用户不再相信机构能提供准确公正可信的信息，接触新闻便失去基本的认知回报预期，回避反而成为理性选择。\n【二、影响】①认知层面：知识鸿沟与误解风险加剧。回避者缺乏信息输入，难以形成对公共事务的准确判断，在公共决策中处于认知弱势；持续接触者不断积累政治知识与参与技能，两者差距叠加扩大，公共讨论话语权日益集中于少数信息优势群体。②态度层面：新闻信任侵蚀的恶性循环。回避者不仅对新闻机构失去信任，更将不信任扩展为对信息环境整体的不安全感，形成「不信任—回避—更缺高质量接触—固化负面认知」的自我强化闭环。爱德曼信任度晴雨表中国报告显示，「主要新闻机构」净信任度变化为 -11，传统媒体作为新闻信源的信任度较上年下降 5 个百分点。\n【三、措施】①理念层面：从记录问题转向介入解决。以建设性新闻的解决方案导向报道重塑公众消费意愿——回避的核心动因之一是对负面信息的情绪疲劳，而建设性新闻呈现问题的应对路径，能促进读者的乐观情绪与内在效能感，提升其继续阅读相关议题的可能性。②实践层面：从被动接收转向主动辨识。有赖于媒介素养的系统性提升，使用户具备辨识能力、情绪调节能力与理性参与能力；日本 NIE（Newspaper in Education）项目把报纸引入课堂，由新闻博物馆与学校、图书馆合作跨越媒介边界承担素养教育职能，可作为参照。媒介素养教育的目标落在恢复用户与新闻之间的建设性连接上，单靠提升新闻消费量并不够。③【自行补充的制度层】平台责任与评价机制：将公共价值指标纳入平台算法与媒体考核，避免流量单一指标挤压公共议题可见性。\n【结语】新闻回避既是用户理性的自我保护，也是新闻业合法性危机的症候。仅靠劝用户「多看新闻」无效，须在理念、实践与制度三层同时修复信任与连接。", "keys": "成因两层面各 2 分（共 4）／影响两层面各 2 分（共 4）／措施两层各 2 分（共 4）／概念与数据支撑 2 分／结语有判断 1 分", "explain": "⚠️ 讲义这一题的批注写「理念、制度、实践——治理框架带入」，但正文只展开了「理念」和「实践」两层，「制度」层是空的。也就是说，按讲义原样背，你的答案只有两层措施，而题目批注自己要求三层——这是本讲最明显的缺口，考场上必须自己补一层制度（平台责任、评价机制、算法透明度任选其一）。补上这层，答案才配得上「治理框架」四个字。另外数据要背准：42%／2017 年 29%／信任度 37%，三个数字是一组，写错一个这题的实证支撑就塌了。", "_id": 12}, {"id": 13, "type": "short", "rows": 14, "kp": "数字新闻业流程再造", "stem": "数字技术推动新闻业全流程再造，请简述数字新闻业呈现出的四个转向，并各举一例。", "answer": "【一、生产主体的泛化转向：从记者到新闻人】传统由专业记者与机构主导的格局被打破，普通公众、自媒体运营者、公民记者广泛参与新闻生产与传播。「新闻人」概念超越「记者」的职业范畴，涵盖所有参与新闻生产与传播的个体，反映生产实践的民主化与去中心化。例：加拿大 1998—2017 年记者总数翻番，但长期受雇于新闻机构的记者在减少，临时记者比例从 15% 升至约 25%。\n【二、运营的算法化转向：从数字化阶段迈向人工智能阶段】算法广泛深入参与新闻生产，改变了新闻价值评估标准（从经验判断转向基于实证测量的数据分析），革新了生产模式（手工作坊转向人机协同）、叙事方式（线性叙事转向交互叙事）与内容推送（大众化覆盖转向个体化定制）。需注意算法并非中立，其设计与运行蕴含设计者价值观。例：平台以算法分配可见性，情绪化、冲突性内容更易获得推送。\n【三、实践的介入性转向：新闻业与用户建立亲密关系】新闻业更注重与社会现实紧密互动，通过深度参与帮助解决社会问题。新闻工作者不仅是社会观察者，更是社会参与者，报道中嵌入建设性解决方案，并通过社交平台获取反馈、迭代报道。例：河南广播电视台「大象帮」平台，联合各地市党委政府部门、民生栏目与县域融媒体，构建跨媒体跨屏幕的融合生态系统，实现群众、媒体、政府之间的实时互动。\n【四、内容的感官化转向：创造有「厚度」的声色体验】报道不再局限于文字与图片，而通过视频、音频、虚拟现实等多媒体形态提供更丰富感官体验，用 360 度全景视频、空间音频模拟三维空间，提供沉浸式体验。例：重庆广电第 1 眼 TV 新闻 XR 演播区 2026 年 9 月升级至 2.0，从搭建观感出众的新闻棚，转向在云端构建能讲故事的城市观察空间。\n【收束】四个转向是技术逻辑与新闻逻辑交织的产物，既拓展了新闻的形态与功能，也带来质量、偏见与伦理风险，新闻业需在开放与专业、技术与人文之间寻求平衡。", "keys": "四个转向名称各 1.5 分（共 6）；每个转向配一句机制说明各 1 分（共 4）；举例两个以上各 0.5 分；收束有风险判断 1 分", "explain": "四个转向的记法是一条「谁做—怎么做—做什么姿态—做成什么样子」的链：主体（新闻人）→ 运营（算法化）→ 姿态（介入性）→ 呈现（感官化）。举例不必死背数字，但「大象帮」「XR 演播区 2.0」这两个本土案例值得记——论述题里能举出国内主流媒体的融合实践，比只举《纽约时报》更贴中国语境。注意「感官化」的辩证：讲义明确提示要防感官超负荷、防以感官刺激牺牲内容深度，最后一句不写风险，这题就只是列举不是论述。", "_id": 13}]}, {"name": "四、政治 · 错题回滚（全单选 4 题）", "questions": [{"id": 14, "type": "choice", "kp": "教育强国「六个以」", "stem": "在教育强国建设的战略部署中，「立德树人」对应的定位是：", "options": ["根本保证", "根本任务", "根本目标", "核心功能"], "answer": "B", "explain": "六个「以」的完整链条：根本保证＝党的领导；根本任务＝立德树人；根本目标＝为党育人、为国育才；重要使命＝服务中华民族伟大复兴；基本路径＝教育现代化；核心功能＝支撑引领中国式现代化。另外「人民满意」是根本尺度，不是目标——这一对词是高频设错点。你上次这道题四个空全是自己造的词（「根本方向」「基本目标」「最终目的」「最终标准」），说明问题不在记牢与否，在于没背过原表述。用「保—任—目—使—路—功」六字链先锁骨架，再填内容。", "_id": 14}, {"id": 15, "type": "choice", "kp": "统一战线「三个最」", "stem": "统一战线工作中，要解决「人心和力量」问题，其对应的定位与路径是：", "options": ["统一战线的关键，靠坚持求同存异", "统一战线的本质要求，靠坚持大团结大联合", "统一战线最鲜明的特征，靠坚持党的领导", "统一战线的根本方法，靠坚持协商民主"], "answer": "B", "explain": "四级递进链：本质要求＝大团结大联合，解决的是人心和力量问题；关键＝求同存异；最鲜明的特征＝党的领导。A 把「关键」的路径安到了「本质要求」上；C 的定位对但解决的不是人心和力量问题；D「根本方法」是自己造的词。你上次填成「大／差异」，是只记住了有个「大」字却丢了整个词——这次注意：答案必须是文件原话，不能靠语感拼。", "_id": 15}, {"id": 16, "type": "choice", "kp": "法治体系五大体系", "stem": "中国特色社会主义法治体系由五个子体系构成。按「法律规范—法治实施—法治监督—法治保障」的排列顺序，紧随其后的是：", "options": ["党内法规体系", "法治人才体系", "法治文化体系", "法律监督体系"], "answer": "A", "explain": "五字链：规 → 实 → 监 → 保 → 党。法律规范体系、法治实施体系、法治监督体系、法治保障体系、党内法规体系。B、C 是自己造的词（法治人才、法治文化是建设内容，不是这五个子体系之一）；D「法律监督」与「法治监督」一字之差，是最容易上当的干扰项——监督的对象是「法治」的整体运行，不是「法律」本身。你上次五个名字全空，却把「两个以…为核心」的精细辨析记住了，说明背诵顺序反了：先把五字链背成顺口溜，再补细节。", "_id": 16}, {"id": 17, "type": "choice", "kp": "全过程人民民主「四个相统一」", "stem": "全过程人民民主的「四个相统一」，不包括下列哪一项？", "options": ["过程民主和成果民主相统一", "程序民主和实质民主相统一", "选举民主和协商民主相统一", "直接民主和间接民主相统一"], "answer": "C", "explain": "四个相统一＝过程民主与成果民主、程序民主与实质民主、直接民主与间接民主、人民民主与国家意志。C 不在其中：选举民主与协商民主是社会主义民主的两种重要形式（两种「形式」），不是「同一民主的两个侧面」，因此不构成一组「统一」。判别口诀：四对里的前三对都是「同一个民主的两个面向」，第四对是「民主的主体与国家意志」，而选举／协商是并列的两种实现形式。你上次就是在这里把包含项当成了不包含项。", "_id": 17}]}, {"name": "五、英语（词汇 + 长难句 + 方法反思 3 题）", "questions": [{"id": 18, "type": "fill", "blanks": 3, "kp": "核心词汇（上次错题换句回滚）", "stem": "根据中文提示，在横线上填入恰当的英文（第 1 空填动词短语，第 2、3 空各填一个单词，注意词形变化）：\n① 政府承诺严厉打击网络诈骗。\n　The government promised to ____ cyber fraud.\n② 那片北美大草原上几乎见不到树。\n　There are hardly any trees on the ____.\n③ 这个问题比上一个更棘手。\n　This problem is ____ than the previous one.", "answer": "① crack down on　② prairie　③ thornier", "keys": "每空 1 分，拼写错即不得分；①漏掉 on 扣 0.5", "explain": "这三个词上次全错：crack down on 你译成「崩塌」（那是 collapse，且词性不对——crack down 是朝外的「打压」，联想「警方扫荡」）；prairie 你没答出来，建议和 plain／plateau 三个一起记（草原／平原／高原）；thornier 你写「更尖锐」，方向对但搭配错，thorny 修饰「问题」时固定译「棘手」。这次换成产出题（给中文写英文），比上次的英译中更狠——认得出不等于写得出。", "_id": 18}, {"id": 19, "type": "translate", "kp": "长难句（比较级回滚）", "stem": "翻译下面这句话，并单独标出句子主干：\n\nAdults who rely mainly on social media for information are far more likely to overestimate how much they actually know than those who actively seek out news.", "answer": "【译文】主要依靠社交媒体获取信息的成年人，远比那些主动搜寻新闻的人更容易高估自己实际掌握的知识。\n【主干】Adults ... are far more likely to overestimate ... than those ...\n　主语：Adults（后接 who 定语从句 who rely mainly on social media for information）\n　谓语：are\n　表语：far more likely to overestimate how much they actually know\n　比较状语：than those（those 后接 who actively seek out news）\n【要点】① far more likely 必须译出「远远更可能／远比……更可能」，漏掉 far 的强化意味扣分；② overestimate 译「高估」而非「过度估计」；③ those 要译成「那些……的人」，不能留空或译成「他们」；④ how much they actually know 是宾语从句，译「自己实际掌握多少知识」。", "keys": "主干正确 3 分；定语从句与比较结构译出 3 分；far more likely 的程度义译出 1 分；overestimate 词义准确 1 分；汉语通顺 2 分", "explain": "这题就是上次那道「are far more likely to feel threatened」的换句回滚——同一个坑：比较级前的程度副词 far 被吞掉。英二翻译的评分细则里，程度副词和比较级属于「信息完整」项，漏了直接扣分，而这类错在你身上已经出现过一次。另外 those 的指代上次也没译出来，这次两个考点叠在一句里，看你还漏不漏。", "_id": 19}, {"id": 20, "type": "short", "rows": 6, "kp": "翻译方法反思", "stem": "复盘：你近三次测验的英语失分集中在两类——词汇义项记错、比较级与程度副词漏译。请写出明天要执行的两条具体动作（要求可验证，不要写「多背单词」「多练翻译」这类空话），并说明你怎么判断自己做到了。", "answer": "参考方向（不要求一致，但要具体可验证）：\n① 词汇：把 crack down on／prairie／thornier 这类「认得出但写不对」的词单独建一个「产出型词表」，只收中文→英文方向的条目；每天睡前遮住英文默写 10 个，写错的重置计数，连续两天全对才移出。判断标准：默写正确率，不靠「感觉记住了」。\n② 翻译：每译完一句，回头专门做一次「程度词扫描」——把 far／much／far more／significantly／considerably／increasingly 这类词圈出来，检查是否在译文里有对应表达；同时检查比较结构是否有「比」字落地。判断标准：每句至少过一遍这个清单，且译文中「比／更／远」类词与原文程度词数量对得上。\n③ 记录方式：在错题本上只记「错因标签」（义项错／漏译程度词／指代未译），不抄整句，一周看一次标签分布。", "keys": "两条动作各 2 分（须可验证、可执行）；判断标准各 1 分；有记录或复盘机制 1 分", "explain": "这题不是考知识，是考你有没有把「失分」变成「机制」。你的失分模式很稳定——不是不会，是漏。漏的毛病靠「多练」治不好，只能靠固定检查动作治。写不出判断标准的答案，等于明天不会执行。", "_id": 20}]}]};
+const QUIZID = "2026-10-18";
+const KEY = "quiz_" + QUIZID;
+const TOTAL = 20;
+
+// ---- 状态存取 ----
+let state = JSON.parse(localStorage.getItem(KEY) || "{}");
+
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+function answeredCount(){
+  let n = 0;
+  QUIZ.sections.forEach(s => s.questions.forEach((q, i) => {
+    const id = q._id;
+    const v = state[id];
+    if (q.type === "choice") { if (v) n++; }
+    else if (q.type === "fill") {
+      if (v && Object.values(v).some(x => (x||"").trim())) n++;
+    }
+    else { if (v && v.trim()) n++; }
+  }));
+  return n;
+}
+
+function updateProgress(){
+  const n = answeredCount();
+  const pct = Math.round(n / TOTAL * 100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("ptext").textContent = `已作答 ${n} / ${TOTAL}`;
+  document.getElementById("tbCount").textContent = `${n} / ${TOTAL}`;
+  document.getElementById("doneTip").classList.toggle("show", n >= TOTAL);
+}
+
+function flashSaved(n){
+  const el = document.querySelector(`.saved[data-saved="${n}"]`);
+  if (!el) return;
+  el.textContent = "已保存";
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 1200);
+}
+
+// ---- 绑定交互 ----
+document.querySelectorAll(".opt input").forEach(inp => {
+  inp.addEventListener("change", e => {
+    const n = +e.target.name.replace("q", "");
+    state[n] = e.target.value;
+    save(); updateProgress(); flashSaved(n);
+  });
+});
+
+document.querySelectorAll(".fillin").forEach(inp => {
+  inp.addEventListener("input", e => {
+    const n = e.target.dataset.q, b = e.target.dataset.b;
+    state[n] = state[n] || {};
+    state[n][b] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+document.querySelectorAll(".shortin,.transin").forEach(ta => {
+  ta.addEventListener("input", e => {
+    const n = e.target.dataset.q;
+    state[n] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+// 查看解析
+document.querySelectorAll(".btn-ans").forEach(b => {
+  b.addEventListener("click", () => {
+    const n = b.dataset.q;
+    const box = document.querySelector(`.ansbox[data-ans="${n}"]`);
+    const open = !box.hidden;
+    box.hidden = open;
+    b.textContent = open ? "查看解析" : "收起解析";
+  });
+});
+
+document.getElementById("btnRevealAll").addEventListener("click", function(){
+  const anyHidden = [...document.querySelectorAll(".ansbox")].some(b => b.hidden);
+  document.querySelectorAll(".ansbox").forEach(b => b.hidden = !anyHidden);
+  document.querySelectorAll(".btn-ans").forEach(b => {
+    b.textContent = anyHidden ? "收起解析" : "查看解析";
+  });
+  this.textContent = anyHidden ? "收起全部解析" : "展开全部解析";
+});
+
+// 清空
+document.getElementById("btnReset").addEventListener("click", () => {
+  if (!confirm("确定清空全部作答？此操作不可撤销。")) return;
+  state = {}; save();
+  document.querySelectorAll(".opt input").forEach(i => i.checked = false);
+  document.querySelectorAll(".fillin,.shortin,.transin").forEach(i => i.value = "");
+  updateProgress();
+});
+
+// ---- 导出答案 ----
+function buildExport(){
+  const L = [];
+  L.push(`# ${QUIZ.title} — 我的作答`);
+  L.push("");
+  L.push(`日期：${QUIZ.date}`);
+  L.push(`完成：${answeredCount()} / ${TOTAL} 题`);
+  L.push("");
+  const tname = {choice:"单选", fill:"填空", short:"问答", translate:"长难句翻译"};
+  QUIZ.sections.forEach(s => {
+    L.push(`## ${s.name}`);
+    L.push("");
+    s.questions.forEach(q => {
+      const v = state[q._id];
+      L.push(`### ${q._id}. [${tname[q.type]}]`);
+      L.push(q.stem);
+      L.push("");
+      if (q.type === "choice") {
+        L.push(`**我的答案：** ${v ? v : "（未作答）"}`);
+      } else if (q.type === "fill") {
+        const arr = [];
+        for (let i = 0; i < (q.blanks || 1); i++) {
+          const k = String(i);
+          arr.push(`第${i+1}空：${(v && v[k]) ? v[k] : "（空）"}`);
+        }
+        L.push(`**我的答案：** ${arr.join("　")}`);
+      } else {
+        L.push(`**我的答案：**`);
+        L.push("");
+        L.push(v && v.trim() ? v : "（未作答）");
+      }
+      L.push("");
+    });
+  });
+  return L.join("\n");
+}
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  document.getElementById("exportArea").value = buildExport();
+  document.getElementById("modal").classList.add("show");
+});
+document.getElementById("btnCloseModal").addEventListener("click", () => {
+  document.getElementById("modal").classList.remove("show");
+});
+document.getElementById("btnDownload").addEventListener("click", () => {
+  const blob = new Blob([buildExport()], {type:"text/markdown;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${QUIZID}-我的作答.md`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") e.target.classList.remove("show");
+});
+
+// ---- 恢复状态 ----
+(function restore(){
+  document.querySelectorAll(".opt input").forEach(inp => {
+    const n = +inp.name.replace("q", "");
+    if (state[n] === inp.value) inp.checked = true;
+  });
+  document.querySelectorAll(".fillin").forEach(inp => {
+    const n = inp.dataset.q, b = inp.dataset.b;
+    if (state[n] && state[n][b] != null) inp.value = state[n][b];
+  });
+  document.querySelectorAll(".shortin,.transin").forEach(ta => {
+    const n = ta.dataset.q;
+    if (state[n] != null) ta.value = state[n];
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
