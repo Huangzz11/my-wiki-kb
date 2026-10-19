@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考研每日测验 · 10.19 综合卷（素材：抓马扣叔《中国新闻史名词解释与简答词条手册》＋ 国际传播答题框架图卡 ＋ 错题回滚 30%）</title>
+<style>
+:root{
+  --bg:#f7f8fb; --card:#fff; --ink:#1c2430; --sub:#60708a;
+  --line:#e3e8f0; --blue:#2F5B9E; --blue-l:#e8eef8;
+  --green:#1f8a52; --green-l:#e6f5ec;
+  --amber:#b4740a; --amber-l:#fdf3e0;
+  --red:#c0392b; --red-l:#fdeceb;
+  --violet:#6b4ea8; --violet-l:#f0ebfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+    "Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.7;
+  padding:0 0 120px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+/* 顶部 */
+header{
+  background:linear-gradient(135deg,#2F5B9E 0%,#40699f 60%,#5b7fb5 100%);
+  color:#fff;padding:34px 0 26px;margin-bottom:24px;
+  box-shadow:0 2px 14px rgba(47,91,158,.18);
+}
+header h1{font-size:23px;font-weight:650;letter-spacing:.3px;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.85}
+.statline{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chip{
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);
+  border-radius:999px;padding:4px 13px;font-size:12.5px;backdrop-filter:blur(4px)
+}
+
+/* 进度条 */
+.progress-sticky{
+  position:sticky;top:0;z-index:50;background:rgba(247,248,251,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+  padding:10px 0;margin-bottom:8px;
+}
+.pbar{height:7px;background:#e6eaf2;border-radius:99px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,#2F5B9E,#5b8fd4);
+  border-radius:99px;transition:width .35s ease}
+.ptext{font-size:12.5px;color:var(--sub);margin-top:6px;display:flex;
+  justify-content:space-between}
+
+/* 分区 */
+.sec{margin:30px 0 0}
+.sec h2{
+  font-size:16.5px;font-weight:640;color:var(--blue);
+  display:flex;align-items:center;gap:9px;padding-bottom:9px;
+  border-bottom:2px solid var(--blue-l);margin-bottom:16px;
+}
+.dot{width:9px;height:9px;border-radius:3px;background:var(--blue);
+  display:inline-block;flex:0 0 auto}
+.secmeta{margin-left:auto;font-size:12px;color:var(--sub);font-weight:400}
+
+/* 题目卡片 */
+.q{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:17px 19px;margin-bottom:13px;transition:border-color .2s,box-shadow .2s;
+}
+.q:focus-within{border-color:#b9cdea;box-shadow:0 3px 14px rgba(47,91,158,.09)}
+.qhead{display:flex;align-items:center;gap:9px;margin-bottom:10px;flex-wrap:wrap}
+.qno{
+  width:26px;height:26px;border-radius:8px;background:var(--blue);
+  color:#fff;font-size:13px;font-weight:600;display:flex;
+  align-items:center;justify-content:center;flex:0 0 auto;
+}
+.qtag{font-size:11.5px;padding:2px 9px;border-radius:6px;font-weight:500}
+.t-choice{background:var(--blue-l);color:var(--blue)}
+.t-fill{background:var(--green-l);color:var(--green)}
+.t-short{background:var(--violet-l);color:var(--violet)}
+.t-translate{background:var(--amber-l);color:var(--amber)}
+.kp{font-size:11.5px;color:var(--sub);margin-left:auto}
+.stem{font-size:14.8px;margin-bottom:12px;white-space:pre-wrap}
+
+/* 单选 */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 13px;
+  border:1px solid var(--line);border-radius:9px;cursor:pointer;
+  transition:all .16s;font-size:14.2px;
+}
+.opt:hover{background:#f4f7fc;border-color:#c3d5ee}
+.opt input{display:none}
+.opt .letter{
+  width:21px;height:21px;border-radius:6px;background:#eef1f6;color:var(--sub);
+  font-size:12px;font-weight:600;display:flex;align-items:center;
+  justify-content:center;flex:0 0 auto;margin-top:2px;transition:all .16s;
+}
+.opt input:checked~.letter{background:var(--blue);color:#fff}
+.opt:has(input:checked){background:var(--blue-l);border-color:#9dbde6}
+.otext{flex:1}
+
+/* 填空 */
+.fills{display:flex;flex-direction:column;gap:8px}
+.fillin{
+  font-family:inherit;font-size:14.2px;padding:9px 13px;
+  border:1px solid var(--line);border-radius:8px;background:#fcfdff;
+  transition:all .16s;width:100%;
+}
+.fillin:focus{outline:none;border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 文本域 */
+.shortin,.transin{
+  font-family:inherit;font-size:14.2px;line-height:1.75;padding:11px 14px;
+  border:1px solid var(--line);border-radius:9px;background:#fcfdff;
+  width:100%;resize:vertical;transition:all .16s;
+}
+.shortin:focus,.transin:focus{outline:none;border-color:var(--blue);
+  background:#fff;box-shadow:0 0 0 3px rgba(47,91,158,.09)}
+
+/* 按钮与解析 */
+.qfoot{display:flex;align-items:center;gap:11px;margin-top:11px}
+.btn-ans{
+  font-family:inherit;font-size:12.5px;padding:5px 13px;border-radius:7px;
+  border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;
+  transition:all .16s;
+}
+.btn-ans:hover{background:var(--blue-l);border-color:#a8c4e8;color:var(--blue)}
+.saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
+.saved.show{opacity:1}
+.ansbox{
+  margin-top:12px;padding:13px 15px;background:#fafbfd;
+  border-left:3px solid var(--blue);border-radius:0 8px 8px 0;font-size:13.8px;
+}
+.ansline{margin-bottom:8px;display:flex;gap:9px;line-height:1.7}
+.ansline:last-child{margin-bottom:0}
+.ansline b{
+  flex:0 0 auto;color:var(--blue);font-size:12px;font-weight:640;
+  background:var(--blue-l);padding:2px 8px;border-radius:5px;height:fit-content;
+  margin-top:3px;
+}
+.ansline .got{color:var(--green);font-weight:600}
+
+/* 底部操作栏 */
+.toolbar{
+  position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);padding:12px 20px;z-index:60;
+  backdrop-filter:blur(10px);box-shadow:0 -2px 16px rgba(28,36,48,.07);
+}
+.tb-inner{max-width:820px;margin:0 auto;display:flex;
+  align-items:center;gap:11px;flex-wrap:wrap}
+.btn{
+  font-family:inherit;font-size:13.5px;padding:9px 19px;border-radius:9px;
+  border:none;cursor:pointer;font-weight:530;transition:all .16s;
+}
+.btn-main{background:var(--blue);color:#fff}
+.btn-main:hover{background:#264d87;transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--sub);border:1px solid var(--line)}
+.btn-ghost:hover{background:#f4f6fa;color:var(--ink)}
+.tb-count{font-size:13px;color:var(--sub);margin-left:auto}
+
+/* 完成提示 */
+.done-tip{
+  margin-top:22px;padding:18px 20px;border-radius:12px;
+  background:var(--green-l);border:1px solid #bfe5ce;color:#14603a;
+  font-size:14px;display:none;
+}
+.done-tip.show{display:block}
+.done-tip b{display:block;margin-bottom:6px;font-size:15px}
+
+/* 答案导出弹层 */
+.modal{
+  position:fixed;inset:0;background:rgba(20,28,40,.5);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:#fff;border-radius:14px;max-width:660px;width:100%;
+  max-height:82vh;display:flex;flex-direction:column;overflow:hidden;
+}
+.modal-head{padding:17px 21px;border-bottom:1px solid var(--line);
+  font-weight:620;font-size:15.5px;color:var(--blue)}
+.modal-body{padding:18px 21px;overflow-y:auto;flex:1}
+.modal-body textarea{
+  width:100%;height:340px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.65;border:1px solid var(--line);
+  border-radius:9px;padding:13px;background:#fafbfd;resize:vertical;
+}
+.modal-foot{padding:14px 21px;border-top:1px solid var(--line);
+  display:flex;gap:10px;justify-content:flex-end}
+.modal-tip{font-size:12.5px;color:var(--sub);margin-bottom:11px;line-height:1.65}
+
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  header{padding:26px 0 20px}
+  header h1{font-size:19px}
+  .q{padding:14px 15px}
+  .stem{font-size:14.2px}
+  .tb-count{display:none}
+  .kp{margin-left:0;width:100%}
+}
+@media print{
+  .toolbar,.btn-ans,.progress-sticky{display:none}
+  .ansbox[hidden]{display:block!important}
+  .q{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>考研每日测验 · 10.19 综合卷（素材：抓马扣叔《中国新闻史名词解释与简答词条手册》＋ 国际传播答题框架图卡 ＋ 错题回滚 30%）</h1>
+    <div class="meta">2026-10-19 · 共 20 题 · 今晚 22:30 自动生成</div>
+    <div class="statline">
+      <span class="chip">单选 9</span>
+      <span class="chip">填空 5</span>
+      <span class="chip">问答 5</span>
+      <span class="chip">长难句 1</span>
+    </div>
+  </div>
+</header>
+
+<div class="progress-sticky">
+  <div class="wrap">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <div class="ptext">
+      <span id="ptext">已作答 0 / 20</span>
+      <span>进度自动保存，刷新不丢</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  
+<section class="sec">
+  <h2><span class="dot"></span>一、专业课 · 中国新闻史（本卷新素材，此前零覆盖）
+    <span class="secmeta">10 题</span></h2>
+  
+<div class="q" data-q="1" data-type="choice">
+  <div class="qhead">
+    <span class="qno">1</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">定本制度</span>
+  </div>
+  <div class="stem">关于宋代的定本制度，下列说法正确的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q1" value="A"><span class="letter">A</span><span class="otext">它是元代为管理民间报房而设立的审查制度</span></label><label class="opt"><input type="radio" name="q1" value="B"><span class="letter">B</span><span class="otext">进奏官采集的材料经本院监官编好后送枢密院审查，通过的样本称“定本”，进奏院须以定本为准，不得擅自增减</span></label><label class="opt"><input type="radio" name="q1" value="C"><span class="letter">C</span><span class="otext">定本制度自宋真宗时确立后一直沿用，中间未曾中断</span></label><label class="opt"><input type="radio" name="q1" value="D"><span class="letter">D</span><span class="otext">它只约束民间小报，对官方邸报不起作用</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="1">查看解析</button>
+    <span class="saved" data-saved="1"></span>
+  </div>
+  <div class="ansbox" data-ans="1" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>定本制度是宋代的新闻预检制度，也是中国最早有文献可查的新闻检查制度，A 的“元代”直接判错。原文写它“曾两度取消，都在不久后恢复”，C 的“未曾中断”反了。它的约束对象正是邸报的传报活动，D 把作用对象弄反。记住一条主轴：定本 = 预检 = 控制邸报，三步（编好—送审—以定本为准）不能漏。</div></div>
+</div>
+<div class="q" data-q="2" data-type="choice">
+  <div class="qhead">
+    <span class="qno">2</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">苏报案</span>
+  </div>
+  <div class="stem">1903 年苏报案的最终判决结果是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q2" value="A"><span class="letter">A</span><span class="otext">章太炎、邹容均判永久监禁，未作改判</span></label><label class="opt"><input type="radio" name="q2" value="B"><span class="letter">B</span><span class="otext">改判章太炎监禁三年、邹容两年，《苏报》永远停刊</span></label><label class="opt"><input type="radio" name="q2" value="C"><span class="letter">C</span><span class="otext">二人无罪释放，《苏报》继续在上海出版</span></label><label class="opt"><input type="radio" name="q2" value="D"><span class="letter">D</span><span class="otext">章太炎流亡日本，邹容瘐死狱中，《苏报》罚款后复刊</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="2">查看解析</button>
+    <span class="saved" data-saved="2"></span>
+  </div>
+  <div class="ansbox" data-ans="2" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>判决有一个改判过程：先判永久监禁，后在国内外舆论压力下改判章太炎三年、邹容两年，《苏报》永远停刊。A 停在改判前，属于少答一层。C 完全反了。D 一半真一半假——邹容确实在狱中被害致死，但章太炎是服刑，未流亡，且《苏报》是永远停刊，没有复刊。这类题考的就是“先……后……”的时间层次。</div></div>
+</div>
+<div class="q" data-q="3" data-type="choice">
+  <div class="qhead">
+    <span class="qno">3</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">察世俗 / 东西洋考</span>
+  </div>
+  <div class="stem">中国国内第一篇介绍西方报业和新闻自由的专论《新闻纸略论》，发表在哪份刊物上？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q3" value="A"><span class="letter">A</span><span class="otext">《察世俗每月统记传》</span></label><label class="opt"><input type="radio" name="q3" value="B"><span class="letter">B</span><span class="otext">《东西洋考每月统记传》</span></label><label class="opt"><input type="radio" name="q3" value="C"><span class="letter">C</span><span class="otext">《万国公报》</span></label><label class="opt"><input type="radio" name="q3" value="D"><span class="letter">D</span><span class="otext">《申报》</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="3">查看解析</button>
+    <span class="saved" data-saved="3"></span>
+  </div>
+  <div class="ansbox" data-ans="3" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>《新闻纸略论》刊于 1833 年郭士立在广州创办的《东西洋考每月统记传》。两份刊物容易串，按“第一”分别记：《察世俗每月统记传》（1815，米怜，马六甲）是中国第一份中文近代报刊，它的“第一”是第一条消息《月食》预告、最早广告《告贴》、最早新闻图画；《东西洋考每月统记传》的“第一”是第一篇新闻学专论、首创编者按、首先登载社会新闻。</div></div>
+</div>
+<div class="q" data-q="4" data-type="choice">
+  <div class="qhead">
+    <span class="qno">4</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">新青年</span>
+  </div>
+  <div class="stem">标志《新青年》由民主主义刊物向社会主义刊物过渡的事件是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q4" value="A"><span class="letter">A</span><span class="otext">1915 年陈独秀在上海创刊，高举民主与科学</span></label><label class="opt"><input type="radio" name="q4" value="B"><span class="letter">B</span><span class="otext">1918 年李大钊发表《庶民的胜利》《布尔什维主义的胜利》</span></label><label class="opt"><input type="radio" name="q4" value="C"><span class="letter">C</span><span class="otext">1920 年改组为中共上海发起组机关刊物</span></label><label class="opt"><input type="radio" name="q4" value="D"><span class="letter">D</span><span class="otext">1922 年 7 月终刊</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="4">查看解析</button>
+    <span class="saved" data-saved="4"></span>
+  </div>
+  <div class="ansbox" data-ans="4" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>三阶段按时间锁死：1915.9—1918.11 民主主义阶段（民主与科学、批孔、文学革命）；1918.12—1920.8 过渡阶段，标志就是李大钊这两篇文章，“马克思主义研究专号”和《我的马克思主义观》都在这一段；1920.9—1922.7 无产阶级报刊阶段，改组为机关刊物。C 是过渡完成后的结果，A 是起点，D 是终点，三项都不是“过渡的标志”。</div></div>
+</div>
+<div class="q" data-q="5" data-type="fill">
+  <div class="qhead">
+    <span class="qno">5</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">王韬 / 循环日报</span>
+  </div>
+  <div class="stem">1874 年，王韬在____创办《循环日报》，这是我国第一家以____为主的报纸；1883 年，他的政论文章汇编《____》出版，成为中国新闻史上第一本报刊政论文集。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="5" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="5" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="5" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="5">查看解析</button>
+    <span class="saved" data-saved="5"></span>
+  </div>
+  <div class="ansbox" data-ans="5" hidden><div class="ansline"><b>参考答案</b>香港、政论、《弢园文录外编》</div><div class="ansline"><b>得分点</b>每空 1 分, 第一空写“上海”不得分, 第三空须写出书名，只写“弢园”给半分</div><div class="ansline"><b>解析</b>人—报—文集串成一条线：王韬 1874.2 于香港创《循环日报》，1883 年出《弢园文录外编》。两个高频错点：把《循环日报》记成在上海（上海那份是容闳 1874 年办的《汇报》，国人在上海创办的第一份民办报纸）；把《弢园文录外编》和《弢园尺牍》混为一谈。</div></div>
+</div>
+<div class="q" data-q="6" data-type="fill">
+  <div class="qhead">
+    <span class="qno">6</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">新记大公报</span>
+  </div>
+  <div class="stem">1926 年 9 月，____、____、____三人组成新记公司接办《大公报》，在____复刊。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="6" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="6" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="6" data-b="2" placeholder="第 3 空" autocomplete="off"><input class="fillin" type="text" data-q="6" data-b="3" placeholder="第 4 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="6">查看解析</button>
+    <span class="saved" data-saved="6"></span>
+  </div>
+  <div class="ansbox" data-ans="6" hidden><div class="ansline"><b>参考答案</b>吴鼎昌、胡政之、张季鸾、天津</div><div class="ansline"><b>得分点</b>三个人名各 1 分，顺序不限, 城市 1 分, 人名写错字不得分</div><div class="ansline"><b>解析</b>三人连分工一起记：吴鼎昌独自投资、自认社长；胡政之任经理兼副总编辑；张季鸾任总编辑兼副经理。复刊号发表张季鸾《本社同仁之志趣》，提出“不党、不私、不卖、不盲”。1926 年复刊在天津原址，上海版要到 1936 年才创办，这一条常被记成“上海复刊”。</div></div>
+</div>
+<div class="q" data-q="7" data-type="fill">
+  <div class="qhead">
+    <span class="qno">7</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">解放日报改版</span>
+  </div>
+  <div class="stem">1942 年延安《解放日报》改版，发表社论《____》，提出要使报纸“成为真正战斗的党的机关报”；改版后第一版为____，新闻报道内容由以国际新闻为主改为以____为主。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="7" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="7" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="7">查看解析</button>
+    <span class="saved" data-saved="7"></span>
+  </div>
+  <div class="ansbox" data-ans="7" hidden><div class="ansline"><b>参考答案</b>致读者、根据地要闻、抗日民主根据地新闻</div><div class="ansline"><b>得分点</b>每空 1 分, 第一空须写《致读者》, 第三空答“根据地”给半分，答“抗日民主根据地”满分</div><div class="ansline"><b>解析</b>改版四步：调版面（一版根据地要闻、二版陕甘宁边区、三版国际、四版副刊专论）→ 换重心（国际改成根据地）→ 改文风（反党八股）→ 抓队伍。意义落在“全党办报”的确立和无产阶级新闻理论的初步奠基。这题和《新华日报》必须分开：一个是延安的中共中央机关报（1941.5.16 创刊），一个是国统区公开出版的第一张大型报纸（1938.1.11 武汉创刊，后迁重庆）。</div></div>
+</div>
+<div class="q" data-q="8" data-type="short">
+  <div class="qhead">
+    <span class="qno">8</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">小报</span>
+  </div>
+  <div class="stem">简述宋代小报出现的背景与意义。（背景不少于三点，意义不少于三点，另补一句它的局限）</div>
+  <textarea class="shortin" data-q="8" rows="8" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="8">查看解析</button>
+    <span class="saved" data-saved="8"></span>
+  </div>
+  <div class="ansbox" data-ans="8" hidden><div class="ansline"><b>参考答案</b>背景：①小报产生于统治集团内部，其屡禁不止与宋代中央集权削弱直接相关；②经济繁荣、物质生活富足，为其产生提供物质条件；③封建王朝对官报严厉控制，人们难以通过官方渠道了解时局真相，需要在官方渠道之外另辟信息来源；④经济发展带动文化需求，宋代理学、文学、史学、艺术与科技高度繁荣，提供文化条件；⑤活字印刷提供技术条件。
+意义：①常被政府在野一派利用，刊载对当权者不利的消息与时事政治材料；民族矛盾尖锐时常被主战官员与各阶层爱国人士用来刊载呼吁抵御外辱的大臣奏疏和前方战报；②提供大量官报未载、官方禁发的文件与新闻，满足士大夫对朝廷人事变动和正式活动消息的需求，成为邸报的重要补充；③打破官方对新闻传播的垄断与封锁，打破邸报一统天下的局面，标志民间办报的开端和封建官报大一统局面的终结。
+局限：小报没有自己的言论，遭官方查禁、连续发行无保证，业务仍处原始状态，内容也未超出为封建统治阶级服务的范畴。</div><div class="ansline"><b>得分点</b>背景答到 3 点给 3 分, 意义 3 点各 1 分, 补出“无言论 / 业务原始 / 屡禁不止”中任一条再给 1 分, 只答“打破垄断”一句，意义最多给 1 分</div><div class="ansline"><b>解析</b>这题丢分几乎都丢在意义只写一句“打破垄断”。意义的三个层次要分开写：信息服务（补官报之缺）→ 传播格局（打破一统、民间办报开端）→ 政治功能（被在野派利用）。局限也是采分点，只写优点等于答一半。</div></div>
+</div>
+<div class="q" data-q="9" data-type="short">
+  <div class="qhead">
+    <span class="qno">9</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">王韬办报思想</span>
+  </div>
+  <div class="stem">简述王韬的办报思想，并说明《循环日报》在中国新闻史上的地位。</div>
+  <textarea class="shortin" data-q="9" rows="8" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="9">查看解析</button>
+    <span class="saved" data-saved="9"></span>
+  </div>
+  <div class="ansbox" data-ans="9" hidden><div class="ansline"><b>参考答案</b>办报思想：①办报目的——“借日报立言”，通过报纸宣传变法自强的政治主张；②报纸功能有四——“民隐得以上达”（博采舆论）、“君惠得以下逮”（消除隔阂，国家才能长治久安）、“达内事于外”、“通外事于内”；③文风应直抒胸臆、辞达而已；④编辑人员应知识广博，主笔应品德高尚、持论公平；⑤新闻自由——最早在国内提出言论自由要求，呼吁朝廷放宽严禁、允许民间创办报纸。
+《循环日报》地位：1874 年 2 月创刊于香港，是中国报刊史上第一个以政论为主的报纸，也是我国近代最早宣传资产阶级维新变法思想的报纸之一，还是早期国人自办报刊中出版时间最长、影响最大的一份；宗旨为“强中以攘外，诹远以师长，变法以自强”；每天在头版头条刊载一篇政论，多由王韬执笔；开我国国人自办报刊重政论的传统，首创并建设报刊政论文体，后经梁启超发展成时务文体。</div><div class="ansline"><b>得分点</b>思想答到 3 点给 3 分, 四个功能答全给 2 分（只答两个给 1 分）, 地位三条（第一个政论报 / 首创政论文体 / 宗旨）各 1 分, 点出“最早提出言论自由”再给 1 分</div><div class="ansline"><b>解析</b>最容易塌的一处是“四个功能”只记住两个。四个方向成对背：向上（民隐上达）、向下（君惠下逮）、向外（达内事于外）、向内（通外事于内）。“最早在国内提出言论自由”是王韬区别于洪仁玕、郑观应的标签，这一句能让答案的辨识度立刻出来。</div></div>
+</div>
+<div class="q" data-q="10" data-type="short">
+  <div class="qhead">
+    <span class="qno">10</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">解放日报整风改革</span>
+  </div>
+  <div class="stem">延安《解放日报》在整风运动中的改革包括哪些内容？其意义是什么？</div>
+  <textarea class="shortin" data-q="10" rows="7" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="10">查看解析</button>
+    <span class="saved" data-saved="10"></span>
+  </div>
+  <div class="ansbox" data-ans="10" hidden><div class="ansline"><b>参考答案</b>改革内容：①改革分四个阶段推进，从头到尾抓两个问题——观念更新与队伍建设；②调整版面顺序：第一版根据地要闻，第二版陕甘宁边区新闻，第三版国际新闻，第四版副刊和各种专论；③报道内容由以国际新闻为主改为以抗日民主根据地新闻为主；④改进文风，密切联系实际，克服党八股。
+意义：①根据地报刊更注重加强党的领导、联系实际、联系群众，延安及各抗日民主根据地新闻事业走上成熟发展的道路；②丰富和发展了我国无产阶级新闻理论，“全党办报”的思想得到确立；③对党报的性质和作用、新闻工作的党性原则、无产阶级新闻观与资产阶级新闻观的区别、报刊文风等作了系统论述，初步奠定我国无产阶级新闻理论的基础。</div><div class="ansline"><b>得分点</b>内容四点各 1 分, 意义三点各 1 分, 写出“全党办报”额外加分（总评时体现）</div><div class="ansline"><b>解析</b>时间线要卡死：1941.5.16 创刊，1942 年开始整风改版，起点文件是《致读者》。意义上写“全党办报”四个字，是这道题从及格到优良的分界。改革内容里的“观念更新 + 队伍建设”这两条常被漏，它们正是“抓两个问题”的原文。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>二、专业课 · 国际传播答题框架（今日图卡素材）
+    <span class="secmeta">3 题</span></h2>
+  
+<div class="q" data-q="11" data-type="choice">
+  <div class="qhead">
+    <span class="qno">11</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">框架选择</span>
+  </div>
+  <div class="stem">下面四道题，哪一道最适合用「三落差（信息逆差／认知反差／实力落差）」这个框架作答？</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q11" value="A"><span class="letter">A</span><span class="otext">中国国际传播面临的主要困境是什么</span></label><label class="opt"><input type="radio" name="q11" value="B"><span class="letter">B</span><span class="otext">加强国际传播能力建设的意义何在</span></label><label class="opt"><input type="radio" name="q11" value="C"><span class="letter">C</span><span class="otext">新世界信息秩序之争经历了哪几个阶段</span></label><label class="opt"><input type="radio" name="q11" value="D"><span class="letter">D</span><span class="otext">国际新闻与全球新闻的区别</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="11">查看解析</button>
+    <span class="saved" data-saved="11"></span>
+  </div>
+  <div class="ansbox" data-ans="11" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>三落差的落点是“为什么必须做”：信息逆差指向争夺国际话语权，认知反差指向国家形象，实力落差指向大国责任，天然对接“意义／必要性”类设问。A 对应「三不」困境链；C 对应三次浪潮（1980《多种声音，一个世界》即麦克布莱德报告 → 21 世纪互联网核心资源治理 → 2024《全球数字契约》）；D 直接用“是否存在特定的民族国家参照系”下判断。选框架先看设问问的是“为什么难”“为什么必须做”还是“是什么”，这一步错了，后面写得再满也是白写。</div></div>
+</div>
+<div class="q" data-q="12" data-type="fill">
+  <div class="qhead">
+    <span class="qno">12</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">三不困境链</span>
+  </div>
+  <div class="stem">国际传播「三不」困境链中：____ 对应国家利益与意识形态对立；____ 对应文化差异（陌生人理论→高低语境→文明冲突论）；____ 对应媒体报道的他者化与错位叙事。</div>
+  <div class="fills"><input class="fillin" type="text" data-q="12" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="12" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="12" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="12">查看解析</button>
+    <span class="saved" data-saved="12"></span>
+  </div>
+  <div class="ansbox" data-ans="12" hidden><div class="ansline"><b>参考答案</b>不想听、听不进、爱捣乱</div><div class="ansline"><b>得分点</b>每空 1 分, 顺序不可调换, 写“听不到”等自造词不得分</div><div class="ansline"><b>解析</b>这三句是口语层，答题时先甩出来，再展开成四个困境（话语围堵／渠道压制／媒体围攻／认知差异）。学术层的支撑分别对应：不想听——修昔底德陷阱、塔西佗陷阱、刻板印象；听不进——文化折扣、传播隔阂、霍尔的高／低语境；爱捣乱——萨义德批判的“他者化”、“他塑”状态、错位三要素（新闻发生地、媒体所在地、受众接收地）、计算宣传（代码与算法封禁＋机器人水军）。三层与四困境不等量对应，这一点下一题会考。</div></div>
+</div>
+<div class="q" data-q="13" data-type="short">
+  <div class="qhead">
+    <span class="qno">13</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">框架 A 实战骨架</span>
+  </div>
+  <div class="stem">以「当前中国国际传播面临的主要问题」为题，写出你的答题骨架：首段定性句 + 三不三层 + 四个困境 + 落点。</div>
+  <textarea class="shortin" data-q="13" rows="9" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="13">查看解析</button>
+    <span class="saved" data-saved="13"></span>
+  </div>
+  <div class="ansbox" data-ans="13" hidden><div class="ansline"><b>参考答案</b>首段定性：国际传播秩序与国际舆论话语体系，是全球权力结构在信息领域的制度化呈现；当前格局可概括为“美英垄断，西强东弱”，并呈现多极化、圈层化、技术赋能、博弈加剧的特征。
+三不三层：①不想听——国家利益与意识形态对立，西方预设框架；②听不进——文化差异，陌生人理论→高／低语境→文明冲突论；③爱捣乱——媒体报道的他者化与错位叙事，加上渠道打压。
+四个困境：话语围堵（修昔底德陷阱、塔西佗陷阱、刻板印象）、渠道压制、媒体围攻、认知差异（文化折扣、传播隔阂）。
+落点：突破西方话语体系藩篱，按文化距离分层精准传播；可用“有理说不出，说了传不开，传开叫不响”收束，再落到展示真实、立体、全面的中国。</div><div class="ansline"><b>得分点</b>首段有定性句给 2 分, 三层齐全给 3 分, 四个困境给 3 分, 落点（藩篱 + 分层传播）给 2 分, 只堆名词、不写层次关系，总分不超过 5 分</div><div class="ansline"><b>解析</b>这题考的是结构，文采不加分。三层与四困境不等量：“不想听”落话语围堵，“听不进”落认知差异，“爱捣乱”同时落渠道压制与媒体围攻，三层就此展开成四个困境。这层对应关系说不清，答案就会写成三条并列，篇幅自然撑不住——你笔记里“看着会、写就废”的症结就在这里。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>三、政治 · 单选（错题回滚 4 题）
+    <span class="secmeta">4 题</span></h2>
+  
+<div class="q" data-q="14" data-type="choice">
+  <div class="qhead">
+    <span class="qno">14</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">党的显著标志（P0 回滚）</span>
+  </div>
+  <div class="stem">下列关于「党的显著标志」与「党的三大优良作风」的表述，正确的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q14" value="A"><span class="letter">A</span><span class="otext">理论联系实际、密切联系群众、批评和自我批评，加上人民至上、勇于自我革命，共同构成党的显著标志</span></label><label class="opt"><input type="radio" name="q14" value="B"><span class="letter">B</span><span class="otext">三大优良作风是党在七大上概括的，勇于自我革命是党区别于其他政党的显著标志，两者分属不同来源，不能并列成一句</span></label><label class="opt"><input type="radio" name="q14" value="C"><span class="letter">C</span><span class="otext">三大优良作风包括理论联系实际、密切联系群众、艰苦奋斗</span></label><label class="opt"><input type="radio" name="q14" value="D"><span class="letter">D</span><span class="otext">勇于自我革命是党的七大提出的三大优良作风之一</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="14">查看解析</button>
+    <span class="saved" data-saved="14"></span>
+  </div>
+  <div class="ansbox" data-ans="14" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>A 就是你 9.17 笔记里的原写法——把三大优良作风、人民至上、勇于自我革命并列成一句，这是错的，也是本卷最该盯的一处。两条来源各背各的：党的七大（1945）概括三大优良作风——理论联系实际、密切联系群众、批评和自我批评；十九届六中全会《决议》指出勇于自我革命是党区别于其他政党的显著标志。C 把“艰苦奋斗”塞进三大作风（那是“两个务必”的内容）；D 把两条来源混成一条。</div></div>
+</div>
+<div class="q" data-q="15" data-type="choice">
+  <div class="qhead">
+    <span class="qno">15</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">教育强国六个以（P0 回滚）</span>
+  </div>
+  <div class="stem">教育强国「六个以」依次为：根本保证—根本任务—根本目标—重要使命—基本路径—核心功能。下列配对正确的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q15" value="A"><span class="letter">A</span><span class="otext">根本保证——立德树人</span></label><label class="opt"><input type="radio" name="q15" value="B"><span class="letter">B</span><span class="otext">根本任务——立德树人</span></label><label class="opt"><input type="radio" name="q15" value="C"><span class="letter">C</span><span class="otext">根本目标——人民满意</span></label><label class="opt"><input type="radio" name="q15" value="D"><span class="letter">D</span><span class="otext">核心功能——教育现代化</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="15">查看解析</button>
+    <span class="saved" data-saved="15"></span>
+  </div>
+  <div class="ansbox" data-ans="15" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>A 把“立德树人”挂到了根本保证上，根本保证是党的领导。C 的“人民满意”是根本尺度，这一对是整套表述里最高频的设错点，“尺度”和“目标”只差一个字，含义完全不同。D 的“教育现代化”是基本路径，核心功能落在“引领现代化”。链条记成：保（证）→党，任（务）→德育，目（标）→育才，使（命）→复兴，路（径）→现代化，功（能）→领现代化。</div></div>
+</div>
+<div class="q" data-q="16" data-type="choice">
+  <div class="qhead">
+    <span class="qno">16</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">统战三个最（P0 回滚）</span>
+  </div>
+  <div class="stem">关于统一战线的“三个最”，下列表述正确的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q16" value="A"><span class="letter">A</span><span class="otext">本质要求是大团结大联合，解决的是人心和力量问题</span></label><label class="opt"><input type="radio" name="q16" value="B"><span class="letter">B</span><span class="otext">本质要求是求同存异，解决的是人心和力量问题</span></label><label class="opt"><input type="radio" name="q16" value="C"><span class="letter">C</span><span class="otext">求同存异是最鲜明的特征，党的领导是关键</span></label><label class="opt"><input type="radio" name="q16" value="D"><span class="letter">D</span><span class="otext">党的领导是本质要求，大团结大联合是最鲜明的特征</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="16">查看解析</button>
+    <span class="saved" data-saved="16"></span>
+  </div>
+  <div class="ansbox" data-ans="16" hidden><div class="ansline"><b>参考答案</b>A</div><div class="ansline"><b>解析</b>三条各归其位：本质要求＝大团结大联合（解决人心和力量问题）；关键＝坚持求同存异；最鲜明的特征＝党的领导。B 把“求同存异”塞进本质要求；C、D 是把三条整体错位。你上次把“大团结大联合”记成“大”、把“人心和力量”记成“差异”，丢掉的都是词——四级链背成：联合（本质）→人心（对象）→存异（方法）→党旗（特征）。</div></div>
+</div>
+<div class="q" data-q="17" data-type="choice">
+  <div class="qhead">
+    <span class="qno">17</span>
+    <span class="qtag t-choice">单选</span>
+    <span class="kp">法治体系五大体系（P1 换血）</span>
+  </div>
+  <div class="stem">中国特色社会主义法治体系的五个子体系中，排在“法治保障体系”之后的是：</div>
+  <div class="opts"><label class="opt"><input type="radio" name="q17" value="A"><span class="letter">A</span><span class="otext">法治监督体系</span></label><label class="opt"><input type="radio" name="q17" value="B"><span class="letter">B</span><span class="otext">党内法规体系</span></label><label class="opt"><input type="radio" name="q17" value="C"><span class="letter">C</span><span class="otext">法律规范体系</span></label><label class="opt"><input type="radio" name="q17" value="D"><span class="letter">D</span><span class="otext">法治实施体系</span></label></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="17">查看解析</button>
+    <span class="saved" data-saved="17"></span>
+  </div>
+  <div class="ansbox" data-ans="17" hidden><div class="ansline"><b>参考答案</b>B</div><div class="ansline"><b>解析</b>五字链：规→实→监→保→党。法律规范体系→法治实施体系→法治监督体系→法治保障体系→党内法规体系。A、C、D 都排在“保障”之前，属于顺序错位。这条链还有一层用处：党内法规单列在最后，说明依规治党被纳入法治体系，这正是“法治体系”区别于“法律体系”的地方，答比较类题目可以直接用。</div></div>
+</div>
+</section>
+<section class="sec">
+  <h2><span class="dot"></span>四、英语 · 词汇与翻译（错题回滚 2 题）
+    <span class="secmeta">3 题</span></h2>
+  
+<div class="q" data-q="18" data-type="fill">
+  <div class="qhead">
+    <span class="qno">18</span>
+    <span class="qtag t-fill">填空</span>
+    <span class="kp">词汇搭配（P1 回滚）</span>
+  </div>
+  <div class="stem">按中文提示填入恰当的词或短语，注意搭配与词形：
+①政府承诺对网络谣言____（严厉打击）。
+②站在蒙古高原上，眼前是一望无际的____（大草原）。
+③和上一轮相比，这次谈判的问题要____（棘手得多）。（提示：thorny 的比较级）</div>
+  <div class="fills"><input class="fillin" type="text" data-q="18" data-b="0" placeholder="第 1 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="1" placeholder="第 2 空" autocomplete="off"><input class="fillin" type="text" data-q="18" data-b="2" placeholder="第 3 空" autocomplete="off"></div>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="18">查看解析</button>
+    <span class="saved" data-saved="18"></span>
+  </div>
+  <div class="ansbox" data-ans="18" hidden><div class="ansline"><b>参考答案</b>crack down on；prairie；thornier</div><div class="ansline"><b>得分点</b>每空 1 分, crack down on 漏掉 on 扣半分, thornier 拼写错误不得分</div><div class="ansline"><b>解析</b>crack down on 是你上次写成“崩塌”的词——崩塌是 collapse，crack down on 是“严厉打击、镇压”，动作朝外，联想警方扫荡。prairie 与大草原绑定，同族词分清：plain 平原、plateau 高原、prairie 草原（北美）。thornier 是变 y 为 i 再加 er。</div></div>
+</div>
+<div class="q" data-q="19" data-type="translate">
+  <div class="qhead">
+    <span class="qno">19</span>
+    <span class="qtag t-translate">长难句翻译</span>
+    <span class="kp">长难句（P2 回滚：比较级不可省）</span>
+  </div>
+  <div class="stem">翻译下面这句话，并标出主干：
+
+The people who rely only on algorithmically curated feeds are far more likely to overestimate how widely their own views are shared than those who regularly read a wider range of sources.</div>
+  <textarea class="transin" data-q="19" rows="3" placeholder="写下你的译文"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="19">查看解析</button>
+    <span class="saved" data-saved="19"></span>
+  </div>
+  <div class="ansbox" data-ans="19" hidden><div class="ansline"><b>参考答案</b>译文：那些只依赖算法推荐信息流的人，比那些经常阅读更广泛信源的人，要远远更容易高估自己的观点被多少人认同。
+主干：The people（主语，后接 who 引导的定语从句）are（系动词）far more likely（表语）to overestimate ...（不定式作补足）than those who ...（than 引出比较对象）。</div><div class="ansline"><b>得分点</b>far more likely 译出“远远更有可能”给 3 分, than those who 译为“比那些……的人”给 2 分, overestimate 译“高估”给 1 分, 主干划分正确给 2 分, 漏译程度副词扣 2 分</div><div class="ansline"><b>解析</b>这跟你上次栽的是同一个坑：`are far more likely to feel threatened` 你只译成“感到受到威胁”，far more likely 整个丢掉。英二翻译里比较级和程度副词是明确的采分点，省掉等于主动送分。另外 those 后面带 who 从句，必须译成“那些……的人”，只写“那些人”会丢掉定语信息。how widely their own views are shared 是宾语从句，译成“自己的观点被多少人认同”比直译“被分享得多广”通顺。</div></div>
+</div>
+<div class="q" data-q="20" data-type="short">
+  <div class="qhead">
+    <span class="qno">20</span>
+    <span class="qtag t-short">问答</span>
+    <span class="kp">翻译方法反思</span>
+  </div>
+  <div class="stem">结合上面两道题，写三条明天就能执行的做法：怎么处理“记住词义但搭配错”、怎么保证翻译时不漏比较级与程度副词、怎么核对译文里的指代对象。</div>
+  <textarea class="shortin" data-q="20" rows="5" placeholder="写下你的要点（分点作答）"></textarea>
+  <div class="qfoot">
+    <button class="btn-ans" data-q="20">查看解析</button>
+    <span class="saved" data-saved="20"></span>
+  </div>
+  <div class="ansbox" data-ans="20" hidden><div class="ansline"><b>参考答案</b>参考方向：①词汇按搭配整块记（crack down on、be likely to do），不背孤立词义；错题本上只记“搭配错”，不记“不认识”。②翻译动笔前先在原句上圈出比较级、程度副词、否定词，译完逐项打勾核对，漏一项补一项。③代词（those / it / they）下笔前先回指到具体名词，译文里写成“那些……的人”这类完整结构，不留悬空的“那些人”。</div><div class="ansline"><b>得分点</b>三条各 1 分，每条须含具体动作, 只写“多练”“多背”“注意积累”不得分</div><div class="ansline"><b>解析</b>这三条分别对应你上次失分的三种形态：搭配错（crack down）、程度漏译（far more likely）、指代含糊（those）。方法题不给空话分，写不出动作就等于没答。</div></div>
+</div>
+</section>
+
+  <div class="done-tip" id="doneTip">
+    <b>🎉 全部作答完毕</b>
+    点右下角「导出我的答案」，把导出的文件发给我，我会逐题批改并给出评分与改进建议。
+  </div>
+</div>
+
+<div class="toolbar">
+  <div class="tb-inner">
+    <button class="btn btn-main" id="btnExport">导出我的答案</button>
+    <button class="btn btn-ghost" id="btnRevealAll">展开全部解析</button>
+    <button class="btn btn-ghost" id="btnReset">清空重做</button>
+    <span class="tb-count" id="tbCount">0 / 20</span>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">你的答案（复制后发给我批改）</div>
+    <div class="modal-body">
+      <div class="modal-tip">
+        全选复制下面的内容，粘贴到对话里发给我即可。也可以点「下载 .md」保存成文件再上传。
+      </div>
+      <textarea id="exportArea" readonly></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="btnCloseModal">关闭</button>
+      <button class="btn btn-main" id="btnDownload">下载 .md</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ = {"title": "考研每日测验 · 10.19 综合卷（素材：抓马扣叔《中国新闻史名词解释与简答词条手册》＋ 国际传播答题框架图卡 ＋ 错题回滚 30%）", "date": "2026-10-19", "sections": [{"name": "一、专业课 · 中国新闻史（本卷新素材，此前零覆盖）", "questions": [{"id": 1, "type": "choice", "kp": "定本制度", "stem": "关于宋代的定本制度，下列说法正确的是：", "options": ["它是元代为管理民间报房而设立的审查制度", "进奏官采集的材料经本院监官编好后送枢密院审查，通过的样本称“定本”，进奏院须以定本为准，不得擅自增减", "定本制度自宋真宗时确立后一直沿用，中间未曾中断", "它只约束民间小报，对官方邸报不起作用"], "answer": "B", "explain": "定本制度是宋代的新闻预检制度，也是中国最早有文献可查的新闻检查制度，A 的“元代”直接判错。原文写它“曾两度取消，都在不久后恢复”，C 的“未曾中断”反了。它的约束对象正是邸报的传报活动，D 把作用对象弄反。记住一条主轴：定本 = 预检 = 控制邸报，三步（编好—送审—以定本为准）不能漏。", "_id": 1}, {"id": 2, "type": "choice", "kp": "苏报案", "stem": "1903 年苏报案的最终判决结果是：", "options": ["章太炎、邹容均判永久监禁，未作改判", "改判章太炎监禁三年、邹容两年，《苏报》永远停刊", "二人无罪释放，《苏报》继续在上海出版", "章太炎流亡日本，邹容瘐死狱中，《苏报》罚款后复刊"], "answer": "B", "explain": "判决有一个改判过程：先判永久监禁，后在国内外舆论压力下改判章太炎三年、邹容两年，《苏报》永远停刊。A 停在改判前，属于少答一层。C 完全反了。D 一半真一半假——邹容确实在狱中被害致死，但章太炎是服刑，未流亡，且《苏报》是永远停刊，没有复刊。这类题考的就是“先……后……”的时间层次。", "_id": 2}, {"id": 3, "type": "choice", "kp": "察世俗 / 东西洋考", "stem": "中国国内第一篇介绍西方报业和新闻自由的专论《新闻纸略论》，发表在哪份刊物上？", "options": ["《察世俗每月统记传》", "《东西洋考每月统记传》", "《万国公报》", "《申报》"], "answer": "B", "explain": "《新闻纸略论》刊于 1833 年郭士立在广州创办的《东西洋考每月统记传》。两份刊物容易串，按“第一”分别记：《察世俗每月统记传》（1815，米怜，马六甲）是中国第一份中文近代报刊，它的“第一”是第一条消息《月食》预告、最早广告《告贴》、最早新闻图画；《东西洋考每月统记传》的“第一”是第一篇新闻学专论、首创编者按、首先登载社会新闻。", "_id": 3}, {"id": 4, "type": "choice", "kp": "新青年", "stem": "标志《新青年》由民主主义刊物向社会主义刊物过渡的事件是：", "options": ["1915 年陈独秀在上海创刊，高举民主与科学", "1918 年李大钊发表《庶民的胜利》《布尔什维主义的胜利》", "1920 年改组为中共上海发起组机关刊物", "1922 年 7 月终刊"], "answer": "B", "explain": "三阶段按时间锁死：1915.9—1918.11 民主主义阶段（民主与科学、批孔、文学革命）；1918.12—1920.8 过渡阶段，标志就是李大钊这两篇文章，“马克思主义研究专号”和《我的马克思主义观》都在这一段；1920.9—1922.7 无产阶级报刊阶段，改组为机关刊物。C 是过渡完成后的结果，A 是起点，D 是终点，三项都不是“过渡的标志”。", "_id": 4}, {"id": 5, "type": "fill", "blanks": 3, "kp": "王韬 / 循环日报", "stem": "1874 年，王韬在____创办《循环日报》，这是我国第一家以____为主的报纸；1883 年，他的政论文章汇编《____》出版，成为中国新闻史上第一本报刊政论文集。", "answer": "香港、政论、《弢园文录外编》", "keys": ["每空 1 分", "第一空写“上海”不得分", "第三空须写出书名，只写“弢园”给半分"], "explain": "人—报—文集串成一条线：王韬 1874.2 于香港创《循环日报》，1883 年出《弢园文录外编》。两个高频错点：把《循环日报》记成在上海（上海那份是容闳 1874 年办的《汇报》，国人在上海创办的第一份民办报纸）；把《弢园文录外编》和《弢园尺牍》混为一谈。", "_id": 5}, {"id": 6, "type": "fill", "blanks": 4, "kp": "新记大公报", "stem": "1926 年 9 月，____、____、____三人组成新记公司接办《大公报》，在____复刊。", "answer": "吴鼎昌、胡政之、张季鸾、天津", "keys": ["三个人名各 1 分，顺序不限", "城市 1 分", "人名写错字不得分"], "explain": "三人连分工一起记：吴鼎昌独自投资、自认社长；胡政之任经理兼副总编辑；张季鸾任总编辑兼副经理。复刊号发表张季鸾《本社同仁之志趣》，提出“不党、不私、不卖、不盲”。1926 年复刊在天津原址，上海版要到 1936 年才创办，这一条常被记成“上海复刊”。", "_id": 6}, {"id": 7, "type": "fill", "blanks": 3, "kp": "解放日报改版", "stem": "1942 年延安《解放日报》改版，发表社论《____》，提出要使报纸“成为真正战斗的党的机关报”；改版后第一版为____，新闻报道内容由以国际新闻为主改为以____为主。", "answer": "致读者、根据地要闻、抗日民主根据地新闻", "keys": ["每空 1 分", "第一空须写《致读者》", "第三空答“根据地”给半分，答“抗日民主根据地”满分"], "explain": "改版四步：调版面（一版根据地要闻、二版陕甘宁边区、三版国际、四版副刊专论）→ 换重心（国际改成根据地）→ 改文风（反党八股）→ 抓队伍。意义落在“全党办报”的确立和无产阶级新闻理论的初步奠基。这题和《新华日报》必须分开：一个是延安的中共中央机关报（1941.5.16 创刊），一个是国统区公开出版的第一张大型报纸（1938.1.11 武汉创刊，后迁重庆）。", "_id": 7}, {"id": 8, "type": "short", "rows": 8, "kp": "小报", "stem": "简述宋代小报出现的背景与意义。（背景不少于三点，意义不少于三点，另补一句它的局限）", "answer": "背景：①小报产生于统治集团内部，其屡禁不止与宋代中央集权削弱直接相关；②经济繁荣、物质生活富足，为其产生提供物质条件；③封建王朝对官报严厉控制，人们难以通过官方渠道了解时局真相，需要在官方渠道之外另辟信息来源；④经济发展带动文化需求，宋代理学、文学、史学、艺术与科技高度繁荣，提供文化条件；⑤活字印刷提供技术条件。\n意义：①常被政府在野一派利用，刊载对当权者不利的消息与时事政治材料；民族矛盾尖锐时常被主战官员与各阶层爱国人士用来刊载呼吁抵御外辱的大臣奏疏和前方战报；②提供大量官报未载、官方禁发的文件与新闻，满足士大夫对朝廷人事变动和正式活动消息的需求，成为邸报的重要补充；③打破官方对新闻传播的垄断与封锁，打破邸报一统天下的局面，标志民间办报的开端和封建官报大一统局面的终结。\n局限：小报没有自己的言论，遭官方查禁、连续发行无保证，业务仍处原始状态，内容也未超出为封建统治阶级服务的范畴。", "keys": ["背景答到 3 点给 3 分", "意义 3 点各 1 分", "补出“无言论 / 业务原始 / 屡禁不止”中任一条再给 1 分", "只答“打破垄断”一句，意义最多给 1 分"], "explain": "这题丢分几乎都丢在意义只写一句“打破垄断”。意义的三个层次要分开写：信息服务（补官报之缺）→ 传播格局（打破一统、民间办报开端）→ 政治功能（被在野派利用）。局限也是采分点，只写优点等于答一半。", "_id": 8}, {"id": 9, "type": "short", "rows": 8, "kp": "王韬办报思想", "stem": "简述王韬的办报思想，并说明《循环日报》在中国新闻史上的地位。", "answer": "办报思想：①办报目的——“借日报立言”，通过报纸宣传变法自强的政治主张；②报纸功能有四——“民隐得以上达”（博采舆论）、“君惠得以下逮”（消除隔阂，国家才能长治久安）、“达内事于外”、“通外事于内”；③文风应直抒胸臆、辞达而已；④编辑人员应知识广博，主笔应品德高尚、持论公平；⑤新闻自由——最早在国内提出言论自由要求，呼吁朝廷放宽严禁、允许民间创办报纸。\n《循环日报》地位：1874 年 2 月创刊于香港，是中国报刊史上第一个以政论为主的报纸，也是我国近代最早宣传资产阶级维新变法思想的报纸之一，还是早期国人自办报刊中出版时间最长、影响最大的一份；宗旨为“强中以攘外，诹远以师长，变法以自强”；每天在头版头条刊载一篇政论，多由王韬执笔；开我国国人自办报刊重政论的传统，首创并建设报刊政论文体，后经梁启超发展成时务文体。", "keys": ["思想答到 3 点给 3 分", "四个功能答全给 2 分（只答两个给 1 分）", "地位三条（第一个政论报 / 首创政论文体 / 宗旨）各 1 分", "点出“最早提出言论自由”再给 1 分"], "explain": "最容易塌的一处是“四个功能”只记住两个。四个方向成对背：向上（民隐上达）、向下（君惠下逮）、向外（达内事于外）、向内（通外事于内）。“最早在国内提出言论自由”是王韬区别于洪仁玕、郑观应的标签，这一句能让答案的辨识度立刻出来。", "_id": 9}, {"id": 10, "type": "short", "rows": 7, "kp": "解放日报整风改革", "stem": "延安《解放日报》在整风运动中的改革包括哪些内容？其意义是什么？", "answer": "改革内容：①改革分四个阶段推进，从头到尾抓两个问题——观念更新与队伍建设；②调整版面顺序：第一版根据地要闻，第二版陕甘宁边区新闻，第三版国际新闻，第四版副刊和各种专论；③报道内容由以国际新闻为主改为以抗日民主根据地新闻为主；④改进文风，密切联系实际，克服党八股。\n意义：①根据地报刊更注重加强党的领导、联系实际、联系群众，延安及各抗日民主根据地新闻事业走上成熟发展的道路；②丰富和发展了我国无产阶级新闻理论，“全党办报”的思想得到确立；③对党报的性质和作用、新闻工作的党性原则、无产阶级新闻观与资产阶级新闻观的区别、报刊文风等作了系统论述，初步奠定我国无产阶级新闻理论的基础。", "keys": ["内容四点各 1 分", "意义三点各 1 分", "写出“全党办报”额外加分（总评时体现）"], "explain": "时间线要卡死：1941.5.16 创刊，1942 年开始整风改版，起点文件是《致读者》。意义上写“全党办报”四个字，是这道题从及格到优良的分界。改革内容里的“观念更新 + 队伍建设”这两条常被漏，它们正是“抓两个问题”的原文。", "_id": 10}]}, {"name": "二、专业课 · 国际传播答题框架（今日图卡素材）", "questions": [{"id": 11, "type": "choice", "kp": "框架选择", "stem": "下面四道题，哪一道最适合用「三落差（信息逆差／认知反差／实力落差）」这个框架作答？", "options": ["中国国际传播面临的主要困境是什么", "加强国际传播能力建设的意义何在", "新世界信息秩序之争经历了哪几个阶段", "国际新闻与全球新闻的区别"], "answer": "B", "explain": "三落差的落点是“为什么必须做”：信息逆差指向争夺国际话语权，认知反差指向国家形象，实力落差指向大国责任，天然对接“意义／必要性”类设问。A 对应「三不」困境链；C 对应三次浪潮（1980《多种声音，一个世界》即麦克布莱德报告 → 21 世纪互联网核心资源治理 → 2024《全球数字契约》）；D 直接用“是否存在特定的民族国家参照系”下判断。选框架先看设问问的是“为什么难”“为什么必须做”还是“是什么”，这一步错了，后面写得再满也是白写。", "_id": 11}, {"id": 12, "type": "fill", "blanks": 3, "kp": "三不困境链", "stem": "国际传播「三不」困境链中：____ 对应国家利益与意识形态对立；____ 对应文化差异（陌生人理论→高低语境→文明冲突论）；____ 对应媒体报道的他者化与错位叙事。", "answer": "不想听、听不进、爱捣乱", "keys": ["每空 1 分", "顺序不可调换", "写“听不到”等自造词不得分"], "explain": "这三句是口语层，答题时先甩出来，再展开成四个困境（话语围堵／渠道压制／媒体围攻／认知差异）。学术层的支撑分别对应：不想听——修昔底德陷阱、塔西佗陷阱、刻板印象；听不进——文化折扣、传播隔阂、霍尔的高／低语境；爱捣乱——萨义德批判的“他者化”、“他塑”状态、错位三要素（新闻发生地、媒体所在地、受众接收地）、计算宣传（代码与算法封禁＋机器人水军）。三层与四困境不等量对应，这一点下一题会考。", "_id": 12}, {"id": 13, "type": "short", "rows": 9, "kp": "框架 A 实战骨架", "stem": "以「当前中国国际传播面临的主要问题」为题，写出你的答题骨架：首段定性句 + 三不三层 + 四个困境 + 落点。", "answer": "首段定性：国际传播秩序与国际舆论话语体系，是全球权力结构在信息领域的制度化呈现；当前格局可概括为“美英垄断，西强东弱”，并呈现多极化、圈层化、技术赋能、博弈加剧的特征。\n三不三层：①不想听——国家利益与意识形态对立，西方预设框架；②听不进——文化差异，陌生人理论→高／低语境→文明冲突论；③爱捣乱——媒体报道的他者化与错位叙事，加上渠道打压。\n四个困境：话语围堵（修昔底德陷阱、塔西佗陷阱、刻板印象）、渠道压制、媒体围攻、认知差异（文化折扣、传播隔阂）。\n落点：突破西方话语体系藩篱，按文化距离分层精准传播；可用“有理说不出，说了传不开，传开叫不响”收束，再落到展示真实、立体、全面的中国。", "keys": ["首段有定性句给 2 分", "三层齐全给 3 分", "四个困境给 3 分", "落点（藩篱 + 分层传播）给 2 分", "只堆名词、不写层次关系，总分不超过 5 分"], "explain": "这题考的是结构，文采不加分。三层与四困境不等量：“不想听”落话语围堵，“听不进”落认知差异，“爱捣乱”同时落渠道压制与媒体围攻，三层就此展开成四个困境。这层对应关系说不清，答案就会写成三条并列，篇幅自然撑不住——你笔记里“看着会、写就废”的症结就在这里。", "_id": 13}]}, {"name": "三、政治 · 单选（错题回滚 4 题）", "questions": [{"id": 14, "type": "choice", "kp": "党的显著标志（P0 回滚）", "stem": "下列关于「党的显著标志」与「党的三大优良作风」的表述，正确的是：", "options": ["理论联系实际、密切联系群众、批评和自我批评，加上人民至上、勇于自我革命，共同构成党的显著标志", "三大优良作风是党在七大上概括的，勇于自我革命是党区别于其他政党的显著标志，两者分属不同来源，不能并列成一句", "三大优良作风包括理论联系实际、密切联系群众、艰苦奋斗", "勇于自我革命是党的七大提出的三大优良作风之一"], "answer": "B", "explain": "A 就是你 9.17 笔记里的原写法——把三大优良作风、人民至上、勇于自我革命并列成一句，这是错的，也是本卷最该盯的一处。两条来源各背各的：党的七大（1945）概括三大优良作风——理论联系实际、密切联系群众、批评和自我批评；十九届六中全会《决议》指出勇于自我革命是党区别于其他政党的显著标志。C 把“艰苦奋斗”塞进三大作风（那是“两个务必”的内容）；D 把两条来源混成一条。", "_id": 14}, {"id": 15, "type": "choice", "kp": "教育强国六个以（P0 回滚）", "stem": "教育强国「六个以」依次为：根本保证—根本任务—根本目标—重要使命—基本路径—核心功能。下列配对正确的是：", "options": ["根本保证——立德树人", "根本任务——立德树人", "根本目标——人民满意", "核心功能——教育现代化"], "answer": "B", "explain": "A 把“立德树人”挂到了根本保证上，根本保证是党的领导。C 的“人民满意”是根本尺度，这一对是整套表述里最高频的设错点，“尺度”和“目标”只差一个字，含义完全不同。D 的“教育现代化”是基本路径，核心功能落在“引领现代化”。链条记成：保（证）→党，任（务）→德育，目（标）→育才，使（命）→复兴，路（径）→现代化，功（能）→领现代化。", "_id": 15}, {"id": 16, "type": "choice", "kp": "统战三个最（P0 回滚）", "stem": "关于统一战线的“三个最”，下列表述正确的是：", "options": ["本质要求是大团结大联合，解决的是人心和力量问题", "本质要求是求同存异，解决的是人心和力量问题", "求同存异是最鲜明的特征，党的领导是关键", "党的领导是本质要求，大团结大联合是最鲜明的特征"], "answer": "A", "explain": "三条各归其位：本质要求＝大团结大联合（解决人心和力量问题）；关键＝坚持求同存异；最鲜明的特征＝党的领导。B 把“求同存异”塞进本质要求；C、D 是把三条整体错位。你上次把“大团结大联合”记成“大”、把“人心和力量”记成“差异”，丢掉的都是词——四级链背成：联合（本质）→人心（对象）→存异（方法）→党旗（特征）。", "_id": 16}, {"id": 17, "type": "choice", "kp": "法治体系五大体系（P1 换血）", "stem": "中国特色社会主义法治体系的五个子体系中，排在“法治保障体系”之后的是：", "options": ["法治监督体系", "党内法规体系", "法律规范体系", "法治实施体系"], "answer": "B", "explain": "五字链：规→实→监→保→党。法律规范体系→法治实施体系→法治监督体系→法治保障体系→党内法规体系。A、C、D 都排在“保障”之前，属于顺序错位。这条链还有一层用处：党内法规单列在最后，说明依规治党被纳入法治体系，这正是“法治体系”区别于“法律体系”的地方，答比较类题目可以直接用。", "_id": 17}]}, {"name": "四、英语 · 词汇与翻译（错题回滚 2 题）", "questions": [{"id": 18, "type": "fill", "blanks": 3, "kp": "词汇搭配（P1 回滚）", "stem": "按中文提示填入恰当的词或短语，注意搭配与词形：\n①政府承诺对网络谣言____（严厉打击）。\n②站在蒙古高原上，眼前是一望无际的____（大草原）。\n③和上一轮相比，这次谈判的问题要____（棘手得多）。（提示：thorny 的比较级）", "answer": "crack down on；prairie；thornier", "keys": ["每空 1 分", "crack down on 漏掉 on 扣半分", "thornier 拼写错误不得分"], "explain": "crack down on 是你上次写成“崩塌”的词——崩塌是 collapse，crack down on 是“严厉打击、镇压”，动作朝外，联想警方扫荡。prairie 与大草原绑定，同族词分清：plain 平原、plateau 高原、prairie 草原（北美）。thornier 是变 y 为 i 再加 er。", "_id": 18}, {"id": 19, "type": "translate", "kp": "长难句（P2 回滚：比较级不可省）", "stem": "翻译下面这句话，并标出主干：\n\nThe people who rely only on algorithmically curated feeds are far more likely to overestimate how widely their own views are shared than those who regularly read a wider range of sources.", "answer": "译文：那些只依赖算法推荐信息流的人，比那些经常阅读更广泛信源的人，要远远更容易高估自己的观点被多少人认同。\n主干：The people（主语，后接 who 引导的定语从句）are（系动词）far more likely（表语）to overestimate ...（不定式作补足）than those who ...（than 引出比较对象）。", "keys": ["far more likely 译出“远远更有可能”给 3 分", "than those who 译为“比那些……的人”给 2 分", "overestimate 译“高估”给 1 分", "主干划分正确给 2 分", "漏译程度副词扣 2 分"], "explain": "这跟你上次栽的是同一个坑：`are far more likely to feel threatened` 你只译成“感到受到威胁”，far more likely 整个丢掉。英二翻译里比较级和程度副词是明确的采分点，省掉等于主动送分。另外 those 后面带 who 从句，必须译成“那些……的人”，只写“那些人”会丢掉定语信息。how widely their own views are shared 是宾语从句，译成“自己的观点被多少人认同”比直译“被分享得多广”通顺。", "_id": 19}, {"id": 20, "type": "short", "rows": 5, "kp": "翻译方法反思", "stem": "结合上面两道题，写三条明天就能执行的做法：怎么处理“记住词义但搭配错”、怎么保证翻译时不漏比较级与程度副词、怎么核对译文里的指代对象。", "answer": "参考方向：①词汇按搭配整块记（crack down on、be likely to do），不背孤立词义；错题本上只记“搭配错”，不记“不认识”。②翻译动笔前先在原句上圈出比较级、程度副词、否定词，译完逐项打勾核对，漏一项补一项。③代词（those / it / they）下笔前先回指到具体名词，译文里写成“那些……的人”这类完整结构，不留悬空的“那些人”。", "keys": ["三条各 1 分，每条须含具体动作", "只写“多练”“多背”“注意积累”不得分"], "explain": "这三条分别对应你上次失分的三种形态：搭配错（crack down）、程度漏译（far more likely）、指代含糊（those）。方法题不给空话分，写不出动作就等于没答。", "_id": 20}]}]};
+const QUIZID = "2026-10-19";
+const KEY = "quiz_" + QUIZID;
+const TOTAL = 20;
+
+// ---- 状态存取 ----
+let state = JSON.parse(localStorage.getItem(KEY) || "{}");
+
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(state));
+}
+
+function answeredCount(){
+  let n = 0;
+  QUIZ.sections.forEach(s => s.questions.forEach((q, i) => {
+    const id = q._id;
+    const v = state[id];
+    if (q.type === "choice") { if (v) n++; }
+    else if (q.type === "fill") {
+      if (v && Object.values(v).some(x => (x||"").trim())) n++;
+    }
+    else { if (v && v.trim()) n++; }
+  }));
+  return n;
+}
+
+function updateProgress(){
+  const n = answeredCount();
+  const pct = Math.round(n / TOTAL * 100);
+  document.getElementById("pfill").style.width = pct + "%";
+  document.getElementById("ptext").textContent = `已作答 ${n} / ${TOTAL}`;
+  document.getElementById("tbCount").textContent = `${n} / ${TOTAL}`;
+  document.getElementById("doneTip").classList.toggle("show", n >= TOTAL);
+}
+
+function flashSaved(n){
+  const el = document.querySelector(`.saved[data-saved="${n}"]`);
+  if (!el) return;
+  el.textContent = "已保存";
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 1200);
+}
+
+// ---- 绑定交互 ----
+document.querySelectorAll(".opt input").forEach(inp => {
+  inp.addEventListener("change", e => {
+    const n = +e.target.name.replace("q", "");
+    state[n] = e.target.value;
+    save(); updateProgress(); flashSaved(n);
+  });
+});
+
+document.querySelectorAll(".fillin").forEach(inp => {
+  inp.addEventListener("input", e => {
+    const n = e.target.dataset.q, b = e.target.dataset.b;
+    state[n] = state[n] || {};
+    state[n][b] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+document.querySelectorAll(".shortin,.transin").forEach(ta => {
+  ta.addEventListener("input", e => {
+    const n = e.target.dataset.q;
+    state[n] = e.target.value;
+    save(); updateProgress();
+  });
+});
+
+// 查看解析
+document.querySelectorAll(".btn-ans").forEach(b => {
+  b.addEventListener("click", () => {
+    const n = b.dataset.q;
+    const box = document.querySelector(`.ansbox[data-ans="${n}"]`);
+    const open = !box.hidden;
+    box.hidden = open;
+    b.textContent = open ? "查看解析" : "收起解析";
+  });
+});
+
+document.getElementById("btnRevealAll").addEventListener("click", function(){
+  const anyHidden = [...document.querySelectorAll(".ansbox")].some(b => b.hidden);
+  document.querySelectorAll(".ansbox").forEach(b => b.hidden = !anyHidden);
+  document.querySelectorAll(".btn-ans").forEach(b => {
+    b.textContent = anyHidden ? "收起解析" : "查看解析";
+  });
+  this.textContent = anyHidden ? "收起全部解析" : "展开全部解析";
+});
+
+// 清空
+document.getElementById("btnReset").addEventListener("click", () => {
+  if (!confirm("确定清空全部作答？此操作不可撤销。")) return;
+  state = {}; save();
+  document.querySelectorAll(".opt input").forEach(i => i.checked = false);
+  document.querySelectorAll(".fillin,.shortin,.transin").forEach(i => i.value = "");
+  updateProgress();
+});
+
+// ---- 导出答案 ----
+function buildExport(){
+  const L = [];
+  L.push(`# ${QUIZ.title} — 我的作答`);
+  L.push("");
+  L.push(`日期：${QUIZ.date}`);
+  L.push(`完成：${answeredCount()} / ${TOTAL} 题`);
+  L.push("");
+  const tname = {choice:"单选", fill:"填空", short:"问答", translate:"长难句翻译"};
+  QUIZ.sections.forEach(s => {
+    L.push(`## ${s.name}`);
+    L.push("");
+    s.questions.forEach(q => {
+      const v = state[q._id];
+      L.push(`### ${q._id}. [${tname[q.type]}]`);
+      L.push(q.stem);
+      L.push("");
+      if (q.type === "choice") {
+        L.push(`**我的答案：** ${v ? v : "（未作答）"}`);
+      } else if (q.type === "fill") {
+        const arr = [];
+        for (let i = 0; i < (q.blanks || 1); i++) {
+          const k = String(i);
+          arr.push(`第${i+1}空：${(v && v[k]) ? v[k] : "（空）"}`);
+        }
+        L.push(`**我的答案：** ${arr.join("　")}`);
+      } else {
+        L.push(`**我的答案：**`);
+        L.push("");
+        L.push(v && v.trim() ? v : "（未作答）");
+      }
+      L.push("");
+    });
+  });
+  return L.join("\n");
+}
+
+document.getElementById("btnExport").addEventListener("click", () => {
+  document.getElementById("exportArea").value = buildExport();
+  document.getElementById("modal").classList.add("show");
+});
+document.getElementById("btnCloseModal").addEventListener("click", () => {
+  document.getElementById("modal").classList.remove("show");
+});
+document.getElementById("btnDownload").addEventListener("click", () => {
+  const blob = new Blob([buildExport()], {type:"text/markdown;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${QUIZID}-我的作答.md`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") e.target.classList.remove("show");
+});
+
+// ---- 恢复状态 ----
+(function restore(){
+  document.querySelectorAll(".opt input").forEach(inp => {
+    const n = +inp.name.replace("q", "");
+    if (state[n] === inp.value) inp.checked = true;
+  });
+  document.querySelectorAll(".fillin").forEach(inp => {
+    const n = inp.dataset.q, b = inp.dataset.b;
+    if (state[n] && state[n][b] != null) inp.value = state[n][b];
+  });
+  document.querySelectorAll(".shortin,.transin").forEach(ta => {
+    const n = ta.dataset.q;
+    if (state[n] != null) ta.value = state[n];
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
