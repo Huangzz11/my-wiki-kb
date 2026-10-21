@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>新闻史 · 11 条规律卡（第一讲导学提炼）</title>
+<style>
+:root{
+  --ink:#0f2a4a;
+  --ink2:#3a5675;
+  --ink3:#7b8ea3;
+  --line:#d3dfee;
+  --line2:#e8eef6;
+  --blue-50:#f2f7fd;
+  --blue-100:#e4eefa;
+  --blue-200:#c2d8f2;
+  --blue-700:#1a3a6b;
+  --blue-900:#0c2340;
+  --mark:#b5562c;
+  --paper:#fff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#eef2f8}
+body{
+  font-family:"Microsoft YaHei","PingFang SC","Noto Sans SC",system-ui,-apple-system,sans-serif;
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  padding:24px 12px 40px;
+  display:flex;
+  justify-content:center;
+}
+.sheet{
+  width:210mm;
+  min-height:297mm;
+  background:var(--paper);
+  padding:14mm 15mm 12mm;
+  box-shadow:0 2px 18px rgba(15,42,74,.10);
+  display:flex;
+  flex-direction:column;
+}
+
+/* header */
+header{border-bottom:2px solid var(--blue-900);padding-bottom:7px;position:relative}
+.kicker{
+  display:inline-block;
+  font-size:8.5pt;letter-spacing:.16em;
+  color:#fff;background:var(--blue-700);
+  padding:2.5px 8px;border-radius:2px;
+  margin-bottom:7px;
+}
+h1{font-size:22pt;font-weight:800;letter-spacing:.02em;line-height:1.15;color:var(--blue-900)}
+h1 em{font-style:normal;color:var(--mark)}
+.sub{font-size:9.5pt;color:var(--ink2);margin-top:5px;letter-spacing:.02em}
+.meta{
+  position:absolute;right:0;bottom:9px;
+  font-size:7.5pt;color:var(--ink3);text-align:right;line-height:1.5;
+}
+
+/* axiom */
+.axiom{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;
+  margin-top:9mm;
+}
+.ax{
+  background:var(--blue-50);
+  border:0.6pt solid var(--blue-200);
+  border-left:3.4pt solid var(--blue-700);
+  padding:7px 10px;
+}
+.ax .lab{
+  font-size:7.5pt;letter-spacing:.1em;color:var(--blue-700);font-weight:700;
+  display:block;margin-bottom:3px;
+}
+.ax p{font-size:9.5pt;line-height:1.55;color:var(--ink)}
+.ax b{font-weight:700}
+
+/* columns */
+.cols{
+  display:grid;grid-template-columns:1fr 1fr;gap:8mm;
+  margin-top:8mm;
+}
+.col h2{
+  font-size:11pt;font-weight:800;color:var(--blue-900);
+  display:flex;align-items:center;gap:6px;
+  padding-bottom:5px;border-bottom:0.8pt solid var(--line);
+}
+.col h2 .num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:17px;height:17px;border-radius:2px;
+  background:var(--blue-700);color:#fff;
+  font-size:9pt;font-weight:800;flex:none;
+}
+.col h2 .cnt{font-size:8pt;font-weight:400;color:var(--ink3);margin-left:auto;letter-spacing:.06em}
+.hint{font-size:7.8pt;color:var(--mark);margin:5px 0 6px;letter-spacing:.01em}
+
+ol.items{list-style:none}
+ol.items li{
+  display:grid;grid-template-columns:26px 1fr;
+  gap:7px;
+  padding:5.4px 0;
+  border-bottom:0.5pt dashed var(--line2);
+  line-height:1.45;
+}
+ol.items li:last-child{border-bottom:none}
+.tag{
+  font-size:7.5pt;font-weight:700;color:var(--blue-700);
+  background:var(--blue-100);
+  border-radius:2px;
+  text-align:center;
+  padding:1.5px 0;
+  height:15px;line-height:12px;
+}
+.body{font-size:9pt;color:var(--ink)}
+.body b{font-weight:700;color:var(--blue-900);margin-right:4px}
+
+/* how */
+.how{margin-top:7mm}
+h3{
+  font-size:9.5pt;font-weight:800;color:var(--blue-900);
+  letter-spacing:.06em;margin-bottom:6px;
+  display:flex;align-items:center;gap:7px;
+}
+h3::before{content:"";width:12px;height:2px;background:var(--mark);display:block}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.step{
+  background:var(--blue-50);border:0.6pt solid var(--line);
+  padding:7px 9px;
+}
+.step .n{
+  font-size:7.5pt;font-weight:700;color:var(--mark);letter-spacing:.1em;display:block;margin-bottom:3px;
+}
+.step p{font-size:8.4pt;line-height:1.5;color:var(--ink2)}
+.step p b{color:var(--blue-900);font-weight:700}
+
+/* quick table */
+.quick{margin-top:7mm}
+table{width:100%;border-collapse:collapse}
+th,td{
+  font-size:8.4pt;text-align:left;padding:4.6px 8px;
+  border-bottom:0.5pt solid var(--line2);vertical-align:middle;
+  line-height:1.4;
+}
+th{
+  font-size:7.6pt;font-weight:700;color:var(--blue-700);
+  background:var(--blue-50);border-bottom:0.8pt solid var(--line);
+  letter-spacing:.06em;
+}
+td:first-child{font-weight:700;color:var(--blue-900);width:34%}
+td .pick{
+  font-size:7.5pt;font-weight:700;color:#fff;background:var(--blue-700);
+  padding:1px 5px;border-radius:2px;margin-left:5px;letter-spacing:.04em;
+}
+td .pick.b{background:#5b7ea6}
+
+/* quiz */
+.quiz{margin-top:7mm;background:var(--blue-50);border:0.6pt solid var(--line);padding:9px 11px}
+.quiz ul{list-style:none;display:grid;gap:5px}
+.quiz li{font-size:8.6pt;color:var(--ink);line-height:1.5;display:flex;gap:6px}
+.quiz li .q{color:var(--mark);font-weight:800;flex:none}
+.quiz li .a{margin-left:auto;font-size:7.6pt;color:var(--ink3);flex:none}
+
+footer{
+  margin-top:auto;padding-top:8px;border-top:0.5pt solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:7.2pt;color:var(--ink3);letter-spacing:.04em;
+}
+
+@media (max-width:700px){
+  body{padding:0}
+  .sheet{width:100%;min-height:100vh;padding:22px 16px 26px;box-shadow:none}
+  h1{font-size:26pt}
+  .meta{position:static;text-align:left;margin-top:6px}
+  .axiom,.cols{grid-template-columns:1fr;gap:14px}
+  .cols{gap:20px}
+  .steps{grid-template-columns:1fr}
+  .body{font-size:10.5pt}
+  .step p{font-size:9.5pt}
+  th,td{font-size:9.5pt}
+  .quiz li{font-size:9.8pt;flex-wrap:wrap}
+  .quiz li .a{margin-left:0}
+}
+
+@page{size:A4;margin:0}
+@media print{
+  html,body{background:#fff;padding:0}
+  .sheet{box-shadow:none;width:210mm;min-height:297mm;page-break-after:avoid}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<article class="sheet">
+
+  <header>
+    <div class="kicker">新闻史 · 第一讲 导学</div>
+    <h1>11 条规律<em>卡</em></h1>
+    <p class="sub">新闻媒体双重属性拆解 · 套用任何新闻史实的分析公式</p>
+    <div class="meta">宝厂《新闻与传播理论基础课》<br>第一讲 第 5 页提炼</div>
+  </header>
+
+  <section class="axiom">
+    <div class="ax">
+      <span class="lab">母 题 · 双 重 属 性</span>
+      <p><b>上层建筑属性</b>（事业性 · 政治）　＋　<b>信息产业属性</b>（产业 · 盈利）</p>
+    </div>
+    <div class="ax">
+      <span class="lab">母 题 · 事 业 二 重 性</span>
+      <p><b>社会性</b>（面向整个社会）　＋　<b>阶级性</b>（为一定阶级服务）</p>
+    </div>
+  </section>
+
+  <div class="cols">
+
+    <section class="col">
+      <h2><span class="num">A</span>上层建筑属性<span class="cnt">6 条</span></h2>
+      <p class="hint">机关报、党报、政论报刊 → 优先套这一侧</p>
+      <ol class="items">
+        <li><span class="tag">A1</span><span class="body"><b>社会性</b>诞生于特定时代背景，又反作用于社会发展</span></li>
+        <li><span class="tag">A2</span><span class="body"><b>社会性</b>某个历史阶段的报刊具有一定共性</span></li>
+        <li><span class="tag">A3</span><span class="body"><b>社会性</b>一定时代的新闻媒体起到传递时代信息与观点的重要作用</span></li>
+        <li><span class="tag">A4</span><span class="body"><b>阶级性</b>特定媒体为特定阶级服务，体现阶级诉求</span></li>
+        <li><span class="tag">A5</span><span class="body"><b>阶级性</b>办报方针反映办报主体的诉求与思想，随主体变化而变化</span></li>
+        <li><span class="tag">A6</span><span class="body"><b>阶级性</b>统治阶级的传播制度会限制与约束被统治阶级的媒体</span></li>
+      </ol>
+    </section>
+
+    <section class="col">
+      <h2><span class="num">B</span>信息产业属性<span class="cnt">5 条</span></h2>
+      <p class="hint">商业报刊、大众化报刊、通讯社 → 优先套这一侧</p>
+      <ol class="items">
+        <li><span class="tag">B1</span><span class="body"><b>为盈利</b>制定符合传播规律的新闻方针</span></li>
+        <li><span class="tag">B2</span><span class="body"><b>为盈利</b>改革新闻采写编评的流程</span></li>
+        <li><span class="tag">B3</span><span class="body"><b>为盈利</b>更新产品形态、调整发行模式（如报纸开设副刊）</span></li>
+        <li><span class="tag">B4</span><span class="body"><b>为盈利</b>提升专业性，走向专业主义（《大公报》《纽约时报》）</span></li>
+        <li><span class="tag">B5</span><span class="body"><b>为盈利</b>也可能生出乱象（黄色新闻、垄断）</span></li>
+      </ol>
+    </section>
+
+  </div>
+
+  <section class="how">
+    <h3>三步套用法</h3>
+    <div class="steps">
+      <div class="step">
+        <span class="n">STEP 01 · 定 性</span>
+        <p>先判断它是什么报：<b>机关报</b>走 A 线，<b>商业报</b>走 B 线，两者兼具就两条都写。</p>
+      </div>
+      <div class="step">
+        <span class="n">STEP 02 · 切 片</span>
+        <p>把词条切成四块：<b>创办背景 / 宗旨 / 内容与业务 / 历史评价</b>，一块一个落点。</p>
+      </div>
+      <div class="step">
+        <span class="n">STEP 03 · 挂 钩</span>
+        <p>每块挂一个编号，写成「因<b>为规律 X</b>，所以<b>该报表现为 Y</b>」，别只堆史实。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="quick">
+    <h3>判类速查</h3>
+    <table>
+      <thead>
+        <tr><th>报刊类型</th><th>主用哪侧</th><th>典型落点</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>外人办报<span class="pick">A + B</span></td><td>上层建筑 ＋ 信息产业</td><td>殖民诉求看 A4／A6，商业信息看 B1／B3</td></tr>
+        <tr><td>改良派、革命派机关报<span class="pick">A</span></td><td>上层建筑</td><td>A4 阶级诉求、A5 方针、A6 被查禁</td></tr>
+        <tr><td>政党报纸<span class="pick">A</span></td><td>上层建筑</td><td>A2 阶段共性、A5 随政党立场转向</td></tr>
+        <tr><td>廉价报刊、大众化报刊<span class="pick b">B</span></td><td>信息产业</td><td>B1 定价方针、B3 版面形态、B5 黄色新闻</td></tr>
+        <tr><td>通讯社<span class="pick b">B</span></td><td>信息产业</td><td>B1 客户定位、B2 采编流程标准化</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="quiz">
+    <h3>合卡自测</h3>
+    <ul>
+      <li><span class="q">01</span>《强学报》为什么只活了 14 天？<span class="a">对照 A6</span></li>
+      <li><span class="q">02</span>《大公报》《纽约时报》为什么被公认专业？<span class="a">对照 B4</span></li>
+      <li><span class="q">03</span>黄色新闻为什么会泛滥，又为什么必然退潮？<span class="a">对照 B5 ＋ A2</span></li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>知栀 · 2027 新传考研 · 新闻史</span>
+    <span>第一讲 导学 · 11 条规律</span>
+  </footer>
+
+</article>
+</body>
+</html>
