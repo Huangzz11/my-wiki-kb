@@ -27,19 +27,19 @@ my-wiki-kb/
 │       └── hotspot-scout/      # 项目级 Skill（热点候选侦察器）
 │           └── SKILL.md        # 扫榜 → 硬门槛筛选 → 每日候选清单（不产图卡）
 ├── kb/
-│   ├── raw/                    # 输入层：源文档（只读存档，共 9 份）
+│   ├── raw/                    # 输入层：源文档（只读存档，共 8 份）
 │   │   ├── agent.md / llm-context.md / skill.md / llm-model.md
 │   │   ├── concept-relationship.md
 │   │   ├── llm-wiki-agent-report.md
 │   │   ├── yunnan-mjc-334-440-2020-2026.md
-│   │   └── multi-agent-teams.md / multi-agent-candidates-github.md
-│   ├── wiki/                   # 知识层：互链页面（共 25 页）
+│   │   └── multi-agent-team.md
+│   ├── wiki/                   # 知识层：互链页面（共 24 页）
 │   │   ├── index.md            # 库入口
 │   │   ├── log.md              # 操作日志（唯一记录入口）
 │   │   ├── overview.md         # 全库综述
-│   │   ├── sources/    ×9      # 每份源一页摘要
+│   │   ├── sources/    ×8      # 每份源一页摘要
 │   │   ├── concepts/   ×6      # Agent / Context / Skill / LLM / 自维护wiki / 多agent团队
-│   │   ├── entities/   ×6      # Anthropic / OpenAI / WorkBuddy / llm-wiki-agent / 云南大学 / Ruflo
+│   │   ├── entities/   ×6      # Anthropic / OpenAI / WorkBuddy / llm-wiki-agent / 云南大学 / Cognition
 │   │   └── syntheses/  ×1      # 沉淀问答（云南大学新传专硕考情分析）
 │   ├── 新传热点事件解读/        # 专题：新传考研热点案例分析（编号 12—34，共 23 期）
 │   │   ├── README.md           # 专题收录规则、版式沿革与目录表

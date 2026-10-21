@@ -2,7 +2,7 @@
 title: "Context（大模型的上下文）"
 type: concept
 tags: [llm]
-sources: [sources/llm-context, sources/concept-relationship, sources/multi-agent-teams]
+sources: [sources/llm-context, sources/concept-relationship, sources/multi-agent-team]
 last_updated: 2026-10-21
 ---
 

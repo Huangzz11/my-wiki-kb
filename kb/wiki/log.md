@@ -1104,31 +1104,40 @@ PDF 用 venv 内 pypdf 6.16.2 提取，落盘 `_p14_j.txt`（第十四讲）与 
 
 **未处理（需用户决策）**：`kb/wiki/` 的 concepts / entities / sources 三层共 17 页，内容全部是 Agent／Context／Skill／LLM／Anthropic／OpenAI 这类 AI 元话题，与新传考研主题无关，且未被任何专题页引用。这套「自维护 wiki」机制目前只有日志在用。**留则须把热点解读与名词卡批量 ingest 进双链，删则须连 index/overview 一并重构**——两条路代价不同，故不动，等用户拍板。
 
-## [2026-10-21] ingest | 多 agent 团队（概念 + GitHub 选型）
+## [2026-10-21] ingest | 多 Agent 团队（Multi-Agent Team）
 
-**1. 新增两份 raw**
-- `kb/raw/multi-agent-teams.md`（13,322 字节）—— 八节概念学习笔记，含四零件、三种拓扑、Anthropic 90.2% / 15x token / 80% 方差、斯坦福等预算对照（arXiv 2604.02460）、MAST 14 种失败模式（arXiv 2503.13657）。
-- `kb/raw/multi-agent-candidates-github.md`（7,423 字节）—— 30+ 个 GitHub 仓库的星数实测（2026-10-21）与三档筛选。
+**1. 来源**
+- 调 `topic-research` skill 做了一轮调研，产出 `research-notes/多agent团队/multi-agent-team.md`（八小节概念学习模式）+ `sources.md`，源文档已复制为 `kb/raw/multi-agent-team.md`。
+- 一手 8 条：Anthropic Research 系统工程复盘（2025-06-13）、Cognition 两篇（2025-06-12 / 2026-04）、MAST 失败分类学（arXiv:2503.13657）、MetaGPT（arXiv:2308.00352）、WorkBuddy Agent Teams 文档、CodeBuddy Code v2.154.0 release notes、A2A 协议站。二手 3 条补时间线与框架对比。
 
-**2. 新增四页 wiki**
-- `concepts/MultiAgentTeam.md`（concept）—— 主页面。
-- `entities/Ruflo.md`（entity）—— 原 Claude Flow，77,874 星；正面配置与负面审计并列记录。
-- `sources/multi-agent-teams.md`、`sources/multi-agent-candidates-github.md`（source）。
-- 页面数 21 → 25，sources ×7→×9，concepts ×5→×6，entities ×5→×6。
+**2. 新建页面（3 页）**
+- `sources/multi-agent-team.md`：摘要 + 8 条关键论断 + 连接 + Contradictions（两派表面冲突单列，不裁决）。
+- `concepts/MultiAgentTeam.md`：概念页，核心是四部件与"读出并发、写入串行"这条判据；附两派立场时间线、成本门槛、四个误区。
+- `entities/Cognition.md`：Devin 团队，记录反对者与十个月后的自我修正，作为反方原文位置。
 
-**3. 四页补链（做加法，未改原有正文）**
-- `concepts/Agent.md` 补「往上还有一层」段，指回 MultiAgentTeam。
-- `concepts/Context.md` 补一段：窗口有限是拆分的根本动因，转交摘要必有损。
-- `entities/Anthropic.md` 补多 agent research system 的一手数据来源说明。
-- `entities/WorkBuddy.md` 补四层机制（Skill / subagent / team / automation）与四条扩展路径。
+**3. 更新页面（4 页）**
+- `concepts/Agent.md`：相关行补 [[MultiAgentTeam]]（单实例 → 多实例），sources 补本页。
+- `entities/Anthropic.md`：补 2025-06-13 的 Research 工程复盘数据。
+- `entities/WorkBuddy.md`：补两种多 agent 形态（Agent Teams / v2.154.0 自主组队）与护栏数字。
+- `index.md`、`overview.md`：三段目录各补一条；overview 新增「主题群四」，并把"六份源文档两个主题群"改为"最早两份、后续各扩一个"。
 
-**4. index / overview / README**
-- `index.md` 三处追加（Sources 2 行、Concepts 1 行、Entities 1 行）。
-- `overview.md` 新增「主题群四」，并把开头"六份源文档构成两个主题群"校正为"九份源文档构成四个主题群"（该句自 9-14 增补第 7 份源后即失效，一直未改）。
-- `README.md` 目录树与各层计数同步。
+**4. 这轮调研的核心结论（供日后 query 直接用）**
+- 多 agent 团队买的是上下文容量与并行度；token 用量单独解释 80% 性能方差，架构本身不产生智力。
+- 判据一句话：读出并发，写入串行。Anthropic 的检索系统是这条规则的实例（子代理只读、lead 只写），并非 Cognition 的反例。
+- 同周两篇看似打脸，实际在描述两类负载。已在本库并列保留两方原文结论，用读/写比例做解释变量。
+- WorkBuddy 的 Agent Teams 属"网状 + 任务板"形态，比放射状多横向通信，协调开销更高；委派模式（Shift+Tab）是防止 lead 抢活的关键开关。
 
-**5. 对上一轮遗留决策的回应**
-上一轮记为"未处理（需用户决策）"的 wiki 层孤岛问题，本次没有整体解决——热点解读与名词卡仍未进双链。但 concepts 层第一次出现了一簇完整互链的主题群（MultiAgentTeam 向外连到 Agent / Context / LLM / Skill / Anthropic / WorkBuddy，向内连两页 sources 与一页 entity），可作为"留着并逐步织链"路线的第一次实证。整体去留仍需用户拍板。
+**5. 待核实（已写入 raw 文档末节）**
+- MetaGPT 的 HumanEval 85.9% / MBPP 87.7% 未在 arXiv 摘要中出现，仅多篇二手一致引用。
+- Cognition 复查篇确切日期原文只写"10 个月前"，2026-04 系第三方转述。
+- Claude Code 子代理 20 个并发上限来自二手技术博客，未核到官方原文。
 
-**核查状态**：星数、最后提交时间、archived 状态来自 GitHub REST API 与 shields.io 实测；三条二手数据（拓扑占比 70%、token 开销 +58%/+285%、企业 3—4 人规模）在 raw 与 source 页均标了「待核实」，未写成定论。
+**6. 与上一条"未处理"事项的关系**
+本次又在 AI 元话题层加了两页（concepts + entities），没有推进"把热点解读接进双链"那件事。**这个悬置决定因此更贵了**：wiki 层现在 24 页，靠 index/overview 独立成体系，与新传专题仍是两套互不引用的结构。可行的第三条路是认下"两层并存"——元话题层当方法论层，由 `热点解读 README` 单点引用 `[[MultiAgentTeam]]` 与 `[[Skill]]`，成本最低，但与上次列的"留/删"两条路都不同，仍需用户拍板。
+
+**7. 与 6a0aa77 那次 ingest 的关系（重要）**
+开工前仓库 HEAD 已有一版 `concepts/MultiAgentTeam.md`（commit 6a0aa77，另含 `entities/Ruflo.md` 与两份源），但工作区里这批文件处于**已删除、未提交**状态，README 与 `Context.md` 也同步回退。本次没有沿用旧版，按 2026-10 的一手材料重写了概念页，并另建 `sources/multi-agent-team.md`（旧版的两份源与 Ruflo 页未恢复）。旧版全文已备份到仓库外：`多agent团队/research-notes/多agent团队/_旧版备份-HEAD6a0aa77/`（6 个文件）。
+- 旧版独有、本次未采用的内容：第三方产品选型（Ruflo 78k、PAL MCP 12k）、WorkBuddy 四层映射（Skill / subagent / team / automation）与 `context: fork` 缝合点。
+- 旧版有一条本次补回来的：Tran & Kiela（arXiv:2604.02460）"等 token 预算下单 agent 打平或超过多 agent"，已核实原文并写入概念页与 raw 文档。
+- **已裁决（2026-10-21 用户定）**：旧版不恢复。`entities/Ruflo.md`、`sources/multi-agent-teams.md`、`sources/multi-agent-candidates-github.md` 及对应 raw 存档随本次提交一并删除；第三方产品选型（Ruflo 78k、PAL MCP 12k）不进入本库。理由记录如下，便于日后回查：这两个产品的可用性结论来自 2026-10 的实测，且 Ruflo 的负面证据（工具只记状态、自报 success 约 89% 失真、多 agent 并行受 better-sqlite3 同步 API 限制）指向的是"能不能装、装了值不值"，属一次性选型判断，生命周期短于概念页；留在这里会与概念层混在一起过期。旧版全文仍在仓库外备份 `多agent团队/research-notes/多agent团队/_旧版备份-HEAD6a0aa77/`，需要时可取回，但不再入库。
 
