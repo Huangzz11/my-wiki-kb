@@ -40,6 +40,10 @@ scripts/
 __pycache__/
 *.pyc
 
+# 本地图卡工作目录（HTML/CSS/截图工作区，只提交成品 PNG）
+/*_图卡/
+/*_名词卡/
+
 # Python 虚拟环境
 .venv/
 venv/
