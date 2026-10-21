@@ -1104,3 +1104,31 @@ PDF 用 venv 内 pypdf 6.16.2 提取，落盘 `_p14_j.txt`（第十四讲）与 
 
 **未处理（需用户决策）**：`kb/wiki/` 的 concepts / entities / sources 三层共 17 页，内容全部是 Agent／Context／Skill／LLM／Anthropic／OpenAI 这类 AI 元话题，与新传考研主题无关，且未被任何专题页引用。这套「自维护 wiki」机制目前只有日志在用。**留则须把热点解读与名词卡批量 ingest 进双链，删则须连 index/overview 一并重构**——两条路代价不同，故不动，等用户拍板。
 
+## [2026-10-21] ingest | 多 agent 团队（概念 + GitHub 选型）
+
+**1. 新增两份 raw**
+- `kb/raw/multi-agent-teams.md`（13,322 字节）—— 八节概念学习笔记，含四零件、三种拓扑、Anthropic 90.2% / 15x token / 80% 方差、斯坦福等预算对照（arXiv 2604.02460）、MAST 14 种失败模式（arXiv 2503.13657）。
+- `kb/raw/multi-agent-candidates-github.md`（7,423 字节）—— 30+ 个 GitHub 仓库的星数实测（2026-10-21）与三档筛选。
+
+**2. 新增四页 wiki**
+- `concepts/MultiAgentTeam.md`（concept）—— 主页面。
+- `entities/Ruflo.md`（entity）—— 原 Claude Flow，77,874 星；正面配置与负面审计并列记录。
+- `sources/multi-agent-teams.md`、`sources/multi-agent-candidates-github.md`（source）。
+- 页面数 21 → 25，sources ×7→×9，concepts ×5→×6，entities ×5→×6。
+
+**3. 四页补链（做加法，未改原有正文）**
+- `concepts/Agent.md` 补「往上还有一层」段，指回 MultiAgentTeam。
+- `concepts/Context.md` 补一段：窗口有限是拆分的根本动因，转交摘要必有损。
+- `entities/Anthropic.md` 补多 agent research system 的一手数据来源说明。
+- `entities/WorkBuddy.md` 补四层机制（Skill / subagent / team / automation）与四条扩展路径。
+
+**4. index / overview / README**
+- `index.md` 三处追加（Sources 2 行、Concepts 1 行、Entities 1 行）。
+- `overview.md` 新增「主题群四」，并把开头"六份源文档构成两个主题群"校正为"九份源文档构成四个主题群"（该句自 9-14 增补第 7 份源后即失效，一直未改）。
+- `README.md` 目录树与各层计数同步。
+
+**5. 对上一轮遗留决策的回应**
+上一轮记为"未处理（需用户决策）"的 wiki 层孤岛问题，本次没有整体解决——热点解读与名词卡仍未进双链。但 concepts 层第一次出现了一簇完整互链的主题群（MultiAgentTeam 向外连到 Agent / Context / LLM / Skill / Anthropic / WorkBuddy，向内连两页 sources 与一页 entity），可作为"留着并逐步织链"路线的第一次实证。整体去留仍需用户拍板。
+
+**核查状态**：星数、最后提交时间、archived 状态来自 GitHub REST API 与 shields.io 实测；三条二手数据（拓扑占比 70%、token 开销 +58%/+285%、企业 3—4 人规模）在 raw 与 source 页均标了「待核实」，未写成定论。
+

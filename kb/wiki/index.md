@@ -31,6 +31,10 @@
 
 - [云南大学新传专硕 334/440 真题汇编](sources/yunnan-mjc-334-440-past-papers.md) — 2020-2026 年 14 套试题的校对版文字记录
 
+- [多 agent 团队解读](sources/multi-agent-teams.md) — 多 agent 的四个零件、三种拓扑与使用边界
+
+- [GitHub 高星多 agent 产品筛查](sources/multi-agent-candidates-github.md) — 30+ 候选的星数实测与三档排除理由
+
 
 
 ## Concepts
@@ -45,6 +49,8 @@
 
 - [Self-Maintaining Wiki](concepts/SelfMaintainingWiki.md) — 自维护互链知识库（本库所依托的方法）
 
+- [MultiAgentTeam](concepts/MultiAgentTeam.md) — 多 agent 团队：分工机制、拓扑与边界
+
 
 
 ## Entities
@@ -58,6 +64,8 @@
 - [llm-wiki-agent](entities/LLMWikiAgent.md) — 自维护知识库开源项目
 
 - [云南大学](entities/YunnanUniversity.md) — 新闻学院与南亚东南亚国际传播学院
+
+- [Ruflo](entities/Ruflo.md) — 原 Claude Flow，78k 星的多 agent swarm 编排产品
 
 
 

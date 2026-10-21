@@ -2,8 +2,8 @@
 title: "Agent（智能体）"
 type: concept
 tags: [ai-agent]
-sources: [sources/agent, sources/concept-relationship, sources/llm-wiki-agent-report]
-last_updated: 2026-09-09
+sources: [sources/agent, sources/concept-relationship, sources/llm-wiki-agent-report, sources/multi-agent-teams]
+last_updated: 2026-10-21
 ---
 
 # Concept: Agent（智能体）
@@ -17,3 +17,5 @@ last_updated: 2026-09-09
 **何时用**：开放、路径不可预知的任务；固定流程任务用更简单方案。
 
 相关：[[Context]]（决策工作台）、[[Skill]]（方法包）、[[LLM]]（大脑）、[[SelfMaintainingWiki]]（Agent 驱动的知识管理实践）。
+
+**往上还有一层**：多个 Agent 组织起来就是 [[MultiAgentTeam]]。单 Agent 受一个上下文窗口与一条推理链约束，拆分发生在"信息装不下"或"子任务天然独立"时；仅仅因为推理太绕而拆，通常更差。
